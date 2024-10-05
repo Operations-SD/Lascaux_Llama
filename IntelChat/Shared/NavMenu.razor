@@ -1,0 +1,146 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor context
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Intel-a-Chat</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <AuthorizeView Roles=@(getRole("admn"))>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href=@{getHref("Administration")}>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Administration
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3 opacity-50">
+                    <NavLink class="nav-link" inert>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Administration
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles=@(getRole("engr"))>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href=@{getHref("Engineer")}>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Engineer
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3 opacity-50">
+                    <NavLink class="nav-link" inert>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Engineer
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles=@(getRole("xprt"))>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href=@{getHref("Expert")}>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Domain Expert
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3 opacity-50">
+                    <NavLink class="nav-link" inert>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Domain Expert
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles=@(getRole("user"))>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href=@{getHref("User")}>
+                        <span class="oi oi-plus" aria-hidden="true"></span> End User
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3 opacity-50">
+                    <NavLink class="nav-link" inert>
+                        <span class="oi oi-plus" aria-hidden="true"></span> End User
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles=@(getRole("acad"))>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href=@{getHref("Academy")}>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Academy
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3 opacity-50">
+                    <NavLink class="nav-link" inert>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Academy
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles=@(getRole("nnai"))>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href=@{getHref("Nnet")}>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Neural Net
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3 opacity-50">
+                    <NavLink class="nav-link" inert>
+                        <span class="oi oi-plus" aria-hidden="true"></span> Neural Net
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href=@{getHref("Interview")}>
+                <span class="oi oi-plus" aria-hidden="true"></span> Interview
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href=@{getHref("Audio")}>
+                <span class="oi oi-plus" aria-hidden="true"></span> Audio
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href=@{getHref("Video")}>
+                <span class="oi oi-plus" aria-hidden="true"></span> Video
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href=@{getHref("/")}>
+                <span class="oi oi-plus" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+    </nav>
+</div>

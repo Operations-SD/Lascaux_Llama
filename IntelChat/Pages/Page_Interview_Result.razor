@@ -1,0 +1,175 @@
+﻿@page "/InterviewResult"
+@inject NnetDbContext db
+@inject NavigationManager _nav
+@inject IConfiguration _config
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+
+<style>
+	body {
+		background: #000000 url("https://intelchatstorage.blob.core.windows.net/bgcontainer/background-interview-result-cave.png") no-repeat fixed left top;
+		background-size: 1920px 1080px;
+	}
+
+	table {
+		margin: auto;
+		overflow: auto;
+		border-radius: 10px;
+		border-collapse: separate;
+	}
+
+	table, th, td, tr {
+		border: 0px solid #000000;
+		background-color: #CCCCCC;
+	}
+
+	tr.divider {
+		border-bottom: 1px solid #000000;
+	}
+
+	td {
+		padding: 10px 25px;
+	}
+
+	caption {
+		display: table-caption;
+		text-align: center;
+		color: #000000;
+		caption-side: top;
+	}
+
+	select {
+		text-align: center;
+		margin: auto;
+		display: block;
+	}
+
+	button {
+		display: block;
+		margin: auto;
+		width: 160px;
+		height: 70px;
+		border-radius: 10px;
+		font-family: serif;
+		font-size: 25px;
+		background-color: #AAAAAA;
+		border: 0px;
+	}
+
+	button:hover {
+			background-color: #DDDDDD;
+	}
+
+	#tabs {
+		margin: auto;
+		display: block;
+		text-align: center;
+	}
+
+	#interview-result-page {
+		width: 50%;
+		background-color: #BBBBBB;
+		margin: auto;
+		display: block;
+		border-radius: 25px;
+		padding: 25px;
+		margin-bottom: 50px;
+	}
+</style>
+
+<h4 style="color:#FFFFFF">
+	POD#:@pod
+	Person#:@pid
+</h4>
+
+<div id="interview-result-page">
+	<div style ="margin:auto; text-align: center;">
+		<h1>@result.Type</h1>
+		<h2>@result.Label</h2>
+		<p>@result.Desc</p>
+	</div><br /><br />
+
+	@if (features.Count != 0)
+	{
+		<table>
+			<tr style="text-align: center;">
+				<th>Type</th>
+				<th>Score</th>
+			</tr>
+			@foreach (var score in scores)
+			{
+				<tr>
+					<td>@score.Key</td>
+					<td>@score.Value</td>
+				</tr>
+			}
+		</table><br />
+
+		<div id="tabs">
+			<input type="radio" checked="@(tab == "task")"
+				   name="tab" @onchange="@(() => tab = "task")" />
+			<label>Task</label>
+			<input type="radio" checked="@(tab == "feature")"
+				   name="tab" @onchange="@(() => tab = "feature")" />
+			<label>Answers</label>
+		</div><br />
+
+		@if(tab == "task")
+		{
+			<select @bind=taskId>
+				<option value="0" disabled selected>Select a "@result.Label" Task</option>
+				@foreach (XnovaDictionaryTask task in tasks.FindAll(t => t.Xdesc != "" && t.Xtype == result.Type))
+				{
+					<option value="@task.X">@task.Xdesc</option>
+				}
+			</select><br />
+			@if (taskId != 0)
+			{
+				<table>
+					<tr style="text-align: center;">
+						<th>Step</th>
+						<th>Description</th>
+					</tr>
+					@foreach (ReportTaskWork report in reports.FindAll(r => r.TaskId == taskId))
+					{
+						<tr>
+							<td>@report.WorkLabel32</td>
+							<td>@report.WorkDescription</td>
+						</tr>
+					}
+				</table><br /><br />
+			}
+		}
+
+		@if (tab == "feature")
+		{
+			<table>
+				<tr style="text-align: center;">
+					<th>Type</th>
+					<th>Question</th>
+					<th>Response</th>
+					<th>Severity</th>
+					<th>Score</th>
+				</tr>
+				@foreach (InterviewFeature result in features)
+				{
+					<tr>
+						<td>@result.QuestionType</td>
+						<td>@result.QuestionText</td>
+						<td>@GetResponseText(result.AnswerResponse)</td>
+						<td>@GetSeverityText(result.AnswerSeverity)</td>
+						<td>@GetScore(result.AnswerResponse, result.AnswerSeverity)</td>
+					</tr>
+				}
+			</table><br /><br />
+		}
+	}
+	else
+	{
+		<h1 style="text-align: center;">LOADING...</h1><br /><br />
+	}
+
+	<button @onclick="Exit">EXIT</button>
+</div>

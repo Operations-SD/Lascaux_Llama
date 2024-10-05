@@ -1,0 +1,200 @@
+﻿@page "/Register"
+@using IntelChat.Models;
+@using IntelChat.Services;
+@using IntelChat.Pages;
+@using Microsoft.AspNetCore.Components;
+@model IntelChat.Pages.RegisterModel;
+@inject NnetDbContext db;
+@inject NavigationManager _nav;
+@inject NotificationService _notification;
+@inject IConfiguration _config;
+
+@using Microsoft.AspNetCore.Identity;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	ViewData["pod"] = 3;
+	ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<style>
+	body {
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Language.png")no-repeat; /*Background to blob*/
+		background-size: 1920px 1080px;
+		background-position: left 0px top 0px;
+		background-color: #000000;
+		color: white;
+		opacity: 100%;
+		width: 1920px;
+		height: 1080px;
+	}
+
+	#img-panel-marque {
+		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Marque.png);
+		position: absolute;
+		top: 90px;
+		left: 600px;
+		width: 580px;
+		border-radius: 0px;
+		background-size: cover;
+	}
+
+	#img-table {
+		content: url("https://agineuralnet.blob.core.windows.net/banners/bnr_Registration.png");
+		position: absolute;
+		top: 72px;
+		left: 816px;
+		width: 150px;
+		border-radius: 0px;
+		background-size: cover;
+		opacity: 90%;
+	}
+
+
+	#btn-luster-noun {
+		content: url(https://agineuralnet.blob.core.windows.net/buttons/Btn_Luster_Noun.png);
+		position: absolute;
+		top: 85px;
+		left: 820px;
+		width: 140px;
+		border-radius: 8px;
+		background-size: cover;
+	}
+
+	#img-panel-fluer {
+		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
+		position: absolute;
+		top: 80px;
+		left: 1250px;
+		width: 188px;
+		border-radius: 8px;
+		background-size: cover;
+	}
+
+	#btn-panel-list {
+		left: 10px;
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+	}
+
+		#btn-panel-list:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-add {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_A.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 202px;
+	}
+
+		#btn-panel-add:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-change {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_C.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 394px;
+	}
+
+		#btn-panel-change:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-delete {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		top: 110px;
+		left: 1000px;
+		opacity: 100%;
+	}
+
+		#btn-panel-delete:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#img-panel-shadow-black {
+		border-radius: 12px;
+		background-size: cover;
+		height: 700px;
+		width: 600px;
+	}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row" style="margin:50px">
+	<div class="col-md-4">
+		<section>
+			<form id="registration" method="post">
+				<h2>Create an Intel-a-Chat Account</h2>
+				Fields marked * are required
+				<hr />
+				<input asp-for="Input.Pod" class="form-control" aria-required="true" maxlength="32" value="@ViewData["pod"]" hidden />
+
+				<h3>Account Information</h3>
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Code" class="form-label">Invitation *</label><br />
+					<input asp-for="Input.Code" class="form-control" aria-required="true" maxlength="42" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Username" class="form-label">Username *</label><br />
+					<input asp-for="Input.Username" class="form-control" aria-required="true" maxlength="16" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Password" class="form-label">Password *</label><br />
+					<input asp-for="Input.Password" type="password" class="form-control" aria-required="true" maxlength="32" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Confirm" class="form-label">Confirm Password *</label><br />
+					<input asp-for="Input.Confirm" type="password" class="form-control" aria-required="true" maxlength="32" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Email" class="form-label">Email Address *</label><br />
+					<input asp-for="Input.Email" type="email" class="form-control" aria-required="true" maxlength="320" />
+				</div>
+
+				<h3>Personal Information</h3>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Fname" class="form-label">First Name</label><br />
+					<input asp-for="Input.Fname" class="form-control" maxlength="32" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Lname" class="form-label">Last Name</label><br />
+					<input asp-for="Input.Lname" class="form-control" maxlength="32" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Type" class="form-label">Type</label><br />
+					<select input asp-for="Input.Type" asp-items="@Model.Types" class="form-control"></select>
+				</div>
+
+				<div style="margin:10px">
+					<button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+					@if (ViewData["Error"] != null) { <p style="color: #FF0000">@ViewData["Error"]</p> }
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+

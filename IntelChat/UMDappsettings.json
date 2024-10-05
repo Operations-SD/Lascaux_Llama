@@ -1,0 +1,20 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=tcp:intellchat.database.windows.net,1433;Initial Catalog=IntelChatDB;Persist Security Info=False;User ID=IntelChatLogin;Password=UMDIntelChat1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "AzureBlobConnection": "DefaultEndpointsProtocol=https;AccountName=intelchatstorage;AccountKey=y8nJqEmB988SEgAaeNwYueR6pW4NfBFoEhKkNT5Z34bBXAw1a13uCJLtUNVenv5xAr7rBvZqj4rr+AStv2i4kQ==;EndpointSuffix=core.windows.net",
+    "BlobUrlRoot": "https://intelchatstorage.blob.core.windows.net/exprtimgs/"
+  },
+  "SMTP": {
+    "Username": "intelachat@gmail.com",
+    "Password": "wdyadzxmwdjwhvci",
+    "Host": "smtp.gmail.com",
+    "Port": 587
+  }
+}

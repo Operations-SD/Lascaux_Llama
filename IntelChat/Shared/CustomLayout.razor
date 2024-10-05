@@ -1,0 +1,68 @@
+﻿@inherits LayoutComponentBase
+@inject NotificationService NotificationService
+@using IntelChat.Services;
+
+<PageTitle>Intel-a-Chat</PageTitle>
+
+<div class="page">
+
+    <main>
+
+        <!-- Notification Display Area -->
+        @if (!string.IsNullOrWhiteSpace(notificationMessage))
+        {
+            <div class="@GetNotificationClass()">
+                @notificationMessage
+            </div>
+        }
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+
+</div>
+
+
+@code {
+    private string? notificationMessage;
+    private NotificationType notificationType;
+    private Timer? autoDismissTimer;
+
+    protected override void OnInitialized()
+    {
+        NotificationService.OnNotify += UpdateNotification;
+    }
+
+    private void UpdateNotification(string message, NotificationType type)
+    {
+        notificationMessage = message;
+        notificationType = type;
+        InvokeAsync(StateHasChanged); //ensure UI is updated on main thread
+
+        // Cancel any existing timer
+        autoDismissTimer?.Dispose();
+
+        
+        autoDismissTimer = new Timer(_ =>
+        {
+            notificationMessage = string.Empty;
+            InvokeAsync(StateHasChanged); // re-render to update the UI
+        }, null, 4000, Timeout.Infinite); 
+    }
+
+    private string GetNotificationClass()
+    {
+        return notificationType switch
+        {
+            NotificationType.Success => "notification notification-success",
+            NotificationType.Error => "notification notification-error",
+            _ => "notification notification-info",
+        };
+    }
+
+    public void Dispose()
+    {
+        NotificationService.OnNotify -= UpdateNotification;
+        autoDismissTimer?.Dispose(); // if !null timer  disposed to avoid memory leaks
+    }
+}

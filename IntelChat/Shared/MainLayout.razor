@@ -1,0 +1,63 @@
+﻿@inherits LayoutComponentBase
+@inject NotificationService NotificationService
+@using IntelChat.Services;
+
+<PageTitle>IntelChat</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="/Register" target="_self">Register</a>
+            <a href="/Login" target="_self">Login</a>
+            <a href="/Logout" target="_self">Logout</a>
+        </div>
+
+        <!-- Notification Display Area -->
+        @if (!string.IsNullOrWhiteSpace(notificationMessage))
+        {
+            <div class="@GetNotificationClass()">
+                @notificationMessage
+            </div>
+        }
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    private string notificationMessage;
+    private NotificationType notificationType;
+
+    protected override void OnInitialized()
+    {
+        NotificationService.OnNotify += UpdateNotification;
+    }
+
+    private void UpdateNotification(string message, NotificationType type)
+    {
+        notificationMessage = message;
+        notificationType = type;
+        InvokeAsync(StateHasChanged); // Ensures component re-renders on notification update
+    }
+
+    private string GetNotificationClass()
+    {
+        return notificationType switch
+        {
+            NotificationType.Success => "notification notification-success",
+            NotificationType.Error => "notification notification-error",
+            _ => "notification notification-info",
+        };
+    }
+
+    public void Dispose()
+    {
+        NotificationService.OnNotify -= UpdateNotification;
+    }
+}

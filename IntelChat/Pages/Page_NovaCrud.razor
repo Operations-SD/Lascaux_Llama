@@ -1,0 +1,467 @@
+﻿@page "/NovaCrud"
+@inject NnetDbContext db
+@inject NavigationManager _nav
+@inject IConfiguration _configuration
+@* @inject NounService nounService *@
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+@using System.Data.Common; 
+@* @using IntelChat.Services; *@
+
+<style>
+	body {
+		background: url("https://intelchatstorage.blob.core.windows.net/bgcontainer/Lascaux_noun.png")no-repeat; /*Background to blob*/
+		background-size: 1920px 1080px;
+		background-position: left 0px top 0px;
+		background-color: #000000;
+		color: white;
+		opacity: 100%;
+		width: 1920px;
+		height: 1080px;
+	}
+
+	#img-panel-marque {
+		content: url(https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Marque.png);
+		position: absolute;
+		top: 90px;
+		left: 600px;
+		width: 580px;
+		border-radius: 0px;
+		background-size: cover;
+	}
+
+	#btn-luster-noun {
+		content: url(https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Noun.png);
+		position: absolute;
+		top: 85px;
+		left: 820px;
+		width: 140px;
+		border-radius: 8px;
+		background-size: cover;
+	}
+
+	#img-panel-fluer {
+		content: url(https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Fluer.png);
+		position: absolute;
+		top: 80px;
+		left: 1250px;
+		width: 188px;
+		border-radius: 8px;
+		background-size: cover;
+	}
+
+	#btn-panel-list {
+		left: 10px;
+		opacity: 90%;
+		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+	}
+
+		#btn-panel-list:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-add {
+		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 202px;
+	}
+
+		#btn-panel-add:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-change {
+		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 394px;
+	}
+
+		#btn-panel-change:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-delete {
+		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		top: 110px;
+		left: 1000px;
+		opacity: 100%;
+	}
+
+		#btn-panel-delete:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#img-panel-shadow-black {
+		border-radius: 12px;
+		background-size: cover;
+		height: 700px;
+		width: 600px;
+	}
+</style>
+
+<div class="noun-page">
+	<!-- ************************************************************************************ -->
+	<!-- ************************** DISPLAY POD & Person ************************************ -->
+	<!-- ************************************************************************************ -->
+	<h3>
+		<p style="color:#424242;font-size:24px">Pod: @pod</p>
+		<p style="color:#424242;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
+	</h3>
+
+	<!-- ************************************************************************************ -->
+	<!-- ********************************** DISPLAY PANELS ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div><img id="img-panel-marque"></div>
+	<div><img id="btn-luster-noun"></div>
+	<div><img id="img-panel-fluer"></div>
+	<div style="position:absolute;left:820px;top:85px;width:140px;height:60px;background-color:#000000;color:#FFFFFF;text-align:center;padding:5px;font-weight:bolder;">NOVA CRUD</div>
+	<div style="position:absolute;left:1570px;top:385px;width:140px;height:60px;background-color:#000000;color:#FFFFFF;text-align:center;padding:5px;font-weight:bolder;">Nova Crud</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- **************************** DISPLAY PANEL CRUD BUTTONS **************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="boxButton">
+		<button id="btn-panel-list"   @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add"    @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
+		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
+	</div>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+			style="position:absolute;top:30px;left:1830px;height:80px;border:0px;width:200px;">
+		EXIT
+	</button>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** ENTITY LIST  *********************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show == "list")
+	{
+		<button class="general-menu-button" style="position:absolute;left:610px;top:270px;border:0px;" @onclick="@(()=>_nav.NavigateTo("/Grid?pod="+pod+"&pid="+pid+"&entity="+pageName))">GRID</button>
+
+		<div class="ShadowText">
+			<img id="img-panel-shadow-black" src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/shadow_black.png">
+		</div>
+
+		<div class="exhibitPanel">
+			<div class="ListFilter">
+				<label>
+					<select value="@filter["list"]" @onchange="@(e => filter["list"] = e.Value.ToString())">
+						<option value="****">****</option>
+						@foreach (var pype in pypes)
+						{
+							if (pype.PypeId == "NOVA")
+							{
+								<option value="@pype.PypeType">@pype.PypeType</option>
+							}
+						}
+					</select>
+				</label>
+			</div>
+
+			<table id="listTable">
+				@*A "table" (really a list) of all records of the same type as selected table crud value*@
+				<tr>
+					<th>POD ID# Status Type Label Description</th>
+				</tr>
+				@foreach (var entity in entities)
+				{   // Loop through each label of the currently selected table
+					@if (filter["list"] == "****" || entity.NovaType == filter["list"])
+					{
+						<tr>
+							@*
+							<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
+								@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
+							</td>
+							*@
+							<td>
+								@entity.PodIdFk   @entity.NovaId   @entity.NovaStatus   @entity.NovaType   @entity.NovaLabel   @entity.NovaDescription
+							</td>
+						</tr>
+					}
+					// Display only the goal's description
+				}
+			</table>
+		</div>
+	}
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* NOVA CREATE ****************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show == "add")
+	{
+		<br>
+		<div style="font-size:x-large; ">
+			<form @onsubmit="OnCreate">
+
+				<div class="ShadowText">
+					<img id="img-panel-shadow-black" src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/shadow_black.png">
+				</div>
+
+				<div class="boxFilter">
+					<img src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit_add.png"
+						 style="border-radius: 12px;background-size: cover;">
+					<button class="commitCreate" type="submit"></button>
+				</div>
+
+				<div class="exhibitInfo" style="overflow-y:scroll;">
+
+					<label>
+						Label:
+						<input class="form-control" @bind="@entity["add"].NovaLabel" maxlength="16"/>
+					</label><br><br>
+
+					<label>
+						Type:
+						<select @bind="@entity["add"].NovaType">
+							<option value="">****</option>
+							@foreach (var pype in pypes)
+							{
+								if (pype.PypeId == "NOVA")
+								{
+									<option value="@pype.PypeType">@pype.PypeType</option>
+								}
+							}
+						</select>
+					</label><br><br>
+
+					<label>
+						Status:
+						<input class="form-control" @bind="@entity["add"].NovaStatus" maxlength="1" required />
+					</label><br><br>
+
+					<label>
+						Description:
+						<input class="form-control" @bind="@entity["add"].NovaDescription" maxlength="255" required />
+					</label><br><br>
+
+					<label>
+						Channel:
+						<input class="form-control" @bind="@entity["add"].NovaChannel" required />
+					</label><br><br>
+
+					<label>
+						Subject:
+						<input class="form-control" @bind="@entity["add"].NovaSubject" required />
+					</label><br><br>
+
+					<label>
+						Action:
+						<input class="form-control" @bind="@entity["add"].NovaAction" required />
+					</label><br><br>
+
+					<label>
+						Object:
+						<input class="form-control" @bind="@entity["add"].NovaObject" required />
+					</label><br><br>
+
+					<label>
+						DateTime:
+						<input class="form-control" @bind="@entity["add"].NovaDatetime" required />
+					</label><br><br>
+
+					<label>
+						POD ID FK:
+						<input class="form-control" @bind="@entity["add"].PodIdFk" required />
+					</label><br><br>
+
+					<label>
+						Person ID FK:
+						<input class="form-control" @bind="@entity["add"].PersonIdFk" required />
+					</label><br><br>
+
+					<label>
+						Priority:
+						<input class="form-control" @bind="@entity["add"].NovaPrioriy" required />
+					</label><br><br>
+				</div>
+			</form>
+		</div>
+	}
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* NOVA CHANGE ********************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show.Equals("change"))
+	{
+		<div style="font-size:x-large; display: inline-block;">
+			<form @onsubmit="OnChange">
+				<div class="ShadowText">
+					<img id="img-panel-shadow-black" src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/shadow_black.png">
+				</div>
+
+				<div class="boxFilter">
+					<div class="PypeTypeFilter">
+						<label>
+							<select value="@filter["change"]" @onchange="@(e => OnChangeFilterChanged(e, "change"))">
+								<option value="****">****</option>
+								@foreach (var pype in pypes)
+								{
+									if (pype.PypeId == "NOVA")
+									{
+										<option value="@pype.PypeType">@pype.PypeType</option>
+									}
+								}
+							</select>
+						</label>
+					</div>
+
+					<div class="PypeType">
+						<label>
+							<select class="form-control" value="@entity["change"].NovaId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
+								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.NovaType == filter["change"]))
+								{
+									<option value="@entity.NovaId"> @entity.NovaLabel</option>
+								}
+							</select>
+						</label>
+					</div>
+
+					<img src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit.png"
+						 style="border-radius: 12px;background-size: cover;">
+					<button class="commitChange" type="submit"></button>
+				</div>
+
+				<div class="exhibitInfo" style="overflow-y:scroll;">
+					<label>
+						Label:
+						<input class="form-control" @bind="@entity["change"].NovaLabel" maxlength="16" />
+					</label><br><br>
+
+					<label>
+						Type:
+						<select @bind="@entity["change"].NovaType">
+							<option value="">****</option>
+							@foreach (var pype in pypes)
+							{
+								if (pype.PypeId == "NOVA")
+								{
+									<option value="@pype.PypeType">@pype.PypeType</option>
+								}
+							}
+						</select>
+					</label><br><br>
+
+					<label>
+						Status:
+						<input class="form-control" @bind="@entity["change"].NovaStatus" maxlength="1" required />
+					</label><br><br>
+
+					<label>
+						Description:
+						<input class="form-control" @bind="@entity["change"].NovaDescription" maxlength="255" required />
+					</label><br><br>
+
+					<label>
+						Channel:
+						<input class="form-control" @bind="@entity["change"].NovaChannel" required />
+					</label><br><br>
+
+					<label>
+						Subject:
+						<input class="form-control" @bind="@entity["change"].NovaSubject" required />
+					</label><br><br>
+
+					<label>
+						Action:
+						<input class="form-control" @bind="@entity["change"].NovaAction" required />
+					</label><br><br>
+
+					<label>
+						Object:
+						<input class="form-control" @bind="@entity["change"].NovaObject" required />
+					</label><br><br>
+
+					<label>
+						DateTime:
+						<input class="form-control" @bind="@entity["change"].NovaDatetime" required />
+					</label><br><br>
+
+					<label>
+						POD ID FK:
+						<input class="form-control" @bind="@entity["change"].PodIdFk" required />
+					</label><br><br>
+
+					<label>
+						Person ID FK:
+						<input class="form-control" @bind="@entity["change"].PersonIdFk" required />
+					</label><br><br>
+
+					<label>
+						Priority:
+						<input class="form-control" @bind="@entity["change"].NovaPrioriy" required />
+					</label><br><br>
+				</div>
+			</form>
+		</div>
+	}
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* NOVA DELETE ****************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show.Equals("delete"))
+	{
+		<div style="font-size:x-large; display: inline-block;">
+			<form @onsubmit="OnDelete">
+
+				<div class="ShadowText">
+					<img src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/shadow_black.png"
+						 style="border-radius: 12px;background-size: cover;">
+				</div>
+
+				<div class="boxFilter">
+
+					<div class="PypeTypeFilter">
+						<label>
+							<select value="@filter["delete"]" @onchange="@(e => OnChangeFilterChanged(e, "delete", "D"))">
+								<option value="****">****</option>
+								@foreach (var pype in pypes)
+								{
+									if (pype.PypeId == "NOVA")
+									{
+										<option value="@pype.PypeType">@pype.PypeType</option>
+									}
+								}
+							</select>
+						</label>
+					</div>
+
+					<div class="PypeType">
+						<label>
+							<select class="form-control" value="@entity["delete"].NovaId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
+								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.NovaType == filter["delete"]))
+								{
+									if (entity.NovaStatus == "D")
+									{
+										<option value="@entity.NovaId"> @entity.NovaLabel</option>
+									}
+								}
+							</select>
+						</label>
+					</div>
+
+					<img src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit.png"
+						 style="border-radius: 12px;background-size: cover;">
+					<button class="commitDelete" type="submit"></button>
+				</div>
+				<div class="exhibitInfo" style="overflow-y:scroll;">
+					Only if the Status = D
+				</div>
+			</form>
+		</div>
+	}
+</div>
+
+
+
