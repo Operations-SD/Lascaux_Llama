@@ -54,7 +54,7 @@ namespace IntelChat.Pages
 		public void ShowIframe(string page)
 		{
 			iframeSource = page;   // Set the source URL for the iframe
-			isIframeVisible = true; // Display the iframe //Test
+			isIframeVisible = true; // Display the iframe
 		}
 		public void HideIframe()
 		{
