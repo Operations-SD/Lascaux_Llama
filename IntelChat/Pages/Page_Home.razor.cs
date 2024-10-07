@@ -19,6 +19,8 @@ namespace IntelChat.Pages
 		public string role { get; set; }
 		public bool modal = false;
 		public bool showImage = true;
+		public bool isIframeVisible = false; // Manages the visibility of the iframe
+		public string iframeSource = "";      // Holds the source of the iframe to be displayed
 		public string show = "";
 		public string name = "";
 		public string message = "";
@@ -26,8 +28,12 @@ namespace IntelChat.Pages
 		public string messageType = "";
 		public Pod currentPod = new Pod();
 		
+
+		
 		[Inject]
 		public NotificationService NotificationService { get; set; }
+		[Inject] NavigationManager NavigationManager { get; set; } // Inject the NavigationManager
+
 
 		public string GetMenuPath(string role)
 		{
@@ -45,8 +51,31 @@ namespace IntelChat.Pages
 
 		public void HideModal() => modal = false;
 		public void ShowModal() => modal = true;
-		public void ShowChat() { ShowModal(); show = "chat"; }
-		public async void ShowMemo() { ShowModal(); show = "memo"; }
+		public void ShowIframe(string page)
+		{
+			iframeSource = page;   // Set the source URL for the iframe
+			isIframeVisible = true; // Display the iframe
+		}
+		public void HideIframe()
+		{
+			isIframeVisible = false; // Hide the iframe
+			iframeSource = "";       // Clear the iframe source
+		}
+
+		public void ShowChat()
+		{
+			iframeSource = "/Chat";// Set iframe source to Chat page
+			isIframeVisible = true;
+		}
+
+		public void ShowMemo()
+		{
+			iframeSource = NavigationManager.ToAbsoluteUri("/Inbox").ToString();// Set iframe source to Inbox page
+			isIframeVisible = true;
+		}
+
+		//public void ShowChat() { ShowModal(); show = "/hat"; }
+		//public async void ShowMemo() { ShowIframe(); show = "memo"; }
 		public void ShowVideo() { ShowModal(); show = "video"; }
 		public void ShowAudio() { ShowModal(); show = "audio"; }
 		public void ShowProject() { ShowModal(); show = "project"; }

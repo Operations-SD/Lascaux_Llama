@@ -87,27 +87,23 @@
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** MODAL Display Buttons ******************************** -->
 	<!-- ************************************************************************************ -->
-@if (modal)
+@if (isIframeVisible)
+{
+	<div id="iframe-container">
+		<p id="hide-iframe" @onclick="HideIframe">EXIT</p>
+		<iframe src="@iframeSource" style="width:100%; height:600px;" allowtransparency = "true" frameborder="0"></iframe>
+	</div>
+}
+
+else if (modal)
 {
 	<div id="modal">
 		<p id="hide-modal" @onclick=HideModal>EXIT</p>
 		<div id="modal-content">
-			@if (show == "chat")
-			{
-				<div style="z-index:1;width:800px;left:20px;top:20px;">
-					<Chat></Chat>
-					<!-- ********************** insert Pages/Chat.razor ********************* -->
-				</div>
-			}
-			@if (show == "memo")
-			{
-				<div style="z-index:1;">
-					<Inbox></Inbox>
-					<!-- ********************** insert Pages/Inbox.razor ******************** -->
-				</div>
-			}
 			@if (show == "video")
+
 			{
+			
 				<div style="z-index:1;width:800px;left:20px;top:20px;">
 					<Media_Video></Media_Video>
 				</div>
@@ -126,8 +122,6 @@
 		</div>
 	</div>
 }
-
-
 
 else
 {
