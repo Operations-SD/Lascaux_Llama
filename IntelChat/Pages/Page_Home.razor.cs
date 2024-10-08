@@ -32,9 +32,7 @@ namespace IntelChat.Pages
 		
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		[Inject] NavigationManager NavigationManager { get; set; } // Inject the NavigationManager
-
-
+		
 		public string GetMenuPath(string role)
 		{
 			return role switch
@@ -51,31 +49,36 @@ namespace IntelChat.Pages
 
 		public void HideModal() => modal = false;
 		public void ShowModal() => modal = true;
-		public void ShowIframe(string page)
+
+
+		/**********************************************/
+		/***************  IFRAMES *********************/
+		/**********************************************/
+
+		[Inject] NavigationManager NavigationManager { get; set; }
+
+		public void ShowChat()
 		{
-			iframeSource = page;   // Set the source URL for the iframe
-			isIframeVisible = true; // Display the iframe
+			iframeSource = "/Chat";  // Set the source of the iframe (chat page)
+			isIframeVisible = true;  // Show the iframe
 		}
-		public void HideIframe()
+		public void HideChat()
 		{
 			isIframeVisible = false; // Hide the iframe
 			iframeSource = "";       // Clear the iframe source
 		}
 
-		public void ShowChat()
-		{
-			iframeSource = "/Chat";// Set iframe source to Chat page
-			isIframeVisible = true;
-		}
-
 		public void ShowMemo()
 		{
-			iframeSource = NavigationManager.ToAbsoluteUri("/Inbox").ToString();// Set iframe source to Inbox page
+			iframeSource = "/Inbox";// Set iframe source to Inbox page
 			isIframeVisible = true;
 		}
+		public void HideMemo()
+		{
+			isIframeVisible = false; // Hide the iframe
+			iframeSource = "";       // Clear the iframe source
+		}
 
-		//public void ShowChat() { ShowModal(); show = "/hat"; }
-		//public async void ShowMemo() { ShowIframe(); show = "memo"; }
 		public void ShowVideo() { ShowModal(); show = "video"; }
 		public void ShowAudio() { ShowModal(); show = "audio"; }
 		public void ShowProject() { ShowModal(); show = "project"; }
