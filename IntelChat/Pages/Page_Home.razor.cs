@@ -19,8 +19,10 @@ namespace IntelChat.Pages
 		public string role { get; set; }
 		public bool modal = false;
 		public bool showImage = true;
-		public bool isIframeVisible = false; // Manages the visibility of the iframe
-		public string iframeSource = "";      // Holds the source of the iframe to be displayed
+		public bool isChatIframeVisible = false; // Manages the visibility of the Chat iframe
+		public bool isMemoIframeVisible = false; // Manages the visibility of the Memo iframe
+		public string ChatiframeSource = "";      // Holds the source of the iframe to be displayed
+		public string MemoiframeSource = "";
 		public string show = "";
 		public string name = "";
 		public string message = "";
@@ -59,24 +61,24 @@ namespace IntelChat.Pages
 
 		public void ShowChat()
 		{
-			iframeSource = "/Chat";  // Set the source of the iframe (chat page)
-			isIframeVisible = true;  // Show the iframe
+			ChatiframeSource = "/Chat";  // Set the source of the iframe (chat page)
+			isChatIframeVisible = true;  // Show the iframe
 		}
 		public void HideChat()
 		{
-			isIframeVisible = false; // Hide the iframe
-			iframeSource = "";       // Clear the iframe source
+			isChatIframeVisible = false; // Hide the iframe
+			ChatiframeSource = "";       // Clear the iframe source
 		}
 
 		public void ShowMemo()
 		{
-			iframeSource = "/Inbox";// Set iframe source to Inbox page
-			isIframeVisible = true;
+			MemoiframeSource = "/Inbox";// Set iframe source to Inbox page
+			isMemoIframeVisible = true;
 		}
 		public void HideMemo()
 		{
-			isIframeVisible = false; // Hide the iframe
-			iframeSource = "";       // Clear the iframe source
+			isMemoIframeVisible = false; // Hide the iframe
+			MemoiframeSource = "";       // Clear the iframe source
 		}
 
 		public void ShowVideo() { ShowModal(); show = "video"; }
