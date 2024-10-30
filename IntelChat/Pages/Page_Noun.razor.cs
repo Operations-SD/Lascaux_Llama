@@ -185,7 +185,7 @@ namespace IntelChat.Pages
 		private SqlDataReader? ReadPype()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", "NOUN"),
+				new SqlParameter("@PROC_Input_Filter", "****"),
 				new SqlParameter("@pod", pod)
 			};
 

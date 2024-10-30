@@ -111,10 +111,10 @@ namespace IntelChat.Pages
 		/**********************************************************************************/
 		/************************ Stored Procedure - LOAD PYPE values *********************/
 		/**********************************************************************************/
-		private SqlDataReader? ReadPypes(string filter)
+		private SqlDataReader? ReadPypes()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", filter),
+				new SqlParameter("@PROC_Input_Filter", "****"),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
@@ -122,7 +122,7 @@ namespace IntelChat.Pages
 
 		private void LoadPypes()
 		{
-			var reader = ReadPypes("NOUN");
+			var reader = ReadPypes();
 			if (reader == null) return;
 
 			pypes.Clear();
@@ -141,7 +141,8 @@ namespace IntelChat.Pages
 			}
 			reader.Close();
 
-			reader = ReadPypes("PREP");
+			/*
+			reader = ReadPypes();
 			if (reader == null) return;
 			while (reader.Read())
 			{
@@ -157,6 +158,7 @@ namespace IntelChat.Pages
 				});
 			}
 			reader.Close();
+			*/
 		}
 
 

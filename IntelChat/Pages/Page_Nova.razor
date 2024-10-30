@@ -146,6 +146,8 @@
 </style>
 
 
+
+
 <!-- ************************************************************************************ -->
 <!-- ************************** Filter Subject ************ TOP DROP ******************** -->
 <!-- ************************************************************************************ -->
@@ -154,7 +156,7 @@
 	<option value="****" />
 	@foreach (var pype in pypes)
 	{
-		if (pype.PypeId == "NOUN" && pype.PodIdFk == pod)
+		if (pype.PodIdFk == pod)
 		{
 			<option value="@pype.PypeType">@pype.PypeType</option>
 		}
@@ -169,7 +171,7 @@
 	<option value="****" />
 	@foreach (var pype in pypes)
 	{
-		if (pype.PypeId == "PREP" && pype.PodIdFk == pod)
+		if (pype.PodIdFk == pod)
 		{
 			<option value="@pype.PypeType">@pype.PypeType</option>
 		}
@@ -184,7 +186,7 @@
 	<option value="****" />
 	@foreach (var pype in pypes)
 	{
-		if (pype.PypeId == "NOUN" && pype.PodIdFk == pod)
+		if (pype.PodIdFk == pod)
 		{
 			<option value="@pype.PypeType">@pype.PypeType</option>
 		}
