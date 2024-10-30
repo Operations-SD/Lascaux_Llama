@@ -154,13 +154,11 @@
 <input @bind=subjectFilter list="subject_filters" class="tableList" style="top:244px;left:612px;font-size:24px;opacity:50%">
 <datalist id="subject_filters">
 	<option value="****" />
-	@foreach (var pype in pypes)
-	{
-		if (pype.PodIdFk == pod)
+		@foreach (var nounType in UniqueNounTypes)
 		{
-			<option value="@pype.PypeType">@pype.PypeType</option>
+			<option value="@nounType">@nounType</option>
 		}
-	}
+
 </datalist>
 
 <!-- ************************************************************************************ -->
@@ -169,12 +167,9 @@
 <input @bind=actionFilter list="action_filters" class="tableList" style="top:244px;left:869px;font-size:22px;">
 <datalist id="action_filters">
 	<option value="****" />
-	@foreach (var pype in pypes)
+	@foreach (var verbType in UniqueVerbTypes)
 	{
-		if (pype.PodIdFk == pod)
-		{
-			<option value="@pype.PypeType">@pype.PypeType</option>
-		}
+		<option value="@verbType">@verbType</option>
 	}
 </datalist>
 
@@ -184,12 +179,9 @@
 <input @bind=objectFilter list="object_filters" class="tableList" style="top:244px;left:1127px;font-size:22px;">
 <datalist id="object_filters">
 	<option value="****" />
-	@foreach (var pype in pypes)
+	@foreach (var objType in UniqueObjectTypes)
 	{
-		if (pype.PodIdFk == pod)
-		{
-			<option value="@pype.PypeType">@pype.PypeType</option>
-		}
+		<option value="@objType">@objType</option>
 	}
 </datalist>
 

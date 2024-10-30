@@ -251,14 +251,14 @@ namespace IntelChat.Pages
 			}
 			show = "list";
 		}
-
+		
 		private bool showPypeIdList = true;
 		private string selectedPypeId;
 		private List<Pype> filteredPypes = new List<Pype>();
 
 		private void OnPypeIdSelected(ChangeEventArgs e)
 		{
-			var selectedValue = e.Value.ToString();
+			var selectedValue = e.Value?.ToString();
 
 			if (showPypeIdList)
 			{
@@ -280,7 +280,11 @@ namespace IntelChat.Pages
 			{
 				// Set the selected PypeType as needed and apply any further logic
 				filter["list"] = selectedValue;
+
+				//entities = entities.Where(entity => entity.NounType == selectedValue).ToList();
 			}
+		
 		}
+		
 	}
 }

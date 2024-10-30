@@ -20,7 +20,8 @@ namespace IntelChat.Pages
 		public string description = "Intel-a-Chat NOVA";
 		                             //*****************************************************************************************
 		public string type = "JUNK"; // *************** Lascaux Case Switch - NOVA or POD,TASK,WORK,NOUN,VERB,QUESTION,INTERVIEW
-		                             //*****************************************************************************************
+									 //*****************************************************************************************
+
 		public int subject = 0;
 		public int action = 0;
 		public int obj = 0;
@@ -34,10 +35,18 @@ namespace IntelChat.Pages
 		[Inject]
 		public NotificationService NotificationService { get; set; }
 
+		public List<string> UniqueNounTypes { get; set; } = new List<string>();
+		public List<string> UniqueVerbTypes { get; set; } = new List<string>();
+		public List<string> UniqueObjectTypes { get; set; } = new List<string>();
+
 
 		/**********************************************************************************/
 		/************************ PYPE dropdown filters ***********************************/
 		/**********************************************************************************/
+
+
+
+
 		private string _subjectFilter = "";
 		public string subjectFilter
 		{
@@ -114,7 +123,7 @@ namespace IntelChat.Pages
 		private SqlDataReader? ReadPypes()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", "****"),
+				new SqlParameter("@PROC_Input_Filter", ""),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
@@ -177,6 +186,16 @@ namespace IntelChat.Pages
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
 
+		private void LoadUniqueNounTypes()
+		{
+			UniqueNounTypes = subjects.Select(s => s.NounType).Distinct().ToList();
+		}
+		private void LoadUniqueObjectTypes()
+		{
+			UniqueObjectTypes = objects.Select(o => o.NounType).Distinct().ToList();
+		}
+
+
 		private void LoadNouns(string sp, string status = "*")
 		{
 			var reader = ReadNouns(sp, status);
@@ -215,6 +234,11 @@ namespace IntelChat.Pages
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
 
+		private void LoadUniqueVerbTypes()
+		{
+			UniqueVerbTypes = actions.Select(a => a.VerbType).Distinct().ToList();
+		}
+
 		private void LoadVerbs(string sp, string status = "*")
 		{
 			var reader = ReadVerb(sp, status);
@@ -234,7 +258,9 @@ namespace IntelChat.Pages
 					UrlIdPk = reader.GetInt32(6)
 				});
 			}
+
 			reader.Close();
+
 		}
 
 
@@ -289,6 +315,10 @@ namespace IntelChat.Pages
 			subjects = new List<Noun>(nouns);
 			actions  = new List<Verb>(verbs);
 			objects  = new List<Noun>(nouns);
+			LoadUniqueNounTypes(); 
+			LoadUniqueVerbTypes();
+			LoadUniqueObjectTypes();
 		}
 	}
+
 }
