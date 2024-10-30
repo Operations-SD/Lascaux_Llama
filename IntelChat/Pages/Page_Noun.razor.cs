@@ -250,7 +250,37 @@ namespace IntelChat.Pages
 				AutoFill(entity["delete"].NounId, "delete");
 			}
 			show = "list";
+		}
 
+		private bool showPypeIdList = true;
+		private string selectedPypeId;
+		private List<Pype> filteredPypes = new List<Pype>();
+
+		private void OnPypeIdSelected(ChangeEventArgs e)
+		{
+			var selectedValue = e.Value.ToString();
+
+			if (showPypeIdList)
+			{
+				// Set selected PypeId and filter based on that
+				selectedPypeId = selectedValue;
+
+				// Filter the Pype list by the selected PypeId
+				filteredPypes = pypes.Where(p => p.PypeId == selectedPypeId).ToList();
+
+				// Switch to showing the Pype Types
+				showPypeIdList = false;
+			}
+			else if (selectedValue == "back")
+			{
+				// Go back to PypeId list
+				showPypeIdList = true;
+			}
+			else
+			{
+				// Set the selected PypeType as needed and apply any further logic
+				filter["list"] = selectedValue;
+			}
 		}
 	}
 }

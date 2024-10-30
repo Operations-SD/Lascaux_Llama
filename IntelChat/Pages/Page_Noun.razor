@@ -143,7 +143,6 @@
 	<!-- ************************************************************************************ -->
 	@if (show == "list")
 	{
-
 		<div class="ShadowText">
 			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 		</div>
@@ -151,35 +150,44 @@
 		<div class="exhibitPanel" style="overflow-y:scroll;height:630px;text-overflow:ellipsis;overflow-x:scroll;">
 			<div class="ListFilter">
 				<label>
-					<select value="@filter["list"]" @onchange="@(e => filter["list"] = e.Value.ToString())">
-						<option value="****">****</option>
-						@foreach (var pype in pypes)
+					<select @onchange="OnPypeIdSelected">
+						@if (showPypeIdList)
 						{
-							//if (pype.PypeId == "ROLE")
-						//	{
+							<option value="****">Select Pype ID</option>
+							@foreach (var pype in pypes.Select(p => p.PypeId).Distinct())
+							{
+								<option value="@pype">@pype</option>
+							}
+						}
+						else
+						{
+							<option value="****">Select Pype Type</option>
+							@foreach (var pype in filteredPypes)
+							{
 								<option value="@pype.PypeType">@pype.PypeType</option>
-							//}
+							}
+							<option value="back">Back to Pype ID</option> <!-- New option to go back to PypeId list -->
 						}
 					</select>
 				</label>
 			</div>
 
 			<table id="listTable">
-				@*A "table" (really a list) of all records of the same type as selected table crud value*@
 				<tr>
 					<th>POD ID# Status Type Label Description</th>
 				</tr>
 				@foreach (var noun in entities)
-				{   // Loop through each label of the currently selected table
+				{
 					@if (filter["list"] == "****" || noun.NounType == filter["list"])
 					{
 						<tr>
-							<td @onclick="@(() => _nav.NavigateTo("/NounDetails?pod="+pod+"&pid="+pid+"&id="+@noun.NounId+"&prevPage=/Noun"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
+							<td @onclick="@(() => _nav.NavigateTo($"/NounDetails?pod={pod}&pid={pid}&id={noun.NounId}&prevPage=/Noun"))" 
+								onmouseover="this.style.color='#AAAAAA'" 
+								onMouseOut="this.style.color='#FFFFFF'">
 								@noun.PodIdFk     @noun.NounId     @noun.NounStatus     @noun.NounType  @noun.NounLabel @noun.NounDescription
 							</td>
 						</tr>
 					}
-					// Display only the goal's description
 				}
 			</table>
 		</div>
@@ -228,7 +236,6 @@
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
-								if (pype.PypeId == "NOUN")
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
