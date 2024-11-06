@@ -270,6 +270,7 @@ namespace IntelChat.Pages
 
 				// Switch to showing the Pype Types
 				showPypeIdList = false;
+
 			}
 			else if (selectedValue == "back")
 			{
@@ -280,8 +281,8 @@ namespace IntelChat.Pages
 			{
 				// Set the selected PypeType as needed and apply any further logic
 				filter["list"] = selectedValue;
-
-				//entities = entities.Where(entity => entity.NounType == selectedValue).ToList();
+				entity["add"].NounType = selectedValue;
+				entity["delete"].NounType = selectedValue;
 			}
 		
 		}

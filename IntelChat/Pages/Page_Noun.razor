@@ -152,6 +152,7 @@
 				<label>
 					<select @onchange="OnPypeIdSelected">
 						@if (showPypeIdList)
+
 						{
 							<option value="****">Select Pype ID</option>
 							@foreach (var pype in pypes.Select(p => p.PypeId).Distinct())
@@ -159,14 +160,16 @@
 								<option value="@pype">@pype</option>
 							}
 						}
+
 						else
+
 						{
 							<option value="****">Select Pype Type</option>
 							@foreach (var pype in filteredPypes)
 							{
 								<option value="@pype.PypeType">@pype.PypeType</option>
 							}
-							<option value="back">Back to Pype ID</option> <!-- New option to go back to PypeId list -->
+							<option value="back">Back to Pype ID</option>
 						}
 					</select>
 				</label>
@@ -177,12 +180,14 @@
 					<th>POD ID# Status Type Label Description</th>
 				</tr>
 				@foreach (var noun in entities)
+
 				{
 					@if (filter["list"] == "****" || noun.NounType == filter["list"])
+
 					{
 						<tr>
-							<td @onclick="@(() => _nav.NavigateTo($"/NounDetails?pod={pod}&pid={pid}&id={noun.NounId}&prevPage=/Noun"))" 
-								onmouseover="this.style.color='#AAAAAA'" 
+							<td @onclick="@(() => _nav.NavigateTo($"/NounDetails?pod={pod}&pid={pid}&id={noun.NounId}&prevPage=/Noun"))"
+								onmouseover="this.style.color='#AAAAAA'"
 								onMouseOut="this.style.color='#FFFFFF'">
 								@noun.PodIdFk     @noun.NounId     @noun.NounStatus     @noun.NounType  @noun.NounLabel @noun.NounDescription
 							</td>
@@ -192,6 +197,7 @@
 			</table>
 		</div>
 	}
+
 
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* NOUN CREATE ********************************** -->
@@ -233,13 +239,26 @@
 					
 					<label>
 						Type
-						<select @bind="@entity["add"].NounType">
-							<option value="">****</option>
-							@foreach (var pype in pypes)
+						<select @onchange="OnPypeIdSelected">
+							@if (showPypeIdList)
 							{
+								<option value="">****</option>
+								@foreach (var pype in pypes.Select(p => p.PypeId).Distinct())
+
+								{
+									<option value="@pype">@pype</option>
+								}
+							}
+							else
+
+							{
+								<option value="">****</option>
+								@foreach (var pype in filteredPypes)
+
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
+								<option value="back">Back to Pype ID</option>
 							}
 						</select>
 					</label><br><br>
