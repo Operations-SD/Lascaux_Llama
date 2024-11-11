@@ -132,6 +132,8 @@ namespace IntelChat.Pages
 		}
 
 
+		/*
+
 		/// ************************ LOAD INTERVIEW *****************************************
 		/// ************************ LOAD INTERVIEW *****************************************
 		/// ************************ LOAD INTERVIEW *****************************************
@@ -304,6 +306,7 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
+		*/
 
 		/// ************************ LOAD NOVA **********************************************
 		/// ************************ LOAD NOVA ********************************************** used from Page_Nova
@@ -365,6 +368,8 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
+
+		/*
 
 		/// ************************ LOAD POD **********************************************
 		/// ************************ LOAD POD ********************************************** used from Page_Nova
@@ -605,6 +610,8 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
+		*/
+
 
 		//**********************************************************************************************
 		//************ CASE LOGIC - using input parameter "type" & internal sp "Loadxxxx ***************
@@ -614,15 +621,21 @@ namespace IntelChat.Pages
 			string sp = "";
 			switch (type)
 			{
+				/*
 				case "POD":
 					sp = "sp_nova_Dictionary_POD";
 					await LoadPOD(sp);
 					break;
+
+				*/
+
 				case "NOVA":
-					sp = "sp_nova_Dictionary_NOVA";
+					sp = "sp_Lascaux_temp";
 					await LoadNOVA(sp);
 					break;
 
+
+				/*
 				case "NounSubject":
 					sp = "sp_nova_Dictionary_Noun_Subject";
 					await LoadNounSubject(sp);
@@ -650,6 +663,7 @@ namespace IntelChat.Pages
 					sp = "sp_nova_Dictionary_Work";
 					await LoadWork(sp);
 					break;
+				*/
 
 			}
 			if (novas.Any()) selectedId = novas[0].NovaId;

@@ -137,7 +137,13 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<Task> Tasks { get; set; }
 
-    public virtual DbSet<TaskWorkGantt> TaskWorkGantts { get; set; }
+	public virtual DbSet<LascauxJunk> LascauxJunks { get; set; }
+
+	public virtual DbSet<LascauxNova> LascauxNovas { get; set; }
+
+	public virtual DbSet<LascauxTemp> LascauxTemps { get; set; }
+
+	public virtual DbSet<TaskWorkGantt> TaskWorkGantts { get; set; }
 
     public virtual DbSet<Url> Urls { get; set; }
 
@@ -1704,7 +1710,158 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Work_type");
         });
 
-        modelBuilder.Entity<Program>(entity =>
+		modelBuilder.Entity<LascauxJunk>(entity =>
+		{
+			entity
+				.HasNoKey()
+				.ToTable("Lascaux_junk");
+
+			entity.Property(e => e.A).HasColumnName("A#");
+			entity.Property(e => e.About)
+				.HasMaxLength(4)
+				.IsFixedLength()
+				.HasColumnName("about");
+			entity.Property(e => e.Action)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("action");
+			entity.Property(e => e.ActionDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("actionDescription");
+			entity.Property(e => e.ActionUrl).HasColumnName("actionURL");
+			entity.Property(e => e.N).HasColumnName("N#");
+			entity.Property(e => e.NovaDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("novaDescription");
+			entity.Property(e => e.O).HasColumnName("O#");
+			entity.Property(e => e.Object)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("object");
+			entity.Property(e => e.ObjectDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("objectDescription");
+			entity.Property(e => e.ObjectUrl).HasColumnName("objectURL");
+			entity.Property(e => e.P).HasColumnName("P#");
+			entity.Property(e => e.Pid).HasColumnName("pid");
+			entity.Property(e => e.S).HasColumnName("S#");
+			entity.Property(e => e.Subject)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("subject");
+			entity.Property(e => e.SubjectDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("subjectDescription");
+			entity.Property(e => e.SubjectUrl).HasColumnName("subjectURL");
+		});
+
+		modelBuilder.Entity<LascauxNova>(entity =>
+		{
+			entity
+				.HasNoKey()
+				.ToView("Lascaux_NOVA");
+
+			entity.Property(e => e.Expr3)
+				.HasMaxLength(16)
+				.IsFixedLength();
+			entity.Property(e => e.Expr4)
+				.HasMaxLength(16)
+				.IsFixedLength();
+			entity.Property(e => e.LascauxObject)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("Lascaux_object");
+			entity.Property(e => e.LascauxObjectId).HasColumnName("Lascaux_object_ID");
+			entity.Property(e => e.NounId).HasColumnName("Noun_ID");
+			entity.Property(e => e.NounLabel)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("Noun_label");
+			entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
+			entity.Property(e => e.NovaId).HasColumnName("NOVA_ID");
+			entity.Property(e => e.NovaStatus)
+				.HasMaxLength(1)
+				.IsFixedLength()
+				.HasColumnName("NOVA_status");
+			entity.Property(e => e.NovaType)
+				.HasMaxLength(4)
+				.IsFixedLength()
+				.HasColumnName("NOVA_type");
+			entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+			entity.Property(e => e.PodLabel)
+				.HasMaxLength(16)
+				.HasColumnName("POD_label");
+			entity.Property(e => e.UrlLabel)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("URL_label");
+			entity.Property(e => e.VerbId).HasColumnName("Verb_ID");
+			entity.Property(e => e.VerbLabel)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("Verb_label");
+		});
+
+		modelBuilder.Entity<LascauxTemp>(entity =>
+		{
+			entity
+				.HasNoKey()
+				.ToTable("Lascaux_temp");
+
+			entity.Property(e => e.A).HasColumnName("A#");
+			entity.Property(e => e.About)
+				.HasMaxLength(4)
+				.IsFixedLength()
+				.HasColumnName("about");
+			entity.Property(e => e.Action)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("action");
+			entity.Property(e => e.ActionDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("actionDescription");
+			entity.Property(e => e.ActionUrl)
+				.HasMaxLength(128)
+				.HasColumnName("actionURL");
+			entity.Property(e => e.N).HasColumnName("N#");
+			entity.Property(e => e.NovaDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("novaDescription");
+			entity.Property(e => e.O).HasColumnName("O#");
+			entity.Property(e => e.Object)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("object");
+			entity.Property(e => e.ObjectDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("objectDescription");
+			entity.Property(e => e.ObjectUrl)
+				.HasMaxLength(128)
+				.HasColumnName("objectURL");
+			entity.Property(e => e.P).HasColumnName("P#");
+			entity.Property(e => e.Pid).HasColumnName("pid");
+			entity.Property(e => e.S).HasColumnName("S#");
+			entity.Property(e => e.Subject)
+				.HasMaxLength(16)
+				.IsFixedLength()
+				.HasColumnName("subject");
+			entity.Property(e => e.SubjectDescription)
+				.HasMaxLength(64)
+				.IsFixedLength()
+				.HasColumnName("subjectDescription");
+			entity.Property(e => e.SubjectUrl)
+				.HasMaxLength(128)
+				.HasColumnName("subjectURL");
+		});
+
+		modelBuilder.Entity<Program>(entity =>
         {
             entity.HasKey(e => e.ProgramId).HasName("PK_Program_1");
 
