@@ -76,7 +76,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", "****"),
 				new SqlParameter("@status", status),
-				new SqlParameter("@pod", pod)
+				new SqlParameter("@pod_id_fk", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Person]", parameters, true);
 		}
