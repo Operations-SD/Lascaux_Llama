@@ -131,8 +131,8 @@
 	<!-- **************************** DISPLAY PANEL CRUD BUTTONS ********** EXIT ************ -->
 	<!-- ************************************************************************************ -->
 	<div class="boxButton">
-		<button id="btn-panel-list"   @onclick="@(() => show = "list")"></button>
-		<button id="btn-panel-add"    @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
@@ -380,7 +380,7 @@
 							<select class="form-control" value="@entity["delete"].NounId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
 								@foreach (var noun in (filter["delete"] == "****") ? entities : entities.Where(noun => noun.NounType == filter["delete"]))
 								{
-									if(noun.NounStatus == "D")
+									if (noun.NounStatus == "D")
 									{
 										<option value="@noun.NounId"> @noun.NounLabel</option>
 									}
