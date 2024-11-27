@@ -151,39 +151,36 @@
 <!-- ************************************************************************************ -->
 <!-- ************************** Filter Subject ************ TOP DROP ******************** -->
 <!-- ************************************************************************************ -->
-<input @bind=subjectFilter list="subject_filters" class="tableList" style="top:244px;left:612px;font-size:24px;opacity:50%">
-<datalist id="subject_filters">
-	<option value="****" />
-		@foreach (var nounType in UniqueNounTypes)
-		{
-			<option value="@nounType">@nounType</option>
-		}
+<select @bind="subjectFilter" class="tableList" style="top:244px; left:612px; font-size:24px;">
+    <option value="****">-</option>
+    @foreach (var nounType in UniqueNounTypes)
+    {
+        <option value="@nounType">@nounType</option>
+    }
+</select>
 
-</datalist>
 
 <!-- ************************************************************************************ -->
 <!-- *************************** Filter Action ************ TOP DROP ******************** -->
 <!-- ************************************************************************************ -->
-<input @bind=actionFilter list="action_filters" class="tableList" style="top:244px;left:869px;font-size:22px;">
-<datalist id="action_filters">
-	<option value="****" />
+<select @bind=actionFilter class="tableList" style="top:244px;left:869px;font-size:22px;">
+	<option value="****">-</option>
 	@foreach (var verbType in UniqueVerbTypes)
 	{
 		<option value="@verbType">@verbType</option>
 	}
-</datalist>
+</select>
 
 <!-- ************************************************************************************ -->
 <!-- ************************** Filter Object ************* TOP DROP ******************** -->
 <!-- ************************************************************************************ -->
-<input @bind=objectFilter list="object_filters" class="tableList" style="top:244px;left:1127px;font-size:22px;">
-<datalist id="object_filters">
-	<option value="****" />
+<select @bind=objectFilter class="tableList" style="top:244px;left:1127px;font-size:22px;">
+	<option value="****">-</option>
 	@foreach (var objType in UniqueObjectTypes)
 	{
 		<option value="@objType">@objType</option>
 	}
-</datalist>
+</select>
 
 
 

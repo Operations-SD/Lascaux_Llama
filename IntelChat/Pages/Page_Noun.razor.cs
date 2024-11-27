@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -185,7 +186,7 @@ namespace IntelChat.Pages
 		private SqlDataReader? ReadPype()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", "****"),
+				new SqlParameter("@PROC_Input_Filter", "FOOD"),
 				new SqlParameter("@pod", pod)
 			};
 
@@ -250,41 +251,38 @@ namespace IntelChat.Pages
 				AutoFill(entity["delete"].NounId, "delete");
 			}
 			show = "list";
-		}
-		
-		private bool showPypeIdList = true;
-		private string selectedPypeId;
-		private List<Pype> filteredPypes = new List<Pype>();
+			  
 
-		private void OnPypeIdSelected(ChangeEventArgs e)
+		}
+
+		/// <summary>Handle item selection from the listing and navigate to the change screen</summary>
+		private void OnItemSelected(int id)
 		{
-			var selectedValue = e.Value?.ToString();
-
-			if (showPypeIdList)
-			{
-				// Set selected PypeId and filter based on that
-				selectedPypeId = selectedValue;
-
-				// Filter the Pype list by the selected PypeId
-				filteredPypes = pypes.Where(p => p.PypeId == selectedPypeId).ToList();
-
-				// Switch to showing the Pype Types
-				showPypeIdList = false;
-			}
-			else if (selectedValue == "back")
-			{
-				// Go back to PypeId list
-				showPypeIdList = true;
-			}
-			else
-			{
-				// Set the selected PypeType as needed and apply any further logic
-				filter["list"] = selectedValue;
-
-				//entities = entities.Where(entity => entity.NounType == selectedValue).ToList();
-			}
-		
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
 		}
-		
+
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId { get; set; }
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.NounId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";       // Switch to the change screen
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+
 	}
 }

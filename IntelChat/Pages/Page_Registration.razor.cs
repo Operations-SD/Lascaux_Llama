@@ -71,7 +71,6 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read_All"),
 				//new SqlParameter("@PROC_filter", "****"),
-				//new SqlParameter("@PROC_filter", "****"),
 				new SqlParameter("@status", status),
 
 			};

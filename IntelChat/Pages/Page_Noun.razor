@@ -109,6 +109,20 @@
 		width: 600px;
 	}
 
+	/*********** DirectSelect Input Box ***************/
+	.DirectSelect {
+		position: absolute;
+		top: 825px;
+		right: 154px;
+	}
+
+	.DirectSelect input {
+		width: 232px;
+		padding: 10px;
+		font-size: 20px;
+	}
+	/**************************************************/
+
 
 </style>
 
@@ -131,18 +145,25 @@
 	<!-- **************************** DISPLAY PANEL CRUD BUTTONS ********** EXIT ************ -->
 	<!-- ************************************************************************************ -->
 	<div class="boxButton">
-		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
-		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-list"   @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add"    @onclick="@(() => show = "add")"></button>
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
 
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" type="text" @bind="directSelectId" @onkeypress="HandleDirectSelectKeyPress" />
+	</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** NOUN LIST GRID ************ shadow ************* -->
 	<!-- ************************************************************************************ -->
 	@if (show == "list")
 	{
+
 		<div class="ShadowText">
 			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 		</div>
@@ -150,44 +171,37 @@
 		<div class="exhibitPanel" style="overflow-y:scroll;height:630px;text-overflow:ellipsis;overflow-x:scroll;">
 			<div class="ListFilter">
 				<label>
-					<select @onchange="OnPypeIdSelected">
-						@if (showPypeIdList)
+					<select value="@filter["list"]" @onchange="@(e => filter["list"] = e.Value.ToString())">
+						<option value="****">****</option>
+						@foreach (var pype in pypes)
 						{
-							<option value="****">Select Pype ID</option>
-							@foreach (var pype in pypes.Select(p => p.PypeId).Distinct())
-							{
-								<option value="@pype">@pype</option>
-							}
-						}
-						else
-						{
-							<option value="****">Select Pype Type</option>
-							@foreach (var pype in filteredPypes)
+							if (pype.PypeId == "FOOD")
 							{
 								<option value="@pype.PypeType">@pype.PypeType</option>
 							}
-							<option value="back">Back to Pype ID</option> <!-- New option to go back to PypeId list -->
 						}
 					</select>
 				</label>
 			</div>
 
 			<table id="listTable">
+				@*A "table" (really a list) of all records of the same type as selected table crud value*@
 				<tr>
 					<th>POD ID# Status Type Label Description</th>
 				</tr>
 				@foreach (var noun in entities)
-				{
+				{   // Loop through each label of the currently selected table
 					@if (filter["list"] == "****" || noun.NounType == filter["list"])
 					{
 						<tr>
-							<td @onclick="@(() => _nav.NavigateTo($"/NounDetails?pod={pod}&pid={pid}&id={noun.NounId}&prevPage=/Noun"))" 
-								onmouseover="this.style.color='#AAAAAA'" 
+							<td @onclick="@(() => OnItemSelected(noun.NounId))"
+								onmouseover="this.style.color='#AAAAAA'"
 								onMouseOut="this.style.color='#FFFFFF'">
-								@noun.PodIdFk     @noun.NounId     @noun.NounStatus     @noun.NounType  @noun.NounLabel @noun.NounDescription
+								@noun.PodIdFk @noun.NounId @noun.NounStatus @noun.NounType @noun.NounLabel @noun.NounDescription
 							</td>
 						</tr>
 					}
+					// Display only the goal's description
 				}
 			</table>
 		</div>
@@ -230,20 +244,19 @@
 						we need a default/blank for NONE or null. added with <option value="">****</option>, this will need to be repeated
 						wherever a dropdown is ASSIGNING something for the first time. If it has a value, we do not need a default null selection
 					-->
-					
 					<label>
 						Type
 						<select @bind="@entity["add"].NounType">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
+								if (pype.PypeId == "FOOD")
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
 							}
 						</select>
 					</label><br><br>
-					
 
 					<label>
 						Status:
@@ -276,7 +289,7 @@
 								<option value="****">****</option>
 								@foreach (var pype in pypes)
 								{
-									if (pype.PypeId == "NOUN")
+									if (pype.PypeId == "FOOD")
 									{
 										<option value="@pype.PypeType">@pype.PypeType</option>
 									}
@@ -321,7 +334,7 @@
 						<select @bind="@entity["change"].NounType" required>
 							@foreach (var pype in pypes)
 							{
-								if (pype.PypeId == "NOUN")
+								if (pype.PypeId == "FOOD")
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
@@ -366,7 +379,7 @@
 								<option value="****">****</option>
 								@foreach (var pype in pypes)
 								{
-									if (pype.PypeId == "NOUN")
+									if (pype.PypeId == "FOOD")
 									{
 										<option value="@pype.PypeType">@pype.PypeType</option>
 									}
@@ -380,7 +393,7 @@
 							<select class="form-control" value="@entity["delete"].NounId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
 								@foreach (var noun in (filter["delete"] == "****") ? entities : entities.Where(noun => noun.NounType == filter["delete"]))
 								{
-									if (noun.NounStatus == "D")
+									if(noun.NounStatus == "D")
 									{
 										<option value="@noun.NounId"> @noun.NounLabel</option>
 									}
