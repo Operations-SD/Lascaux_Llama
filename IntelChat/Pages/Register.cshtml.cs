@@ -228,9 +228,9 @@ namespace IntelChat.Pages
 					NovaIdFk = reader.GetInt32(12),
 					ProgramIdFk = reader.GetInt32(13),
 					LocationIdFk = reader.GetInt32(14),
-					ChannelAlpha = reader.GetString(15),
-					ChannelBeta = reader.GetString(16),
-					ChannelGamma = reader.GetString(17)
+					//ChannelAlpha = reader.GetString(15),
+					//ChannelBeta = reader.GetString(16),
+					//ChannelGamma = reader.GetString(17)
 				});
 				connection.Close();
 				return brands.Find(brand => brand.BrandCode == code);
