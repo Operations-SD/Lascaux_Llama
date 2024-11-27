@@ -22,7 +22,24 @@ namespace IntelChat.Pages
 		public string type = "JUNK"; // *************** Lascaux Case Switch - NOVA or POD,TASK,WORK,NOUN,VERB,QUESTION,INTERVIEW
 									 //*****************************************************************************************
 
-		public int subject = 0;
+		private int _subject; // Backing field for the subject property
+		private int test; // Temporary variable to hold the current NounId
+
+		public int subject
+		{
+			get => _subject;
+			set
+			{
+				if (_subject != value) // Check to avoid unnecessary updates
+				{
+					_subject = value;
+					test = _subject; // Dynamically update the test variable
+					CreateTempTable("sp_Lascaux_#temp");
+					Console.WriteLine($"Test variable dynamically updated to: {test}");
+				}
+			}
+		}
+
 		public int action = 0;
 		public int obj = 0;
 		public string status = "";
@@ -115,7 +132,15 @@ namespace IntelChat.Pages
 			command.ExecuteNonQueryAsync();
 			return null;
 		}
-		
+
+		private SqlDataReader? CreateTempTable(string sp, string status = "*")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@noun", test)
+			};
+			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
+		}
 
 		/**********************************************************************************/
 		/************************ Stored Procedure - LOAD PYPE values *********************/
@@ -128,6 +153,8 @@ namespace IntelChat.Pages
 			};
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
 		}
+
+
 
 		private void LoadPypes()
 		{
@@ -303,7 +330,6 @@ namespace IntelChat.Pages
 				NotificationService.Notify("NOVA created successfully!", NotificationType.Success);
 		}
 
-
 		/**********************************************************************************/
 		/************************ Cloud Server - Stored Procedure *************************/
 		/**********************************************************************************/
@@ -315,6 +341,7 @@ namespace IntelChat.Pages
 			subjects = new List<Noun>(nouns);
 			actions  = new List<Verb>(verbs);
 			objects  = new List<Noun>(nouns);
+			CreateTempTable("sp_Lascaux_#temp");
 			LoadUniqueNounTypes(); 
 			LoadUniqueVerbTypes();
 			LoadUniqueObjectTypes();
