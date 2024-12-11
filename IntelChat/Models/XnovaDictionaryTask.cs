@@ -11,7 +11,7 @@ public partial class XnovaDictionaryTask
 
     public string Ntype { get; set; } = null!;
 
-    public string NovaDescription { get; set; } = null!;
+    public string Ndesc { get; set; } = null!;
 
     public int S { get; set; }
 

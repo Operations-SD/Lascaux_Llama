@@ -18,6 +18,4 @@ public partial class Verb
     public int PodIdFk { get; set; }
 
     public int UrlIdPk { get; set; }
-
-    public string VerbTag { get; set; } = null!;
 }

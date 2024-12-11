@@ -29,7 +29,5 @@ public partial class Nova
 
     public short NovaPrioriy { get; set; }
 
-    public string NovaLabel { get; set; } = null!;
-
-    public string NovaTag { get; set; } = null!;
+    public string? NovaLabel { get; set; }
 }

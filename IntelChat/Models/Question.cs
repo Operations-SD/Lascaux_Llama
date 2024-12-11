@@ -13,7 +13,5 @@ public partial class Question
 
     public string QuestionStatus { get; set; } = null!;
 
-    public byte QuestionEligible { get; set; }
-
     public int NovaIdFk { get; set; }
 }

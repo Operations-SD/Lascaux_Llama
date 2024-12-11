@@ -40,6 +40,4 @@ public partial class Task
     public int TaskParent { get; set; }
 
     public int? TaskUrl { get; set; }
-
-    public string TaskTag { get; set; } = null!;
 }
