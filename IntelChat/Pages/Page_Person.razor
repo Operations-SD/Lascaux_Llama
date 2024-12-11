@@ -184,7 +184,7 @@
 				</tr>
 				@foreach (var entity in entities)
 				{   // Loop through each label of the currently selected table
-					@if (filter["list"] == "****" || entity.PersonType == filter["list"])
+					@if (filter["list"] == "****" || entity.PersonPypeDdMyme == filter["list"])
 					{
 						<tr>
 							@*
@@ -193,7 +193,7 @@
 				</td>
 				*@
 							<td>
-                                @entity.PodIdFk   @entity.PersonId  @entity.PersonStatus  @entity.PersonRole  @entity.PersonType  @entity.PersonLabel
+                                @entity.PodIdFk   @entity.PersonId  @entity.PersonStatus  @entity.PersonPypeDdRole  @entity.PersonPypeDdMyme  @entity.PersonLabel
                             </td>
 						</tr>
 					}
@@ -231,7 +231,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["add"].PersonType">
+						<select @bind="@entity["add"].PersonPypeDdMyme">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -260,7 +260,7 @@
 
 					<label>
 						Role:
-						<input class="form-control" @bind="@entity["add"].PersonRole" maxlength="4" required />
+						<input class="form-control" @bind="@entity["add"].PersonPypeDdRole" maxlength="4" required />
 					</label><br><br>
 
 					<label>
@@ -308,7 +308,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["change"].PersonId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
-								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PersonType == filter["change"]))
+								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PersonPypeDdMyme == filter["change"]))
 								{
 									<option value="@entity.PersonId"> @entity.PersonLabel</option>
 								}
@@ -329,7 +329,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["change"].PersonType">
+						<select @bind="@entity["change"].PersonPypeDdMyme">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -358,7 +358,7 @@
 
 					<label>
 						Role:
-						<input class="form-control" @bind="@entity["change"].PersonRole" maxlength="4" required />
+						<input class="form-control" @bind="@entity["change"].PersonPypeDdRole" maxlength="4" required />
 					</label><br><br>
 
 					<label>
@@ -413,7 +413,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["delete"].PersonId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
-								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PersonType == filter["delete"]))
+								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PersonPypeDdMyme == filter["delete"]))
 								{
 									if (entity.PersonStatus == "D")
 									{

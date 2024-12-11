@@ -284,9 +284,9 @@ namespace IntelChat.Pages
 					PersonFirst = reader.GetString(1),
 					PersonLast = reader.GetString(2),
 					PersonLabel = reader.GetString(3),
-					PersonType = reader.GetString(4),
+					PersonPypeDdMyme = reader.GetString(4),
 					PersonStatus = reader.GetString(5),
-					PersonRole = reader.GetString(6),
+					PersonPypeDdRole = reader.GetString(6),
 					PersonDatetime = reader.GetDateTime(7),
 					PodIdFk = reader.GetInt32(8),
 					LocationIdFk = reader.GetInt32(9)

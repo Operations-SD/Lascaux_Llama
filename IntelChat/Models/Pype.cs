@@ -18,4 +18,8 @@ public partial class Pype
     public string PypeLink { get; set; } = null!;
 
     public int PodIdFk { get; set; }
+
+    public byte PypeSeq { get; set; }
+
+    public short PypeDropTax { get; set; }
 }

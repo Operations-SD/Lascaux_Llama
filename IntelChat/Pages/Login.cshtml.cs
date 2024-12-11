@@ -55,7 +55,7 @@ namespace IntelChat.Pages
 			claims.Add(new Claim(ClaimTypes.Actor, registration.PersonIdFk.ToString()));
 			claims.Add(new Claim(ClaimTypes.Email, registration.RegistrationEmail.ToString()));
 			claims.Add(new Claim(ClaimTypes.Locality, Input.Pod));
-			claims.Add(new Claim(ClaimTypes.Role, $"{Convert.ToInt32(Input.Pod)}-{registrationRole.PersonRole}"));
+			claims.Add(new Claim(ClaimTypes.Role, $"{Convert.ToInt32(Input.Pod)}-{registrationRole.PersonPypeDdRole}"));
 			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 			var principal = new ClaimsPrincipal(claimsIdentity);
 
@@ -139,8 +139,8 @@ namespace IntelChat.Pages
 				{
 					RegistrationId = reader.GetInt32(0),
 					RegistrationUsername = reader.GetString(1),
-					PersonType = reader.GetString(2),
-					PersonRole = reader.GetString(3)
+					PersonPypeDdMyme = reader.GetString(2),
+					PersonPypeDdRole = reader.GetString(3)
 				};
 				connection.Close();
 				return registrationRole;

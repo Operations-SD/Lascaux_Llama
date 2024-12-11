@@ -132,9 +132,9 @@
 		<PropertyColumn Property="@(p => p.GuideType)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.GuideStatus)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.GuideImage)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.GuideDtOrgin)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.GuideDtRevision)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.NovaFk)" Sortable="true" />
+		<PropertyColumn Property="@(p => p.GuideDateOrgin)" Sortable="true" />
+		<PropertyColumn Property="@(p => p.GuideDateRevision)" Sortable="true" />
+		<PropertyColumn Property="@(p => p.NovaIdFk)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.ProgramFk)" Sortable="true" />
 	</QuickGrid>
 }
@@ -180,7 +180,7 @@
 		<PropertyColumn Property="@(p => p.MemoPersonFrom)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.MemoDateTime)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.MemoPriority)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.MemoPod)" Sortable="true" />
+		<PropertyColumn Property="@(p => p.GuideIdFk)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.MemoNova)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.MemoChannel)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.MemoType)" Sortable="true" />
@@ -229,14 +229,14 @@
 
 @if (@table == "Person")
 {
-	<QuickGrid Items="@persons.FindAll(person => typeFilter == "" || typeFilter != "" && person.PersonType == typeFilter).AsQueryable()" Virtualize="true" class="table-divider">
+	<QuickGrid Items="@persons.FindAll(person => typeFilter == "" || typeFilter != "" && person.PersonPypeDdMyme == typeFilter).AsQueryable()" Virtualize="true" class="table-divider">
 		<PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.PersonFirst)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.PersonLast)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.PersonLabel)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.PersonType)" Sortable="true" />
+		<PropertyColumn Property="@(p => p.PersonPypeDdMyme)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.PersonStatus)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.PersonRole)" Sortable="true" />
+		<PropertyColumn Property="@(p => p.PersonPypeDdRole)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.PersonDatetime)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.PodIdFk)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.LocationIdFk)" Sortable="true" />
@@ -245,16 +245,16 @@
 
 @if (@table == "POD")
 {
-	<QuickGrid Items="@pods.FindAll(pod => typeFilter == "" || typeFilter != "" && pod.PodType == typeFilter).AsQueryable()" Virtualize="true" class="table-divider">
+	<QuickGrid Items="@pods.FindAll(pod => typeFilter == "" || typeFilter != "" && pod.PodPypeDdPods == typeFilter).AsQueryable()" Virtualize="true" class="table-divider">
 			<PropertyColumn Property="@(p => p.PodId)" Sortable="true" Title="Pod#" />
-            <PropertyColumn Property="@(p => p.PodType)" Sortable="true" Title="PYPE" />
+            <PropertyColumn Property="@(p => p.PodPypeDdPods)" Sortable="true" Title="PYPE" />
 			<PropertyColumn Property="@(p => p.PodLabel)" Sortable="true" Title="Label" />
             <PropertyColumn Property="@(p => p.PodStatus)" Sortable="true" Title="Status" />
 		    <PropertyColumn Property="@(p => p.PodDescription)"  Title="Descriptions" />
             <PropertyColumn Property="@(p => p.PersonIdFk)" Sortable="true" Title="Pid#" />
             <PropertyColumn Property="@(p => p.LocationIdFk)" Sortable="true" Title="Location" />
-		    <PropertyColumn Property="@(p => p.PodChannel)"     Sortable="true" Title="Channel" />
-		    <PropertyColumn Property="@(p => p.PodUrlBase)"      Title="URL" />
+		    <PropertyColumn Property="@(p => p.PodPypeDdChan)"     Sortable="true" Title="Channel" />
+		    <PropertyColumn Property="@(p => p.PodImage)"      Title="URL" />
 			<PropertyColumn Property="@(p => p.NovaIdFk)" Sortable="true" Title="NOVA" />
 	</QuickGrid>
 }

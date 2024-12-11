@@ -19,7 +19,7 @@ public partial class Inet
 
     public int InetImage { get; set; }
 
-    public int NovaFk { get; set; }
+    public int NovaIdFk { get; set; }
 
     public short InetStartMin { get; set; }
 

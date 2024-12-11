@@ -191,7 +191,7 @@
 				</tr>
 				@foreach (var entity in entities)
 				{   // Loop through each label of the currently selected table
-					@if (filter["list"] == "****" || entity.PodType == filter["list"])
+					@if (filter["list"] == "****" || entity.PodPypeDdPods == filter["list"])
 					{
 						<tr>
 							@*
@@ -200,7 +200,7 @@
 							</td>
 							*@
 							<td>
-								@entity.PodId   @entity.PodStatus   @entity.PodType   @entity.PodLabel   @entity.PodDescription
+								@entity.PodId   @entity.PodStatus   @entity.PodPypeDdPods   @entity.PodLabel   @entity.PodDescription
 							</td>
 						</tr>
 					}
@@ -238,7 +238,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["add"].PodType">
+						<select @bind="@entity["add"].PodPypeDdPods">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -262,12 +262,12 @@
 
 					<label>
 						Channel:
-						<input class="form-control" @bind="@entity["add"].PodChannel" required />
+						<input class="form-control" @bind="@entity["add"].PodPypeDdChan" required />
 					</label><br>
 
 					<label>
 						Pod URL Base:
-						<input class="form-control" @bind="@entity["add"].PodUrlBase" maxlength="128" required />
+						<input class="form-control" @bind="@entity["add"].PodImage" maxlength="128" required />
 					</label><br>
 
 					<label>
@@ -319,7 +319,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["change"].PodId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
-								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PodType == filter["change"]))
+								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PodPypeDdPods == filter["change"]))
 								{
 									<option value="@entity.PodId"> @entity.PodLabel</option>
 								}
@@ -340,7 +340,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["change"].PodType">
+						<select @bind="@entity["change"].PodPypeDdPods">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -364,12 +364,12 @@
 
 					<label>
 						Channel:
-						<input class="form-control" @bind="@entity["change"].PodChannel" required />
+						<input class="form-control" @bind="@entity["change"].PodPypeDdChan" required />
 					</label><br>
 
 					<label>
 						Pod URL Base:
-						<input class="form-control" @bind="@entity["change"].PodUrlBase" maxlength="128" required />
+						<input class="form-control" @bind="@entity["change"].PodImage" maxlength="128" required />
 					</label><br>
 
 					<label>
@@ -424,7 +424,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["delete"].PodId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
-								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PodType == filter["delete"]))
+								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PodPypeDdPods == filter["delete"]))
 								{
 									if (entity.PodStatus == "D")
 									{

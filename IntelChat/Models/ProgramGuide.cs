@@ -5,9 +5,7 @@ namespace IntelChat.Models;
 
 public partial class ProgramGuide
 {
-    public int ProgramFk { get; set; }
+    public int ProgramIdFk { get; set; }
 
-    public int GuideFk { get; set; }
-
-    public short? SortSeq { get; set; }
+    public int GuideIdFk { get; set; }
 }
