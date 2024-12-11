@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Pod
+public partial class MapPod
 {
     public int PodId { get; set; }
 
@@ -31,11 +31,11 @@ public partial class Pod
 
     public int LocationIdFk { get; set; }
 
-    public int ProgramIdFk { get; set; }
+    public string ProgramIdFk { get; set; } = null!;
 
     public int GuideIdFk { get; set; }
 
     public int NovaIdFk { get; set; }
 
-    public int UrlIdFk { get; set; }
+    public string UrlIdFk { get; set; } = null!;
 }

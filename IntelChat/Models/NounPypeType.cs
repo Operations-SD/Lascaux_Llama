@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Noun
+public partial class NounPypeType
 {
     public int NounId { get; set; }
 
@@ -18,8 +18,4 @@ public partial class Noun
     public int PodIdFk { get; set; }
 
     public int UrlIdPk { get; set; }
-
-    public string NounTag { get; set; } = null!;
-
-    public int NounIdFkCommon { get; set; }
 }

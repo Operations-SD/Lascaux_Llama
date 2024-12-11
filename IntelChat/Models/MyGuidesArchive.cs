@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class ProgramGuide
+public partial class MyGuidesArchive
 {
-    public int ProgramIdFk { get; set; }
+    public int PersonIdFk { get; set; }
 
     public int GuideIdFk { get; set; }
 }

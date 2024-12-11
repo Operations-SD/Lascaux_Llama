@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class PodPype
+public partial class FilterPype
 {
     public string PypeId { get; set; } = null!;
 
@@ -20,4 +20,8 @@ public partial class PodPype
     public int PodIdFk { get; set; }
 
     public byte PypeSeq { get; set; }
+
+    public string PodLabel { get; set; } = null!;
+
+    public string PodType { get; set; } = null!;
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Registration
+public partial class RegistrationArchive
 {
     public int RegistrationId { get; set; }
 
@@ -16,6 +16,4 @@ public partial class Registration
     public string RegistrationStatus { get; set; } = null!;
 
     public int PersonIdFk { get; set; }
-
-    public DateTime RegistrationDate { get; set; }
 }

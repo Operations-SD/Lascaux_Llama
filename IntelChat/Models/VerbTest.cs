@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Verb
+public partial class VerbTest
 {
     public int VerbId { get; set; }
 

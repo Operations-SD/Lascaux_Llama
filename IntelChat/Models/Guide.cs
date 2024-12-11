@@ -17,11 +17,19 @@ public partial class Guide
 
     public int GuideImage { get; set; }
 
-    public DateTime GuideDtOrgin { get; set; }
+    public DateTime GuideDateOrgin { get; set; }
 
-    public DateTime GuideDtRevision { get; set; }
+    public DateTime GuideDateRevision { get; set; }
 
-    public int NovaFk { get; set; }
+    public string GuideTag { get; set; } = null!;
 
-    public int ProgramFk { get; set; }
+    public int NovaIdFk { get; set; }
+
+    public int PodIdFk { get; set; }
+
+    public int BrainIdFk { get; set; }
+
+    public int UrlIdFk { get; set; }
+
+    public byte GuideEligible { get; set; }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Noun
+public partial class NounTest
 {
     public int NounId { get; set; }
 
@@ -21,5 +21,5 @@ public partial class Noun
 
     public string NounTag { get; set; } = null!;
 
-    public int NounIdFkCommon { get; set; }
+    public int NounCommon { get; set; }
 }
