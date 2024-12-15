@@ -130,9 +130,9 @@ namespace IntelChat.Pages
 				PodStatus = reader.GetString(4),
 				PodPypeDdChan = reader.GetString(5),
 				PodImage = reader.GetString(6),
-				PersonIdFk = reader.GetInt32(7),
-				LocationIdFk = reader.GetInt32(8),
-				NovaIdFk = reader.GetInt32(9)
+				PersonIdFk = reader.GetInt32(11),
+				LocationIdFk = reader.GetInt32(12),
+				NovaIdFk = reader.GetInt32(14)
 			};
 			await reader.CloseAsync();
 		}
