@@ -1,0 +1,45 @@
+﻿@page "/addart"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@layout CustomLayout
+@inject IConfiguration Configuration
+<div>
+
+  <style> 
+    body{
+    background-color: #111111;
+            background-size: 1920px 1080px;
+            background-position: left 0px top 0px;
+            color: white;
+            opacity: 100%;
+            width: 1920px;
+            height: 1080px;
+    }
+
+     .PagePanel {
+        background-color:gray;
+        width:  400px;
+        height: 600px;
+        position: absolute;
+        top:  240px;
+        left: 760px;
+        margin:  0;
+        padding: 0;
+     }
+
+  </style>
+
+    <div class="content">
+        <AuthorizeView>
+            <Authorized>
+                <div class="PagePanel">
+                    <ImageUpload Configuration="Configuration" />
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <center>
+                    <p>This screen is restricted to authorized users</p>>
+                </center>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+</div>

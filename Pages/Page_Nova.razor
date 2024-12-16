@@ -1,0 +1,373 @@
+﻿@page "/Nova"
+@inject NnetDbContext db
+@inject NavigationManager _nav
+@inject IConfiguration _config
+@layout CustomLayout
+@using IntelChat.Models;
+@using System.Data.SqlClient;
+@using System.Data;
+
+<!-- ************************************************************************************ -->
+<!-- *************************** Lock onto a Person and a POD *************************** -->
+<!-- ************************************************************************************ -->
+<p style="color:grey;font-size:22px">Pod: @pod</p>
+<p style="color:grey;font-size:22px;top:48px;position:absolute">Pid: @pid</p>
+
+<style>
+	body {
+	background: url("https://agineuralnet.blob.core.windows.net/background/BG_NOVA_Pype.png")no-repeat;
+	background-size: 1920px 1080px;
+	background-color: #000000;
+	background-position: left 0px top 0px;
+	opacity: 100%;
+	color: white;
+	width: 1920px;
+	height: 1080px;
+	font-size:24px;
+	}
+
+	form button {
+	padding: 0;
+	margin: 0;
+	width: 200px;
+	height: 100px;
+	text-align: center;
+	top: 100px;
+	color: black;
+	background-color: pink;
+	border-radius: 24px;
+	position: absolute;
+	left: 210px;
+	opacity: 0%;
+	transition-duration: .60s;
+	}
+
+	button {
+	width: 200px;
+	height: 100px;
+	top: 920px;
+	left: 40px;
+	color: #FF0000;
+	background-color: pink;
+	border-radius: 24px;
+	position: absolute;
+	opacity: 90%;
+	transition-duration: .60s;
+	background-image: url("Images/buttons/btn_Lascaux.png");
+	background-size: cover;
+	text-align: center;
+	}
+
+	.buttonA {
+	top: 900px;
+	background-image: url("Images/buttons/btn_Lascaux.png");
+	background-size: cover;
+	box-shadow: 0 30px 60px rgba(0,0,0,.5);
+	}
+
+	.buttonA:hover {
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
+	transform: scale(.95);
+	}
+
+
+	jukebox {
+	position: absolute;
+	left: 90%;
+	top: 95%;
+	border-radius: 0px;
+	opacity: 40%;
+	}
+
+	boxCRUD {
+	padding: 0;
+	margin: 0;
+	width: 1000px;
+	height: 100px;
+	text-align: right;
+	top: 90px;
+	left: 820px;
+	color: #FF0000;
+	position: absolute;
+	opacity: 75%;
+	background-image: url("Images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
+	background-size: cover;
+	}
+
+
+	boxbuttons {
+	padding: 0;
+	margin: 0;
+	width: 900px;
+	height: 240px;
+	text-align: right;
+	top: 75px;
+	left: 630px;
+	color: #FF0000;
+	position: absolute;
+	opacity: 100%;
+	background-image: url("Images/GUI/DC_GUI_user_Question.png"); /*missing resource*/
+	background-size: cover;
+	}
+
+	.exhibitPanel {
+	position: absolute;
+	top: 370px;
+	left: 500px;
+	color: blanchedalmond;
+	width: 540px;
+	font-size: x-large;
+	text-overflow: ellipsis;
+	/* Required for text-overflow to do anything */
+	white-space: nowrap;
+	overflow: hidden;
+	}
+
+	.exhibitInfo {
+	position: absolute;
+	top: 350px;
+	left: 600px;
+	color: blanchedalmond;
+	width: 540px;
+	height: 700px;
+	font-size: x-large;
+	text-overflow: ellipsis;
+	/* Required for text-overflow to do anything */
+	white-space: nowrap;
+	overflow: hidden;
+	}
+
+	.tableList {
+	position: absolute;
+	width: 180px;
+	height: 63px;
+	}
+
+</style>
+
+
+
+
+<!-- ************************************************************************************ -->
+<!-- ************************** Filter Subject ************ TOP DROP ******************** -->
+<!-- ************************************************************************************ -->
+<select @bind="subjectFilter" class="tableList" style="top:244px; left:612px; font-size:24px;">
+	<option value="****">-</option>
+	@foreach (var nounType in UniqueNounTypes)
+	{
+		<option value="@nounType">@nounType</option>
+	}
+</select>
+
+
+<!-- ************************************************************************************ -->
+<!-- *************************** Filter Action ************ TOP DROP ******************** -->
+<!-- ************************************************************************************ -->
+<select @bind=actionFilter class="tableList" style="top:244px;left:869px;font-size:22px;">
+	<option value="****">-</option>
+	@foreach (var verbType in UniqueVerbTypes)
+	{
+		<option value="@verbType">@verbType</option>
+	}
+</select>
+
+<!-- ************************************************************************************ -->
+<!-- ************************** Filter Object ************* TOP DROP ******************** -->
+<!-- ************************************************************************************ -->
+<select @bind=objectFilter class="tableList" style="top:244px;left:1127px;font-size:22px;">
+	<option value="****">-</option>
+	@foreach (var objType in UniqueObjectTypes)
+	{
+		<option value="@objType">@objType</option>
+	}
+</select>
+
+
+
+<!-- ********************************************************************************************************* -->
+<!-- ************************** Create NOVA from triple (filtered) Dropdowns ********************************* -->
+<!-- ********************************************************************************************************* -->
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"Nova",subject,action,0,"NOVA")))">
+
+	@*SubjectAction subject*@
+	<select class="tableList" style="
+		top: 390px;
+		left: 612px;
+	" @bind=subject required>
+		<option value="0">-</option>
+		@foreach (var subject in subjects)
+		{
+			<option value="@subject.NounId"> @subject.NounLabel</option>
+		}
+	</select>
+
+	@*SubjectAction action*@
+	<select class="tableList" style="
+		top: 390px;
+		left: 869px;
+	" @bind=action required>
+		<option value="0">-</option>
+		@foreach (var action in actions)
+		{
+			<option value="@action.VerbId"> @action.VerbLabel</option>
+		}
+	</select>
+
+	@*ActionObject object*@
+	<select class="tableList" style="
+		top: 390px;
+		left: 1127px;
+	" @bind=obj required>
+		<option value="0">-</option>
+		@foreach (var obj in objects)
+		{
+			<option value="@obj.NounId"> @obj.NounLabel</option>
+		}
+	</select>
+
+	@* 	<button type="submit" style="
+		position: absolute;
+		top: 361px;
+		left:113px;
+		width:359px;
+		height:106px;
+		border-radius:8px;
+		"/> *@
+</form>
+
+
+<!-- ***************************************************************************************************** -->
+<!-- ************************** Lascaux List  ******************** SUBJECT ****** Using type=NOVA ******** -->
+<!-- ***************************************************************************************************** -->
+
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",subject,0,0,"NOVA")))">
+	@*Subject*@
+	<select class="tableList" style="
+		top: 600px;
+		left: 600px;
+	" @bind=subject required>
+
+		<option value="0">-</option>
+		@foreach (var subject in subjects)
+		{
+			<option value="@subject.NounId"> @subject.NounLabel</option>
+		}
+	</select>
+
+	<button type="submit" class="button buttonA" style="
+		position: absolute;
+		top: 600px;
+		left:300px;
+		width:240px;
+		height:80px;
+		border-radius:8px;
+		background-color:aquamarine;
+		color:crimson;
+		"
+		BUTTON
+	</button>
+</form>
+
+
+<!-- **************************************************************************************************** -->
+<!-- ************************** Lascaux List  ******************** ACTION ****** Using type=POD  ******** -->
+<!-- **************************************************************************************************** -->
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",0,action,0,"POD")))">
+	@*Action*@
+	<select class="tableList" style="
+		top: 700px;
+		left: 870px;
+	" @bind=action required>
+		<option value="0">-</option>
+		@foreach (var action in actions)
+		{
+			<option value="@action.VerbId"> @action.VerbLabel</option>
+		}
+	</select>
+	<button type="submit" style="
+		position: absolute;
+		top: 700px;
+		left:300px;
+		width:240px;
+		height:80px;
+		border-radius:8px;	"
+		BUTTON 308
+		</button>
+</form>
+
+
+<!-- **************************************************************************************************** -->
+<!-- ************************** Lascaux List  ******************** OBJECT ****** Using type=TASK ******** -->
+<!-- **************************************************************************************************** -->
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",0,0,obj,"TASK")))">
+	@*Object*@
+	<select class="tableList" style="
+	top: 800px;
+	left: 1130px;
+	" @bind=obj required>
+		<option value="0">-</option>
+		@foreach (var obj in objects)
+		{
+			<option value="@obj.NounId"> @obj.NounLabel</option>
+		}
+	</select>
+	<button type="submit" class="general-menu-button"
+			style="		position: absolute;		top: 800px;		left:300px;		width:240px;		height:80px;		border-radius:8px;	color:aquamarine; font-size:24px;	">
+		WORK 
+		</button>
+</form>
+
+
+<!-- ************************************************************************************ -->
+<!-- ************************** invoke the C# routine to create a new NOVA ************** -->
+<!-- ************************** CREATE NOVA ****** using TOP DROPS with filters ********* -->
+<!-- ************************************************************************************ -->
+<button @onclick="OnCreate" class="general-menu-button" style="	position:absolute;top:390px;left:1500px;width:300px;height:70px;border-radius:8px;color:#000000">
+	CREATE NOVA<br />
+	@status
+</button>
+
+<button @onclick="OnCreate" class="general-menu-button" style="	position:absolute;top:244px;left:1500px;width:300px;height:70px;border-radius:8px;color:firebrick">
+	Reset PYPE ****<br />
+	@status
+</button>
+
+
+
+<a href="https://www.youtube.com/watch?v=3_AsedRrqww&list=PL4LFuHwItvKbdK-ogNsOx2X58hHGeQm8c">
+    <button class="general-menu-button"
+			style="position:absolute;top:600px;left:1500px;width:300px;height:70px; border-radius:8px;color:indigo">
+        Interview
+    </button>
+</a>
+
+<a href="https://www.youtube.com/watch?v=3_AsedRrqww&list=PL4LFuHwItvKbdK-ogNsOx2X58hHGeQm8c">
+	<button class="general-menu-button"
+			style="position:absolute;top:700px;left:1500px;width:300px;height:70px; border-radius:8px;color:indigo">
+		Questions
+	</button>
+</a>
+
+<a href="https://www.youtube.com/watch?v=3_AsedRrqww&list=PL4LFuHwItvKbdK-ogNsOx2X58hHGeQm8c">
+	<button class="general-menu-button"
+			style="position:absolute;top:800px;left:1500px;width:300px;height:70px; border-radius:8px;color:indigo">
+		Lascaux TASK
+	</button>
+</a>
+
+<a href="https://www.youtube.com/watch?v=3_AsedRrqww&list=PL4LFuHwItvKbdK-ogNsOx2X58hHGeQm8c">
+	<button class="general-menu-button"
+			style="position:absolute;top:900px;left:1500px;width:300px;height:70px; border-radius:8px;color:indigo">
+		Lascaux WORK
+	</button>
+</a>
+
+
+<!-- ************************************************************************************ -->
+<!-- ************************** EXIT **************************************************** -->
+<!-- ************************************************************************************ -->
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+		style="position:absolute;top:900px;left:60px;width:140px;height:60px;border-radius:8px;">
+	EXIT
+</button>
+

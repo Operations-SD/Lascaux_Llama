@@ -1,0 +1,97 @@
+﻿@page "/User"
+@inject NnetDbContext db            // Inject the ServerDbContext service for database access
+@inject NavigationManager _nav
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+
+<style>
+	body {
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Menu.png") no-repeat;
+		background-size: 1920px 1080px;
+		background-position: left 0px top 0px;
+		min-height: 100vh;
+		width: 100%;
+		opacity: 100%;
+		color: bisque;
+		background-color: #000000;
+	}
+</style>
+
+<div class="user-page">
+
+	<!-- ************************************************************************************ -->
+	<!-- *************************** Lock onto a Person and a POD *************************** -->
+	<!-- ************************************************************************************ -->
+	<p style="color:#333333;font-size:24px">Pod: @pod</p><br>
+	<p style="color:#333333;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
+
+	<!-- ************************************************************************************ -->
+	<!-- ******************************** DISPLAY PANELS ************************************ -->
+	<!-- ************************************************************************************ -->
+
+	<div class="titlebanner">
+		<img src="https://agineuralnet.blob.core.windows.net/background/Banner_user.png" />
+	</div>
+
+
+
+	<!-- ************************************************************************************ -->
+	<!-- ******************************** TABLES ******************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Answer?pod="+pod+"&pid="+pid))"
+			style="top:300px;left:320px;height:60px;">
+		Answer
+	</button>
+
+
+
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** PROCESSES ******************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
+			style="top:300px;left:825px;height:60px;">
+		Interview
+	</button>
+
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** External Cloud Links ********************************* -->
+	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Audio?pod="+pod+"&pid="+pid))"
+			style="top:300px;left:1340px;height:60px; color:red">
+		Audio
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Video?pod="+pod+"&pid="+pid))"
+			style="top:380px;left:1340px;height:60px; color:red">
+		Video
+	</button>
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* Buttons ************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:30px;top:700px;height:60px;color:RED;width:140px;">
+		MEMO
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:30px;top:780px;height:60px;color:RED;border:0px;width:140px;">
+		HELP
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:30px;top:860px;height:60px;color:RED;border:0px;width:140px;">
+		Return
+	</button>
+
+
+
+
+
+</div>

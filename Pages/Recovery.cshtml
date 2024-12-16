@@ -1,0 +1,64 @@
+﻿@page "/Recovery"
+@using IntelChat.Models;
+@using Microsoft.AspNetCore.Components;
+@model IntelChat.Pages.RecoveryModel
+@inject NnetDbContext db;
+@inject NavigationManager _nav;
+@inject IConfiguration _config;
+@inject IHttpContextAccessor context
+@using Microsoft.AspNetCore.Identity;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	ViewData["pod"] = 3;
+	ViewData["Title"] = "Recover Account";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row" style="margin:50px">
+	<div class="col-md-4">
+		<section>
+
+
+			<form id="account" method="post">
+				<h2>Change the Username and Password of an Intel-a-Chat Account</h2>
+				Fields marked * are required
+				<hr />
+
+				<input asp-for="Input.Pod" class="form-control" aria-required="true" maxlength="32" value="@ViewData["pod"]" hidden />
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Email" class="form-label">Email Used for Recovery *</label><br />
+					<input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" maxlength="320" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Code" class="form-label">Recovery Code *</label><br />
+					<input asp-for="Input.Code" class="form-control" autocomplete="code" aria-required="true" maxlength="8" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Username" class="form-label">New Username *</label><br />
+					<input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.NewPassword" class="form-label">New Password *</label><br />
+					<input asp-for="Input.NewPassword" class="form-control" autocomplete="password" aria-required="true" />
+				</div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.ConfirmPassword" class="form-label">Confirm Password *</label><br />
+					<input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="password" aria-required="true" />
+				</div>
+				<div style="margin:10px">
+					<button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Submit</button>
+					@if (Convert.ToBoolean(@ViewData["Error"]) == true)
+					{
+						<p style="color: #FF0000">Update Failed!</p>
+					}
+				</div>
+			</form>
+
+			@if (Convert.ToBoolean(@ViewData["Error"]) == true)
+			{
+				<p style="color: #FF0000">Recovery Failed!</p>
+			}
+		</section>
+	</div>
+</div>

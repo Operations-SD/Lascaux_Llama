@@ -1,0 +1,155 @@
+﻿@page "/Engineer"
+@inject NnetDbContext db            // Inject the ServerDbContext service for database access
+@inject NavigationManager _nav
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+
+
+<style>
+	body {
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Menu.png") no-repeat;
+		background-size: 1920px 1080px;
+		background-position: left 0px top 0px;
+		opacity: 100%;
+		min-height: 100vh;
+		width: 100%;
+		color: blanchedalmond;
+		background-color:antiquewhite
+	}
+</style>
+
+
+	<div class="engineer-page">
+
+	<!-- ************************************************************************************ -->
+	<!-- *************************** Lock onto a Person and a POD *************************** -->
+	<!-- ************************************************************************************ -->
+	<p style="color:#333333;font-size:24px">Pod: @pod</p><br>
+	<p style="color:#333333;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
+
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** DISPLAY Banner *** Return **************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="titlebanner">
+		<img src="https://agineuralnet.blob.core.windows.net/background/Banner_engr.png" />
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- ******************************** CRUD TABLES *************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Pype?pod="+pod+"&pid="+pid))"
+			style="top:300px;left:320px;height:60px;">
+		Pype
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/URL?pod="+pod+"&pid="+pid))"
+			style="top:380px;left:320px;height:60px;">
+		URL
+	</button>
+
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** Display GRID ***************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Grid?pod="+pod+"&pid="+pid))"
+			style="top:300px;left:825px;height:60px;">
+		Grid
+	</button>
+
+    <!-- ************************************************************************************ -->
+    <!-- ************************************* IFrame Video ********************************* -->
+    <!-- ************************************************************************************ -->
+
+    <div style="top:460px; left:680px; position:absolute; overflow:hidden;">
+        <iframe width='560' height='315' src='https://www.youtube.com/embed/m8e-FF8MsqU'
+                frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen>
+        </iframe>
+    </div>
+
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** External Cloud Links ********************************* -->
+	<!-- ************************************************************************************ -->
+
+    <a href="https://www.w3schools.com/tags/tag_iframe.ASP">
+        <button class="general-menu-button" style="top:300px;left:1340px;height:60px; color:red">
+            HTML
+        </button>
+    </a>
+
+    <a href="https://docs.blazorbootstrap.com/components/modal#optional-sizes">
+        <button class="general-menu-button" style="top:380px;left:1340px;height:60px; color:red">
+            Bootstrap
+        </button>
+    </a>
+
+	<a href="https://www.youtube.com/watch?v=SrEjoJ_G6tc">
+		<button class="general-menu-button" style="top:460px;left:1340px;height:60px; color:red">
+			Scaffold
+		</button>
+	</a>
+
+    <a href="https://www.youtube.com/watch?v=_w6N_nplmAw">
+        <button class="general-menu-button" style="top:540px;left:1340px;height:60px; color:red">
+            Images
+        </button>
+    </a>
+
+	<a href="https://www.youtube.com/watch?v=3_AsedRrqww&list=PL4LFuHwItvKbdK-ogNsOx2X58hHGeQm8c">
+		<button class="general-menu-button" style="top:620px;left:1340px;height:60px; color:red">
+			Pick List
+		</button>
+	</a>
+
+	<a href="https://www.youtube.com/watch?v=bwUXXjkyqhE&t=565s">
+		<button class="general-menu-button" style="top:700px;left:1340px;height:60px; color:red">
+			Print Report
+		</button>
+	</a>
+
+	<a href="https://www.youtube.com/watch?v=djU2Knv30q0&t=498s">
+		<button class="general-menu-button" style="top:780px;left:1340px;height:60px; color:red">
+			Drag N Drop
+		</button>
+	</a>
+
+	<!-- ************************************************************************************ -->
+    <!-- ************************************* Buttons ************************************** -->
+    <!-- ************************************************************************************ -->
+
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+            style="position:absolute;left:30px;top:700px;height:60px;color:RED;width:140px;">
+        MEMO
+    </button>
+
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+            style="position:absolute;left:30px;top:780px;height:60px;color:RED;border:0px;width:140px;">
+        HELP
+    </button>
+
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+            style="position:absolute;left:30px;top:860px;height:60px;color:RED;border:0px;width:140px;">
+        Return
+    </button>
+
+
+@* 	<!-- ************************************************************************************ -->
+	<!-- ************************************* IFrame Video ********************************* -->
+	<!-- ************************************************************************************ -->
+
+	<div style="top:40px; left:200px; position:absolute; overflow:hidden;">
+		<iframe width='300' height='200' src="/Blobs/Video/Rain.mp4">
+				<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:30px;top:40px;height:60px;color:RED;border:0px;width:140px;">
+		IFrame
+		</button>
+		</iframe>
+	</div>
+ *@
+
+
+
+
+</div>
