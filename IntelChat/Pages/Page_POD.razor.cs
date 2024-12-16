@@ -55,10 +55,10 @@ namespace IntelChat.Pages
 				new SqlParameter("@pod_id", pod),
 				new SqlParameter("@pod_label", entity["add"].PodLabel),
 				new SqlParameter("@pod_description", entity["add"].PodDescription),
-				new SqlParameter("@pod_type", entity["add"].PodType),
+				new SqlParameter("@pod_type", entity["add"].PodPypeDdPods),
 				new SqlParameter("@pod_status", entity["add"].PodStatus),
-				new SqlParameter("@pod_channel", entity["add"].PodChannel),
-				new SqlParameter("@pod_url_base", entity["add"].PodUrlBase),
+				new SqlParameter("@pod_channel", entity["add"].PodPypeDdChan),
+				new SqlParameter("@pod_url_base", entity["add"].PodImage),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk),
 				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk)
@@ -96,10 +96,10 @@ namespace IntelChat.Pages
 					PodId = reader.GetInt32(0),
 					PodLabel = reader.GetString(1),
 					PodDescription = reader.GetString(2),
-					PodType = reader.GetString(3),
+					PodPypeDdPods = reader.GetString(3),
 					PodStatus = reader.GetString(4),
-					PodChannel = reader.GetString(5),
-					PodUrlBase = reader.GetString(6),
+					PodPypeDdChan = reader.GetString(5),
+					PodImage = reader.GetString(6),
 					PersonIdFk = reader.GetInt32(7),
 					LocationIdFk = reader.GetInt32(8),
 					NovaIdFk = reader.GetInt32(9)
@@ -113,7 +113,7 @@ namespace IntelChat.Pages
 		private async ThreadingTask OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
 		{
 			filter[type] = args.Value.ToString();
-			var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(entity => entity.PodType == filter[type]);
+			var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(entity => entity.PodPypeDdPods == filter[type]);
 			if (!entitiesFiltered.Any()) return;
 			if (status != "*") entitiesFiltered = entitiesFiltered.Where(entity => entity.PodStatus == status);
 			if (!entitiesFiltered.Any()) return;
@@ -129,10 +129,10 @@ namespace IntelChat.Pages
 				new SqlParameter("@pod_id", pod),
 				new SqlParameter("@pod_label", entity["change"].PodLabel),
 				new SqlParameter("@pod_description", entity["change"].PodDescription),
-				new SqlParameter("@pod_type", entity["change"].PodType),
+				new SqlParameter("@pod_type", entity["change"].PodPypeDdPods),
 				new SqlParameter("@pod_status", entity["change"].PodStatus),
-				new SqlParameter("@pod_channel", entity["change"].PodChannel),
-				new SqlParameter("@pod_url_base", entity["change"].PodUrlBase),
+				new SqlParameter("@pod_channel", entity["change"].PodPypeDdChan),
+				new SqlParameter("@pod_url_base", entity["change"].PodImage),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk),
 				new SqlParameter("@location_id_fk", entity["change"].LocationIdFk),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk)

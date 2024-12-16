@@ -126,13 +126,13 @@ namespace IntelChat.Pages
 				PodId = reader.GetInt32(0),
 				PodLabel = reader.GetString(1),
 				PodDescription = reader.GetString(2),
-				PodType = reader.GetString(3),
+				PodPypeDdPods = reader.GetString(3),
 				PodStatus = reader.GetString(4),
-				PodChannel = reader.GetString(5),
-				PodUrlBase = reader.GetString(6),
-				PersonIdFk = reader.GetInt32(7),
-				LocationIdFk = reader.GetInt32(8),
-				NovaIdFk = reader.GetInt32(9)
+				PodPypeDdChan = reader.GetString(5),
+				PodImage = reader.GetString(6),
+				PersonIdFk = reader.GetInt32(11),
+				LocationIdFk = reader.GetInt32(12),
+				NovaIdFk = reader.GetInt32(14)
 			};
 			await reader.CloseAsync();
 		}

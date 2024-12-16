@@ -197,9 +197,9 @@ namespace IntelChat.Pages
 					GuideType = reader.GetString(3),
 					GuideStatus = reader.GetString(4),
 					GuideImage = reader.GetInt32(5),
-					GuideDtOrgin = reader.GetDateTime(6),
-					GuideDtRevision = reader.GetDateTime(7),
-					NovaFk = reader.GetInt32(8),
+					GuideDateOrgin = reader.GetDateTime(6),
+					GuideDateRevision = reader.GetDateTime(7),
+					NovaIdFk = reader.GetInt32(8),
 					ProgramFk = reader.GetInt32(9)
 				});
 			}
@@ -272,9 +272,9 @@ namespace IntelChat.Pages
 					MemoPersonFrom = reader.GetInt32(1),
 					MemoDateTime = reader.GetDateTime(2),
 					MemoPriority = reader.GetByte(3),
-					MemoPod = reader.GetInt32(4),
+					GuideIdFk = reader.GetInt32(4),
 					MemoNova = reader.GetInt32(5),
-					MemoChannel = reader.GetInt32(6),
+					MemoChannel = reader.GetString(6),
 					MemoType = reader.GetString(7),
 					MemoStatus = reader.GetString(8),
 					MemoMessage = reader.GetString(9)
@@ -347,9 +347,9 @@ namespace IntelChat.Pages
 					PersonFirst = reader.GetString(1),
 					PersonLast = reader.GetString(2),
 					PersonLabel = reader.GetString(3),
-					PersonType = reader.GetString(4),
+					PersonPypeDdMyme = reader.GetString(4),
 					PersonStatus = reader.GetString(5),
-					PersonRole = reader.GetString(6),
+					PersonPypeDdRole = reader.GetString(6),
 					PersonDatetime = reader.GetDateTime(7),
 					PodIdFk = reader.GetInt32(8),
 					LocationIdFk = reader.GetInt32(9)
@@ -371,10 +371,10 @@ namespace IntelChat.Pages
 					PodId = reader.GetInt32(0),
 					PodLabel = reader.GetString(1),
 					PodDescription = reader.GetString(2),
-					PodType = reader.GetString(3),
+					PodPypeDdPods = reader.GetString(3),
 					PodStatus = reader.GetString(4),
-					PodChannel = reader.GetString(5),
-					PodUrlBase = reader.GetString(6),
+					PodPypeDdChan = reader.GetString(5),
+					PodImage = reader.GetString(6),
 					PersonIdFk = reader.GetInt32(7),
 					LocationIdFk = reader.GetInt32(8),
 					NovaIdFk = reader.GetInt32(9)

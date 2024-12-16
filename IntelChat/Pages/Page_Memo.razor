@@ -180,7 +180,7 @@
 							</td>
 							*@
 							<td>
-								@entity.MemoPod   @entity.MemoChannel   @entity.MemoType   @entity.MemoPersonFrom   @entity.MemoPersonTo @entity.MemoStatus
+								@entity.GuideIdFk   @entity.MemoChannel   @entity.MemoType   @entity.MemoPersonFrom   @entity.MemoPersonTo @entity.MemoStatus
 							</td>
 						</tr>
 					}
@@ -247,7 +247,7 @@
 
 					<label>
 						Memo POD:
-						<input class="form-control" @bind="@entity["add"].MemoPod" maxlength="3" required />
+						<input class="form-control" @bind="@entity["add"].GuideIdFk" maxlength="3" required />
 					</label><br><br>
 
 					<label>
@@ -303,10 +303,10 @@
 
 					<div class="PypeType">
 						<label>
-							<select class="form-control" value="@entity["change"].MemoPod" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
+							<select class="form-control" value="@entity["change"].GuideIdFk" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
 								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.MemoType == filter["change"]))
 								{
-									<option value="@entity.MemoPod"> @entity.MemoPersonFrom</option>
+									<option value="@entity.GuideIdFk"> @entity.MemoPersonFrom</option>
 								}
 							</select>
 						</label>
@@ -354,7 +354,7 @@
 
 					<label>
 						Memo POD:
-						<input class="form-control" @bind="@entity["change"].MemoPod" maxlength="3" required />
+						<input class="form-control" @bind="@entity["change"].GuideIdFk" maxlength="3" required />
 					</label><br><br>
 
 					<label>
@@ -413,12 +413,12 @@
 
 					<div class="PypeType">
 						<label>
-							<select class="form-control" value="@entity["delete"].MemoPod" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
+							<select class="form-control" value="@entity["delete"].GuideIdFk" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
 								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.MemoType == filter["delete"]))
 								{
 									if (entity.MemoStatus == "D")
 									{
-										<option value="@entity.MemoPod"> @entity.MemoType</option>
+										<option value="@entity.GuideIdFk"> @entity.MemoType</option>
 									}
 								}
 							</select>

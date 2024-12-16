@@ -56,7 +56,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@memo_person_from", entity["add"].MemoPersonFrom),
 				new SqlParameter("@memo_date_time", entity["add"].MemoDateTime),
 				new SqlParameter("@memo_priority", entity["add"].MemoPriority),
-				new SqlParameter("@memo_pod", entity["add"].MemoPod),
+				new SqlParameter("@memo_pod", entity["add"].GuideIdFk),
 				new SqlParameter("@memo_nova", entity["add"].MemoNova),
 				new SqlParameter("@memo_channel", entity["add"].MemoChannel),
 				new SqlParameter("@memo_type", entity["add"].MemoType),
@@ -97,9 +97,9 @@ namespace IntelChat.Pages
 					MemoPersonFrom = reader.GetInt32(1),
 					MemoDateTime = reader.GetDateTime(2),
 					MemoPriority = (byte)reader.GetInt16(3),
-					MemoPod = reader.GetInt32(4),
+					GuideIdFk = reader.GetInt32(4),
 					MemoNova = reader.GetInt32(5),
-					MemoChannel = reader.GetInt32(6),
+					MemoChannel = reader.GetString(6),
 					MemoType = reader.GetString(7),
 					MemoStatus = reader.GetString(8),
 					MemoMessage = reader.GetString(9)
@@ -132,7 +132,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@memo_person_from", entity["change"].MemoPersonFrom),
 				new SqlParameter("@memo_date_time", entity["change"].MemoDateTime),
 				new SqlParameter("@memo_priority", entity["add"].MemoPriority),
-				new SqlParameter("@memo_pod", entity["change"].MemoPod),
+				new SqlParameter("@memo_pod", entity["change"].GuideIdFk),
 				new SqlParameter("@memo_nova", entity["change"].MemoNova),
 				new SqlParameter("@memo_channel", entity["change"].MemoChannel),
 				new SqlParameter("@memo_type", entity["change"].MemoType),
@@ -184,7 +184,7 @@ namespace IntelChat.Pages
 		/// <summary>Fill fields in the change tab based on entity selection</summary>
 		private void AutoFill(int id, String type)
 		{
-			var target = entities.Find(e => e.MemoChannel == id);
+			var target = entities.Find(e => e.MemoChannel == id.ToString());
 			if (target != null) entity[type] = target;
 		}
 
@@ -241,13 +241,13 @@ namespace IntelChat.Pages
 			if (entities.Any())
 			{
 				entity["change"] = entities.First();
-				AutoFill(entity["change"].MemoPod, "change");
+				AutoFill(entity["change"].GuideIdFk, "change");
 			}
 
 			if (entities.Find(e => e.MemoStatus == "D") != null)
 			{
 				entity["delete"] = entities.Where(e => e.MemoStatus == "D").First();
-				AutoFill(entity["delete"].MemoPod, "delete");
+				AutoFill(entity["delete"].GuideIdFk, "delete");
 			}
 			show = "list";
 		}
