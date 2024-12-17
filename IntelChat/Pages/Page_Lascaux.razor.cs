@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
+using System;
 using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
 using ThreadingTask = System.Threading.Tasks.Task;
+using static IntelChat.Pages.Page_Nova;
 
 namespace IntelChat.Pages
 {
@@ -39,7 +42,6 @@ namespace IntelChat.Pages
 
 		private List<Lascaux> novas = new List<Lascaux>();
 		public  Lascaux novaLasc = new Lascaux();
-
 
 		/// ****************************************************************************************
 		/// *****************  Input LASCAUX - NOVA LIST  (not NULLS?) ******* MODEL ***************
@@ -148,7 +150,7 @@ namespace IntelChat.Pages
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-				new SqlParameter("@PROC_Input_Filter", "****"),
+				new SqlParameter("@noun", tempVariable.nounId)
 			};
 			return ExecuteStoredProcedure2($"dbo.[{sp}]", parameters, true);
 		}
@@ -672,8 +674,9 @@ namespace IntelChat.Pages
 					await LoadPOD(sp);
 					break;
 				case "NOVA":
-					sp = "sp_Read_temp";
+					sp = "sp_Lascaux_#temp";
 					LoadNOVA1(sp);
+					Console.WriteLine($"Test variable dynamically updated to swag: {tempVariable.nounId}");
 					break;
 
 				case "NounSubject":

@@ -66,13 +66,13 @@ namespace IntelChat.Pages
 					MemoPersonTo = reader.GetInt32(0),
 					MemoPersonFrom = reader.GetInt32(1),
 					MemoDateTime = reader.GetDateTime(2),
-					MemoPriority = reader.GetByte(3),
-					GuideIdFk = reader.GetInt32(4),
-					MemoNova = reader.GetInt32(5),
-					MemoChannel = reader.GetString(6),
-					MemoType = reader.GetString(7),
-					MemoStatus = reader.GetString(8),
-					MemoMessage = reader.GetString(9)
+					MemoPriority = reader.GetByte(4),
+					GuideIdFk = reader.GetInt32(10),
+					MemoNova = reader.GetInt32(12),
+					MemoChannel = reader.GetString(8),
+					MemoType = reader.GetString(5),
+					MemoStatus = reader.GetString(6),
+					MemoMessage = reader.GetString(7)
 				});
 			}
 			reader.CloseAsync();
