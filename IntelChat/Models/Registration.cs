@@ -16,4 +16,6 @@ public partial class Registration
     public string RegistrationStatus { get; set; } = null!;
 
     public int PersonIdFk { get; set; }
+
+    public DateTime RegistrationDate { get; set; }
 }

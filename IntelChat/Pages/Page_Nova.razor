@@ -15,181 +15,172 @@
 
 <style>
 	body {
-		background: url("https://agineuralnet.blob.core.windows.net/background/BG_NOVA_Pype.png")no-repeat;
-		background-size: 1920px 1080px;
-		background-color: #000000;
-		background-position: left 0px top 0px;
-		opacity: 100%;
-		color: white;
-		width: 1920px;
-		height: 1080px;
-		font-size:24px;
+	background: url("https://agineuralnet.blob.core.windows.net/background/BG_NOVA_Pype.png")no-repeat;
+	background-size: 1920px 1080px;
+	background-color: #000000;
+	background-position: left 0px top 0px;
+	opacity: 100%;
+	color: white;
+	width: 1920px;
+	height: 1080px;
+	font-size:24px;
 	}
 
 	form button {
-		padding: 0;
-		margin: 0;
-		width: 200px;
-		height: 100px;
-		text-align: center;
-		top: 100px;
-		color: black;
-		background-color: pink;
-		border-radius: 24px;
-		position: absolute;
-		left: 210px;
-		opacity: 0%;
-		transition-duration: .60s;
+	padding: 0;
+	margin: 0;
+	width: 200px;
+	height: 100px;
+	text-align: center;
+	top: 100px;
+	color: black;
+	background-color: pink;
+	border-radius: 24px;
+	position: absolute;
+	left: 210px;
+	opacity: 0%;
+	transition-duration: .60s;
 	}
 
 	button {
-		width: 200px;
-		height: 100px;
-		top: 920px;
-		left: 40px;
-		color: #FF0000;
-		background-color: pink;
-		border-radius: 24px;
-		position: absolute;
-		opacity: 90%;
-		transition-duration: .60s;
-		background-image: url("Images/buttons/btn_Lascaux.png");
-		background-size: cover;
-		text-align: center;
+	width: 200px;
+	height: 100px;
+	top: 920px;
+	left: 40px;
+	color: #FF0000;
+	background-color: pink;
+	border-radius: 24px;
+	position: absolute;
+	opacity: 90%;
+	transition-duration: .60s;
+	background-image: url("Images/buttons/btn_Lascaux.png");
+	background-size: cover;
+	text-align: center;
 	}
 
 	.buttonA {
-		top: 900px;
-		background-image: url("Images/buttons/btn_Lascaux.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+	top: 900px;
+	background-image: url("Images/buttons/btn_Lascaux.png");
+	background-size: cover;
+	box-shadow: 0 30px 60px rgba(0,0,0,.5);
 	}
 
-		.buttonA:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.95);
-		}
+	.buttonA:hover {
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
+	transform: scale(.95);
+	}
 
 
 	jukebox {
-		position: absolute;
-		left: 90%;
-		top: 95%;
-		border-radius: 0px;
-		opacity: 40%;
+	position: absolute;
+	left: 90%;
+	top: 95%;
+	border-radius: 0px;
+	opacity: 40%;
 	}
 
 	boxCRUD {
-		padding: 0;
-		margin: 0;
-		width: 1000px;
-		height: 100px;
-		text-align: right;
-		top: 90px;
-		left: 820px;
-		color: #FF0000;
-		position: absolute;
-		opacity: 75%;
-		background-image: url("Images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
-		background-size: cover;
+	padding: 0;
+	margin: 0;
+	width: 1000px;
+	height: 100px;
+	text-align: right;
+	top: 90px;
+	left: 820px;
+	color: #FF0000;
+	position: absolute;
+	opacity: 75%;
+	background-image: url("Images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
+	background-size: cover;
 	}
 
 
 	boxbuttons {
-		padding: 0;
-		margin: 0;
-		width: 900px;
-		height: 240px;
-		text-align: right;
-		top: 75px;
-		left: 630px;
-		color: #FF0000;
-		position: absolute;
-		opacity: 100%;
-		background-image: url("Images/GUI/DC_GUI_user_Question.png"); /*missing resource*/
-		background-size: cover;
+	padding: 0;
+	margin: 0;
+	width: 900px;
+	height: 240px;
+	text-align: right;
+	top: 75px;
+	left: 630px;
+	color: #FF0000;
+	position: absolute;
+	opacity: 100%;
+	background-image: url("Images/GUI/DC_GUI_user_Question.png"); /*missing resource*/
+	background-size: cover;
 	}
 
 	.exhibitPanel {
-		position: absolute;
-		top: 370px;
-		left: 500px;
-		color: blanchedalmond;
-		width: 540px;
-		font-size: x-large;
-		text-overflow: ellipsis;
-		/* Required for text-overflow to do anything */
-		white-space: nowrap;
-		overflow: hidden;
+	position: absolute;
+	top: 370px;
+	left: 500px;
+	color: blanchedalmond;
+	width: 540px;
+	font-size: x-large;
+	text-overflow: ellipsis;
+	/* Required for text-overflow to do anything */
+	white-space: nowrap;
+	overflow: hidden;
 	}
 
 	.exhibitInfo {
-		position: absolute;
-		top: 350px;
-		left: 600px;
-		color: blanchedalmond;
-		width: 540px;
-		height: 700px;
-		font-size: x-large;
-		text-overflow: ellipsis;
-		/* Required for text-overflow to do anything */
-		white-space: nowrap;
-		overflow: hidden;
+	position: absolute;
+	top: 350px;
+	left: 600px;
+	color: blanchedalmond;
+	width: 540px;
+	height: 700px;
+	font-size: x-large;
+	text-overflow: ellipsis;
+	/* Required for text-overflow to do anything */
+	white-space: nowrap;
+	overflow: hidden;
 	}
 
 	.tableList {
-		position: absolute;
-		width: 180px;
-		height: 63px;
+	position: absolute;
+	width: 180px;
+	height: 63px;
 	}
 
 </style>
 
 
+
+
 <!-- ************************************************************************************ -->
 <!-- ************************** Filter Subject ************ TOP DROP ******************** -->
 <!-- ************************************************************************************ -->
-<input @bind=subjectFilter list="subject_filters" class="tableList" style="top:244px;left:612px;font-size:24px;opacity:50%">
-<datalist id="subject_filters">
-	<option value="****" />
-	@foreach (var pype in pypes)
+<select @bind="subjectFilter" class="tableList" style="top:244px; left:612px; font-size:24px;">
+	<option value="****">-</option>
+	@foreach (var nounType in UniqueNounTypes)
 	{
-		if (pype.PypeId == "NOUN" && pype.PodIdFk == pod)
-		{
-			<option value="@pype.PypeType">@pype.PypeType</option>
-		}
+		<option value="@nounType">@nounType</option>
 	}
-</datalist>
+</select>
+
 
 <!-- ************************************************************************************ -->
 <!-- *************************** Filter Action ************ TOP DROP ******************** -->
 <!-- ************************************************************************************ -->
-<input @bind=actionFilter list="action_filters" class="tableList" style="top:244px;left:869px;font-size:22px;">
-<datalist id="action_filters">
-	<option value="****" />
-	@foreach (var pype in pypes)
+<select @bind=actionFilter class="tableList" style="top:244px;left:869px;font-size:22px;">
+	<option value="****">-</option>
+	@foreach (var verbType in UniqueVerbTypes)
 	{
-		if (pype.PypeId == "PREP" && pype.PodIdFk == pod)
-		{
-			<option value="@pype.PypeType">@pype.PypeType</option>
-		}
+		<option value="@verbType">@verbType</option>
 	}
-</datalist>
+</select>
 
 <!-- ************************************************************************************ -->
 <!-- ************************** Filter Object ************* TOP DROP ******************** -->
 <!-- ************************************************************************************ -->
-<input @bind=objectFilter list="object_filters" class="tableList" style="top:244px;left:1127px;font-size:22px;">
-<datalist id="object_filters">
-	<option value="****" />
-	@foreach (var pype in pypes)
+<select @bind=objectFilter class="tableList" style="top:244px;left:1127px;font-size:22px;">
+	<option value="****">-</option>
+	@foreach (var objType in UniqueObjectTypes)
 	{
-		if (pype.PypeId == "NOUN" && pype.PodIdFk == pod)
-		{
-			<option value="@pype.PypeType">@pype.PypeType</option>
-		}
+		<option value="@objType">@objType</option>
 	}
-</datalist>
+</select>
 
 
 
@@ -234,7 +225,7 @@
 		}
 	</select>
 
-@* 	<button type="submit" style="
+	@* 	<button type="submit" style="
 		position: absolute;
 		top: 361px;
 		left:113px;
@@ -248,18 +239,21 @@
 <!-- ***************************************************************************************************** -->
 <!-- ************************** Lascaux List  ******************** SUBJECT ****** Using type=NOVA ******** -->
 <!-- ***************************************************************************************************** -->
+
 <form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",subject,0,0,"NOVA")))">
 	@*Subject*@
 	<select class="tableList" style="
 		top: 600px;
 		left: 600px;
 	" @bind=subject required>
+
 		<option value="0">-</option>
 		@foreach (var subject in subjects)
 		{
 			<option value="@subject.NounId"> @subject.NounLabel</option>
 		}
 	</select>
+
 	<button type="submit" class="button buttonA" style="
 		position: absolute;
 		top: 600px;

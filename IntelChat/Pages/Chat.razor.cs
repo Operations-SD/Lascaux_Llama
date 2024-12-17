@@ -43,7 +43,7 @@ namespace IntelChat.Pages
 
             await hubConnection.StartAsync();
         }
-
+        
         private async Task Send()
         {
             if (!string.IsNullOrEmpty(usernameInput) && !string.IsNullOrEmpty(messageInput))

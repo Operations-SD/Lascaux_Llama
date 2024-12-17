@@ -13,7 +13,7 @@ public partial class ReportPersonLocation
 
     public string PersonStatus { get; set; } = null!;
 
-    public string PersonRole { get; set; } = null!;
+    public string PersonPypeDdRole { get; set; } = null!;
 
     public int PodIdFk { get; set; }
 

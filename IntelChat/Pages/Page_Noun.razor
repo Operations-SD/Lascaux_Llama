@@ -109,6 +109,20 @@
 		width: 600px;
 	}
 
+	/*********** DirectSelect Input Box ***************/
+	.DirectSelect {
+		position: absolute;
+		top: 825px;
+		right: 154px;
+	}
+
+	.DirectSelect input {
+		width: 232px;
+		padding: 10px;
+		font-size: 20px;
+	}
+	/**************************************************/
+
 
 </style>
 
@@ -137,6 +151,12 @@
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
 
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" type="text" @bind="directSelectId" @onkeypress="HandleDirectSelectKeyPress" />
+	</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** NOUN LIST GRID ************ shadow ************* -->
@@ -155,7 +175,7 @@
 						<option value="****">****</option>
 						@foreach (var pype in pypes)
 						{
-							if (pype.PypeId == "NOUN")
+							if (pype.PypeId == "FOOD")
 							{
 								<option value="@pype.PypeType">@pype.PypeType</option>
 							}
@@ -174,8 +194,10 @@
 					@if (filter["list"] == "****" || noun.NounType == filter["list"])
 					{
 						<tr>
-							<td @onclick="@(() => _nav.NavigateTo("/NounDetails?pod="+pod+"&pid="+pid+"&id="+@noun.NounId+"&prevPage=/Noun"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
-								@noun.PodIdFk     @noun.NounId     @noun.NounStatus     @noun.NounType  @noun.NounLabel @noun.NounDescription
+							<td @onclick="@(() => OnItemSelected(noun.NounId))"
+								onmouseover="this.style.color='#AAAAAA'"
+								onMouseOut="this.style.color='#FFFFFF'">
+								@noun.PodIdFk @noun.NounId @noun.NounStatus @noun.NounType @noun.NounLabel @noun.NounDescription
 							</td>
 						</tr>
 					}
@@ -228,7 +250,7 @@
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
-								if (pype.PypeId == "NOUN")
+								if (pype.PypeId == "FOOD")
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
@@ -267,7 +289,7 @@
 								<option value="****">****</option>
 								@foreach (var pype in pypes)
 								{
-									if (pype.PypeId == "NOUN")
+									if (pype.PypeId == "FOOD")
 									{
 										<option value="@pype.PypeType">@pype.PypeType</option>
 									}
@@ -312,7 +334,7 @@
 						<select @bind="@entity["change"].NounType" required>
 							@foreach (var pype in pypes)
 							{
-								if (pype.PypeId == "NOUN")
+								if (pype.PypeId == "FOOD")
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
@@ -357,7 +379,7 @@
 								<option value="****">****</option>
 								@foreach (var pype in pypes)
 								{
-									if (pype.PypeId == "NOUN")
+									if (pype.PypeId == "FOOD")
 									{
 										<option value="@pype.PypeType">@pype.PypeType</option>
 									}

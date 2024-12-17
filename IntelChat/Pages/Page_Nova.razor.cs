@@ -20,8 +20,26 @@ namespace IntelChat.Pages
 		public string description = "Intel-a-Chat NOVA";
 		                             //*****************************************************************************************
 		public string type = "JUNK"; // *************** Lascaux Case Switch - NOVA or POD,TASK,WORK,NOUN,VERB,QUESTION,INTERVIEW
-		                             //*****************************************************************************************
-		public int subject = 0;
+									 //*****************************************************************************************
+
+		private int _subject; // Backing field for the subject property
+		private int test; // Temporary variable to hold the current NounId
+
+		public int subject
+		{
+			get => _subject;
+			set
+			{
+				if (_subject != value) // Check to avoid unnecessary updates
+				{
+					_subject = value;
+					test = _subject; // Dynamically update the test variable
+					CreateTempTable("sp_Lascaux_#temp");
+					Console.WriteLine($"Test variable dynamically updated to: {test}");
+				}
+			}
+		}
+
 		public int action = 0;
 		public int obj = 0;
 		public string status = "";
@@ -34,10 +52,18 @@ namespace IntelChat.Pages
 		[Inject]
 		public NotificationService NotificationService { get; set; }
 
+		public List<string> UniqueNounTypes { get; set; } = new List<string>();
+		public List<string> UniqueVerbTypes { get; set; } = new List<string>();
+		public List<string> UniqueObjectTypes { get; set; } = new List<string>();
+
 
 		/**********************************************************************************/
 		/************************ PYPE dropdown filters ***********************************/
 		/**********************************************************************************/
+
+
+
+
 		private string _subjectFilter = "";
 		public string subjectFilter
 		{
@@ -106,23 +132,33 @@ namespace IntelChat.Pages
 			command.ExecuteNonQueryAsync();
 			return null;
 		}
-		
+
+		private SqlDataReader? CreateTempTable(string sp, string status = "*")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@noun", test)
+			};
+			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
+		}
 
 		/**********************************************************************************/
 		/************************ Stored Procedure - LOAD PYPE values *********************/
 		/**********************************************************************************/
-		private SqlDataReader? ReadPypes(string filter)
+		private SqlDataReader? ReadPypes()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", filter),
+				new SqlParameter("@PROC_Input_Filter", ""),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
 		}
 
+
+
 		private void LoadPypes()
 		{
-			var reader = ReadPypes("NOUN");
+			var reader = ReadPypes();
 			if (reader == null) return;
 
 			pypes.Clear();
@@ -141,7 +177,8 @@ namespace IntelChat.Pages
 			}
 			reader.Close();
 
-			reader = ReadPypes("PREP");
+			/*
+			reader = ReadPypes();
 			if (reader == null) return;
 			while (reader.Read())
 			{
@@ -157,6 +194,7 @@ namespace IntelChat.Pages
 				});
 			}
 			reader.Close();
+			*/
 		}
 
 
@@ -174,6 +212,16 @@ namespace IntelChat.Pages
 			};
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
+
+		private void LoadUniqueNounTypes()
+		{
+			UniqueNounTypes = subjects.Select(s => s.NounType).Distinct().ToList();
+		}
+		private void LoadUniqueObjectTypes()
+		{
+			UniqueObjectTypes = objects.Select(o => o.NounType).Distinct().ToList();
+		}
+
 
 		private void LoadNouns(string sp, string status = "*")
 		{
@@ -213,6 +261,11 @@ namespace IntelChat.Pages
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
 
+		private void LoadUniqueVerbTypes()
+		{
+			UniqueVerbTypes = actions.Select(a => a.VerbType).Distinct().ToList();
+		}
+
 		private void LoadVerbs(string sp, string status = "*")
 		{
 			var reader = ReadVerb(sp, status);
@@ -232,7 +285,9 @@ namespace IntelChat.Pages
 					UrlIdPk = reader.GetInt32(6)
 				});
 			}
+
 			reader.Close();
+
 		}
 
 
@@ -275,7 +330,6 @@ namespace IntelChat.Pages
 				NotificationService.Notify("NOVA created successfully!", NotificationType.Success);
 		}
 
-
 		/**********************************************************************************/
 		/************************ Cloud Server - Stored Procedure *************************/
 		/**********************************************************************************/
@@ -287,6 +341,11 @@ namespace IntelChat.Pages
 			subjects = new List<Noun>(nouns);
 			actions  = new List<Verb>(verbs);
 			objects  = new List<Noun>(nouns);
+			CreateTempTable("sp_Lascaux_#temp");
+			LoadUniqueNounTypes(); 
+			LoadUniqueVerbTypes();
+			LoadUniqueObjectTypes();
 		}
 	}
+
 }

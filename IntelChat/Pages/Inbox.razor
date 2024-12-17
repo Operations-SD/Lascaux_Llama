@@ -22,8 +22,8 @@
 		border: 2px solid #cccccc;
 		border-radius: 4px;
 		background-color: #c6d1ef;
-		font-size: 24px;
-		width:600px;
+		font-size: 16px;
+		width:300px;
 		left:40px;
 	}
 </style>
@@ -34,7 +34,7 @@
 <!-- **************************   INBOX  *************** STYLE ************************** -->
 <!-- ************************************************************************************ -->
 <select @onchange=ChangeInbox 
-	style="position:absolute;width:760px;display:block;text-align:center;height:50px;background-color:#c6d1ef;border-color:#abb4cd;left:40px;top:60px;opacity:70%;">
+	style="position:absolute;width:460px;display:block;text-align:center;height:50px;background-color:#c6d1ef;border-color:#abb4cd;left:40px;top:60px;opacity:70%;">
 	<option value="" disabled selected>Inbox</option>
 	@foreach (Memo memo in memos)
 	{
@@ -46,9 +46,9 @@
 <!-- ************************************************************************************ -->
 <!-- **************************   INBOX  *************** STYLE ************************** -->
 <!-- ************************************************************************************ -->
-<div style="position:absolute;width:760px;left:40px;top:400px;opacity:70%;">
+<div style="position:absolute;width:460px;left:40px;top:150px;opacity:70%;">
 
-	<textarea @bind=message style="width:760px;height:400px;left:100px;" /><br /><br />
+	<textarea @bind=message style="width:460px;height:300px;left:100px;" /><br /><br />
 
 	<label for="message_type" style="color:#000000;left:100px">Message Type: </label>
 
@@ -78,5 +78,5 @@
     <!-- ************************** MEMO SEND *********************************************** -->
     <!-- ************************************************************************************ -->
 
-	<button class="modal-btn" @onclick=CreateMemo style="height:100px;width:760px;background-color:#c6d1ef;border-radius:5px;border:3px;">Send Memo</button><br /><br />
+	<button class="modal-btn" @onclick=CreateMemo style="height:50px;width:460px;background-color:#c6d1ef;border-radius:5px;border:3px;">Send Memo</button><br /><br />
 </div>

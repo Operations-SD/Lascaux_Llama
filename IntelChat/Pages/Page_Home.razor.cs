@@ -19,8 +19,10 @@ namespace IntelChat.Pages
 		public string role { get; set; }
 		public bool modal = false;
 		public bool showImage = true;
-		public bool isIframeVisible = false; // Manages the visibility of the iframe
-		public string iframeSource = "";      // Holds the source of the iframe to be displayed
+		public bool isChatIframeVisible = false; // Manages the visibility of the Chat iframe
+		public bool isMemoIframeVisible = false; // Manages the visibility of the Memo iframe
+		public string ChatiframeSource = "";      // Holds the source of the iframe to be displayed
+		public string MemoiframeSource = "";
 		public string show = "";
 		public string name = "";
 		public string message = "";
@@ -32,9 +34,7 @@ namespace IntelChat.Pages
 		
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		[Inject] NavigationManager NavigationManager { get; set; } // Inject the NavigationManager
-
-
+		
 		public string GetMenuPath(string role)
 		{
 			return role switch
@@ -51,31 +51,36 @@ namespace IntelChat.Pages
 
 		public void HideModal() => modal = false;
 		public void ShowModal() => modal = true;
-		public void ShowIframe(string page)
-		{
-			iframeSource = page;   // Set the source URL for the iframe
-			isIframeVisible = true; // Display the iframe
-		}
-		public void HideIframe()
-		{
-			isIframeVisible = false; // Hide the iframe
-			iframeSource = "";       // Clear the iframe source
-		}
+
+
+		/**********************************************/
+		/***************  IFRAMES *********************/
+		/**********************************************/
+
+		[Inject] NavigationManager NavigationManager { get; set; }
 
 		public void ShowChat()
 		{
-			iframeSource = "/Chat";// Set iframe source to Chat page
-			isIframeVisible = true;
+			ChatiframeSource = "/Chat";  // Set the source of the iframe (chat page)
+			isChatIframeVisible = true;  // Show the iframe
+		}
+		public void HideChat()
+		{
+			isChatIframeVisible = false; // Hide the iframe
+			ChatiframeSource = "";       // Clear the iframe source
 		}
 
 		public void ShowMemo()
 		{
-			iframeSource = NavigationManager.ToAbsoluteUri("/Inbox").ToString();// Set iframe source to Inbox page
-			isIframeVisible = true;
+			MemoiframeSource = "/Inbox";// Set iframe source to Inbox page
+			isMemoIframeVisible = true;
+		}
+		public void HideMemo()
+		{
+			isMemoIframeVisible = false; // Hide the iframe
+			MemoiframeSource = "";       // Clear the iframe source
 		}
 
-		//public void ShowChat() { ShowModal(); show = "/hat"; }
-		//public async void ShowMemo() { ShowIframe(); show = "memo"; }
 		public void ShowVideo() { ShowModal(); show = "video"; }
 		public void ShowAudio() { ShowModal(); show = "audio"; }
 		public void ShowProject() { ShowModal(); show = "project"; }
@@ -121,13 +126,13 @@ namespace IntelChat.Pages
 				PodId = reader.GetInt32(0),
 				PodLabel = reader.GetString(1),
 				PodDescription = reader.GetString(2),
-				PodType = reader.GetString(3),
+				PodPypeDdPods = reader.GetString(3),
 				PodStatus = reader.GetString(4),
-				PodChannel = reader.GetString(5),
-				PodUrlBase = reader.GetString(6),
-				PersonIdFk = reader.GetInt32(7),
-				LocationIdFk = reader.GetInt32(8),
-				NovaIdFk = reader.GetInt32(9)
+				PodPypeDdChan = reader.GetString(5),
+				PodImage = reader.GetString(6),
+				PersonIdFk = reader.GetInt32(11),
+				LocationIdFk = reader.GetInt32(12),
+				NovaIdFk = reader.GetInt32(14)
 			};
 			await reader.CloseAsync();
 		}

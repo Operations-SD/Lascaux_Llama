@@ -1,4 +1,5 @@
 using IntelChat.Models;
+using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -118,6 +119,17 @@ namespace IntelChat.Pages
 			return null;
 		}
 
+		private SqlDataReader? ExecuteStoredProcedure2(string procedure, List<SqlParameter> parameters, bool reader = false)
+		{
+			var connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
+			using var command = new SqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure };
+			parameters.ForEach(parameter => command.Parameters.Add(parameter));
+			connection.Open();
+			if (reader) return command.ExecuteReader(CommandBehavior.CloseConnection);
+			command.ExecuteNonQueryAsync();
+			return null;
+		}
+
 		/// *********************************************************************************
 		/// *********************** filter "****" get all records *************************** ????????
 		/// *********************************************************************************
@@ -126,13 +138,21 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@pod", pod),
+				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_Input_Filter", filter)
 			};
 			return await ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
 
+		private SqlDataReader? CreateTempTable(string sp, string status = "*")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_Input_Filter", "****"),
+			};
+			return ExecuteStoredProcedure2($"dbo.[{sp}]", parameters, true);
+		}
 
-		/*
 
 		/// ************************ LOAD INTERVIEW *****************************************
 		/// ************************ LOAD INTERVIEW *****************************************
@@ -306,11 +326,39 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
-		*/
 
 		/// ************************ LOAD NOVA **********************************************
 		/// ************************ LOAD NOVA ********************************************** used from Page_Nova
 		/// ************************ LOAD NOVA **********************************************
+
+		private void LoadNOVA1(string sp, string status = "*")
+		{
+			var reader = CreateTempTable(sp, status);
+			if (reader == null) return;
+
+			novas.Clear();
+			while (reader.Read())
+			{
+				novas.Add(new Lascaux
+				{
+					NovaId = reader.GetInt32(2),
+					NovaDescription = reader.GetString(3),
+					NovaSubjectLabel = reader.GetString(5),
+					NovaActionLabel = reader.GetString(9),
+					NovaObjectLabel = reader.GetString(13),
+					NovaSubjectDescription = reader.GetString(6),
+					NovaActionDescription = reader.GetString(10),
+					NovaObjectDescription = reader.GetString(14),
+					SubjectURL = reader.GetString(7),
+					ActionURL = reader.GetString(11),
+					ObjectURL = reader.GetString(15)
+				});
+			}
+
+			reader.Close();
+		}
+
+		/*
 		private async ThreadingTask LoadNOVA(string sp, string filter = "****")
 		{
 			var reader = await Read(sp);
@@ -323,7 +371,7 @@ namespace IntelChat.Pages
 				{
 					About = !reader.IsDBNull(0) ? reader.GetString(0) : "",
 					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
-					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+					N = 20,  //!reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
 					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
 					S = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
 					Subject = !reader.IsDBNull(5) ? reader.GetString(5) : "",
@@ -368,8 +416,8 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
+		*/
 
-		/*
 
 		/// ************************ LOAD POD **********************************************
 		/// ************************ LOAD POD ********************************************** used from Page_Nova
@@ -610,8 +658,6 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
-		*/
-
 
 		//**********************************************************************************************
 		//************ CASE LOGIC - using input parameter "type" & internal sp "Loadxxxx ***************
@@ -621,21 +667,15 @@ namespace IntelChat.Pages
 			string sp = "";
 			switch (type)
 			{
-				/*
 				case "POD":
 					sp = "sp_nova_Dictionary_POD";
 					await LoadPOD(sp);
 					break;
-
-				*/
-
 				case "NOVA":
-					sp = "sp_Lascaux_temp";
-					await LoadNOVA(sp);
+					sp = "sp_Read_temp";
+					LoadNOVA1(sp);
 					break;
 
-
-				/*
 				case "NounSubject":
 					sp = "sp_nova_Dictionary_Noun_Subject";
 					await LoadNounSubject(sp);
@@ -663,7 +703,6 @@ namespace IntelChat.Pages
 					sp = "sp_nova_Dictionary_Work";
 					await LoadWork(sp);
 					break;
-				*/
 
 			}
 			if (novas.Any()) selectedId = novas[0].NovaId;

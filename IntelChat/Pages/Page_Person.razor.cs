@@ -56,9 +56,9 @@ namespace IntelChat.Pages
 				new SqlParameter("@first", entity["add"].PersonFirst),
 				new SqlParameter("@last", entity["add"].PersonFirst),
 				new SqlParameter("@label", entity["add"].PersonLabel),
-				new SqlParameter("@type", entity["add"].PersonType),
+				new SqlParameter("@type", entity["add"].PersonPypeDdMyme),
 				new SqlParameter("@status", entity["add"].PersonStatus),
-				new SqlParameter("@role", entity["add"].PersonRole),
+				new SqlParameter("@role", entity["add"].PersonPypeDdRole),
 				new SqlParameter("@date_time", entity["add"].PersonDatetime),
 				new SqlParameter("@pod_id_fk", pod),
 				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk)
@@ -97,9 +97,9 @@ namespace IntelChat.Pages
 					PersonFirst = reader.GetString(1),
 					PersonLast = reader.GetString(2),
 					PersonLabel = reader.GetString(3),
-					PersonType = reader.GetString(4),
+					PersonPypeDdMyme = reader.GetString(4),
 					PersonStatus = reader.GetString(5),
-					PersonRole = reader.GetString(6),
+					PersonPypeDdRole = reader.GetString(6),
 					PersonDatetime = reader.GetDateTime(7),
 					PodIdFk = reader.GetInt32(8),
 					LocationIdFk = reader.GetInt32(9)
@@ -113,7 +113,7 @@ namespace IntelChat.Pages
 		private async ThreadingTask OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
 		{
 			filter[type] = args.Value.ToString();
-			var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(entity => entity.PersonType == filter[type]);
+			var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(entity => entity.PersonPypeDdMyme == filter[type]);
 			if (!entitiesFiltered.Any()) return;
 			if (status != "*") entitiesFiltered = entitiesFiltered.Where(entity => entity.PersonStatus == status);
 			if (!entitiesFiltered.Any()) return;
@@ -131,9 +131,9 @@ namespace IntelChat.Pages
 				new SqlParameter("@first", entity["add"].PersonFirst),
 				new SqlParameter("@last", entity["add"].PersonFirst),
 				new SqlParameter("@label", entity["add"].PersonLabel),
-				new SqlParameter("@type", entity["add"].PersonType),
+				new SqlParameter("@type", entity["add"].PersonPypeDdMyme),
 				new SqlParameter("@status", entity["add"].PersonStatus),
-				new SqlParameter("@role", entity["add"].PersonRole),
+				new SqlParameter("@role", entity["add"].PersonPypeDdRole),
 				new SqlParameter("@date_time", entity["add"].PersonDatetime),
 				new SqlParameter("@pod_id_fk", pod),
 				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk)

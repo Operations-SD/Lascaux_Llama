@@ -6,8 +6,8 @@
 @using System.Data.SqlClient;
 @using System.Data;
 
-<style>
-	body {
+@* <style>
+/* 	body {
 		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Menu.png") no-repeat;
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
@@ -16,22 +16,79 @@
 		opacity: 100%;
 		color: blanchedalmond;
 		background-color: #000000;
+	} */
+</style> *@
+
+
+
+<div class="video-background">
+	<video autoplay loop muted playsinline>
+		<source src="Blobs/Video/Starry_Night.mp4" type="video/mp4" />
+		Your browser does not support the video tag.
+	</video>
+
+@* 	<div class="content">
+		<h1>Welcome to Blazor!</h1>
+		<p>This is a Blazor page with an MP4 video background.</p>
+	</div> *@
+</div>
+
+<style>
+	.video-background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		z-index: -1; /* Push the video behind other elements */
+	}
+
+	video {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 100vw;
+		height: 100vh;
+		object-fit: cover; /* Ensures the video covers the entire viewport */
+		transform: translate(-50%, -50%);
+	}
+
+	.content {
+		position: relative;
+		z-index: 1; /* Bring the content above the video */
+		text-align: center;
+		color: white;
+		padding: 20px;
+	}
+
+	h1 {
+		font-size: 4em;
+		margin-bottom: 10px;
+	}
+
+	p {
+		font-size: 1.5em;
 	}
 </style>
+
+
+
 
 <div class="ainn-page">
 
 <!-- ************************************************************************************ -->
 <!-- *************************** Lock onto a Person and a POD *************************** -->
 <!-- ************************************************************************************ -->
-<p style="color:#333333;font-size:24px">Pod: @pod</p><br>
+<br><br>
+<p style="color:#333333;font-size:24px;position:absolute">Pod: @pod</p><br><br>
 <p style="color:#333333;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
 
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** DISPLAY Banner ************************************ -->
 	<!-- ************************************************************************************ -->
 
-	<div class="titlebanner">
+	<div class="titlebanner" style="opacity:50%">
 		<img src="https://agineuralnet.blob.core.windows.net/banners/Banner_ainn.png" />
 	</div>
 
@@ -75,11 +132,5 @@
 			style="position:absolute;left:30px;top:860px;height:60px;color:RED;border:0px;width:140px;">
 		Return
 	</button>
-
-
-
-
-
-
 
 </div>

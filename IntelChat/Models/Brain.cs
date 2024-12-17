@@ -19,7 +19,9 @@ public partial class Brain
 
     public string BrainStorage { get; set; } = null!;
 
-    public int BrainFkLocation { get; set; }
-
     public string BrainLogin { get; set; } = null!;
+
+    public int LocationIdFk { get; set; }
+
+    public int LanguageIdFk { get; set; }
 }

@@ -144,7 +144,7 @@ namespace IntelChat.Pages
 					From = reader.GetString(0),
 					N = reader.GetInt32(1),
 					Ntype = reader.GetString(2),
-					Ndesc = reader.GetString(3),
+					NovaDescription = reader.GetString(3),
 					S = reader.GetInt32(4),
 					Subject = reader.GetString(5),
 					V = reader.GetInt32(6),

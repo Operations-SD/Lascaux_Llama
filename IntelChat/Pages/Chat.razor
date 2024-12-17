@@ -1,12 +1,14 @@
 ﻿@page "/Chat"
+@layout ChatLayout
 @using Microsoft.AspNetCore.SignalR.Client
 @using Models
 @inject NavigationManager NavigationManager
 @inject IHttpContextAccessor context
 @implements IAsyncDisposable
 
+
 <div class="container overflow-auto shadow-sm p-3 mb-5 bg-white rounded border-light-rounded" 
-        style="height: 500px;top:200px;width:600px;">
+        style="height: 400px;top:400px;width:300px; margin-top: 30px">
     @if (!userMessages.Any())
     {
         <p>No messages yet, start chatting!</p>
@@ -16,7 +18,7 @@
     {
         <div class="row mb-3 d-flex @(userMessage.CurrentUser ? "justify-content-end" : "")">
             <div class="card shadow @(userMessage.CurrentUser ? "color-green mr-5" : "ml-5")" 
-            style="margin-left: 20px; margin-right: 20px; width: 26rem;">
+            style="margin-left: 10px; margin-right: 10px; width: 16rem;">
                 <div class="card-header">
                     @(userMessage.CurrentUser ? "You" : userMessage.Username)
                 </div>
@@ -30,7 +32,6 @@
         </div>
     }
 </div>
-
 
 <div class="container">
     <div class="row">
