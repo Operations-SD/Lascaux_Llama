@@ -7,7 +7,7 @@ public partial class PodPersonLocation
 {
     public int PodId { get; set; }
 
-    public string PodType { get; set; } = null!;
+    public string PodPypeDdPods { get; set; } = null!;
 
     public string PodLabel { get; set; } = null!;
 

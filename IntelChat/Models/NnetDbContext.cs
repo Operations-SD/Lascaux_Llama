@@ -17,93 +17,81 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<Answer> Answers { get; set; }
 
-    public virtual DbSet<Artifact> Artifacts { get; set; }
-
-    public virtual DbSet<Artist> Artists { get; set; }
-
     public virtual DbSet<Brain> Brains { get; set; }
 
     public virtual DbSet<Brand> Brands { get; set; }
 
-    public virtual DbSet<CfgGanttTask> CfgGanttTasks { get; set; }
+    public virtual DbSet<BrandArchive> BrandArchives { get; set; }
 
-    public virtual DbSet<CfgGanttWork> CfgGanttWorks { get; set; }
+    public virtual DbSet<CfgGuideInterview> CfgGuideInterviews { get; set; }
 
-    public virtual DbSet<CfgLocationUrl> CfgLocationUrls { get; set; }
+    public virtual DbSet<CfgIviewAudit> CfgIviewAudits { get; set; }
 
-    public virtual DbSet<CfgPypePype> CfgPypePypes { get; set; }
+    public virtual DbSet<CfgNovaSubject> CfgNovaSubjects { get; set; }
 
-    public virtual DbSet<CfgPypeStem> CfgPypeStems { get; set; }
+    public virtual DbSet<CfgProgramGuide> CfgProgramGuides { get; set; }
 
-    public virtual DbSet<CfgTaskL4Noun> CfgTaskL4Nouns { get; set; }
+    public virtual DbSet<CfgTaskSeq> CfgTaskSeqs { get; set; }
 
-    public virtual DbSet<CfgTaskParmPt> CfgTaskParmPts { get; set; }
+    public virtual DbSet<CfgVerifyPype> CfgVerifyPypes { get; set; }
 
-    public virtual DbSet<CfgTaskUrl> CfgTaskUrls { get; set; }
-
-    public virtual DbSet<CfgWorkTask> CfgWorkTasks { get; set; }
-
-    public virtual DbSet<Channel> Channels { get; set; }
-
-    public virtual DbSet<Composition> Compositions { get; set; }
-
-    public virtual DbSet<DeltaPod> DeltaPods { get; set; }
-
-    public virtual DbSet<DeltaPype> DeltaPypes { get; set; }
-
-    public virtual DbSet<DeltaTask> DeltaTasks { get; set; }
-
-    public virtual DbSet<Element> Elements { get; set; }
+    public virtual DbSet<FilterPype> FilterPypes { get; set; }
 
     public virtual DbSet<Guide> Guides { get; set; }
 
-    public virtual DbSet<Hercule> Hercules { get; set; }
-
-    public virtual DbSet<HerculesGantt> HerculesGantts { get; set; }
-
     public virtual DbSet<Interview> Interviews { get; set; }
 
-    public virtual DbSet<IviewGuideQuestion> IviewGuideQuestions { get; set; }
+    public virtual DbSet<LascauxArchive> LascauxArchives { get; set; }
 
-    public virtual DbSet<IviewPersonQAnswered> IviewPersonQAnswereds { get; set; }
+    public virtual DbSet<LascauxFromNova> LascauxFromNovas { get; set; }
 
-    public virtual DbSet<ListBrainLocPerson> ListBrainLocPeople { get; set; }
+    public virtual DbSet<LascauxFromTask> LascauxFromTasks { get; set; }
 
-    public virtual DbSet<ListPodNoun> ListPodNouns { get; set; }
+    public virtual DbSet<LascauxFromUrl> LascauxFromUrls { get; set; }
 
-    public virtual DbSet<ListPodNounUrl> ListPodNounUrls { get; set; }
+    public virtual DbSet<LascauxNovaJunk> LascauxNovaJunks { get; set; }
 
-    public virtual DbSet<ListPodVerbUrl> ListPodVerbUrls { get; set; }
+    public virtual DbSet<LascauxViewTest> LascauxViewTests { get; set; }
 
     public virtual DbSet<Location> Locations { get; set; }
 
+    public virtual DbSet<MapPerson> MapPeople { get; set; }
+
+    public virtual DbSet<MapPod> MapPods { get; set; }
+
     public virtual DbSet<Memo> Memos { get; set; }
 
-    public virtual DbSet<MemoLink> MemoLinks { get; set; }
+    public virtual DbSet<MemoArchive> MemoArchives { get; set; }
+
+    public virtual DbSet<MyAnswer> MyAnswers { get; set; }
+
+    public virtual DbSet<MyGuide> MyGuides { get; set; }
+
+    public virtual DbSet<MyGuidesArchive> MyGuidesArchives { get; set; }
 
     public virtual DbSet<Noun> Nouns { get; set; }
 
+    public virtual DbSet<NounPypeType> NounPypeTypes { get; set; }
+
+    public virtual DbSet<NounTest> NounTests { get; set; }
+
     public virtual DbSet<Nova> Novas { get; set; }
+
+    public virtual DbSet<NovaSvoUrl> NovaSvoUrls { get; set; }
 
     public virtual DbSet<Person> People { get; set; }
 
-    public virtual DbSet<Phase> Phases { get; set; }
+    public virtual DbSet<PersonArchive> PersonArchives { get; set; }
+
+    public virtual DbSet<PersonTemp> PersonTemps { get; set; }
 
     public virtual DbSet<Pod> Pods { get; set; }
 
-    public virtual DbSet<PodBrand> PodBrands { get; set; }
+    public virtual DbSet<PodArchive> PodArchives { get; set; }
 
-    public virtual DbSet<PodNovaLascaux> PodNovaLascauxes { get; set; }
-
-    public virtual DbSet<PodPersonLocation> PodPersonLocations { get; set; }
-
-    public virtual DbSet<PodPypeAudit> PodPypeAudits { get; set; }
-
-    public virtual DbSet<PodPypeLink> PodPypeLinks { get; set; }
+    public virtual DbSet<PodPype> PodPypes { get; set; }
 
     public virtual DbSet<PodTask> PodTasks { get; set; }
-
-    public virtual DbSet<PodTaskWork> PodTaskWorks { get; set; }
 
     public virtual DbSet<Program> Programs { get; set; }
 
@@ -111,69 +99,33 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<Pype> Pypes { get; set; }
 
-    public virtual DbSet<PypeNoun> PypeNouns { get; set; }
-
     public virtual DbSet<Question> Questions { get; set; }
-
-    public virtual DbSet<RecipeArtifact> RecipeArtifacts { get; set; }
 
     public virtual DbSet<Registration> Registrations { get; set; }
 
-    public virtual DbSet<RegistrationRole> RegistrationRoles { get; set; }
-
-    public virtual DbSet<ReportArtifact> ReportArtifacts { get; set; }
-
-    public virtual DbSet<ReportNovaSvo> ReportNovaSvos { get; set; }
-
-    public virtual DbSet<ReportPersonLocation> ReportPersonLocations { get; set; }
-
-    public virtual DbSet<ReportQuestionAnswer> ReportQuestionAnswers { get; set; }
-
-    public virtual DbSet<ReportQuestionGuide> ReportQuestionGuides { get; set; }
+    public virtual DbSet<RegistrationArchive> RegistrationArchives { get; set; }
 
     public virtual DbSet<ReportTaskWork> ReportTaskWorks { get; set; }
 
-    public virtual DbSet<RptPersonLocation> RptPersonLocations { get; set; }
-
     public virtual DbSet<Task> Tasks { get; set; }
 
-    public virtual DbSet<TaskWorkGantt> TaskWorkGantts { get; set; }
+    public virtual DbSet<Tuner> Tuners { get; set; }
 
     public virtual DbSet<Url> Urls { get; set; }
 
     public virtual DbSet<Verb> Verbs { get; set; }
 
-    public virtual DbSet<View1> View1s { get; set; }
-
-    public virtual DbSet<WeeklyActivity> WeeklyActivities { get; set; }
-
-    public virtual DbSet<WeeklyAnalytic> WeeklyAnalytics { get; set; }
-
-    public virtual DbSet<WeeklyDetail> WeeklyDetails { get; set; }
-
-    public virtual DbSet<WeeklyPypeDetail> WeeklyPypeDetails { get; set; }
+    public virtual DbSet<VerbTest> VerbTests { get; set; }
 
     public virtual DbSet<Work> Works { get; set; }
 
-    public virtual DbSet<XnovaDictionaryInterview> XnovaDictionaryInterviews { get; set; }
-
-    public virtual DbSet<XnovaDictionaryNounObject> XnovaDictionaryNounObjects { get; set; }
-
-    public virtual DbSet<XnovaDictionaryNounSubject> XnovaDictionaryNounSubjects { get; set; }
-
     public virtual DbSet<XnovaDictionaryNova> XnovaDictionaryNovas { get; set; }
-
-    public virtual DbSet<XnovaDictionaryPod> XnovaDictionaryPods { get; set; }
-
-    public virtual DbSet<XnovaDictionaryQuestion> XnovaDictionaryQuestions { get; set; }
 
     public virtual DbSet<XnovaDictionaryTask> XnovaDictionaryTasks { get; set; }
 
-    public virtual DbSet<XnovaDictionaryVerb> XnovaDictionaryVerbs { get; set; }
-
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("name=DefaultConnection");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=Lascaux.database.windows.net;Database=LascauxDB;User=LascauxLogin;Password=UMDlascaux2024");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -205,82 +157,6 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Answer_severity");
         });
 
-        modelBuilder.Entity<Artifact>(entity =>
-        {
-            entity.ToTable("Artifact");
-
-            entity.Property(e => e.ArtifactId).HasColumnName("Artifact_ID");
-            entity.Property(e => e.Artifact1)
-                .HasMaxLength(64)
-                .HasDefaultValue("Title of Artifact")
-                .HasColumnName("Artifact");
-            entity.Property(e => e.ArtifactImage)
-                .HasMaxLength(300)
-                .HasDefaultValue("https://agineuralnet.blob.core.windows.net/artstorage/")
-                .HasColumnName("Artifact_Image ");
-            entity.Property(e => e.Artist)
-                .HasDefaultValue(1)
-                .HasColumnName("Artist#");
-            entity.Property(e => e.Composition)
-                .HasDefaultValue(1)
-                .HasColumnName("Composition#");
-            entity.Property(e => e.Finder)
-                .HasMaxLength(128)
-                .HasDefaultValue("https://agineuralnet.blob.core.windows.net/artstorage/Finder.png")
-                .IsFixedLength();
-            entity.Property(e => e.HistoricalDate)
-                .HasDefaultValue(new DateTime(2048, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified))
-                .HasColumnName("Historical_Date");
-            entity.Property(e => e.Location)
-                .HasDefaultValue(1)
-                .HasColumnName("Location#");
-            entity.Property(e => e.Narative).HasDefaultValue("max");
-            entity.Property(e => e.Phase)
-                .HasDefaultValue(1)
-                .HasColumnName("Phase#");
-            entity.Property(e => e.Status)
-                .HasMaxLength(1)
-                .HasDefaultValue("A");
-            entity.Property(e => e.Symbolic).HasDefaultValue(1);
-        });
-
-        modelBuilder.Entity<Artist>(entity =>
-        {
-            entity.ToTable("Artist");
-
-            entity.Property(e => e.ArtistId).HasColumnName("Artist_ID");
-            entity.Property(e => e.Artist1)
-                .HasMaxLength(64)
-                .HasDefaultValue("creater of object")
-                .HasColumnName("Artist");
-            entity.Property(e => e.ArtistCommon)
-                .HasMaxLength(24)
-                .HasDefaultValue("call name")
-                .HasColumnName("Artist_common");
-            entity.Property(e => e.Finder)
-                .HasMaxLength(128)
-                .HasDefaultValue("link to Artist information");
-            entity.Property(e => e.Life)
-                .HasMaxLength(16)
-                .HasDefaultValue("lifetime");
-            entity.Property(e => e.Location)
-                .HasDefaultValue(1)
-                .HasColumnName("Location#");
-            entity.Property(e => e.Narative)
-                .HasMaxLength(255)
-                .HasDefaultValue("about this artist");
-            entity.Property(e => e.Phase)
-                .HasDefaultValue(1)
-                .HasColumnName("Phase#");
-            entity.Property(e => e.Status)
-                .HasMaxLength(1)
-                .HasDefaultValue("A");
-            entity.Property(e => e.Type)
-                .HasMaxLength(4)
-                .HasDefaultValue("arts")
-                .HasColumnName("type");
-        });
-
         modelBuilder.Entity<Brain>(entity =>
         {
             entity.ToTable("Brain");
@@ -294,9 +170,6 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(255)
                 .HasDefaultValue("description of BRAIN")
                 .HasColumnName("Brain_description");
-            entity.Property(e => e.BrainFkLocation)
-                .HasDefaultValue(1)
-                .HasColumnName("Brain_FK_Location");
             entity.Property(e => e.BrainLabel)
                 .HasMaxLength(16)
                 .HasDefaultValue("BRAIN label")
@@ -321,13 +194,94 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("Nnet")
                 .IsFixedLength()
                 .HasColumnName("Brain_type");
+            entity.Property(e => e.LanguageIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Language_ID_FK");
+            entity.Property(e => e.LocationIdFk)
+                .HasDefaultValue(2)
+                .HasColumnName("Location_ID_FK");
         });
 
         modelBuilder.Entity<Brand>(entity =>
         {
-            entity.HasKey(e => e.BrandId).HasName("PK_BrandJD2");
+            entity.HasKey(e => e.BrandId).HasName("PK_Brand_new");
 
             entity.ToTable("Brand");
+
+            entity.Property(e => e.BrandId).HasColumnName("Brand_ID");
+            entity.Property(e => e.BrandCntMax)
+                .HasDefaultValue((short)64)
+                .HasColumnName("Brand_Cnt_Max");
+            entity.Property(e => e.BrandCntReg).HasColumnName("Brand_Cnt_Reg");
+            entity.Property(e => e.BrandCode)
+                .HasMaxLength(42)
+                .HasDefaultValue("Link Users")
+                .HasColumnName("Brand_code");
+            entity.Property(e => e.BrandCost)
+                .HasDefaultValue(1m)
+                .HasColumnType("money")
+                .HasColumnName("Brand_Cost");
+            entity.Property(e => e.BrandEligibility)
+                .HasDefaultValue((short)50)
+                .HasColumnName("Brand_Eligibility");
+            entity.Property(e => e.BrandGuide).HasColumnName("Brand_Guide");
+            entity.Property(e => e.BrandImage)
+                .HasMaxLength(50)
+                .HasColumnName("Brand_Image");
+            entity.Property(e => e.BrandLabel)
+                .HasMaxLength(42)
+                .HasDefaultValue("Registration Title")
+                .HasColumnName("Brand_label");
+            entity.Property(e => e.BrandRegDateClosed)
+                .HasDefaultValue(new DateTime(2048, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                .HasColumnType("datetime")
+                .HasColumnName("Brand_Reg_Date_Closed");
+            entity.Property(e => e.BrandRole)
+                .HasMaxLength(4)
+                .HasDefaultValueSql("(user_name())")
+                .IsFixedLength()
+                .HasColumnName("Brand_Role");
+            entity.Property(e => e.BrandStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .HasColumnName("Brand_status");
+            entity.Property(e => e.ChannelAlpha)
+                .HasMaxLength(50)
+                .HasColumnName("Channel_Alpha");
+            entity.Property(e => e.ChannelBeta)
+                .HasMaxLength(50)
+                .HasColumnName("Channel_Beta");
+            entity.Property(e => e.ChannelGamma)
+                .HasMaxLength(50)
+                .HasColumnName("Channel_Gamma");
+            entity.Property(e => e.GuideIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.LocationIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Location_ID_FK");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PersonIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Person_ID_FK");
+            entity.Property(e => e.PodIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.ProgramIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Program_ID_FK");
+            entity.Property(e => e.UrlIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_FK");
+        });
+
+        modelBuilder.Entity<BrandArchive>(entity =>
+        {
+            entity.HasKey(e => e.BrandId).HasName("PK_Brand");
+
+            entity.ToTable("Brand_archive");
 
             entity.Property(e => e.BrandId).HasColumnName("Brand_ID");
             entity.Property(e => e.BrandCntMax)
@@ -362,464 +316,135 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Brand_Reg_Date_Closed");
             entity.Property(e => e.BrandRole)
                 .HasMaxLength(4)
+                .HasDefaultValueSql("(user_name())")
                 .IsFixedLength()
                 .HasColumnName("Brand_Role");
             entity.Property(e => e.BrandStatus)
                 .HasMaxLength(1)
                 .HasDefaultValue("A")
                 .HasColumnName("Brand_status");
-            entity.Property(e => e.ChannelAlpha)
-                .HasMaxLength(4)
-                .HasColumnName("Channel_alpha");
-            entity.Property(e => e.ChannelBeta)
-                .HasMaxLength(4)
-                .HasColumnName("Channel_beta");
-            entity.Property(e => e.ChannelGamma)
-                .HasMaxLength(4)
-                .HasColumnName("Channel_gamma");
             entity.Property(e => e.LocationIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Location_ID_FK");
             entity.Property(e => e.NovaIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PodId)
+                .HasDefaultValue(1)
+                .HasColumnName("POD_ID");
             entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(7)
                 .HasColumnName("Program_ID_FK");
         });
 
-        modelBuilder.Entity<CfgGanttTask>(entity =>
+        modelBuilder.Entity<CfgGuideInterview>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("CFG_Gantt_Task");
+                .ToView("CFG_Guide_Interview");
 
-            entity.Property(e => e.Duration)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.IsExpand)
-                .HasMaxLength(1)
-                .IsUnicode(false);
-            entity.Property(e => e.Notes)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.Predecessor)
-                .HasMaxLength(32)
-                .IsFixedLength();
-            entity.Property(e => e.Progress)
+            entity.Property(e => e.GuideId).HasColumnName("Guide_ID");
+            entity.Property(e => e.GuideLabel)
                 .HasMaxLength(16)
-                .IsUnicode(false)
-                .HasColumnName("progress");
-            entity.Property(e => e.ProjectName)
-                .HasMaxLength(32)
-                .IsFixedLength();
-            entity.Property(e => e.String)
-                .HasMaxLength(32)
                 .IsFixedLength()
-                .HasColumnName("string");
-            entity.Property(e => e.TaskType)
-                .HasMaxLength(4)
-                .IsFixedLength();
+                .HasColumnName("Guide_label");
+            entity.Property(e => e.InterviewSeq).HasColumnName("Interview_seq");
+            entity.Property(e => e.InterviewStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Interview_status");
+            entity.Property(e => e.QuestionId).HasColumnName("Question_ID");
+            entity.Property(e => e.QuestionText)
+                .HasMaxLength(255)
+                .HasColumnName("Question_text");
         });
 
-        modelBuilder.Entity<CfgGanttWork>(entity =>
+        modelBuilder.Entity<CfgIviewAudit>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("CFG_Gantt_Work");
+                .ToView("CFG_Iview_Audit");
 
-            entity.Property(e => e.Duration)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.IsExpand)
-                .HasMaxLength(1)
-                .IsUnicode(false);
-            entity.Property(e => e.Notes)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.Predecessor)
+            entity.Property(e => e.GuideIdFk).HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.InterviewSeq).HasColumnName("Interview_seq");
+            entity.Property(e => e.PersonFirst)
                 .HasMaxLength(32)
-                .IsFixedLength();
-            entity.Property(e => e.Progress)
-                .HasMaxLength(16)
-                .IsUnicode(false)
-                .HasColumnName("progress");
-            entity.Property(e => e.ProjectName).HasMaxLength(16);
-            entity.Property(e => e.String)
+                .HasColumnName("Person_first");
+            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
+            entity.Property(e => e.PersonLast)
                 .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("string");
-            entity.Property(e => e.TaskType)
-                .HasMaxLength(4)
-                .IsFixedLength();
+                .HasColumnName("Person_last");
+            entity.Property(e => e.QuestionId).HasColumnName("Question_ID");
+            entity.Property(e => e.QuestionText)
+                .HasMaxLength(255)
+                .HasColumnName("Question_text");
         });
 
-        modelBuilder.Entity<CfgLocationUrl>(entity =>
+        modelBuilder.Entity<CfgNovaSubject>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("CFG_Location_URL");
+                .ToView("CFG_NOVA_subject");
 
-            entity.Property(e => e.Cloud)
-                .HasMaxLength(144)
-                .HasColumnName("cloud");
-            entity.Property(e => e.LocationLabel16)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Location_label16");
+            entity.Property(e => e.NounDescription)
+                .HasMaxLength(255)
+                .HasColumnName("Noun_description");
             entity.Property(e => e.NounLabel)
                 .HasMaxLength(16)
                 .IsFixedLength()
                 .HasColumnName("Noun_label");
-            entity.Property(e => e.PodLabel)
-                .HasMaxLength(16)
-                .HasColumnName("POD_label");
-            entity.Property(e => e.PodUrlBase)
-                .HasMaxLength(128)
-                .HasColumnName("POD_URL_base");
-            entity.Property(e => e.UrlCloud)
-                .HasMaxLength(128)
-                .HasColumnName("URL_cloud");
-            entity.Property(e => e.UrlDescription)
-                .HasMaxLength(128)
-                .HasColumnName("URL_Description");
-            entity.Property(e => e.UrlLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("URL_label");
-            entity.Property(e => e.UrlType)
+            entity.Property(e => e.NounType)
                 .HasMaxLength(4)
                 .IsFixedLength()
-                .HasColumnName("URL_type");
-            entity.Property(e => e.Urlconcat)
-                .HasMaxLength(144)
-                .HasColumnName("URLconcat");
-        });
-
-        modelBuilder.Entity<CfgPypePype>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("CFG_Pype_Pype");
-
-            entity.Property(e => e.Expr1)
-                .HasMaxLength(4)
-                .IsFixedLength();
-            entity.Property(e => e.Expr2)
-                .HasMaxLength(4)
-                .IsFixedLength();
-            entity.Property(e => e.Expr3)
-                .HasMaxLength(16)
-                .IsFixedLength();
+                .HasColumnName("Noun_type");
+            entity.Property(e => e.NovaId).HasColumnName("NOVA_ID");
+            entity.Property(e => e.NovaSubject).HasColumnName("NOVA_subject");
             entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.PypeId)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_ID");
-            entity.Property(e => e.PypeLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Pype_label");
-            entity.Property(e => e.PypeLink)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_link");
-            entity.Property(e => e.PypeStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("Pype_status");
             entity.Property(e => e.PypeType)
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("Pype_type");
-        });
-
-        modelBuilder.Entity<CfgPypeStem>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("CFG_Pype_STEM");
-
-            entity.Property(e => e.L1Id)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("L1_ID");
-            entity.Property(e => e.L1Type)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("L1_type");
-            entity.Property(e => e.ParentPype)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Parent Pype");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.Pype)
-                .HasMaxLength(4)
-                .IsFixedLength();
-            entity.Property(e => e.PypeDesc)
-                .HasMaxLength(64)
-                .HasColumnName("Pype_desc");
-            entity.Property(e => e.PypeLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Pype_label");
-            entity.Property(e => e.PypeType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_type");
-        });
-
-        modelBuilder.Entity<CfgTaskL4Noun>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("CFG_Task_L4_Noun");
-
-            entity.Property(e => e.Label)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("label");
-            entity.Property(e => e.NounId).HasColumnName("Noun_ID");
-            entity.Property(e => e.Nova).HasColumnName("NOVA");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength();
-            entity.Property(e => e.ParFinish).HasColumnName("Par_finish");
-            entity.Property(e => e.ParId).HasColumnName("Par_ID");
-            entity.Property(e => e.ParStart).HasColumnName("Par_start");
-            entity.Property(e => e.Pod).HasColumnName("POD");
-            entity.Property(e => e.TaskDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Task_description");
-            entity.Property(e => e.TaskFinishDate).HasColumnName("Task_finish_date");
-            entity.Property(e => e.TaskId).HasColumnName("Task_ID");
-            entity.Property(e => e.TaskStartDate).HasColumnName("Task_start_date");
-            entity.Property(e => e.Type)
-                .HasMaxLength(4)
-                .IsFixedLength();
-        });
-
-        modelBuilder.Entity<CfgTaskParmPt>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("CFG_Task_parmPT");
-
-            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
-            entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength();
-            entity.Property(e => e.ParFinish).HasColumnName("Par_finish");
-            entity.Property(e => e.ParStart).HasColumnName("Par_start");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.TaskDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Task_description");
-            entity.Property(e => e.TaskFinishDate).HasColumnName("Task_finish_date");
-            entity.Property(e => e.TaskId).HasColumnName("Task_ID");
-            entity.Property(e => e.TaskLabel32)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("Task_label32");
-            entity.Property(e => e.TaskLevel).HasColumnName("Task_level");
-            entity.Property(e => e.TaskStartDate).HasColumnName("Task_start_date");
-            entity.Property(e => e.TaskType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Task_type");
-        });
-
-        modelBuilder.Entity<CfgTaskUrl>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("CFG_Task_URL");
-
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.TaskId).HasColumnName("Task_ID");
-            entity.Property(e => e.TaskLabel32)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("Task_label32");
-            entity.Property(e => e.TaskLevel).HasColumnName("Task_level");
-            entity.Property(e => e.TaskType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Task_type");
             entity.Property(e => e.UrlCloud)
                 .HasMaxLength(128)
                 .HasColumnName("URL_cloud");
-            entity.Property(e => e.UrlId).HasColumnName("URL_ID");
+            entity.Property(e => e.UrlIdPk).HasColumnName("URL_ID_PK");
             entity.Property(e => e.UrlLabel)
                 .HasMaxLength(16)
                 .IsFixedLength()
                 .HasColumnName("URL_label");
-            entity.Property(e => e.UrlType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("URL_type");
+            entity.Property(e => e.Verify).HasColumnName("verify");
         });
 
-        modelBuilder.Entity<CfgWorkTask>(entity =>
+        modelBuilder.Entity<CfgProgramGuide>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("CFG_Work_Task");
+                .ToView("CFG_Program_Guide");
 
-            entity.Property(e => e.NounId).HasColumnName("Noun_ID");
-            entity.Property(e => e.NounLabel)
+            entity.Property(e => e.GuideIview).HasColumnName("Guide Iview");
+            entity.Property(e => e.ProgramIdFk).HasColumnName("Program_ID_FK");
+            entity.Property(e => e.ProgramLabel)
                 .HasMaxLength(16)
                 .IsFixedLength()
-                .HasColumnName("Noun_label");
-            entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.TaskIdFk).HasColumnName("Task_ID_FK");
-            entity.Property(e => e.TaskLabel32)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("Task_label32");
-            entity.Property(e => e.WorkDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Work_description");
-            entity.Property(e => e.WorkId).HasColumnName("Work_ID");
-            entity.Property(e => e.WorkLabel32)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("Work_label32");
-            entity.Property(e => e.WorkLevel).HasColumnName("Work_level");
-            entity.Property(e => e.WorkStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("Work_status");
+                .HasColumnName("Program_label");
         });
 
-        modelBuilder.Entity<Channel>(entity =>
-        {
-            entity.ToTable("Channel");
-
-            entity.Property(e => e.ChannelId).HasColumnName("Channel_ID");
-            entity.Property(e => e.ChannelLabel)
-                .HasMaxLength(16)
-                .HasDefaultValue("Comm Channel")
-                .IsFixedLength()
-                .HasColumnName("Channel_label");
-            entity.Property(e => e.ChannelRole)
-                .HasMaxLength(4)
-                .HasDefaultValue("engr")
-                .IsFixedLength()
-                .HasColumnName("Channel_Role");
-            entity.Property(e => e.ChannelType)
-                .HasMaxLength(4)
-                .HasDefaultValue("ABCD")
-                .IsFixedLength()
-                .HasColumnName("Channel_type");
-            entity.Property(e => e.LocationIdFk)
-                .HasDefaultValue(1)
-                .HasColumnName("Location_ID_FK");
-            entity.Property(e => e.PersonIdFk)
-                .HasDefaultValue(1)
-                .HasColumnName("Person_ID_FK");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-        });
-
-        modelBuilder.Entity<Composition>(entity =>
-        {
-            entity.HasKey(e => e.CompositionId).HasName("PK_Composition_1");
-
-            entity.ToTable("Composition");
-
-            entity.Property(e => e.CompositionId).HasColumnName("Composition_ID");
-            entity.Property(e => e.Composition1)
-                .HasMaxLength(64)
-                .HasDefaultValue("Composition of Entry")
-                .HasColumnName("Composition");
-            entity.Property(e => e.Finder)
-                .HasMaxLength(128)
-                .HasDefaultValue("URL");
-            entity.Property(e => e.Narative)
-                .HasMaxLength(128)
-                .HasDefaultValue("About");
-            entity.Property(e => e.Status)
-                .HasMaxLength(1)
-                .HasDefaultValue("A");
-        });
-
-        modelBuilder.Entity<DeltaPod>(entity =>
+        modelBuilder.Entity<CfgTaskSeq>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("Delta_POD");
+                .ToView("CFG_Task_seq");
 
-            entity.Property(e => e.LocationIdFk).HasColumnName("Location_ID_FK");
+            entity.Property(e => e.NounIdFk).HasColumnName("Noun_ID_FK");
             entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
             entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
-            entity.Property(e => e.PodChannel)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("POD_channel");
-            entity.Property(e => e.PodDescription)
-                .HasMaxLength(255)
-                .HasColumnName("POD_description");
-            entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.PodLabel)
-                .HasMaxLength(16)
-                .HasColumnName("POD_label");
-            entity.Property(e => e.PodStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("POD_status");
-            entity.Property(e => e.PodType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("POD_type");
-            entity.Property(e => e.PodUrlBase)
-                .HasMaxLength(128)
-                .HasColumnName("POD_URL_base");
-        });
-
-        modelBuilder.Entity<DeltaPype>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Delta_Pype");
-
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.PypeDesc)
-                .HasMaxLength(64)
-                .HasColumnName("Pype_desc");
-            entity.Property(e => e.PypeId)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_ID");
-            entity.Property(e => e.PypeLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Pype_label");
-            entity.Property(e => e.PypeLink)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_link");
-            entity.Property(e => e.PypeStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("Pype_status");
-            entity.Property(e => e.PypeType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_type");
-        });
-
-        modelBuilder.Entity<DeltaTask>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Delta_Task");
-
             entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
             entity.Property(e => e.TaskDescription)
                 .HasMaxLength(255)
                 .HasColumnName("Task_description");
+            entity.Property(e => e.TaskDuration).HasColumnName("Task_duration");
+            entity.Property(e => e.TaskEntryDate).HasColumnName("Task_entry_date");
+            entity.Property(e => e.TaskFinishDate).HasColumnName("Task_finish_date");
             entity.Property(e => e.TaskId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("Task_ID");
@@ -828,38 +453,95 @@ public partial class NnetDbContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("Task_label32");
             entity.Property(e => e.TaskLevel).HasColumnName("Task_level");
+            entity.Property(e => e.TaskParent).HasColumnName("Task_parent");
+            entity.Property(e => e.TaskPrevious).HasColumnName("Task_previous");
+            entity.Property(e => e.TaskSeq).HasColumnName("Task_seq");
+            entity.Property(e => e.TaskStartDate).HasColumnName("Task_start_date");
+            entity.Property(e => e.TaskStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Task_status");
+            entity.Property(e => e.TaskTag)
+                .HasMaxLength(1024)
+                .HasColumnName("Task_tag");
             entity.Property(e => e.TaskType)
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("Task_type");
+            entity.Property(e => e.TaskUrl).HasColumnName("Task_URL");
         });
 
-        modelBuilder.Entity<Element>(entity =>
+        modelBuilder.Entity<CfgVerifyPype>(entity =>
         {
-            entity.ToTable("Element");
+            entity
+                .HasNoKey()
+                .ToView("CFG_Verify_Pype");
 
-            entity.Property(e => e.ElementId).HasColumnName("Element_ID");
-            entity.Property(e => e.ElementByte).HasColumnName("Element_byte");
-            entity.Property(e => e.ElementInt)
-                .HasDefaultValue(1)
-                .HasColumnName("Element_int");
-            entity.Property(e => e.ElementLabel)
+            entity.Property(e => e.DropDown)
                 .HasMaxLength(16)
-                .HasDefaultValue("element 16")
                 .IsFixedLength()
-                .HasColumnName("Element_label");
-            entity.Property(e => e.ElementReal).HasColumnName("Element_real");
-            entity.Property(e => e.ElementSeq)
-                .HasDefaultValue((short)1)
-                .HasColumnName("Element_seq");
-            entity.Property(e => e.ElementType)
+                .HasColumnName("Drop_Down");
+            entity.Property(e => e.LockNoun)
                 .HasMaxLength(4)
-                .HasDefaultValue("desc")
                 .IsFixedLength()
-                .HasColumnName("Element_type");
-            entity.Property(e => e.NounIdFk)
-                .HasDefaultValue(1)
-                .HasColumnName("NOUN_ID_FK");
+                .HasColumnName("Lock_NOUN");
+            entity.Property(e => e.LockVerb)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Lock_VERB");
+            entity.Property(e => e.PodId).HasColumnName("POD_ID");
+            entity.Property(e => e.PodLabel)
+                .HasMaxLength(16)
+                .HasColumnName("POD_label");
+            entity.Property(e => e.PypeId)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Pype_ID");
+            entity.Property(e => e.PypeType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Pype_type");
+            entity.Property(e => e.Verified).HasColumnName("verified");
+        });
+
+        modelBuilder.Entity<FilterPype>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("Filter_Pype");
+
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+            entity.Property(e => e.PodLabel)
+                .HasMaxLength(16)
+                .HasColumnName("POD_label");
+            entity.Property(e => e.PodPypeDdPods)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD_type");
+            entity.Property(e => e.PypeDesc)
+                .HasMaxLength(64)
+                .HasColumnName("Pype_desc");
+            entity.Property(e => e.PypeId)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Pype_ID");
+            entity.Property(e => e.PypeLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Pype_label");
+            entity.Property(e => e.PypeLink)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Pype_link");
+            entity.Property(e => e.PypeSeq).HasColumnName("Pype_seq");
+            entity.Property(e => e.PypeStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Pype_status");
+            entity.Property(e => e.PypeType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Pype_type");
         });
 
         modelBuilder.Entity<Guide>(entity =>
@@ -867,14 +549,20 @@ public partial class NnetDbContext : DbContext
             entity.ToTable("Guide");
 
             entity.Property(e => e.GuideId).HasColumnName("Guide_ID");
-            entity.Property(e => e.GuideDtOrgin)
+            entity.Property(e => e.BrainIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Brain_ID_FK");
+            entity.Property(e => e.GuideDateOrgin)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
-                .HasColumnName("Guide_dt_orgin");
-            entity.Property(e => e.GuideDtRevision)
+                .HasColumnName("Guide_date_orgin");
+            entity.Property(e => e.GuideDateRevision)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
-                .HasColumnName("Guide_dt_revision");
+                .HasColumnName("Guide_date_revision");
+            entity.Property(e => e.GuideEligible)
+                .HasDefaultValue((byte)100)
+                .HasColumnName("Guide_eligible");
             entity.Property(e => e.GuideImage)
                 .HasDefaultValue(1)
                 .HasColumnName("Guide_image");
@@ -892,81 +580,30 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Guide_status");
+            entity.Property(e => e.GuideTag)
+                .HasMaxLength(255)
+                .HasDefaultValue("Guide")
+                .HasColumnName("Guide_tag");
             entity.Property(e => e.GuideType)
                 .HasMaxLength(4)
                 .HasDefaultValue("nnet")
                 .IsFixedLength()
                 .HasColumnName("Guide_type");
-            entity.Property(e => e.NovaFk)
+            entity.Property(e => e.NovaIdFk)
                 .HasDefaultValue(1)
-                .HasColumnName("NOVA_FK");
-            entity.Property(e => e.ProgramFk)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PodIdFk)
                 .HasDefaultValue(1)
-                .HasColumnName("Program_FK");
-        });
-
-        modelBuilder.Entity<Hercule>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("HERCULES");
-
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.TaskDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Task_description");
-            entity.Property(e => e.TaskDuration).HasColumnName("Task_duration");
-            entity.Property(e => e.TaskId).HasColumnName("Task_ID");
-            entity.Property(e => e.TaskLabel32)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("Task_label32");
-            entity.Property(e => e.TaskLevel).HasColumnName("Task_level");
-            entity.Property(e => e.TaskParent).HasColumnName("Task_parent");
-            entity.Property(e => e.TaskPrevious).HasColumnName("Task_previous");
-            entity.Property(e => e.TaskType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Task_type");
-        });
-
-        modelBuilder.Entity<HerculesGantt>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("HERCULES Gantt");
-
-            entity.Property(e => e.Duration)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.IsExpand)
-                .HasMaxLength(1)
-                .IsUnicode(false);
-            entity.Property(e => e.Notes)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.Predecessor)
-                .HasMaxLength(32)
-                .IsFixedLength();
-            entity.Property(e => e.Progress)
-                .HasMaxLength(16)
-                .IsUnicode(false)
-                .HasColumnName("progress");
-            entity.Property(e => e.ProjectName)
-                .HasMaxLength(32)
-                .IsFixedLength();
-            entity.Property(e => e.String)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("string");
-            entity.Property(e => e.TaskType)
-                .HasMaxLength(4)
-                .IsFixedLength();
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.ProgramFk).HasColumnName("Program_FK");
+            entity.Property(e => e.UrlIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_FK");
         });
 
         modelBuilder.Entity<Interview>(entity =>
         {
-            entity.HasKey(e => new { e.GuideId, e.QuestionId }).HasName("PK_InterviewNew");
+            entity.HasKey(e => new { e.GuideId, e.QuestionId });
 
             entity.ToTable("Interview");
 
@@ -986,158 +623,235 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Interview_status");
         });
 
-        modelBuilder.Entity<IviewGuideQuestion>(entity =>
+        modelBuilder.Entity<LascauxArchive>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("Iview_Guide_Questions");
+                .ToTable("Lascaux_archive");
 
-            entity.Property(e => e.GuideLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Guide_label");
-            entity.Property(e => e.InterviewSeq).HasColumnName("Interview_seq");
-            entity.Property(e => e.QuestionText)
-                .HasMaxLength(255)
-                .HasColumnName("Question_text");
-        });
-
-        modelBuilder.Entity<IviewPersonQAnswered>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Iview_Person_Q_answered");
-
-            entity.Property(e => e.AnswerResponse).HasColumnName("Answer_response");
-            entity.Property(e => e.AnswerSeverity).HasColumnName("Answer_severity");
-            entity.Property(e => e.GuideId).HasColumnName("Guide_ID");
-            entity.Property(e => e.GuideLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Guide_label");
-            entity.Property(e => e.GuidePurpose)
-                .HasMaxLength(255)
-                .HasColumnName("Guide_purpose");
-            entity.Property(e => e.GuideType)
+            entity.Property(e => e.A).HasColumnName("A#");
+            entity.Property(e => e.About)
                 .HasMaxLength(4)
                 .IsFixedLength()
-                .HasColumnName("Guide_type");
-            entity.Property(e => e.InterviewSeq).HasColumnName("Interview_seq");
-            entity.Property(e => e.NovaFk).HasColumnName("NOVA_FK");
-            entity.Property(e => e.PersonFirst)
-                .HasMaxLength(32)
-                .HasColumnName("Person_first");
-            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
-            entity.Property(e => e.PersonLast)
-                .HasMaxLength(32)
-                .HasColumnName("Person_last");
-            entity.Property(e => e.QuestionText)
-                .HasMaxLength(255)
-                .HasColumnName("Question_text");
+                .HasColumnName("about");
+            entity.Property(e => e.Action)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("action");
+            entity.Property(e => e.ActionDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("actionDescription");
+            entity.Property(e => e.ActionUrl).HasColumnName("actionURL");
+            entity.Property(e => e.N).HasColumnName("N#");
+            entity.Property(e => e.NovaDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("novaDescription");
+            entity.Property(e => e.O).HasColumnName("O#");
+            entity.Property(e => e.Object)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("object");
+            entity.Property(e => e.ObjectDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("objectDescription");
+            entity.Property(e => e.ObjectUrl).HasColumnName("objectURL");
+            entity.Property(e => e.P).HasColumnName("P#");
+            entity.Property(e => e.Pid).HasColumnName("pid");
+            entity.Property(e => e.S).HasColumnName("S#");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("subject");
+            entity.Property(e => e.SubjectDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("subjectDescription");
+            entity.Property(e => e.SubjectUrl).HasColumnName("subjectURL");
         });
 
-        modelBuilder.Entity<ListBrainLocPerson>(entity =>
+        modelBuilder.Entity<LascauxFromNova>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("List_Brain_Loc_Person");
+                .ToView("Lascaux_from_NOVA");
 
-            entity.Property(e => e.BrainConnectionString)
-                .HasMaxLength(255)
-                .HasColumnName("Brain_connection_string");
-            entity.Property(e => e.BrainDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Brain_description");
-            entity.Property(e => e.BrainLabel)
+            entity.Property(e => e.A).HasColumnName("A#");
+            entity.Property(e => e.Action)
                 .HasMaxLength(16)
                 .IsFixedLength()
-                .HasColumnName("Brain_label");
-            entity.Property(e => e.BrainStorage)
+                .HasColumnName("action");
+            entity.Property(e => e.ActionDescription)
                 .HasMaxLength(255)
-                .HasColumnName("Brain_storage");
-            entity.Property(e => e.BrainType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Brain_type");
-            entity.Property(e => e.LocationDescription)
+                .HasColumnName("actionDescription");
+            entity.Property(e => e.ActionUrl)
                 .HasMaxLength(128)
-                .HasColumnName("Location_description");
-            entity.Property(e => e.LocationLabel)
+                .HasColumnName("actionURL");
+            entity.Property(e => e.N).HasColumnName("N#");
+            entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
+            entity.Property(e => e.NovaIn)
+                .HasMaxLength(4)
+                .IsUnicode(false)
+                .HasColumnName("NOVA_in");
+            entity.Property(e => e.O).HasColumnName("O#");
+            entity.Property(e => e.Object)
                 .HasMaxLength(16)
-                .HasColumnName("Location_label");
-            entity.Property(e => e.PersonFirst)
-                .HasMaxLength(32)
-                .HasColumnName("Person_first");
-            entity.Property(e => e.PersonLast)
-                .HasMaxLength(32)
-                .HasColumnName("Person_last");
+                .IsFixedLength()
+                .HasColumnName("object");
+            entity.Property(e => e.ObjectDescription)
+                .HasMaxLength(255)
+                .HasColumnName("objectDescription");
+            entity.Property(e => e.ObjectUrl)
+                .HasMaxLength(128)
+                .HasColumnName("objectURL");
+            entity.Property(e => e.P).HasColumnName("P#");
+            entity.Property(e => e.Pid).HasColumnName("pid");
+            entity.Property(e => e.S).HasColumnName("S#");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("subject");
+            entity.Property(e => e.SubjectDescription)
+                .HasMaxLength(255)
+                .HasColumnName("subjectDescription");
+            entity.Property(e => e.SubjectUrl)
+                .HasMaxLength(128)
+                .HasColumnName("subjectURL");
         });
 
-        modelBuilder.Entity<ListPodNoun>(entity =>
+        modelBuilder.Entity<LascauxFromTask>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("List_POD_Nouns");
+                .ToView("Lascaux_from_TASK");
 
-            entity.Property(e => e.NounDescription)
+            entity.Property(e => e.A).HasColumnName("A#");
+            entity.Property(e => e.Action)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("action");
+            entity.Property(e => e.ActionDescription)
                 .HasMaxLength(255)
-                .HasColumnName("Noun_description");
+                .HasColumnName("actionDescription");
+            entity.Property(e => e.ActionUrl)
+                .HasMaxLength(128)
+                .HasColumnName("actionURL");
+            entity.Property(e => e.N).HasColumnName("N#");
+            entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
+            entity.Property(e => e.NovaIn)
+                .HasMaxLength(4)
+                .IsUnicode(false)
+                .HasColumnName("NOVA_in");
+            entity.Property(e => e.O).HasColumnName("O#");
+            entity.Property(e => e.Object)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("object");
+            entity.Property(e => e.ObjectDescription)
+                .HasMaxLength(255)
+                .HasColumnName("objectDescription");
+            entity.Property(e => e.ObjectUrl)
+                .HasMaxLength(128)
+                .HasColumnName("objectURL");
+            entity.Property(e => e.P).HasColumnName("P#");
+            entity.Property(e => e.Pid).HasColumnName("pid");
+            entity.Property(e => e.S).HasColumnName("S#");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("subject");
+            entity.Property(e => e.SubjectDescription)
+                .HasMaxLength(255)
+                .HasColumnName("subjectDescription");
+            entity.Property(e => e.SubjectUrl)
+                .HasMaxLength(128)
+                .HasColumnName("subjectURL");
+        });
+
+        modelBuilder.Entity<LascauxFromUrl>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("Lascaux_from_URLS");
+
+            entity.Property(e => e.A).HasColumnName("A#");
+            entity.Property(e => e.Action)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("action");
+            entity.Property(e => e.ActionDescription)
+                .HasMaxLength(255)
+                .HasColumnName("actionDescription");
+            entity.Property(e => e.ActionUrl)
+                .HasMaxLength(128)
+                .HasColumnName("actionURL");
+            entity.Property(e => e.N).HasColumnName("N#");
+            entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
+            entity.Property(e => e.NovaIn)
+                .HasMaxLength(4)
+                .IsUnicode(false)
+                .HasColumnName("NOVA_in");
+            entity.Property(e => e.O).HasColumnName("O#");
+            entity.Property(e => e.Object)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("object");
+            entity.Property(e => e.ObjectDescription)
+                .HasMaxLength(255)
+                .HasColumnName("objectDescription");
+            entity.Property(e => e.ObjectUrl)
+                .HasMaxLength(128)
+                .HasColumnName("objectURL");
+            entity.Property(e => e.P).HasColumnName("P#");
+            entity.Property(e => e.Pid).HasColumnName("pid");
+            entity.Property(e => e.S).HasColumnName("S#");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("subject");
+            entity.Property(e => e.SubjectDescription)
+                .HasMaxLength(255)
+                .HasColumnName("subjectDescription");
+        });
+
+        modelBuilder.Entity<LascauxNovaJunk>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("Lascaux_NOVA_junk");
+
+            entity.Property(e => e.Expr3)
+                .HasMaxLength(16)
+                .IsFixedLength();
+            entity.Property(e => e.Expr4)
+                .HasMaxLength(16)
+                .IsFixedLength();
+            entity.Property(e => e.LascauxObject)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Lascaux_object");
+            entity.Property(e => e.LascauxObjectId).HasColumnName("Lascaux_object_ID");
             entity.Property(e => e.NounId).HasColumnName("Noun_ID");
             entity.Property(e => e.NounLabel)
                 .HasMaxLength(16)
                 .IsFixedLength()
                 .HasColumnName("Noun_label");
-            entity.Property(e => e.NounType)
+            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
+            entity.Property(e => e.NovaId).HasColumnName("NOVA_ID");
+            entity.Property(e => e.NovaStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("NOVA_status");
+            entity.Property(e => e.NovaType)
                 .HasMaxLength(4)
                 .IsFixedLength()
-                .HasColumnName("Noun_type");
-            entity.Property(e => e.PodDescription)
-                .HasMaxLength(255)
-                .HasColumnName("POD_description");
-            entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.PodLabel)
-                .HasMaxLength(16)
-                .HasColumnName("POD_label");
-            entity.Property(e => e.UrlIdPk).HasColumnName("URL_ID_PK");
-        });
-
-        modelBuilder.Entity<ListPodNounUrl>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("List_POD_Noun_URL");
-
-            entity.Property(e => e.NounId).HasColumnName("Noun_ID");
-            entity.Property(e => e.NounLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Noun_label");
-            entity.Property(e => e.NounType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Noun_type");
+                .HasColumnName("NOVA_type");
             entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
             entity.Property(e => e.PodLabel)
                 .HasMaxLength(16)
                 .HasColumnName("POD_label");
-            entity.Property(e => e.UrlCloud)
-                .HasMaxLength(128)
-                .HasColumnName("URL_cloud");
-        });
-
-        modelBuilder.Entity<ListPodVerbUrl>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("List_POD_Verb_URL");
-
-            entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.PodLabel)
-                .HasMaxLength(16)
-                .HasColumnName("POD_label");
-            entity.Property(e => e.UrlCloud)
-                .HasMaxLength(128)
-                .HasColumnName("URL_cloud");
             entity.Property(e => e.UrlLabel)
                 .HasMaxLength(16)
                 .IsFixedLength()
@@ -1149,10 +863,63 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Verb_label");
         });
 
+        modelBuilder.Entity<LascauxViewTest>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Lascaux_view_TEST");
+
+            entity.Property(e => e.A).HasColumnName("A#");
+            entity.Property(e => e.About)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("about");
+            entity.Property(e => e.Action)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("action");
+            entity.Property(e => e.ActionDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("actionDescription");
+            entity.Property(e => e.ActionUrl)
+                .HasMaxLength(128)
+                .HasColumnName("actionURL");
+            entity.Property(e => e.N).HasColumnName("N#");
+            entity.Property(e => e.NovaDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("novaDescription");
+            entity.Property(e => e.O).HasColumnName("O#");
+            entity.Property(e => e.Object)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("object");
+            entity.Property(e => e.ObjectDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("objectDescription");
+            entity.Property(e => e.ObjectUrl)
+                .HasMaxLength(128)
+                .HasColumnName("objectURL");
+            entity.Property(e => e.P).HasColumnName("P#");
+            entity.Property(e => e.Pid).HasColumnName("pid");
+            entity.Property(e => e.S).HasColumnName("S#");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("subject");
+            entity.Property(e => e.SubjectDescription)
+                .HasMaxLength(64)
+                .IsFixedLength()
+                .HasColumnName("subjectDescription");
+            entity.Property(e => e.SubjectUrl)
+                .HasMaxLength(128)
+                .HasColumnName("subjectURL");
+        });
+
         modelBuilder.Entity<Location>(entity =>
         {
-            entity.HasKey(e => e.LocationId).HasName("PK_Locat");
-
             entity.ToTable("Location");
 
             entity.Property(e => e.LocationId).HasColumnName("Location_ID");
@@ -1190,6 +957,10 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(128)
                 .HasDefaultValue("Cloud-Storage")
                 .HasColumnName("Location_Storage");
+            entity.Property(e => e.LocationTag)
+                .HasMaxLength(255)
+                .HasDefaultValue("tag")
+                .HasColumnName("Location_tag");
             entity.Property(e => e.LocationTimeZone)
                 .HasDefaultValue(-5)
                 .HasColumnName("Location_time_zone");
@@ -1216,11 +987,175 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Program_FK");
         });
 
+        modelBuilder.Entity<MapPerson>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("map_Person");
+
+            entity.Property(e => e.BrainIdFk).HasColumnName("BRAIN_ID_FK");
+            entity.Property(e => e.GuideIdFk)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.LocationIdFk).HasColumnName("Location_ID_FK");
+            entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PersonDatetime)
+                .HasColumnType("datetime")
+                .HasColumnName("Person_datetime");
+            entity.Property(e => e.PersonEligible).HasColumnName("Person_eligible");
+            entity.Property(e => e.PersonFirst)
+                .HasMaxLength(32)
+                .HasColumnName("Person_first");
+            entity.Property(e => e.PersonId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("Person_ID");
+            entity.Property(e => e.PersonLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Person_label");
+            entity.Property(e => e.PersonLast)
+                .HasMaxLength(32)
+                .HasColumnName("Person_last");
+            entity.Property(e => e.PersonMyCloud)
+                .HasMaxLength(128)
+                .HasColumnName("Person_MY_cloud");
+            entity.Property(e => e.PersonPypeDdMyme)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Person_pypeDD_myme");
+            entity.Property(e => e.PersonPypeDdRole)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Person_pypeDD_role");
+            entity.Property(e => e.PersonStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Person_status");
+            entity.Property(e => e.PersonTag)
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .HasColumnName("Person_tag");
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+            entity.Property(e => e.ProgramIdFk).HasColumnName("Program_ID_FK");
+            entity.Property(e => e.UrlIdFk).HasColumnName("URL_ID_FK");
+        });
+
+        modelBuilder.Entity<MapPod>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("map_POD");
+
+            entity.Property(e => e.GuideIdFk).HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.LocationIdFk).HasColumnName("Location_ID_FK");
+            entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
+            entity.Property(e => e.PodDescription)
+                .HasMaxLength(255)
+                .HasColumnName("POD_description");
+            entity.Property(e => e.PodId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("POD_ID");
+            entity.Property(e => e.PodImage)
+                .HasMaxLength(128)
+                .HasColumnName("POD_image");
+            entity.Property(e => e.PodLabel)
+                .HasMaxLength(16)
+                .HasColumnName("POD_label");
+            entity.Property(e => e.PodPypeDdChan)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD_pypeDD_chan");
+            entity.Property(e => e.PodPypeDdPods)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD_pypeDD_pods");
+            entity.Property(e => e.PodPypeDdTime)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD_pypeDD_time");
+            entity.Property(e => e.PodPypeNoun)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD_pype_noun");
+            entity.Property(e => e.PodPypeVerb)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD_pype_verb");
+            entity.Property(e => e.PodStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("POD_status");
+            entity.Property(e => e.PodTag)
+                .HasMaxLength(255)
+                .HasColumnName("POD_tag");
+            entity.Property(e => e.ProgramIdFk)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("Program_ID_FK");
+            entity.Property(e => e.UrlIdFk)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("URL_ID_FK");
+        });
+
         modelBuilder.Entity<Memo>(entity =>
         {
-            entity.HasKey(e => new { e.MemoPersonTo, e.MemoPersonFrom, e.MemoDateTime }).HasName("PK_MemoNew");
+            entity.HasKey(e => new { e.MemoPersonTo, e.MemoPersonFrom, e.MemoDateTime }).HasName("PK_Memo_November");
 
             entity.ToTable("Memo");
+
+            entity.Property(e => e.MemoPersonTo)
+                .HasDefaultValue(1)
+                .HasColumnName("Memo_Person_to");
+            entity.Property(e => e.MemoPersonFrom)
+                .HasDefaultValue(1)
+                .HasColumnName("Memo_Person_from");
+            entity.Property(e => e.MemoDateTime)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("Memo_date_time");
+            entity.Property(e => e.GuideIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.MemoChannel)
+                .HasMaxLength(4)
+                .HasDefaultValue("memo")
+                .IsFixedLength()
+                .HasColumnName("Memo_Channel");
+            entity.Property(e => e.MemoDtOriginal).HasColumnName("Memo_DT_original");
+            entity.Property(e => e.MemoMessage)
+                .HasMaxLength(1024)
+                .HasDefaultValue("message")
+                .HasColumnName("Memo_message");
+            entity.Property(e => e.MemoNova).HasColumnName("Memo_Nova");
+            entity.Property(e => e.GuideIdFk).HasColumnName("Memo_Pod");
+            entity.Property(e => e.MemoPriority)
+                .HasDefaultValue((byte)3)
+                .HasColumnName("Memo_priority");
+            entity.Property(e => e.MemoStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("O")
+                .IsFixedLength()
+                .HasColumnName("Memo_status");
+            entity.Property(e => e.MemoType)
+                .HasMaxLength(4)
+                .HasDefaultValue("memo")
+                .IsFixedLength()
+                .HasColumnName("Memo_type");
+            entity.Property(e => e.PodIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.QuestionIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Question_ID_FK");
+        });
+
+        modelBuilder.Entity<MemoArchive>(entity =>
+        {
+            entity.HasKey(e => new { e.MemoPersonTo, e.MemoPersonFrom, e.MemoDateTime }).HasName("PK_Memo");
+
+            entity.ToTable("Memo_archive");
 
             entity.Property(e => e.MemoPersonTo)
                 .HasDefaultValue(1)
@@ -1238,7 +1173,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.MemoNova)
                 .HasDefaultValue(1)
                 .HasColumnName("Memo_NOVA");
-            entity.Property(e => e.MemoPod)
+            entity.Property(e => e.GuideIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Memo_POD");
             entity.Property(e => e.MemoPriority)
@@ -1256,44 +1191,119 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Memo_type");
         });
 
-        modelBuilder.Entity<MemoLink>(entity =>
+        modelBuilder.Entity<MyAnswer>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToView("Memo_Link");
+            entity.HasKey(e => new { e.PersonIdFk, e.QuestionIdFk });
 
-            entity.Property(e => e.About)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("about");
-            entity.Property(e => e.From).HasColumnName("from");
-            entity.Property(e => e.LocationTo)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Location_to");
-            entity.Property(e => e.Message).HasColumnName("message");
-            entity.Property(e => e.Open)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("open");
-            entity.Property(e => e.Priority).HasColumnName("priority");
-            entity.Property(e => e.Receive)
-                .HasMaxLength(32)
-                .HasColumnName("receive");
-            entity.Property(e => e.Sender)
-                .HasMaxLength(32)
-                .HasColumnName("sender");
-            entity.Property(e => e.Time).HasColumnName("time");
-            entity.Property(e => e.To).HasColumnName("to");
+            entity.ToTable("MY_Answers");
+
+            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
+            entity.Property(e => e.QuestionIdFk).HasColumnName("Question_ID_FK");
+            entity.Property(e => e.DateIview).HasColumnName("Date_Iview");
+            entity.Property(e => e.MyResponse).HasColumnName("MY_response");
+            entity.Property(e => e.MySeverity).HasColumnName("MY_severity");
+        });
+
+        modelBuilder.Entity<MyGuide>(entity =>
+        {
+            entity.HasKey(e => new { e.PersonIdFk, e.GuideIdFk }).HasName("PK_MY_GuidesNEW");
+
+            entity.ToTable("MY_Guides");
+
+            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
+            entity.Property(e => e.GuideIdFk).HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.DateEvaluated).HasColumnName("Date_evaluated");
+            entity.Property(e => e.DateInitial).HasColumnName("Date_initial");
+            entity.Property(e => e.DateSelected).HasColumnName("Date_selected");
+        });
+
+        modelBuilder.Entity<MyGuidesArchive>(entity =>
+        {
+            entity.HasKey(e => new { e.PersonIdFk, e.GuideIdFk }).HasName("PK_MY_Guides");
+
+            entity.ToTable("MY_Guides_archive");
+
+            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
+            entity.Property(e => e.GuideIdFk).HasColumnName("Guide_ID_FK");
         });
 
         modelBuilder.Entity<Noun>(entity =>
         {
-            entity.HasKey(e => e.NounId).HasName("PK_Noun_1");
-
             entity.ToTable("Noun");
 
             entity.Property(e => e.NounId).HasColumnName("Noun_ID");
+            entity.Property(e => e.NounDescription)
+                .HasMaxLength(255)
+                .HasDefaultValue("description of Noun")
+                .HasColumnName("Noun_description");
+            entity.Property(e => e.NounIdFkCommon)
+                .HasDefaultValue(1)
+                .HasColumnName("Noun_ID_FK_common");
+            entity.Property(e => e.NounLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label 16")
+                .IsFixedLength()
+                .HasColumnName("Noun_label");
+            entity.Property(e => e.NounStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Noun_status");
+            entity.Property(e => e.NounTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Noun_tag");
+            entity.Property(e => e.NounType)
+                .HasMaxLength(4)
+                .HasDefaultValue("base")
+                .IsFixedLength()
+                .HasColumnName("Noun_type");
+            entity.Property(e => e.PodIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.UrlIdPk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_PK");
+        });
+
+        modelBuilder.Entity<NounPypeType>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("Noun_pype_type");
+
+            entity.Property(e => e.NounDescription)
+                .HasMaxLength(255)
+                .HasColumnName("Noun_description");
+            entity.Property(e => e.NounId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("Noun_ID");
+            entity.Property(e => e.NounLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Noun_label");
+            entity.Property(e => e.NounStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Noun_status");
+            entity.Property(e => e.NounType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Noun_type");
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+            entity.Property(e => e.UrlIdPk).HasColumnName("URL_ID_PK");
+        });
+
+        modelBuilder.Entity<NounTest>(entity =>
+        {
+            entity.HasKey(e => e.NounId).HasName("PK_Noun_tag_1");
+
+            entity.ToTable("Noun_TEST");
+
+            entity.Property(e => e.NounId).HasColumnName("Noun_ID");
+            entity.Property(e => e.NounCommon)
+                .HasDefaultValue(1)
+                .HasColumnName("Noun_common");
             entity.Property(e => e.NounDescription)
                 .HasMaxLength(255)
                 .HasDefaultValue("description of Noun")
@@ -1308,13 +1318,17 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Noun_status");
+            entity.Property(e => e.NounTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Noun_tag");
             entity.Property(e => e.NounType)
                 .HasMaxLength(4)
                 .HasDefaultValue("base")
                 .IsFixedLength()
                 .HasColumnName("Noun_type");
             entity.Property(e => e.PodIdFk)
-                .HasDefaultValue(1)
+                .HasDefaultValue(4)
                 .HasColumnName("POD_ID_FK");
             entity.Property(e => e.UrlIdPk)
                 .HasDefaultValue(1)
@@ -1339,6 +1353,8 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
             entity.Property(e => e.NovaLabel)
                 .HasMaxLength(16)
+                .HasDefaultValue("label16")
+                .IsFixedLength()
                 .HasColumnName("NOVA_label");
             entity.Property(e => e.NovaObject)
                 .HasDefaultValue(1)
@@ -1354,6 +1370,10 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.NovaSubject)
                 .HasDefaultValue(1)
                 .HasColumnName("NOVA_subject");
+            entity.Property(e => e.NovaTag)
+                .HasMaxLength(1000)
+                .HasDefaultValue("tag")
+                .HasColumnName("NOVA_tag");
             entity.Property(e => e.NovaType)
                 .HasMaxLength(4)
                 .HasDefaultValue("nova")
@@ -1363,20 +1383,192 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue(1)
                 .HasColumnName("Person_ID_FK");
             entity.Property(e => e.PodIdFk)
-                .HasDefaultValue(1)
+                .HasDefaultValue(4)
                 .HasColumnName("POD_ID_FK");
+        });
+
+        modelBuilder.Entity<NovaSvoUrl>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("NOVA_SVO_URL");
+
+            entity.Property(e => e.Expr1)
+                .HasMaxLength(16)
+                .IsFixedLength();
+            entity.Property(e => e.Expr2)
+                .HasMaxLength(4)
+                .IsFixedLength();
+            entity.Property(e => e.NounLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Noun_label");
+            entity.Property(e => e.NounType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Noun_type");
+            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
+            entity.Property(e => e.NovaId).HasColumnName("NOVA_ID");
+            entity.Property(e => e.NovaType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("NOVA_type");
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+            entity.Property(e => e.VerbLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Verb_label");
+            entity.Property(e => e.VerbType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Verb_type");
         });
 
         modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.PersonId).HasName("PK_Person_1");
+            entity.HasKey(e => e.PersonId).HasName("PK_Person_new");
 
             entity.ToTable("Person");
 
             entity.Property(e => e.PersonId).HasColumnName("Person_ID");
+            entity.Property(e => e.BrainIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Brain_ID_FK");
+            entity.Property(e => e.GuideIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Guide_ID_FK");
             entity.Property(e => e.LocationIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Location_ID_FK");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PersonDatetime)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("Person_datetime");
+            entity.Property(e => e.PersonEligible)
+                .HasDefaultValue((byte)100)
+                .HasColumnName("Person_eligible");
+            entity.Property(e => e.PersonFirst)
+                .HasMaxLength(32)
+                .HasDefaultValue("first")
+                .HasColumnName("Person_first");
+            entity.Property(e => e.PersonLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label 16")
+                .IsFixedLength()
+                .HasColumnName("Person_label");
+            entity.Property(e => e.PersonLast)
+                .HasMaxLength(32)
+                .HasDefaultValue("last")
+                .HasColumnName("Person_last");
+            entity.Property(e => e.PersonMyCloud)
+                .HasMaxLength(128)
+                .HasDefaultValue("MY_cloud")
+                .HasColumnName("Person_MY_cloud");
+            entity.Property(e => e.PersonPypeDdMyme)
+                .HasMaxLength(4)
+                .HasDefaultValue("hman")
+                .IsFixedLength()
+                .HasColumnName("Person_pypeDD_myme");
+            entity.Property(e => e.PersonPypeDdRole)
+                .HasMaxLength(4)
+                .HasDefaultValue("role")
+                .IsFixedLength()
+                .HasColumnName("Person_pypeDD_role");
+            entity.Property(e => e.PersonStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Person_status");
+            entity.Property(e => e.PersonTag)
+                .HasMaxLength(255)
+                .HasColumnName("Person_tag");
+            entity.Property(e => e.PodIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.ProgramIdFk)
+                .HasDefaultValue(3)
+                .HasColumnName("Program_ID_FK");
+            entity.Property(e => e.UrlIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_FK");
+        });
+
+        modelBuilder.Entity<PersonArchive>(entity =>
+        {
+            entity.HasKey(e => e.PersonId).HasName("PK_Person_null");
+
+            entity.ToTable("Person_archive");
+
+            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
+            entity.Property(e => e.BrainIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("BRAIN_ID_FK");
+            entity.Property(e => e.LocationIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Location_ID_FK");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PersonDatetime)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("Person_datetime");
+            entity.Property(e => e.PersonEligibility)
+                .HasDefaultValue((byte)100)
+                .HasColumnName("Person_eligibility");
+            entity.Property(e => e.PersonFirst)
+                .HasMaxLength(32)
+                .HasDefaultValue("first")
+                .HasColumnName("Person_first");
+            entity.Property(e => e.PersonLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label 16")
+                .IsFixedLength()
+                .HasColumnName("Person_label");
+            entity.Property(e => e.PersonLast)
+                .HasMaxLength(32)
+                .HasDefaultValue("last")
+                .HasColumnName("Person_last");
+            entity.Property(e => e.PersonMyCloud)
+                .HasMaxLength(128)
+                .HasDefaultValue("MY_cloud")
+                .HasColumnName("Person_MY_cloud");
+            entity.Property(e => e.PersonPypeDdRole)
+                .HasMaxLength(4)
+                .HasDefaultValue("role")
+                .IsFixedLength()
+                .HasColumnName("Person_role");
+            entity.Property(e => e.PersonStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Person_status");
+            entity.Property(e => e.PersonTag)
+                .HasMaxLength(255)
+                .HasColumnName("Person_tag");
+            entity.Property(e => e.PersonPypeDdMyme)
+                .HasMaxLength(4)
+                .HasDefaultValue("hman")
+                .IsFixedLength()
+                .HasColumnName("Person_type");
+            entity.Property(e => e.PodIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.ProgramIdFk)
+                .HasDefaultValue(3)
+                .HasColumnName("Program_ID_FK");
+        });
+
+        modelBuilder.Entity<PersonTemp>(entity =>
+        {
+            entity.HasKey(e => e.PersonId).HasName("PK_Person");
+
+            entity.ToTable("Person_temp");
+
+            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
             entity.Property(e => e.PersonDatetime)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -1394,7 +1586,7 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(32)
                 .HasDefaultValue("last")
                 .HasColumnName("Person_last");
-            entity.Property(e => e.PersonRole)
+            entity.Property(e => e.PersonPypeDdRole)
                 .HasMaxLength(4)
                 .HasDefaultValue("role")
                 .IsFixedLength()
@@ -1404,45 +1596,23 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Person_status");
-            entity.Property(e => e.PersonType)
+            entity.Property(e => e.PersonPypeDdMyme)
                 .HasMaxLength(4)
                 .HasDefaultValue("hman")
                 .IsFixedLength()
                 .HasColumnName("Person_type");
-            entity.Property(e => e.PodIdFk)
-                .HasDefaultValue(1)
-                .HasColumnName("POD_ID_FK");
-        });
-
-        modelBuilder.Entity<Phase>(entity =>
-        {
-            entity.ToTable("Phase");
-
-            entity.Property(e => e.PhaseId).HasColumnName("Phase_ID");
-            entity.Property(e => e.Finder)
-                .HasMaxLength(128)
-                .HasDefaultValue("URL");
-            entity.Property(e => e.Location).HasDefaultValue(1);
-            entity.Property(e => e.Narative)
-                .HasMaxLength(255)
-                .HasDefaultValue("About");
-            entity.Property(e => e.Period)
-                .HasMaxLength(64)
-                .HasDefaultValue("Art Period");
-            entity.Property(e => e.Phase1)
-                .HasMaxLength(64)
-                .HasDefaultValue("Chronological Time Period")
-                .HasColumnName("Phase");
-            entity.Property(e => e.Status)
-                .HasMaxLength(1)
-                .HasDefaultValue("A");
         });
 
         modelBuilder.Entity<Pod>(entity =>
         {
+            entity.HasKey(e => e.PodId).HasName("PK_POD_new");
+
             entity.ToTable("POD");
 
             entity.Property(e => e.PodId).HasColumnName("POD_ID");
+            entity.Property(e => e.GuideIdFk)
+                .HasDefaultValue(2)
+                .HasColumnName("Guide_ID_FK");
             entity.Property(e => e.LocationIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Location_ID_FK");
@@ -1452,7 +1622,80 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PersonIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Person_ID_FK");
-            entity.Property(e => e.PodChannel)
+            entity.Property(e => e.PodDescription)
+                .HasMaxLength(255)
+                .HasDefaultValue("Parsed Object Domain - description")
+                .HasColumnName("POD_description");
+            entity.Property(e => e.PodImage)
+                .HasMaxLength(128)
+                .HasDefaultValue("URL pointer to storage")
+                .HasColumnName("POD_image");
+            entity.Property(e => e.PodLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("POD label")
+                .HasColumnName("POD_label");
+            entity.Property(e => e.PodPypeDdChan)
+                .HasMaxLength(4)
+                .HasDefaultValue("chan")
+                .IsFixedLength()
+                .HasColumnName("POD_pypeDD_chan");
+            entity.Property(e => e.PodPypeDdPods)
+                .HasMaxLength(4)
+                .HasDefaultValue("pods")
+                .IsFixedLength()
+                .HasColumnName("POD_pypeDD_pods");
+            entity.Property(e => e.PodPypeDdTime)
+                .HasMaxLength(4)
+                .HasDefaultValue("hour")
+                .IsFixedLength()
+                .HasColumnName("POD_pypeDD_time");
+            entity.Property(e => e.PodPypeNoun)
+                .HasMaxLength(4)
+                .HasDefaultValue("NOUN")
+                .IsFixedLength()
+                .HasColumnName("POD_pype_noun");
+            entity.Property(e => e.PodPypeVerb)
+                .HasMaxLength(4)
+                .HasDefaultValue("VERB")
+                .IsFixedLength()
+                .HasColumnName("POD_pype_verb");
+            entity.Property(e => e.PodStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("POD_status");
+            entity.Property(e => e.PodTag)
+                .HasMaxLength(255)
+                .HasDefaultValue("tag")
+                .HasColumnName("POD_tag");
+            entity.Property(e => e.ProgramIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Program_ID_FK");
+            entity.Property(e => e.UrlIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_FK");
+        });
+
+        modelBuilder.Entity<PodArchive>(entity =>
+        {
+            entity.HasKey(e => e.PodId).HasName("PK_POD");
+
+            entity.ToTable("POD_archive");
+
+            entity.Property(e => e.PodId).HasColumnName("POD_ID");
+            entity.Property(e => e.GuideIdFk)
+                .HasDefaultValue(2)
+                .HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.LocationIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Location_ID_FK");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PersonIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Person_ID_FK");
+            entity.Property(e => e.PodPypeDdChan)
                 .HasMaxLength(4)
                 .HasDefaultValue("chan")
                 .IsFixedLength()
@@ -1465,153 +1708,46 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(16)
                 .HasDefaultValue("POD label")
                 .HasColumnName("POD_label");
+            entity.Property(e => e.PodPypeNoun)
+                .HasMaxLength(4)
+                .HasDefaultValue("NOUN")
+                .IsFixedLength()
+                .HasColumnName("POD_pype_noun");
+            entity.Property(e => e.PodPypeTime)
+                .HasMaxLength(4)
+                .HasDefaultValue("hour")
+                .IsFixedLength()
+                .HasColumnName("POD_pype_time");
+            entity.Property(e => e.PodPypeVerb)
+                .HasMaxLength(4)
+                .HasDefaultValue("VERB")
+                .IsFixedLength()
+                .HasColumnName("POD_pype_verb");
             entity.Property(e => e.PodStatus)
                 .HasMaxLength(1)
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("POD_status");
-            entity.Property(e => e.PodType)
+            entity.Property(e => e.PodTag)
+                .HasMaxLength(255)
+                .HasDefaultValue("tag")
+                .HasColumnName("POD_tag");
+            entity.Property(e => e.PodPypeDdPods)
                 .HasMaxLength(4)
                 .HasDefaultValue("pods")
                 .IsFixedLength()
                 .HasColumnName("POD_type");
-            entity.Property(e => e.PodUrlBase)
+            entity.Property(e => e.PodImage)
                 .HasMaxLength(128)
                 .HasDefaultValue("URL pointer to storage")
                 .HasColumnName("POD_URL_base");
         });
 
-        modelBuilder.Entity<PodBrand>(entity =>
+        modelBuilder.Entity<PodPype>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("POD-Brand");
-
-            entity.Property(e => e.BrandCode)
-                .HasMaxLength(42)
-                .HasColumnName("Brand_code");
-            entity.Property(e => e.BrandLabel)
-                .HasMaxLength(42)
-                .HasColumnName("Brand_label");
-            entity.Property(e => e.BrandRole)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Brand_Role");
-            entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.PodLabel)
-                .HasMaxLength(16)
-                .HasColumnName("POD_label");
-        });
-
-        modelBuilder.Entity<PodNovaLascaux>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("POD_NOVA_Lascaux");
-
-            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
-            entity.Property(e => e.NovaId).HasColumnName("NOVA_ID");
-            entity.Property(e => e.NovaType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("NOVA_type");
-            entity.Property(e => e.OGlyph).HasColumnName("O_glyph");
-            entity.Property(e => e.OId).HasColumnName("O_ID");
-            entity.Property(e => e.OType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("O_type");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength();
-            entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.SGlyph).HasColumnName("S_glyph");
-            entity.Property(e => e.SId).HasColumnName("S_ID");
-            entity.Property(e => e.SType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("S_type");
-            entity.Property(e => e.Subject)
-                .HasMaxLength(16)
-                .IsFixedLength();
-            entity.Property(e => e.VGlyph).HasColumnName("V_glyph");
-            entity.Property(e => e.VId).HasColumnName("V_ID");
-            entity.Property(e => e.VType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("V_type");
-            entity.Property(e => e.Verb)
-                .HasMaxLength(16)
-                .IsFixedLength();
-        });
-
-        modelBuilder.Entity<PodPersonLocation>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("POD_Person_location");
-
-            entity.Property(e => e.LocationDescription)
-                .HasMaxLength(128)
-                .HasColumnName("Location_description");
-            entity.Property(e => e.PersonLast)
-                .HasMaxLength(32)
-                .HasColumnName("Person_last");
-            entity.Property(e => e.PodDescription)
-                .HasMaxLength(255)
-                .HasColumnName("POD_description");
-            entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.PodLabel)
-                .HasMaxLength(16)
-                .HasColumnName("POD_label");
-            entity.Property(e => e.PodType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("POD_type");
-        });
-
-        modelBuilder.Entity<PodPypeAudit>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("POD_Pype_Audit");
-
-            entity.Property(e => e.Drop)
-                .HasMaxLength(4)
-                .IsFixedLength();
-            entity.Property(e => e.Drop16)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Drop 16");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.PypeId)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_ID");
-            entity.Property(e => e.PypeLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Pype_label");
-            entity.Property(e => e.PypeLink)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_link");
-            entity.Property(e => e.PypeStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("Pype_status");
-            entity.Property(e => e.PypeType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_type");
-        });
-
-        modelBuilder.Entity<PodPypeLink>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("POD_PYPE_link");
+                .ToView("POD_Pype");
 
             entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
             entity.Property(e => e.PypeDesc)
@@ -1629,6 +1765,7 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("Pype_link");
+            entity.Property(e => e.PypeSeq).HasColumnName("Pype_seq");
             entity.Property(e => e.PypeStatus)
                 .HasMaxLength(1)
                 .IsFixedLength()
@@ -1645,89 +1782,52 @@ public partial class NnetDbContext : DbContext
                 .HasNoKey()
                 .ToView("POD_Task");
 
-            entity.Property(e => e.ParentTaskStart).HasColumnName("Parent Task Start");
+            entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
             entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.TaskDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Task_description");
-            entity.Property(e => e.TaskFinishDate).HasColumnName("Task_finish_date");
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+            entity.Property(e => e.PodLabel)
+                .HasMaxLength(16)
+                .HasColumnName("POD_label");
             entity.Property(e => e.TaskId).HasColumnName("Task_ID");
             entity.Property(e => e.TaskLabel32)
                 .HasMaxLength(32)
                 .IsFixedLength()
                 .HasColumnName("Task_label32");
             entity.Property(e => e.TaskLevel).HasColumnName("Task_level");
-            entity.Property(e => e.TaskStartDate).HasColumnName("Task_start_date");
+            entity.Property(e => e.TaskSeq).HasColumnName("Task_seq");
             entity.Property(e => e.TaskType)
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("Task_type");
-        });
-
-        modelBuilder.Entity<PodTaskWork>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("POD_Task_Work");
-
-            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
-            entity.Property(e => e.NovaType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("NOVA_type");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength();
-            entity.Property(e => e.PodId).HasColumnName("POD_ID");
-            entity.Property(e => e.Subject)
-                .HasMaxLength(16)
-                .IsFixedLength();
-            entity.Property(e => e.TaskId).HasColumnName("Task_ID");
-            entity.Property(e => e.TaskLabel32)
-                .HasMaxLength(32)
-                .IsFixedLength()
-                .HasColumnName("Task_label32");
-            entity.Property(e => e.TaskType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Task_type");
-            entity.Property(e => e.Verb)
-                .HasMaxLength(16)
-                .IsFixedLength();
-            entity.Property(e => e.WorkDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Work_description");
-            entity.Property(e => e.WorkId).HasColumnName("Work_ID");
-            entity.Property(e => e.WorkType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Work_type");
         });
 
         modelBuilder.Entity<Program>(entity =>
         {
-            entity.HasKey(e => e.ProgramId).HasName("PK_Program_1");
-
             entity.ToTable("Program");
 
-            entity.Property(e => e.ProgramId)
-                .ValueGeneratedNever()
-                .HasColumnName("Program_Id");
+            entity.Property(e => e.ProgramId).HasColumnName("Program_ID");
+            entity.Property(e => e.PersonIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Person_ID_FK");
             entity.Property(e => e.ProgramDesc)
                 .HasMaxLength(128)
                 .HasDefaultValue("Not assigned")
                 .HasComment("Physical Site")
                 .HasColumnName("Program_desc");
-            entity.Property(e => e.ProgramLabel16)
+            entity.Property(e => e.ProgramLabel)
                 .HasMaxLength(16)
                 .HasDefaultValue("label16")
                 .IsFixedLength()
-                .HasColumnName("Program_label16");
+                .HasColumnName("Program_label");
             entity.Property(e => e.ProgramStatus)
                 .HasMaxLength(1)
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Program_status");
+            entity.Property(e => e.ProgramTag)
+                .HasMaxLength(255)
+                .HasDefaultValue("tag")
+                .HasColumnName("Program_tag");
             entity.Property(e => e.ProgramType)
                 .HasMaxLength(4)
                 .HasDefaultValue("loca")
@@ -1737,20 +1837,17 @@ public partial class NnetDbContext : DbContext
 
         modelBuilder.Entity<ProgramGuide>(entity =>
         {
-            entity.HasKey(e => new { e.ProgramFk, e.GuideFk }).HasName("PK_Program");
+            entity.HasKey(e => new { e.ProgramIdFk, e.GuideIdFk });
 
-            entity.ToTable("Program_Guides");
+            entity.ToTable("Program_Guide");
 
-            entity.Property(e => e.ProgramFk).HasColumnName("Program_FK");
-            entity.Property(e => e.GuideFk).HasColumnName("Guide_FK");
-            entity.Property(e => e.SortSeq)
-                .HasDefaultValue((short)1)
-                .HasColumnName("sort_seq");
+            entity.Property(e => e.ProgramIdFk).HasColumnName("Program_ID_FK");
+            entity.Property(e => e.GuideIdFk).HasColumnName("Guide_ID_FK");
         });
 
         modelBuilder.Entity<Pype>(entity =>
         {
-            entity.HasKey(e => new { e.PypeId, e.PypeType }).HasName("PK_Pype2");
+            entity.HasKey(e => new { e.PypeId, e.PypeType });
 
             entity.ToTable("Pype");
 
@@ -1765,12 +1862,15 @@ public partial class NnetDbContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("Pype_type");
             entity.Property(e => e.PodIdFk)
-                .HasDefaultValue(1)
+                .HasDefaultValue(4)
                 .HasColumnName("POD_ID_FK");
             entity.Property(e => e.PypeDesc)
                 .HasMaxLength(64)
                 .HasDefaultValue("Domain Expert Definition")
                 .HasColumnName("Pype_desc");
+            entity.Property(e => e.PypeDropTax)
+                .HasDefaultValue((short)4)
+                .HasColumnName("Pype_drop_tax");
             entity.Property(e => e.PypeLabel)
                 .HasMaxLength(16)
                 .HasDefaultValue("label 16")
@@ -1781,6 +1881,9 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("stop")
                 .IsFixedLength()
                 .HasColumnName("Pype_link");
+            entity.Property(e => e.PypeSeq)
+                .HasDefaultValue((byte)1)
+                .HasColumnName("Pype_seq");
             entity.Property(e => e.PypeStatus)
                 .HasMaxLength(1)
                 .HasDefaultValue("A")
@@ -1788,49 +1891,17 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Pype_status");
         });
 
-        modelBuilder.Entity<PypeNoun>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Pype_NOUN");
-
-            entity.Property(e => e.NounDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Noun_description");
-            entity.Property(e => e.NounId).HasColumnName("Noun_ID");
-            entity.Property(e => e.NounLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Noun_label");
-            entity.Property(e => e.NounType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Noun_type");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.PypeId)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_ID");
-            entity.Property(e => e.PypeLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Pype_label");
-            entity.Property(e => e.PypeType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_type");
-        });
-
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.QuestionId).HasName("PK_QuestionNew");
-
             entity.ToTable("Question");
 
             entity.Property(e => e.QuestionId).HasColumnName("Question_ID");
             entity.Property(e => e.NovaIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.QuestionEligible)
+                .HasDefaultValue((byte)100)
+                .HasColumnName("Question_eligible");
             entity.Property(e => e.QuestionStatus)
                 .HasMaxLength(1)
                 .HasDefaultValue("A")
@@ -1847,31 +1918,43 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Question_type");
         });
 
-        modelBuilder.Entity<RecipeArtifact>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Recipe_Artifact");
-
-            entity.Property(e => e.Category).HasMaxLength(64);
-            entity.Property(e => e.Chef).HasMaxLength(64);
-            entity.Property(e => e.Classification).HasMaxLength(64);
-            entity.Property(e => e.Item).HasColumnName("item");
-            entity.Property(e => e.Location).HasMaxLength(128);
-            entity.Property(e => e.Period).HasColumnName("period");
-            entity.Property(e => e.Recipe).HasMaxLength(64);
-            entity.Property(e => e.What).HasColumnName("what");
-            entity.Property(e => e.Where).HasColumnName("where");
-            entity.Property(e => e.Who).HasColumnName("who");
-        });
-
         modelBuilder.Entity<Registration>(entity =>
         {
+            entity.HasKey(e => e.RegistrationId).HasName("PK_Registration_new");
+
             entity.ToTable("Registration");
 
-            entity.HasIndex(e => e.RegistrationEmail, "IX_Registration_email").IsUnique();
+            entity.Property(e => e.RegistrationId).HasColumnName("Registration_ID");
+            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
+            entity.Property(e => e.RegistrationDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("Registration_date");
+            entity.Property(e => e.RegistrationEmail)
+                .HasMaxLength(320)
+                .IsUnicode(false)
+                .HasDefaultValue("email 320")
+                .HasColumnName("Registration_email");
+            entity.Property(e => e.RegistrationPassword)
+                .HasMaxLength(85)
+                .HasDefaultValue("password 16")
+                .IsFixedLength()
+                .HasColumnName("Registration_password");
+            entity.Property(e => e.RegistrationStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Registration_status");
+            entity.Property(e => e.RegistrationUsername)
+                .HasMaxLength(16)
+                .HasDefaultValue("username 16")
+                .HasColumnName("Registration_username");
+        });
 
-            entity.HasIndex(e => e.RegistrationUsername, "IX_Registration_username").IsUnique();
+        modelBuilder.Entity<RegistrationArchive>(entity =>
+        {
+            entity.HasKey(e => e.RegistrationId).HasName("PK_Registration");
+
+            entity.ToTable("Registration_archive");
 
             entity.Property(e => e.RegistrationId).HasColumnName("Registration_ID");
             entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
@@ -1894,168 +1977,6 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(16)
                 .HasDefaultValue("username 16")
                 .HasColumnName("Registration_username");
-        });
-
-        modelBuilder.Entity<RegistrationRole>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Registration_Role");
-
-            entity.Property(e => e.PersonRole)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Person_role");
-            entity.Property(e => e.PersonType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Person_type");
-            entity.Property(e => e.RegistrationId).HasColumnName("Registration_ID");
-            entity.Property(e => e.RegistrationUsername)
-                .HasMaxLength(16)
-                .HasColumnName("Registration_username");
-        });
-
-        modelBuilder.Entity<ReportArtifact>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("report_Artifact");
-
-            entity.Property(e => e.Artifact).HasMaxLength(64);
-            entity.Property(e => e.ArtifactId).HasColumnName("Artifact_ID");
-            entity.Property(e => e.Artist).HasMaxLength(64);
-            entity.Property(e => e.ArtistId).HasColumnName("Artist_ID");
-            entity.Property(e => e.Composition).HasMaxLength(64);
-            entity.Property(e => e.CompositionId).HasColumnName("Composition_ID");
-            entity.Property(e => e.LocationId).HasColumnName("Location_ID");
-            entity.Property(e => e.LocationLabel16)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Location_label16");
-            entity.Property(e => e.Phase).HasMaxLength(64);
-            entity.Property(e => e.PhaseId).HasColumnName("Phase_ID");
-        });
-
-        modelBuilder.Entity<ReportNovaSvo>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("report_NOVA_SVO");
-
-            entity.Property(e => e.NovaAction).HasColumnName("NOVA_action");
-            entity.Property(e => e.NovaChannel).HasColumnName("NOVA_channel");
-            entity.Property(e => e.NovaDatetime)
-                .HasColumnType("datetime")
-                .HasColumnName("NOVA_datetime");
-            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
-            entity.Property(e => e.NovaId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("NOVA_ID");
-            entity.Property(e => e.NovaLabel)
-                .HasMaxLength(16)
-                .HasColumnName("NOVA_label");
-            entity.Property(e => e.NovaObject).HasColumnName("NOVA_object");
-            entity.Property(e => e.NovaPrioriy).HasColumnName("NOVA_prioriy");
-            entity.Property(e => e.NovaStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("NOVA_status");
-            entity.Property(e => e.NovaSubject).HasColumnName("NOVA_subject");
-            entity.Property(e => e.NovaType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("NOVA_type");
-            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-        });
-
-        modelBuilder.Entity<ReportPersonLocation>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("report_Person_Location");
-
-            entity.Property(e => e.LocationDesc)
-                .HasMaxLength(64)
-                .HasColumnName("Location_desc");
-            entity.Property(e => e.LocationId).HasColumnName("Location_ID");
-            entity.Property(e => e.LocationLabel16)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Location_label16");
-            entity.Property(e => e.LocationType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Location_type");
-            entity.Property(e => e.PersonFirst)
-                .HasMaxLength(32)
-                .HasColumnName("Person_first");
-            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
-            entity.Property(e => e.PersonLast)
-                .HasMaxLength(32)
-                .HasColumnName("Person_last");
-            entity.Property(e => e.PersonRole)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Person_role");
-            entity.Property(e => e.PersonStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("Person_status");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-        });
-
-        modelBuilder.Entity<ReportQuestionAnswer>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("report_Question_Answer");
-
-            entity.Property(e => e.AnswerResponse).HasColumnName("Answer_response");
-            entity.Property(e => e.AnswerSeverity).HasColumnName("Answer_severity");
-            entity.Property(e => e.PersonFirst)
-                .HasMaxLength(32)
-                .HasColumnName("Person_first");
-            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
-            entity.Property(e => e.PersonLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Person_label");
-            entity.Property(e => e.PersonLast)
-                .HasMaxLength(32)
-                .HasColumnName("Person_last");
-            entity.Property(e => e.QuestionText)
-                .HasMaxLength(255)
-                .HasColumnName("Question_text");
-        });
-
-        modelBuilder.Entity<ReportQuestionGuide>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("report_Question_Guide");
-
-            entity.Property(e => e.GuideId).HasColumnName("Guide_ID");
-            entity.Property(e => e.GuideLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Guide_label");
-            entity.Property(e => e.GuidePurpose)
-                .HasMaxLength(255)
-                .HasColumnName("Guide_purpose");
-            entity.Property(e => e.GuideType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Guide_type");
-            entity.Property(e => e.QuestionId).HasColumnName("Question_ID");
-            entity.Property(e => e.QuestionText)
-                .HasMaxLength(255)
-                .HasColumnName("Question_text");
-            entity.Property(e => e.QuestionType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Question_type");
         });
 
         modelBuilder.Entity<ReportTaskWork>(entity =>
@@ -2086,43 +2007,6 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("Work_type");
-        });
-
-        modelBuilder.Entity<RptPersonLocation>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("rpt_Person_Location");
-
-            entity.Property(e => e.LocationId).HasColumnName("Location_ID");
-            entity.Property(e => e.LocationLabel16)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Location_label16");
-            entity.Property(e => e.PersonFirst)
-                .HasMaxLength(32)
-                .HasColumnName("Person_first");
-            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
-            entity.Property(e => e.PersonLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Person_label");
-            entity.Property(e => e.PersonLast)
-                .HasMaxLength(32)
-                .HasColumnName("Person_last");
-            entity.Property(e => e.PersonRole)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Person_role");
-            entity.Property(e => e.PersonStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("Person_status");
-            entity.Property(e => e.PersonType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Person_type");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
         });
 
         modelBuilder.Entity<Task>(entity =>
@@ -2178,35 +2062,48 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Task_status");
+            entity.Property(e => e.TaskTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Task_tag");
             entity.Property(e => e.TaskType)
                 .HasMaxLength(4)
-                .HasDefaultValue("task")
+                .HasDefaultValue("time")
                 .IsFixedLength()
                 .HasColumnName("Task_type");
             entity.Property(e => e.TaskUrl).HasColumnName("Task_URL");
         });
 
-        modelBuilder.Entity<TaskWorkGantt>(entity =>
+        modelBuilder.Entity<Tuner>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToView("Task_Work_Gantt");
+            entity.HasKey(e => new { e.TunerChannel, e.TuberPushbtn });
 
-            entity.Property(e => e.TaskDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Task_description");
-            entity.Property(e => e.TaskId).HasColumnName("Task_ID");
-            entity.Property(e => e.TaskLevel).HasColumnName("Task_level");
-            entity.Property(e => e.TaskParent).HasColumnName("Task_parent");
-            entity.Property(e => e.TaskStartDate).HasColumnName("Task_start_date");
-            entity.Property(e => e.TaskType)
+            entity.ToTable("Tuner");
+
+            entity.Property(e => e.TunerChannel)
                 .HasMaxLength(4)
+                .HasDefaultValue("ABCD")
                 .IsFixedLength()
-                .HasColumnName("Task_type");
-            entity.Property(e => e.WorkDescription)
-                .HasMaxLength(255)
-                .HasColumnName("Work_description");
-            entity.Property(e => e.WorkStart).HasColumnName("Work_start");
+                .HasColumnName("Tuner_channel");
+            entity.Property(e => e.TuberPushbtn)
+                .HasDefaultValue((byte)1)
+                .HasColumnName("Tuber_pushbtn");
+            entity.Property(e => e.TaskIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("TASK_ID_FK");
+            entity.Property(e => e.TunerLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label 16")
+                .IsFixedLength()
+                .HasColumnName("Tuner_label");
+            entity.Property(e => e.TunerType)
+                .HasMaxLength(4)
+                .HasDefaultValue("tune")
+                .IsFixedLength()
+                .HasColumnName("Tuner_type");
+            entity.Property(e => e.UrlIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_FK");
         });
 
         modelBuilder.Entity<Url>(entity =>
@@ -2214,13 +2111,22 @@ public partial class NnetDbContext : DbContext
             entity.ToTable("URL");
 
             entity.Property(e => e.UrlId).HasColumnName("URL_ID");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.UrlAdvanceLevel)
+                .HasDefaultValue((byte)3)
+                .HasColumnName("URL_advance_level");
             entity.Property(e => e.UrlCloud)
                 .HasMaxLength(128)
-                .HasDefaultValue("https://intelchatstorage.blob.core.windows.net/glyphcontainer/Art.png")
+                .HasDefaultValue("https://agineuralnet.blob.core.windows.net/cards/ImageName.png")
                 .HasColumnName("URL_cloud");
+            entity.Property(e => e.UrlDaisey)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_daisey");
             entity.Property(e => e.UrlDescription)
                 .HasMaxLength(128)
-                .HasDefaultValue("description of image")
+                .HasDefaultValue("URL description")
                 .HasColumnName("URL_Description");
             entity.Property(e => e.UrlLabel)
                 .HasMaxLength(16)
@@ -2232,154 +2138,93 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("URL_status");
+            entity.Property(e => e.UrlTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("URL_tag");
             entity.Property(e => e.UrlType)
                 .HasMaxLength(4)
-                .HasDefaultValue("urls")
+                .HasDefaultValue("png")
                 .IsFixedLength()
                 .HasColumnName("URL_type");
         });
 
-      
-
-        modelBuilder.Entity<View1>(entity =>
+        modelBuilder.Entity<Verb>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToView("View_1");
+            entity.ToTable("Verb");
 
-            entity.Property(e => e.Expr2)
-                .HasMaxLength(4)
-                .IsFixedLength();
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.PypeDesc)
-                .HasMaxLength(64)
-                .HasColumnName("Pype_desc");
-            entity.Property(e => e.PypeId)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_ID");
-            entity.Property(e => e.PypeLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Pype_label");
-            entity.Property(e => e.PypeLink)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_link");
-            entity.Property(e => e.PypeStatus)
-                .HasMaxLength(1)
-                .IsFixedLength()
-                .HasColumnName("Pype_status");
-            entity.Property(e => e.PypeType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Pype_type");
-        });
-
-        modelBuilder.Entity<WeeklyActivity>(entity =>
-        {
-            entity.HasKey(e => new { e.WeekId, e.PersonIdFk, e.NounIdFk });
-
-            entity.ToTable("Weekly_activity");
-
-            entity.Property(e => e.WeekId).HasColumnName("Week_ID");
-            entity.Property(e => e.PersonIdFk)
+            entity.Property(e => e.VerbId).HasColumnName("Verb_ID");
+            entity.Property(e => e.PodIdFk)
+                .HasDefaultValue(4)
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.UrlIdPk)
                 .HasDefaultValue(1)
-                .HasColumnName("Person_ID_FK");
-            entity.Property(e => e.NounIdFk)
-                .HasDefaultValue(66)
-                .HasColumnName("Noun_ID_FK");
-            entity.Property(e => e.Quantity).HasDefaultValue((short)1);
+                .HasColumnName("URL_ID_PK");
+            entity.Property(e => e.VerbDescription)
+                .HasMaxLength(255)
+                .HasDefaultValue("Description of Verb")
+                .HasColumnName("Verb_description");
+            entity.Property(e => e.VerbLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label 16")
+                .IsFixedLength()
+                .HasColumnName("Verb_label");
+            entity.Property(e => e.VerbStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Verb_status");
+            entity.Property(e => e.VerbTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Verb_tag");
+            entity.Property(e => e.VerbType)
+                .HasMaxLength(4)
+                .HasDefaultValue("base")
+                .IsFixedLength()
+                .HasColumnName("Verb_type");
         });
 
-        modelBuilder.Entity<WeeklyAnalytic>(entity =>
+        modelBuilder.Entity<VerbTest>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToView("Weekly_analytics");
+            entity.HasKey(e => e.VerbId).HasName("PK_Verb_tag");
 
-            entity.Property(e => e.ElementId).HasColumnName("Element_ID");
-            entity.Property(e => e.ElementInt).HasColumnName("Element_int");
-            entity.Property(e => e.ElementLabel)
+            entity.ToTable("Verb_TEST");
+
+            entity.Property(e => e.VerbId).HasColumnName("Verb_ID");
+            entity.Property(e => e.PodIdFk)
+                .HasDefaultValue(4)
+                .HasColumnName("POD_ID_FK");
+            entity.Property(e => e.UrlIdPk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_PK");
+            entity.Property(e => e.VerbDescription)
+                .HasMaxLength(255)
+                .HasDefaultValue("Description of Verb")
+                .HasColumnName("Verb_description");
+            entity.Property(e => e.VerbLabel)
                 .HasMaxLength(16)
+                .HasDefaultValue("label 16")
                 .IsFixedLength()
-                .HasColumnName("Element_label");
-            entity.Property(e => e.ElementType)
+                .HasColumnName("Verb_label");
+            entity.Property(e => e.VerbStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Verb_status");
+            entity.Property(e => e.VerbTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Verb_tag");
+            entity.Property(e => e.VerbType)
                 .HasMaxLength(4)
+                .HasDefaultValue("base")
                 .IsFixedLength()
-                .HasColumnName("Element_type");
-            entity.Property(e => e.Group).HasColumnName("group");
-            entity.Property(e => e.NounIdFk).HasColumnName("NOUN_ID_FK");
-            entity.Property(e => e.NounLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Noun_label");
-            entity.Property(e => e.NounType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Noun_type");
-            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
-            entity.Property(e => e.PersonLast)
-                .HasMaxLength(32)
-                .HasColumnName("Person_last");
-            entity.Property(e => e.WeekId).HasColumnName("Week_ID");
-        });
-
-        modelBuilder.Entity<WeeklyDetail>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Weekly_detail");
-
-            entity.Property(e => e.ElementId).HasColumnName("Element_ID");
-            entity.Property(e => e.ElementLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Element_label");
-            entity.Property(e => e.NounIdFk).HasColumnName("Noun_ID_FK");
-            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
-            entity.Property(e => e.WeekId).HasColumnName("Week_ID");
-        });
-
-        modelBuilder.Entity<WeeklyPypeDetail>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Weekly_Pype_detail");
-
-            entity.Property(e => e.ElementId).HasColumnName("Element_ID");
-            entity.Property(e => e.ElementInt).HasColumnName("Element_int");
-            entity.Property(e => e.ElementLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Element_label");
-            entity.Property(e => e.ElementType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Element_type");
-            entity.Property(e => e.Grp).HasColumnName("grp");
-            entity.Property(e => e.NounLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Noun_label");
-            entity.Property(e => e.NounType)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Noun_type");
-            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
-            entity.Property(e => e.PersonLabel)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("Person_label");
-            entity.Property(e => e.Scaling).HasColumnName("scaling");
-            entity.Property(e => e.WeekId).HasColumnName("Week_ID");
-            entity.Property(e => e._8wkIntAve).HasColumnName("8WK int ave");
+                .HasColumnName("Verb_type");
         });
 
         modelBuilder.Entity<Work>(entity =>
         {
-            entity.HasKey(e => e.WorkId).HasName("PK_Work2");
-
             entity.ToTable("Work");
 
             entity.Property(e => e.WorkId).HasColumnName("Work_ID");
@@ -2426,161 +2271,15 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Work_status");
+            entity.Property(e => e.WorkTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Work_tag");
             entity.Property(e => e.WorkType)
                 .HasMaxLength(4)
                 .HasDefaultValue("task")
                 .IsFixedLength()
                 .HasColumnName("Work_type");
-        });
-
-        modelBuilder.Entity<XnovaDictionaryInterview>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Xnova_Dictionary_Interview");
-
-            entity.Property(e => e.About)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("about");
-            entity.Property(e => e.G).HasColumnName("G#");
-            entity.Property(e => e.N).HasColumnName("N#");
-            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
-            entity.Property(e => e.O).HasColumnName("O#");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("object");
-            entity.Property(e => e.ObjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("objectDescription");
-            entity.Property(e => e.ObjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("objectURL");
-            entity.Property(e => e.P).HasColumnName("P#");
-            entity.Property(e => e.Pid).HasColumnName("pid");
-            entity.Property(e => e.Q).HasColumnName("Q#");
-            entity.Property(e => e.QuestionText)
-                .HasMaxLength(255)
-                .HasColumnName("Question_text");
-            entity.Property(e => e.S).HasColumnName("S#");
-            entity.Property(e => e.Subject)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("subject");
-            entity.Property(e => e.SubjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("subjectDescription");
-            entity.Property(e => e.SubjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("subjectURL");
-            entity.Property(e => e.V).HasColumnName("V#");
-            entity.Property(e => e.Verb)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("verb");
-            entity.Property(e => e.VerbDescription)
-                .HasMaxLength(255)
-                .HasColumnName("verbDescription");
-            entity.Property(e => e.VerbUrl)
-                .HasMaxLength(128)
-                .HasColumnName("verbURL");
-        });
-
-        modelBuilder.Entity<XnovaDictionaryNounObject>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Xnova_Dictionary_Noun_Object");
-
-            entity.Property(e => e.A).HasColumnName("A#");
-            entity.Property(e => e.About)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("about");
-            entity.Property(e => e.Action)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("action");
-            entity.Property(e => e.ActionDescription)
-                .HasMaxLength(255)
-                .HasColumnName("actionDescription");
-            entity.Property(e => e.ActionUrl)
-                .HasMaxLength(128)
-                .HasColumnName("actionURL");
-            entity.Property(e => e.N).HasColumnName("N#");
-            entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
-            entity.Property(e => e.O).HasColumnName("O#");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("object");
-            entity.Property(e => e.ObjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("objectDescription");
-            entity.Property(e => e.ObjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("objectURL");
-            entity.Property(e => e.P).HasColumnName("P#");
-            entity.Property(e => e.S).HasColumnName("S#");
-            entity.Property(e => e.Subject)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("subject");
-            entity.Property(e => e.SubjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("subjectDescription");
-            entity.Property(e => e.SubjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("subjectURL");
-        });
-
-        modelBuilder.Entity<XnovaDictionaryNounSubject>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Xnova_Dictionary_Noun_Subject");
-
-            entity.Property(e => e.A).HasColumnName("A#");
-            entity.Property(e => e.About)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("about");
-            entity.Property(e => e.Action)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("action");
-            entity.Property(e => e.ActionDescription)
-                .HasMaxLength(255)
-                .HasColumnName("actionDescription");
-            entity.Property(e => e.ActionUrl)
-                .HasMaxLength(128)
-                .HasColumnName("actionURL");
-            entity.Property(e => e.N).HasColumnName("N#");
-            entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
-            entity.Property(e => e.O).HasColumnName("O#");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("object");
-            entity.Property(e => e.ObjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("objectDescription");
-            entity.Property(e => e.ObjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("objectURL");
-            entity.Property(e => e.P).HasColumnName("P#");
-            entity.Property(e => e.S).HasColumnName("S#");
-            entity.Property(e => e.Subject)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("subject");
-            entity.Property(e => e.SubjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("subjectDescription");
-            entity.Property(e => e.SubjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("subjectURL");
         });
 
         modelBuilder.Entity<XnovaDictionaryNova>(entity =>
@@ -2632,105 +2331,7 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("subjectURL");
         });
 
-        modelBuilder.Entity<XnovaDictionaryPod>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Xnova_Dictionary_POD");
-
-			entity.Property(e => e.A).HasColumnName("A#");
-			entity.Property(e => e.About)
-				.HasMaxLength(4)
-				.IsFixedLength()
-				.HasColumnName("about");
-			entity.Property(e => e.Action)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("action");
-			entity.Property(e => e.ActionDescription)
-				.HasMaxLength(255)
-				.HasColumnName("actionDescription");
-			entity.Property(e => e.ActionUrl)
-				.HasMaxLength(128)
-				.HasColumnName("actionURL");
-			entity.Property(e => e.N).HasColumnName("N#");
-			entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
-			entity.Property(e => e.O).HasColumnName("O#");
-			entity.Property(e => e.Object)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("object");
-			entity.Property(e => e.ObjectDescription)
-				.HasMaxLength(255)
-				.HasColumnName("objectDescription");
-			entity.Property(e => e.ObjectUrl)
-				.HasMaxLength(128)
-				.HasColumnName("objectURL");
-			entity.Property(e => e.P).HasColumnName("P#");
-			entity.Property(e => e.Pid).HasColumnName("pid");
-			entity.Property(e => e.S).HasColumnName("S#");
-			entity.Property(e => e.Subject)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("subject");
-			entity.Property(e => e.SubjectDescription)
-				.HasMaxLength(255)
-				.HasColumnName("subjectDescription");
-			entity.Property(e => e.SubjectUrl)
-				.HasMaxLength(128)
-				.HasColumnName("subjectURL");
-		});
-
-		modelBuilder.Entity<XnovaDictionaryQuestion>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Xnova_Dictionary_Question");
-
-			entity.Property(e => e.A).HasColumnName("A#");
-			entity.Property(e => e.About)
-				.HasMaxLength(4)
-				.IsFixedLength()
-				.HasColumnName("about");
-			entity.Property(e => e.Action)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("action");
-			entity.Property(e => e.ActionDescription)
-				.HasMaxLength(255)
-				.HasColumnName("actionDescription");
-			entity.Property(e => e.ActionUrl)
-				.HasMaxLength(128)
-				.HasColumnName("actionURL");
-			entity.Property(e => e.N).HasColumnName("N#");
-			entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
-			entity.Property(e => e.O).HasColumnName("O#");
-			entity.Property(e => e.Object)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("object");
-			entity.Property(e => e.ObjectDescription)
-				.HasMaxLength(255)
-				.HasColumnName("objectDescription");
-			entity.Property(e => e.ObjectUrl)
-				.HasMaxLength(128)
-				.HasColumnName("objectURL");
-			entity.Property(e => e.P).HasColumnName("P#");
-			entity.Property(e => e.Pid).HasColumnName("pid");
-			entity.Property(e => e.S).HasColumnName("S#");
-			entity.Property(e => e.Subject)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("subject");
-			entity.Property(e => e.SubjectDescription)
-				.HasMaxLength(255)
-				.HasColumnName("subjectDescription");
-			entity.Property(e => e.SubjectUrl)
-				.HasMaxLength(128)
-				.HasColumnName("subjectURL");
-		});
-
-		modelBuilder.Entity<XnovaDictionaryTask>(entity =>
+        modelBuilder.Entity<XnovaDictionaryTask>(entity =>
         {
             entity
                 .HasNoKey()
@@ -2741,6 +2342,7 @@ public partial class NnetDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("from");
             entity.Property(e => e.N).HasColumnName("N#");
+            entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
             entity.Property(e => e.Ntype)
                 .HasMaxLength(4)
                 .IsFixedLength();
@@ -2773,108 +2375,7 @@ public partial class NnetDbContext : DbContext
                 .IsFixedLength();
         });
 
-        modelBuilder.Entity<XnovaDictionaryVerb>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Xnova_Dictionary_Verb");
-
-            entity.Property(e => e.A).HasColumnName("A#");
-            entity.Property(e => e.Action)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("action");
-            entity.Property(e => e.ActionDescription)
-                .HasMaxLength(255)
-                .HasColumnName("actionDescription");
-            entity.Property(e => e.ActionUrl)
-                .HasMaxLength(128)
-                .HasColumnName("actionURL");
-            entity.Property(e => e.Nova).HasColumnName("NOVA");
-            entity.Property(e => e.NovaDescription).HasColumnName("NOVA_description");
-            entity.Property(e => e.O).HasColumnName("O#");
-            entity.Property(e => e.Object)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("object");
-            entity.Property(e => e.ObjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("objectDescription");
-            entity.Property(e => e.ObjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("objectURL");
-            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.S).HasColumnName("S#");
-            entity.Property(e => e.Subject)
-                .HasMaxLength(16)
-                .IsFixedLength()
-                .HasColumnName("subject");
-            entity.Property(e => e.SubjectDescription)
-                .HasMaxLength(255)
-                .HasColumnName("subjectDescription");
-            entity.Property(e => e.SubjectUrl)
-                .HasMaxLength(128)
-                .HasColumnName("subjectURL");
-        });
-
-
-		modelBuilder.Entity<XnovaDictionaryWork>(entity =>
-		{
-			entity
-				.HasNoKey()
-				.ToView("Xnova_Dictionary_Work");
-
-			entity.Property(e => e.A).HasColumnName("A#");
-			entity.Property(e => e.About)
-				.HasMaxLength(4)
-				.IsFixedLength()
-				.HasColumnName("about");
-			entity.Property(e => e.Action)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("action");
-			entity.Property(e => e.ActionDescription)
-				.HasMaxLength(255)
-				.HasColumnName("actionDescription");
-			entity.Property(e => e.ActionUrl)
-				.HasMaxLength(128)
-				.HasColumnName("actionURL");
-			entity.Property(e => e.N).HasColumnName("N#");
-			entity.Property(e => e.NovaDescription).HasColumnName("novaDescription");
-			entity.Property(e => e.O).HasColumnName("O#");
-			entity.Property(e => e.Object)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("object");
-			entity.Property(e => e.ObjectDescription)
-				.HasMaxLength(255)
-				.HasColumnName("objectDescription");
-			entity.Property(e => e.ObjectUrl)
-				.HasMaxLength(128)
-				.HasColumnName("objectURL");
-			entity.Property(e => e.P).HasColumnName("P#");
-			entity.Property(e => e.Pid).HasColumnName("pid");
-			entity.Property(e => e.S).HasColumnName("S#");
-			entity.Property(e => e.Subject)
-				.HasMaxLength(16)
-				.IsFixedLength()
-				.HasColumnName("subject");
-			entity.Property(e => e.SubjectDescription)
-				.HasMaxLength(255)
-				.HasColumnName("subjectDescription");
-			entity.Property(e => e.SubjectUrl)
-				.HasMaxLength(128)
-				.HasColumnName("subjectURL");
-		});
-
-
-
-
-
-
-
-
-		OnModelCreatingPartial(modelBuilder);
+        OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

@@ -66,13 +66,13 @@ namespace IntelChat.Pages
 					MemoPersonTo = reader.GetInt32(0),
 					MemoPersonFrom = reader.GetInt32(1),
 					MemoDateTime = reader.GetDateTime(2),
-					MemoPriority = reader.GetByte(3),
-					GuideIdFk = reader.GetInt32(4),
-					MemoNova = reader.GetInt32(5),
-					MemoChannel = reader.GetString(6),
-					MemoType = reader.GetString(7),
-					MemoStatus = reader.GetString(8),
-					MemoMessage = reader.GetString(9)
+					MemoPriority = reader.GetByte(4),
+					GuideIdFk = reader.GetInt32(10),
+					MemoNova = reader.GetInt32(12),
+					MemoChannel = reader.GetString(8),
+					MemoType = reader.GetString(5),
+					MemoStatus = reader.GetString(6),
+					MemoMessage = reader.GetString(7)
 				});
 			}
 			reader.CloseAsync();
@@ -84,8 +84,8 @@ namespace IntelChat.Pages
 
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-				new SqlParameter("@pod", pod),
-				new SqlParameter("@role", role)
+				new SqlParameter("@pod", 3),
+				new SqlParameter("@role", "engr")
 			};
 			var reader = ExecuteStoredProcedure("dbo.[Read_POD_Role_Person]", parameters, true);
 			if (reader == null) return 0;

@@ -21,5 +21,5 @@ public partial class ViewPodBase
 
     public string PodDescription { get; set; } = null!;
 
-    public string PodChannel { get; set; } = null!;
+    public string PodPypeDdChan { get; set; } = null!;
 }

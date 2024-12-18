@@ -22,8 +22,12 @@ namespace IntelChat.Pages
 		public string type = "JUNK"; // *************** Lascaux Case Switch - NOVA or POD,TASK,WORK,NOUN,VERB,QUESTION,INTERVIEW
 									 //*****************************************************************************************
 
-		private int _subject; // Backing field for the subject property
-		private int test; // Temporary variable to hold the current NounId
+		public int _subject; // Backing field for the subject property
+
+		public static class tempVariable
+		{
+			public static int nounId; // Temporary variable to hold the current NounId
+		}
 
 		public int subject
 		{
@@ -33,9 +37,8 @@ namespace IntelChat.Pages
 				if (_subject != value) // Check to avoid unnecessary updates
 				{
 					_subject = value;
-					test = _subject; // Dynamically update the test variable
-					CreateTempTable("sp_Lascaux_#temp");
-					Console.WriteLine($"Test variable dynamically updated to: {test}");
+					tempVariable.nounId = _subject; // Dynamically update the test variable
+					//Console.WriteLine($"Test variable dynamically updated to: {tempVariable.nounId}");
 				}
 			}
 		}
@@ -133,14 +136,17 @@ namespace IntelChat.Pages
 			return null;
 		}
 
+		/*
 		private SqlDataReader? CreateTempTable(string sp, string status = "*")
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-				new SqlParameter("@noun", test)
+				new SqlParameter("@noun", tempVariable.nounId)
 			};
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
+
+		*/
 
 		/**********************************************************************************/
 		/************************ Stored Procedure - LOAD PYPE values *********************/
@@ -341,7 +347,7 @@ namespace IntelChat.Pages
 			subjects = new List<Noun>(nouns);
 			actions  = new List<Verb>(verbs);
 			objects  = new List<Noun>(nouns);
-			CreateTempTable("sp_Lascaux_#temp");
+			//CreateTempTable("sp_Lascaux_#temp");
 			LoadUniqueNounTypes(); 
 			LoadUniqueVerbTypes();
 			LoadUniqueObjectTypes();
