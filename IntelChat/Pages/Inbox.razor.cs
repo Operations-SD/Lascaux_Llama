@@ -84,8 +84,8 @@ namespace IntelChat.Pages
 
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-				new SqlParameter("@pod", pod),
-				new SqlParameter("@role", role)
+				new SqlParameter("@pod", 3),
+				new SqlParameter("@role", "engr")
 			};
 			var reader = ExecuteStoredProcedure("dbo.[Read_POD_Role_Person]", parameters, true);
 			if (reader == null) return 0;
