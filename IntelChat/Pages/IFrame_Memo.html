@@ -1,0 +1,15 @@
+<!-- ImageButtonComponent.razor -->
+
+<div style="text-align:center">
+    <img src="/images/btn_List.png" alt="Example Image" style="position:absolute; left:1100px; width:200px;height:auto;" />
+    <br />
+    <button @onclick="OnButtonClick">Click Me</button>
+</div>
+
+@code {
+    private void OnButtonClick()
+    {
+        // Handle button click here
+        Console.WriteLine("Button clicked!");
+    }
+}

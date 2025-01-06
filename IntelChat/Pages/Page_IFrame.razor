@@ -1,0 +1,54 @@
+﻿@page "/IFrame"
+
+@layout CustomLayout
+
+@* <!-- ********************** insert Pages/Iframe_test.razor ******************** -->
+<iframe src="https://localhost:5001/IFrame" width="400" height="400" style="border:none;"></iframe>  
+<div style="position:absolute; Top:400px; left:40px; width:600px; height:600px; z-index:1;">
+<IFrame_test />
+</div> *@
+
+
+
+
+@* <div style="z-index:1;left:400px;">
+	<Inbox></Inbox>
+	<!-- ********************** insert Pages/Inbox.razor ******************** -->
+</div> *@
+
+
+
+<div style="z-index:1;top:0px;left:0px;">
+	<!-- ********************** insert Pages/Inbox.razor ******************** -->
+	<iframe left='800' width='700' height='410' >
+        <Inbox></Inbox>
+	</iframe>
+</div>
+
+
+
+<!-- ************************************************************************************ -->
+<!-- ************************************* IFrame Video ********************************* -->
+<!-- ************************************************************************************ -->
+
+<div style="top:460px; left:680px; position:absolute; overflow:hidden;">
+    <iframe width='560' height='315' src='https://www.youtube.com/embed/m8e-FF8MsqU'
+            frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen>
+    </iframe>
+</div>
+
+
+<!-- ************************************************************************************ -->
+<!-- ************************************* IFrame Video ********************************* -->
+<!-- ************************************************************************************ -->
+
+<div style="top:400px; left:100px; position:absolute; overflow:hidden;">
+	<iframe width='300' height='200' src="/Blobs/Video/Rain.mp4">
+	</iframe>
+</div>
+
+@* <div style="z-index:1;width:700px;left:1200px;top:0px;">
+	<Inbox></Inbox>
+	<!-- ********************** insert Pages/Inbox.razor ******************** -->
+</div>
+<iframe src="https://www.w3schools.com" title="W3Schools Free Online Web Tutorials"></iframe> *@
