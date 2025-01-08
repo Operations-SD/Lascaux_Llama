@@ -69,7 +69,7 @@ namespace IntelChat.Pages
 					MemoPriority = reader.GetByte(4),
 					GuideIdFk = reader.GetInt32(10),
 					MemoNova = reader.GetInt32(12),
-					MemoChannel = reader.GetString(8),
+					MemoChannel = reader.GetInt32(8),
 					MemoType = reader.GetString(5),
 					MemoStatus = reader.GetString(6),
 					MemoMessage = reader.GetString(7)
