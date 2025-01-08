@@ -74,7 +74,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Read"),
-				new SqlParameter("@PROC_filter", "****"),
+		//		new SqlParameter("@PROC_filter", "****"),
 				new SqlParameter("@memo_status", status),
 				new SqlParameter("@memo_pod", pod)
 			};
@@ -99,7 +99,7 @@ namespace IntelChat.Pages
 					MemoPriority = (byte)reader.GetInt16(3),
 					GuideIdFk = reader.GetInt32(4),
 					MemoNova = reader.GetInt32(5),
-					MemoChannel = reader.GetString(6),
+					MemoChannel = reader.GetInt32(6),
 					MemoType = reader.GetString(7),
 					MemoStatus = reader.GetString(8),
 					MemoMessage = reader.GetString(9)
@@ -184,7 +184,7 @@ namespace IntelChat.Pages
 		/// <summary>Fill fields in the change tab based on entity selection</summary>
 		private void AutoFill(int id, String type)
 		{
-			var target = entities.Find(e => e.MemoChannel == id.ToString());
+			var target = entities.Find(e => e.MemoChannel == id);
 			if (target != null) entity[type] = target;
 		}
 
@@ -194,7 +194,7 @@ namespace IntelChat.Pages
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
 				new SqlParameter("@PROC_Input_Filter", "MEMO"),
-				new SqlParameter("@pod", pod)
+				new SqlParameter("@pod", 3)
 			};
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
 		}

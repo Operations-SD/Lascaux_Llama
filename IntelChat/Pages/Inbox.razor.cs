@@ -84,8 +84,8 @@ namespace IntelChat.Pages
 
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-				new SqlParameter("@pod", 3),
-				new SqlParameter("@role", "engr")
+				new SqlParameter("@pod", pod),
+				new SqlParameter("@role", role)
 			};
 			var reader = ExecuteStoredProcedure("dbo.[Read_POD_Role_Person]", parameters, true);
 			if (reader == null) return 0;
@@ -112,7 +112,7 @@ namespace IntelChat.Pages
 			message = currentMemo.MemoMessage;
 			messageType = currentMemo.MemoType;
 		}
-
+		//******************************* stored proceedure **************************************
 		protected override void OnInitialized()
 		{
 			LoadMemos("Read_Grid", "Memo");

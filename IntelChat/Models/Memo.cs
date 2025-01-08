@@ -21,7 +21,7 @@ public partial class Memo
 
     public string MemoMessage { get; set; } = null!;
 
-    public string MemoChannel { get; set; } = null!;
+    public int MemoChannel { get; set; }
 
     public int PodIdFk { get; set; }
 
