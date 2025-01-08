@@ -13,7 +13,7 @@ public partial class MemoArchive
 
     public byte MemoPriority { get; set; }
 
-    public int GuideIdFk { get; set; }
+    public int MemoPod { get; set; }
 
     public int MemoNova { get; set; }
 

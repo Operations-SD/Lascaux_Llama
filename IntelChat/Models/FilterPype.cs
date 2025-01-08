@@ -23,5 +23,5 @@ public partial class FilterPype
 
     public string PodLabel { get; set; } = null!;
 
-    public string PodPypeDdPods { get; set; } = null!;
+    public string PodType { get; set; } = null!;
 }

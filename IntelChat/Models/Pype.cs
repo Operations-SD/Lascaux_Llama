@@ -22,4 +22,8 @@ public partial class Pype
     public byte PypeSeq { get; set; }
 
     public short PypeDropTax { get; set; }
+
+    public int PypePointer { get; set; }
+
+    public string PypeTag { get; set; } = null!;
 }
