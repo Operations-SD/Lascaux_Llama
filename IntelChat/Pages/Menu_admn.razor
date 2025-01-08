@@ -34,57 +34,51 @@
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** DISPLAY Banner ************************************ -->
 	<!-- ************************************************************************************ -->
-
-
-	<div class="titlebanner">
+	<div class="titlebanner" style="z-index:1;top:10px;left:700px;position:absolute;">
 		<img src="https://agineuralnet.blob.core.windows.net/background/Banner_admn.png" />
 	</div>
-
-
 
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** TABLES ******************************************** -->
 	<!-- ************************************************************************************ -->
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Brain?pod="+pod+"&pid="+pid))"
-			style="top:300px;Color:#FFFFFF;left:320px;height:60px;">
+			style="z-index:1; top:300px;Color:#FFFFFF;left:320px;height:60px;">
 		Brain
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/POD?pod="+pod+"&pid="+pid))"
-            style="top:380px;left:320px;height:60px;">
+			style="z-index:1;top:380px;left:320px;height:60px;">
         POD
     </button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Brand?pod="+pod+"&pid="+pid))"
-			style="top:460px;left:320px;height:60px;">
+			style="z-index:1;top:460px;left:320px;height:60px;">
 		Brand
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Registration?pod="+pod+"&pid="+pid))"
-            style="top:540px;left:320px;height:60px;">
+			style="z-index:1;top:540px;left:320px;height:60px;">
         Registration
     </button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Person?pod="+pod+"&pid="+pid))"
-            style="top:620px;left:320px;height:60px;">
+			style="z-index:1;top:620px;left:320px;height:60px;">
         Person
     </button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Location?pod="+pod+"&pid="+pid))"
-			style="top:700px;left:320px;height:60px;">
+			style="z-index:1;top:700px;left:320px;height:60px;">
 		Location
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Channel?pod="+pod+"&pid="+pid))"
-            style="top:780px;Color:#FFFFFF;left:320px;height:60px;">
+			style="z-index:1;top:780px;Color:#FFFFFF;left:320px;height:60px;">
         Channel
     </button>
 
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* Buttons ************************************** -->
 	<!-- ************************************************************************************ -->
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:700px;height:60px;color:RED;width:140px;">
 		MEMO
@@ -100,9 +94,55 @@
 		Return
 	</button>
 
-
-
-
-
-
 </div>
+
+
+<div   style="top:160px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:80% ">
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/FtpPxKHnfzY" 
+title="Star Wars 2050 - Matt Daver Remix" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+allowfullscreen>
+</iframe>
+</div>
+
+<div>
+<!-- ************************************************************************************ -->
+<!-- ***************************** MENU JUMP ************* ****************************** -->
+<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button"
+			@onclick="@(() => _nav.NavigateTo("/Engineer?pod=" + 3 + "&pid=" + 11))"
+			style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:dimgray;z-index:1;">
+		Engineer
+	</button>
+</div>
+
+<!-- ************************************************************************************ -->
+<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
+<!-- ************************************************************************************ -->
+<div class="engineer-page">
+	<button @onclick="ToggleMemoPage" class="toggle-button"
+			style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+		toggle MEMO
+	</button>
+
+	@if (isMemoPageOpen)
+	{
+		<div class="memo-page" style="z-index:1; position:absolute;top:780px;left:200px;width:1200px;height:280px; opacity:100%">
+			<iframe src="CommMemo" class="memo-iframe"></iframe>
+		</div>
+	}
+</div>
+<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
+@code {
+	private bool isMemoPageOpen = false;
+
+	private void ToggleMemoPage()
+	{
+		isMemoPageOpen = !isMemoPageOpen;
+	}
+}
+
+<!-- ************************* End of PAGE ************************** -->
+<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->
+

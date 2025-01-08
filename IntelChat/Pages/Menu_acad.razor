@@ -30,16 +30,22 @@
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** DISPLAY Banner ************************************ -->
 	<!-- ************************************************************************************ -->
-
-
-	<div class="titlebanner">
+	<div class="titlebanner" style="z-index:1;top:10px;left:700px;position:absolute;">
 		<img src="https://agineuralnet.blob.core.windows.net/background/Banner_acad.png" />
+	</div>
+
+    <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
+    <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
+    <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
+	<div style="top:120px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
+	<iframe width="1280" height="720" src="https://www.youtube.com/embed/_Uj0kUBsrgs" title="Machines in Motion: The Steampunk City Transport System" 
+	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 	</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** TABLES ******************************************** -->
 	<!-- ************************************************************************************ -->
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Artifact?pod="+pod+"&pid="+pid))"
 			style="top:300px;left:320px;height:80px;">
 		Artifact
@@ -60,27 +66,19 @@
 		Phase
 	</button>
 
-
-
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** PROCESSES ******************************************** -->
 	<!-- ************************************************************************************ -->
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Grid?pod="+pod+"&pid="+pid))"
 			style="top:300px;left:825px;height:80px;">
 		Grid
 	</button>
 
 
+
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* Buttons ************************************** -->
 	<!-- ************************************************************************************ -->
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:700px;height:60px;color:RED;width:140px;">
-		MEMO
-	</button>
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:780px;height:60px;color:RED;border:0px;width:140px;">
 		HELP
@@ -91,11 +89,98 @@
 		Return
 	</button>
 
+	<!-- ************************************************************************************ -->
+	<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="engineer-page">
+		<button @onclick="ToggleMemoPage" class="toggle-button"
+				style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+			toggle MEMO
+		</button>
+
+		@if (isMemoPageOpen)
+		{
+			<div class="memo-page" style="z-index:1; position:absolute;top:780px;left:200px;width:1200px;height:280px; opacity:100%">
+				<iframe src="CommMemo" class="memo-iframe"></iframe>
+			</div>
+		}
+	</div>
+	<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
+	@code {
+		private bool isMemoPageOpen = false;
+
+		private void ToggleMemoPage()
+		{
+			isMemoPageOpen = !isMemoPageOpen;
+		}
+	}
+
+
+	<div>
+		<!-- ************************************************************************************ -->
+		<!-- ***************************** MENU JUMP ************* ****************************** -->
+		<!-- ************************************************************************************ -->
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/User?pod=" + 3 + "&pid=" + 11))"
+				style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:dimgray;z-index:1;">
+			Mind Voyagger
+		</button>
+	</div>
 
 
 
+     <!-- ********************************** STEAMPUNK VIDEO *****class="academy-page">**************************** -->
 
 
 
+	<!-- ************************* End of PAGE class="academy-page" ************************** -->
+	<!-- ********* End of PAGE *************************************** CFG COPYRIGHT 2024 ********** -->
 
 </div>
+
+
+@* <div style="top:120px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
+	<iframe width="1280" height="720" src="https://www.youtube.com/embed/Cflwe0i9c10" title="Steampunk Victorian - AI Short Film"
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+		`
+	</iframe>
+</div>
+
+	<div style="top:120px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
+		<iframe width="1280" height="738" src="https://www.youtube.com/embed/WLcH2Lwfk1k" title="Steampunk City in Motion"
+				frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+		</iframe>
+	</div>
+
+
+
+	<div style="top:120px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
+		<iframe width="1280" height="720" src="https://www.youtube.com/embed/_kh0b1kmBlM" title="A Steampunk Adventure - Clockwork Heart - AI Sci-Fi Short Film"
+				frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+		</iframe>
+	</div>
+
+        <div style="top:120px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
+            <iframe width="1280" height="738" src="https://www.youtube.com/embed/WLcH2Lwfk1k" title="Steampunk City in Motion"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+        </div>
+
+
+
+
+
+	<iframe width="1280" height="738" src="https://www.youtube.com/embed/WLcH2Lwfk1k" title="Steampunk City in Motion" 
+	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	</iframe>
+
+	<iframe width="1280" height="720" src="https://www.youtube.com/embed/5MSyDGNjO-A" title="Steampunk 2150 | AI Short Film | Super Panavision | Retrofuturism | Futuristic world" 
+	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	</iframe> *@
+

@@ -121,6 +121,7 @@ namespace IntelChat.Pages
 			return null;
 		}
 
+		/*
 		private SqlDataReader? ExecuteStoredProcedure2(string procedure, List<SqlParameter> parameters, bool reader = false)
 		{
 			var connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
@@ -131,6 +132,8 @@ namespace IntelChat.Pages
 			command.ExecuteNonQueryAsync();
 			return null;
 		}
+		
+		*/
 
 		/// *********************************************************************************
 		/// *********************** filter "****" get all records *************************** ????????
@@ -141,21 +144,25 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@pod", pod),
 				new SqlParameter("@PROC_action", "Read"),
-				new SqlParameter("@PROC_Input_Filter", filter)
+				new SqlParameter("@PROC_Input_Filter", filter),
+				new SqlParameter("@noun", subid)
 			};
 			return await ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
 
+		/*
 		private SqlDataReader? CreateTempTable(string sp, string status = "*")
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@noun", tempVariable.nounId)
+				//new SqlParameter("@noun", subid)
 			};
 			return ExecuteStoredProcedure2($"dbo.[{sp}]", parameters, true);
 		}
 
-
+		*/
+		
 		/// ************************ LOAD INTERVIEW *****************************************
 		/// ************************ LOAD INTERVIEW *****************************************
 		/// ************************ LOAD INTERVIEW *****************************************
@@ -333,6 +340,7 @@ namespace IntelChat.Pages
 		/// ************************ LOAD NOVA ********************************************** used from Page_Nova
 		/// ************************ LOAD NOVA **********************************************
 
+		/*
 		private void LoadNOVA1(string sp, string status = "*")
 		{
 			var reader = CreateTempTable(sp, status);
@@ -359,8 +367,9 @@ namespace IntelChat.Pages
 
 			reader.Close();
 		}
-
-		/*
+		
+		*/
+		
 		private async ThreadingTask LoadNOVA(string sp, string filter = "****")
 		{
 			var reader = await Read(sp);
@@ -373,7 +382,7 @@ namespace IntelChat.Pages
 				{
 					About = !reader.IsDBNull(0) ? reader.GetString(0) : "",
 					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
-					N = 20,  //!reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
 					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
 					S = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
 					Subject = !reader.IsDBNull(5) ? reader.GetString(5) : "",
@@ -418,7 +427,7 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
-		*/
+		
 
 
 		/// ************************ LOAD POD **********************************************
@@ -675,8 +684,8 @@ namespace IntelChat.Pages
 					break;
 				case "NOVA":
 					sp = "sp_Lascaux_#temp";
-					LoadNOVA1(sp);
-					Console.WriteLine($"Test variable dynamically updated to swag: {tempVariable.nounId}");
+					await LoadNOVA(sp);
+					//Console.WriteLine($"Test variable dynamically updated to Lascaux: {subid}");
 					break;
 
 				case "NounSubject":
