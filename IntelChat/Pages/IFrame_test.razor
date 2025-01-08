@@ -1,0 +1,16 @@
+﻿<!-- ImageButtonComponent.razor -->
+
+<div style="text-align:center">
+    <img src="https://agineuralnet.blob.core.windows.net/background/BG_Memo.png" alt="Example Image" style="position:absolute; left:0px; width:1400px;height:auto;" />
+    <br />
+    <button @onclick="OnButtonClick">Click Me</button>
+</div>
+
+@code {
+    private void OnButtonClick()
+    {
+        // Handle button click here
+        Console.WriteLine("Button clicked!");
+    }
+}
+

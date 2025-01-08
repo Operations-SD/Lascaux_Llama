@@ -1,0 +1,57 @@
+﻿@page "/Egypt"
+
+@layout CustomLayout
+@using Microsoft.AspNetCore.Components
+
+<PageTitle>Main Page</PageTitle>
+
+<div class="main-page">
+    <button @onclick="ToggleEngineerPage" class="toggle-button">Open/Close Engineer Page</button>
+
+    @if (isEngineerPageOpen)
+    {
+        <div class="main-page" style="position:absolute; top:200px;left:880px;width:64px;height:48px; opacity:70%"
+        @onmousedown="StartDrag" @onmouseup="StopDrag" @onmousemove="OnDrag">
+            <iframe src="Engineer" class="engineer-iframe" style="position:absolute; top:200px;left:880px;width:64px;height:48px; opacity:70%">
+
+            </iframe>
+        </div>
+    }
+</div>
+
+@code {
+    private bool isEngineerPageOpen = false;
+    private bool isDragging = false;
+    private double engineerPageLeft = 400;
+    private double engineerPageTop = 10;
+    private double startX;
+    private double startY;
+
+    private void ToggleEngineerPage()
+    {
+        isEngineerPageOpen = !isEngineerPageOpen;
+    }
+
+    private void StartDrag(MouseEventArgs e)
+    {
+        isDragging = true;
+        startX = e.ClientX - engineerPageLeft;
+        startY = e.ClientY - engineerPageTop;
+    }
+
+    private void StopDrag(MouseEventArgs e)
+    {
+        isDragging = false;
+    }
+
+    private void OnDrag(MouseEventArgs e)
+    {
+        if (isDragging)
+        {
+            engineerPageLeft = e.ClientX - startX;
+            engineerPageTop = e.ClientY - startY;
+        }
+    }
+}
+
+
