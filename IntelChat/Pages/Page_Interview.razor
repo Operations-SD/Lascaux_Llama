@@ -15,16 +15,14 @@
 
 <style>
 	body {
-		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Interview.png") no-repeat; /*Background to blob*/
-		background-size: 1400px 800px;
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Interview.png") no-repeat;
+		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
-		background-color: #000000;
 		opacity: 100%;
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
+		min-height: 100vh;
 		width: 100%;
-		height: 100%;
+		color: blanchedalmond;
+		background-color: antiquewhite
 	}
 
 	boxquestion {
@@ -190,7 +188,7 @@
 				}
 				@if (show == "info")
 				{
-					<embed src="https://intelchatstorage.blob.core.windows.net/documents/TestPDF.pdf" type="application/pdf" width=1000px; height=1000px; style="position: absolute; top: 10px; left: 10px">
+					<embed src="https://intelchatstorage.blob.core.windows.net/documents/TestPDF.pdf" type="application/pdf" width='800' height='800' style="position: absolute; top: 10px; left: 10px">
 					<button class="modal-btn" @onclick=HideModal style="position: absolute; width: 100px; height: 50px; color: black; background-color: white; top: 40px; left: 30px; z-index: 10000;">Close PDF</button>
 				}
 			</div>
@@ -214,7 +212,7 @@
 			<boxquestion>
 				<div class="boxquestion">
 
-					<textarea style="font-size:32px;" 
+					<textarea style="font-size:32px; line-height: 1.3; " 
 					     readonly>@if (questions.Count > 0)	  @questions[current].QuestionText	  </textarea>
 
 					<div style="position:absolute;top:134px;left:280px;font-size:24px">@dispResponse   </div>
@@ -344,5 +342,43 @@
 
 		<button class="general-interview-button" @onclick="NavigateToLascaux" style="width:160px;height:75px;top:800px;left:34px;color:antiquewhite">Lascaux</button>
 	}
+
+
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* HELP Overlay ********************************* -->
+	<!-- ************************************************************************************ -->
+	@if (showIframe)
+	{
+		<div>
+			<iframe src="@imagePath" width="1400" height="920" frameborder="0"
+					style="position:absolute; top:0px;left:0px;width:1400px; height:800px; opacity:60%;">
+			</iframe>
+			<br />
+			<button class="btn btn-danger" @onclick="CloseIframe"
+					style="position:absolute; top:360px;left:20px; opacity:70%; color:black">
+				Close Image
+			</button>
+		</div>
+	}
+	else
+	{
+		<button class="btn btn-primary" @onclick="OpenIframe"
+				style="position:absolute; top:360px;left:20px; opacity:70%; color:black">
+			Show Image
+		</button>
+	}
+	@code {
+		private bool showIframe = false;
+		private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Interview_help.png"; // Replace with your .png file path
+
+		private void OpenIframe()
+		{ showIframe = true; }
+
+		private void CloseIframe()
+		{ showIframe = false; }
+	}
+	<!-- *************************** End of HELP Overlay ******************************** -->
+
 </body>
 

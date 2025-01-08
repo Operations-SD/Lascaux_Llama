@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Url
+public partial class Urllocked
 {
     public int UrlId { get; set; }
 

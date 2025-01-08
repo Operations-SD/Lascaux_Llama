@@ -29,6 +29,8 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<CfgNovaSubject> CfgNovaSubjects { get; set; }
 
+    public virtual DbSet<CfgPod2> CfgPod2s { get; set; }
+
     public virtual DbSet<CfgProgramGuide> CfgProgramGuides { get; set; }
 
     public virtual DbSet<CfgTaskSeq> CfgTaskSeqs { get; set; }
@@ -112,6 +114,8 @@ public partial class NnetDbContext : DbContext
     public virtual DbSet<Tuner> Tuners { get; set; }
 
     public virtual DbSet<Url> Urls { get; set; }
+
+    public virtual DbSet<Urllocked> Urllockeds { get; set; }
 
     public virtual DbSet<Verb> Verbs { get; set; }
 
@@ -415,6 +419,39 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.Verify).HasColumnName("verify");
         });
 
+        modelBuilder.Entity<CfgPod2>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("CFG_POD_2");
+
+            entity.Property(e => e.NounDescription)
+                .HasMaxLength(255)
+                .HasColumnName("Noun_description");
+            entity.Property(e => e.NounId).HasColumnName("Noun_ID");
+            entity.Property(e => e.NounLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Noun_label");
+            entity.Property(e => e.NounStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Noun_status");
+            entity.Property(e => e.NounType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Noun_type");
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+            entity.Property(e => e.PodPypeNoun)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD_pype_noun");
+            entity.Property(e => e.PypeId)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Pype_ID");
+        });
+
         modelBuilder.Entity<CfgProgramGuide>(entity =>
         {
             entity
@@ -481,27 +518,37 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(16)
                 .IsFixedLength()
                 .HasColumnName("Drop_Down");
-            entity.Property(e => e.LockNoun)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Lock_NOUN");
-            entity.Property(e => e.LockVerb)
-                .HasMaxLength(4)
-                .IsFixedLength()
-                .HasColumnName("Lock_VERB");
             entity.Property(e => e.PodId).HasColumnName("POD_ID");
             entity.Property(e => e.PodLabel)
                 .HasMaxLength(16)
                 .HasColumnName("POD_label");
+            entity.Property(e => e.PodLockNoun)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD Lock_NOUN");
+            entity.Property(e => e.PodLockVerb)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("POD Lock_VERB");
+            entity.Property(e => e.PypeDesc)
+                .HasMaxLength(64)
+                .HasColumnName("Pype_desc");
             entity.Property(e => e.PypeId)
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("Pype_ID");
+            entity.Property(e => e.PypeLink)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Pype_link");
+            entity.Property(e => e.PypeStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Pype_status");
             entity.Property(e => e.PypeType)
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("Pype_type");
-            entity.Property(e => e.Verified).HasColumnName("verified");
         });
 
         modelBuilder.Entity<FilterPype>(entity =>
@@ -514,7 +561,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodLabel)
                 .HasMaxLength(16)
                 .HasColumnName("POD_label");
-            entity.Property(e => e.PodPypeDdPods)
+            entity.Property(e => e.PodType)
                 .HasMaxLength(4)
                 .IsFixedLength()
                 .HasColumnName("POD_type");
@@ -582,7 +629,7 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Guide_status");
             entity.Property(e => e.GuideTag)
                 .HasMaxLength(255)
-                .HasDefaultValue("Guide")
+                .HasDefaultValue("Maxim")
                 .HasColumnName("Guide_tag");
             entity.Property(e => e.GuideType)
                 .HasMaxLength(4)
@@ -1119,9 +1166,7 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue(1)
                 .HasColumnName("Guide_ID_FK");
             entity.Property(e => e.MemoChannel)
-                .HasMaxLength(4)
-                .HasDefaultValue("memo")
-                .IsFixedLength()
+                .HasDefaultValue(1)
                 .HasColumnName("Memo_Channel");
             entity.Property(e => e.MemoDtOriginal).HasColumnName("Memo_DT_original");
             entity.Property(e => e.MemoMessage)
@@ -1129,7 +1174,6 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("message")
                 .HasColumnName("Memo_message");
             entity.Property(e => e.MemoNova).HasColumnName("Memo_Nova");
-            entity.Property(e => e.GuideIdFk).HasColumnName("Memo_Pod");
             entity.Property(e => e.MemoPriority)
                 .HasDefaultValue((byte)3)
                 .HasColumnName("Memo_priority");
@@ -1173,7 +1217,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.MemoNova)
                 .HasDefaultValue(1)
                 .HasColumnName("Memo_NOVA");
-            entity.Property(e => e.GuideIdFk)
+            entity.Property(e => e.MemoPod)
                 .HasDefaultValue(1)
                 .HasColumnName("Memo_POD");
             entity.Property(e => e.MemoPriority)
@@ -1536,7 +1580,7 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(128)
                 .HasDefaultValue("MY_cloud")
                 .HasColumnName("Person_MY_cloud");
-            entity.Property(e => e.PersonPypeDdRole)
+            entity.Property(e => e.PersonRole)
                 .HasMaxLength(4)
                 .HasDefaultValue("role")
                 .IsFixedLength()
@@ -1549,7 +1593,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PersonTag)
                 .HasMaxLength(255)
                 .HasColumnName("Person_tag");
-            entity.Property(e => e.PersonPypeDdMyme)
+            entity.Property(e => e.PersonType)
                 .HasMaxLength(4)
                 .HasDefaultValue("hman")
                 .IsFixedLength()
@@ -1586,7 +1630,7 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(32)
                 .HasDefaultValue("last")
                 .HasColumnName("Person_last");
-            entity.Property(e => e.PersonPypeDdRole)
+            entity.Property(e => e.PersonRole)
                 .HasMaxLength(4)
                 .HasDefaultValue("role")
                 .IsFixedLength()
@@ -1596,7 +1640,7 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Person_status");
-            entity.Property(e => e.PersonPypeDdMyme)
+            entity.Property(e => e.PersonType)
                 .HasMaxLength(4)
                 .HasDefaultValue("hman")
                 .IsFixedLength()
@@ -1695,7 +1739,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PersonIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Person_ID_FK");
-            entity.Property(e => e.PodPypeDdChan)
+            entity.Property(e => e.PodChannel)
                 .HasMaxLength(4)
                 .HasDefaultValue("chan")
                 .IsFixedLength()
@@ -1732,12 +1776,12 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(255)
                 .HasDefaultValue("tag")
                 .HasColumnName("POD_tag");
-            entity.Property(e => e.PodPypeDdPods)
+            entity.Property(e => e.PodType)
                 .HasMaxLength(4)
                 .HasDefaultValue("pods")
                 .IsFixedLength()
                 .HasColumnName("POD_type");
-            entity.Property(e => e.PodImage)
+            entity.Property(e => e.PodUrlBase)
                 .HasMaxLength(128)
                 .HasDefaultValue("URL pointer to storage")
                 .HasColumnName("POD_URL_base");
@@ -1881,6 +1925,9 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("stop")
                 .IsFixedLength()
                 .HasColumnName("Pype_link");
+            entity.Property(e => e.PypePointer)
+                .HasDefaultValue(1)
+                .HasColumnName("Pype_Pointer");
             entity.Property(e => e.PypeSeq)
                 .HasDefaultValue((byte)1)
                 .HasColumnName("Pype_seq");
@@ -1889,6 +1936,10 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Pype_status");
+            entity.Property(e => e.PypeTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Pype_Tag");
         });
 
         modelBuilder.Entity<Question>(entity =>
@@ -2108,6 +2159,8 @@ public partial class NnetDbContext : DbContext
 
         modelBuilder.Entity<Url>(entity =>
         {
+            entity.HasKey(e => e.UrlId).HasName("PK_URLid");
+
             entity.ToTable("URL");
 
             entity.Property(e => e.UrlId).HasColumnName("URL_ID");
@@ -2117,13 +2170,13 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.UrlAdvanceLevel)
                 .HasDefaultValue((byte)3)
                 .HasColumnName("URL_advance_level");
+            entity.Property(e => e.UrlChain)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_chain");
             entity.Property(e => e.UrlCloud)
                 .HasMaxLength(128)
                 .HasDefaultValue("https://agineuralnet.blob.core.windows.net/cards/ImageName.png")
                 .HasColumnName("URL_cloud");
-            entity.Property(e => e.UrlDaisey)
-                .HasDefaultValue(1)
-                .HasColumnName("URL_daisey");
             entity.Property(e => e.UrlDescription)
                 .HasMaxLength(128)
                 .HasDefaultValue("URL description")
@@ -2133,6 +2186,57 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("label16")
                 .IsFixedLength()
                 .HasColumnName("URL_label");
+            entity.Property(e => e.UrlStars)
+                .HasDefaultValue((byte)3)
+                .HasColumnName("URL_stars");
+            entity.Property(e => e.UrlStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("URL_status");
+            entity.Property(e => e.UrlTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("URL_tag");
+            entity.Property(e => e.UrlType)
+                .HasMaxLength(4)
+                .HasDefaultValue("html")
+                .IsFixedLength()
+                .HasColumnName("URL_type");
+        });
+
+        modelBuilder.Entity<Urllocked>(entity =>
+        {
+            entity.HasKey(e => e.UrlId).HasName("PK_URL");
+
+            entity.ToTable("URLlocked");
+
+            entity.Property(e => e.UrlId).HasColumnName("URL_ID");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.UrlAdvanceLevel)
+                .HasDefaultValue((byte)3)
+                .HasColumnName("URL_advance_level");
+            entity.Property(e => e.UrlChain)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_chain");
+            entity.Property(e => e.UrlCloud)
+                .HasMaxLength(128)
+                .HasDefaultValue("https://agineuralnet.blob.core.windows.net/cards/ImageName.png")
+                .HasColumnName("URL_cloud");
+            entity.Property(e => e.UrlDescription)
+                .HasMaxLength(128)
+                .HasDefaultValue("URL description")
+                .HasColumnName("URL_Description");
+            entity.Property(e => e.UrlLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label16")
+                .IsFixedLength()
+                .HasColumnName("URL_label");
+            entity.Property(e => e.UrlStars)
+                .HasDefaultValue((byte)3)
+                .HasColumnName("URL_stars");
             entity.Property(e => e.UrlStatus)
                 .HasMaxLength(1)
                 .HasDefaultValue("A")

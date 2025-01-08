@@ -251,11 +251,9 @@ namespace IntelChat.Pages
 				AutoFill(entity["delete"].NounId, "delete");
 			}
 			show = "list";
-			  
 
 		}
 
-		/// <summary>Handle item selection from the listing and navigate to the change screen</summary>
 		private void OnItemSelected(int id)
 		{
 			// Find the selected entity by ID and set it for the change form
@@ -282,7 +280,5 @@ namespace IntelChat.Pages
 				}
 			}
 		}
-
-
 	}
 }

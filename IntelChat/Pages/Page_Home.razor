@@ -111,18 +111,20 @@
 	<!-- ************************************************************************************ -->
 @if (isChatIframeVisible)
 {
+	<!-- **************************** position and size of Chat iframe ******************************************************* -->
 	<div class="floating-iframe">
 		<button class="close-chat-button" @onclick="HideChat">Close Chat</button> <!-- Add a close button inside the chat/memo -->
-		<iframe src="@ChatiframeSource" style="width: 350px; height: 500px; position: fixed; top: 20px; right: 20px; border: none; z-index: 1000;"></iframe>
+		<iframe src="@ChatiframeSource" style="width: 410px; height: 1000px; position: fixed; top: 60px; right: 10px; z-index: 2;"></iframe>
 	</div>
 }
 
 @if (isMemoIframeVisible)
 {
+	<!-- **************************** position of MEMO box ******************************************************** -->
 	<div class="floating-iframe">
 		<!-- Repositioned close button right above the iframe -->
 		<button class="close-memo-button" @onclick="HideMemo">Close Memo</button>
-		<iframe src="@MemoiframeSource" style="width: 525px; height: 500px; position: fixed; bottom: 20px; right: 20px; border: 15px; z-index: 1000;"></iframe>
+		<iframe src="@MemoiframeSource" style="width: 1200px; height: 280px; position: fixed; bottom: 00px; left: 00px; border: 0px; z-index: 1000;"></iframe>
 	</div>
 }
 
@@ -156,10 +158,11 @@
 else
 {
     <!-- ************************************************************************************ -->
-    <!-- ********************************* DISPLAY POD# and PID# *************************** -->
+    <!-- ********************************* DISPLAY POD# and PID# **************************** -->
     <!-- ************************************************************************************ -->
 	<p style="position:absolute;top:030px;left:20px;font-size:22px;opacity:20%;color:aquamarine">POD: @pod</p>
 	<p style="position:absolute;top:060px;left:20px;font-size:22px;opacity:20%;color:aquamarine">PID: @pid</p>
+
 
 	<!-- ************************************************************************************ -->
 	<!-- ********************************* GOTO PAGE_ROUTINGcode***************************** -->
@@ -168,19 +171,20 @@ else
 	<a href="/Login"    style="position:absolute;top:130px;left:200px;font-size:24px;color:#FFFFFF">Login</a>
 	<a href="/Logout"   style="position:absolute;top:170px;left:200px;font-size:24px;color:#FFFFFF">Logout</a>
 
+
 	<!-- ************************************************************************************ -->
-	<!-- ******************************** MODAL Buttons (page overlay) ********************** -->
+	<!-- ******************************* IFRAME Buttons (page overlay) ********************** -->
 	<!-- ************************************************************************************ -->
 	<button class="home-btn" @onclick=ShowMemo style="position:absolute;top:127px;left:1465px;width:270px;height:116px;">Memo</button>
 	<button class="home-btn" @onclick=ShowChat style="position:absolute;top:288px;left:1465px;width:270px;height:116px;">Chat</button>
 
 
 	<!-- ************************************************************************************ -->
-	<!-- ******************************** USED POD COMMUNITY (select and display) *********** -->
+	<!-- ******************************** USER POD COMMUNITY (select and display) *********** -->
 	<!-- ************************************************************************************ -->
 	@if(showImage)
 	{
-		@*<img src="@currentPod.PodImage" style="position:absolute;top:275px;left:95px;width:330px;height:400px;border:0px;" />*@
+		@*<img src="@currentPod.PodUrlBase" style="position:absolute;top:275px;left:95px;width:330px;height:400px;border:0px;" />*@
 	}
 	<button class="home-btn" @onclick=NavigateToCommunity style="position:absolute;top:687px;left:83px;width:352px;height:103px;">Community</button>
 
@@ -190,6 +194,7 @@ else
 	<!-- ************************************************************************************ -->
 	<p style="position:absolute;top:275px;left:500px;width:810px;height:400px;font-size:42px;text-align:center;font-family:serif;">@currentPod.PodDescription</p>
 	<p style="position:absolute;top:740px;left:490px;width:840px;height:070px;font-size:42px;text-align:center;font-family:serif;">@currentPod.PodLabel</p>
+
 
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** ROLE MENU or (Modal overlay) ********************** -->
