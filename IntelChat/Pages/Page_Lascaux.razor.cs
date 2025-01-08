@@ -151,6 +151,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@noun", tempVariable.nounId)
+				//new SqlParameter("@noun", subid)
 			};
 			return ExecuteStoredProcedure2($"dbo.[{sp}]", parameters, true);
 		}
@@ -676,7 +677,7 @@ namespace IntelChat.Pages
 				case "NOVA":
 					sp = "sp_Lascaux_#temp";
 					LoadNOVA1(sp);
-					Console.WriteLine($"Test variable dynamically updated to swag: {tempVariable.nounId}");
+					//Console.WriteLine($"Test variable dynamically updated to swag: {subid}");
 					break;
 
 				case "NounSubject":
