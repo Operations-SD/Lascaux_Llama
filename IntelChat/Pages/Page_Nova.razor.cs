@@ -21,6 +21,7 @@ namespace IntelChat.Pages
 		                             //*****************************************************************************************
 		public string type = "JUNK"; // *************** Lascaux Case Switch - NOVA or POD,TASK,WORK,NOUN,VERB,QUESTION,INTERVIEW//*****************************************************************************************
 		
+		/*
 		public static class tempVariable
 		{
 			public static int nounId; // Temporary variable to hold the current NounId
@@ -40,7 +41,9 @@ namespace IntelChat.Pages
 				}
 			}
 		}
-		
+		*/
+
+		public int subject = 0;
 		public int action = 0;
 		public int obj = 0;
 		public string? StoredNoun { get; set; }
