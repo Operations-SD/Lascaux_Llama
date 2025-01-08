@@ -36,4 +36,6 @@ public partial class Work
     public DateTime WorkStartDate { get; set; }
 
     public DateTime WorkFinishDate { get; set; }
+
+    public string WorkTag { get; set; } = null!;
 }

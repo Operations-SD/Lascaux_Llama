@@ -17,7 +17,7 @@ public partial class IviewPersonQAnswered
 
     public string QuestionText { get; set; } = null!;
 
-    public int NovaFk { get; set; }
+    public int NovaIdFk { get; set; }
 
     public int PersonId { get; set; }
 

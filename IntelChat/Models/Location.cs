@@ -43,4 +43,6 @@ public partial class Location
     public int PersonFkEngr { get; set; }
 
     public int PersonFkXprt { get; set; }
+
+    public string LocationTag { get; set; } = null!;
 }

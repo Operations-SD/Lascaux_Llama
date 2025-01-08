@@ -5,15 +5,19 @@ namespace IntelChat.Models;
 
 public partial class PodPype
 {
-    public int? PodId { get; set; }
+    public string PypeId { get; set; } = null!;
 
-    public string? PodLabel { get; set; }
+    public string PypeType { get; set; } = null!;
 
-    public string? PypeLabel { get; set; }
+    public string PypeLabel { get; set; } = null!;
 
-    public string? PodType { get; set; }
+    public string PypeStatus { get; set; } = null!;
 
-    public string? PypeType { get; set; }
+    public string PypeDesc { get; set; } = null!;
 
-    public string? NounLabel { get; set; }
+    public string PypeLink { get; set; } = null!;
+
+    public int PodIdFk { get; set; }
+
+    public byte PypeSeq { get; set; }
 }

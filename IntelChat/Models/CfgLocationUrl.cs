@@ -17,7 +17,7 @@ public partial class CfgLocationUrl
 
     public string UrlType { get; set; } = null!;
 
-    public string PodUrlBase { get; set; } = null!;
+    public string PodImage { get; set; } = null!;
 
     public string UrlCloud { get; set; } = null!;
 

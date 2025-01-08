@@ -19,12 +19,15 @@ namespace IntelChat.Pages
 		public int id = 0;
 		public string description = "Intel-a-Chat NOVA";
 		                             //*****************************************************************************************
-		public string type = "JUNK"; // *************** Lascaux Case Switch - NOVA or POD,TASK,WORK,NOUN,VERB,QUESTION,INTERVIEW
-									 //*****************************************************************************************
-
-		private int _subject; // Backing field for the subject property
-		private int test; // Temporary variable to hold the current NounId
-
+		public string type = "JUNK"; // *************** Lascaux Case Switch - NOVA or POD,TASK,WORK,NOUN,VERB,QUESTION,INTERVIEW//*****************************************************************************************
+		
+		/*
+		public static class tempVariable
+		{
+			public static int nounId; // Temporary variable to hold the current NounId
+		}
+		
+		public int _subject;
 		public int subject
 		{
 			get => _subject;
@@ -33,15 +36,18 @@ namespace IntelChat.Pages
 				if (_subject != value) // Check to avoid unnecessary updates
 				{
 					_subject = value;
-					test = _subject; // Dynamically update the test variable
-					CreateTempTable("sp_Lascaux_#temp");
-					Console.WriteLine($"Test variable dynamically updated to: {test}");
+					tempVariable.nounId = _subject; // Dynamically update the test variable
+					//Console.WriteLine($"Test variable dynamically updated to: {tempVariable.nounId}");
 				}
 			}
 		}
+		*/
 
+		public int subject = 0;
 		public int action = 0;
 		public int obj = 0;
+		public string? StoredNoun { get; set; }
+		public string? StoredVerb { get; set; }
 		public string status = "";
 		private List<Pype> pypes = new List<Pype>();
 		private List<Noun> nouns = new List<Noun>();
@@ -52,18 +58,10 @@ namespace IntelChat.Pages
 		[Inject]
 		public NotificationService NotificationService { get; set; }
 
-		public List<string> UniqueNounTypes { get; set; } = new List<string>();
-		public List<string> UniqueVerbTypes { get; set; } = new List<string>();
-		public List<string> UniqueObjectTypes { get; set; } = new List<string>();
-
 
 		/**********************************************************************************/
 		/************************ PYPE dropdown filters ***********************************/
 		/**********************************************************************************/
-
-
-
-
 		private string _subjectFilter = "";
 		public string subjectFilter
 		{
@@ -132,35 +130,47 @@ namespace IntelChat.Pages
 			command.ExecuteNonQueryAsync();
 			return null;
 		}
-
-		private SqlDataReader? CreateTempTable(string sp, string status = "*")
+		
+		private (string Noun, string Verb)? ReadNounVerb()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-				new SqlParameter("@noun", test)
+				new SqlParameter("@pod", pod ?? 0) // Ensure a default value if `pod` is null
 			};
-			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
+
+			using var reader = ExecuteStoredProcedure("dbo.sp_Pype_NOVA_Test", parameters, true);
+			if (reader != null && reader.Read())
+			{
+				string noun = reader["Noun"]?.ToString() ?? string.Empty;
+				string verb = reader["Verb"]?.ToString() ?? string.Empty;
+				reader.Close();
+				return (noun, verb);
+			}
+			return null;
 		}
+		
 
 		/**********************************************************************************/
 		/************************ Stored Procedure - LOAD PYPE values *********************/
 		/**********************************************************************************/
-		private SqlDataReader? ReadPypes()
+		private SqlDataReader? ReadPypes(string filter)
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", ""),
+				new SqlParameter("@PROC_Input_Filter", filter),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
 		}
 
-
-
 		private void LoadPypes()
 		{
-			var reader = ReadPypes();
+			var result = ReadNounVerb();
+			StoredNoun = result.Value.Noun;
+			StoredVerb = result.Value.Verb;
+			
+			var reader = ReadPypes(StoredNoun);
 			if (reader == null) return;
-
+			
 			pypes.Clear();
 			while (reader.Read())
 			{
@@ -177,8 +187,7 @@ namespace IntelChat.Pages
 			}
 			reader.Close();
 
-			/*
-			reader = ReadPypes();
+			reader = ReadPypes(StoredVerb);
 			if (reader == null) return;
 			while (reader.Read())
 			{
@@ -194,7 +203,6 @@ namespace IntelChat.Pages
 				});
 			}
 			reader.Close();
-			*/
 		}
 
 
@@ -212,16 +220,6 @@ namespace IntelChat.Pages
 			};
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
-
-		private void LoadUniqueNounTypes()
-		{
-			UniqueNounTypes = subjects.Select(s => s.NounType).Distinct().ToList();
-		}
-		private void LoadUniqueObjectTypes()
-		{
-			UniqueObjectTypes = objects.Select(o => o.NounType).Distinct().ToList();
-		}
-
 
 		private void LoadNouns(string sp, string status = "*")
 		{
@@ -261,11 +259,6 @@ namespace IntelChat.Pages
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
 
-		private void LoadUniqueVerbTypes()
-		{
-			UniqueVerbTypes = actions.Select(a => a.VerbType).Distinct().ToList();
-		}
-
 		private void LoadVerbs(string sp, string status = "*")
 		{
 			var reader = ReadVerb(sp, status);
@@ -285,9 +278,7 @@ namespace IntelChat.Pages
 					UrlIdPk = reader.GetInt32(6)
 				});
 			}
-
 			reader.Close();
-
 		}
 
 
@@ -330,6 +321,7 @@ namespace IntelChat.Pages
 				NotificationService.Notify("NOVA created successfully!", NotificationType.Success);
 		}
 
+
 		/**********************************************************************************/
 		/************************ Cloud Server - Stored Procedure *************************/
 		/**********************************************************************************/
@@ -341,11 +333,6 @@ namespace IntelChat.Pages
 			subjects = new List<Noun>(nouns);
 			actions  = new List<Verb>(verbs);
 			objects  = new List<Noun>(nouns);
-			CreateTempTable("sp_Lascaux_#temp");
-			LoadUniqueNounTypes(); 
-			LoadUniqueVerbTypes();
-			LoadUniqueObjectTypes();
 		}
 	}
-
 }
