@@ -116,18 +116,20 @@ namespace IntelChat.Pages
 				return null;
 			}
 		}
-		private RegistrationRole? ReadRegistrationRole(int registrationId = 0, string username = "")
-		{
-			string spName = "dbo.[Registration_Role_Read]";
-			SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
-			SqlCommand cmd = new SqlCommand(spName, connection);
+		private RegistrationRole? ReadRegistrationRole(int registrationId = 0, string username = "", string type = "", string role = "")
+        {
+            string spName = "dbo.[Registration_Role_Read]";
+            SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
+            SqlCommand cmd = new SqlCommand(spName, connection);
 
-			List<SqlParameter> parameters = new List<SqlParameter>
-			{
-				new SqlParameter("@id", registrationId),
-				new SqlParameter("@username", username)
-			};
-			parameters.ForEach(parameter => cmd.Parameters.Add(parameter));
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@id", registrationId),
+                new SqlParameter("@username", username),
+                new SqlParameter("@type", type),
+                new SqlParameter("@role", role)
+            };
+            parameters.ForEach(parameter => cmd.Parameters.Add(parameter));
 
 			connection.Open();
 			cmd.CommandType = CommandType.StoredProcedure;

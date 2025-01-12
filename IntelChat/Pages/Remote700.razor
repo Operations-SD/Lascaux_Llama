@@ -1,6 +1,41 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+﻿@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
 
+@page "/Remote700"
+
+<h3>Draggable Image Example</h3>
+
+<button @onclick="OpenImage">Open Image</button>
+<button @onclick="CloseImage">Close Image</button>
+
+<div style="position: relative; height: 100%; width: 100%; border: none; z-index: 1000;">
+    
+    @if (isImageVisible)
+    {
+        <!-- Draggable Image -->
+        <img src="https://www.kidsmathgamesonline.com/images/pictures/shapes/square.jpg" alt="Remote"
+             style="position: absolute; top: @(imagePosition.Y)px; left: @(imagePosition.X)px;
+                width: @(isInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
+                height: @(isInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
+                z-index: @(isInsideDropZone ? "1002" : "1000");
+                cursor: @(isDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
+             @onmousedown="StartDragging"
+             @onmouseup="StopDragging"
+             @onmousemove="OnMouseMove" />
+    }
+   
+    <!-- Droppable Area -->
+    <div style="position: absolute; top: 400px; left: 400px; width: 150px; height: 150px;
+            border: 2px dashed blue; cursor: pointer; z-index: @(isInsideDropZone ? "1000" : "1001");
+            background-color: rgba(255, 255, 255, 0.5);"
+         @onmouseup="StopDragging">
+        <p style="text-align: center; line-height: 150px; pointer-events: none;">Drop Here</p>
+    </div>
+</div>
+
+
+
+@*
 @page "/drag-image"
 
 <h3>Draggable Image Example</h3>
@@ -10,7 +45,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 @if (isImageVisible)
 {
-    <div @onmousemove="OnMouseMove" style="position: relative; height: 800px; width: 100%; border: 1px solid black;">
+    <div @onmousemove="OnMouseMove" style="position: relative; z-index: 1001; height: 800px; width: 100%; border: 1px solid black;">
         <img src="images/remote.png" alt="Remote"
              style="position: absolute; top: @(imagePosition.Y)px; left: @(imagePosition.X)px; width: 260px; height: 700px; cursor: move;"
              @onmousedown="StartDragging"
@@ -58,3 +93,4 @@ using Microsoft.AspNetCore.Components.Web;
         }
     }
 }
+*@
