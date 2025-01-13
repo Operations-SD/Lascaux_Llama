@@ -1,0 +1,100 @@
+﻿@page "/remote"
+
+<h3>Draggable IFrame Example</h3>
+
+<div id="iframe-container" class="draggable" style="top: 50%; left: 50%;">
+    <div id="drag-stick" @onclick="ToggleIframe" class="drag-stick">
+        Drag & Toggle
+    </div>
+    <iframe src="https://example.com" class="iframe" style="display: @(iframeVisible ? "block" : "none");"></iframe>
+</div>
+
+@code {
+    private bool iframeVisible = true;
+
+    private void ToggleIframe()
+    {
+        iframeVisible = !iframeVisible;
+    }
+}
+
+<style>
+    /* Page styling */
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        background-color: #f0f0f0;
+    }
+
+    /* IFrame container styling */
+    #iframe-container {
+        position: absolute;
+        width: 200px;
+        height: 800px;
+        transform: translate(-50%, -50%);
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Drag stick styling */
+    .drag-stick {
+        width: 200px;
+        height: 100px;
+        background-color: #0078D7;
+        color: white;
+        text-align: center;
+        line-height: 100px;
+        cursor: move;
+        user-select: none;
+        border-bottom: 2px solid #ccc;
+    }
+
+    /* IFrame styling */
+    .iframe {
+        width: 100%;
+        height: calc(100% - 100px);
+        border: none;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('iframe-container');
+        const stick = document.getElementById('drag-stick');
+
+        let offsetX, offsetY;
+        let isDragging = false;
+
+        stick.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - container.getBoundingClientRect().left;
+            offsetY = e.clientY - container.getBoundingClientRect().top;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const x = e.clientX - offsetX;
+            const y = e.clientY - offsetY;
+
+            container.style.left = `${x}px`;
+            container.style.top = `${y}px`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    });
+</script>
+
+@code {
+
+}

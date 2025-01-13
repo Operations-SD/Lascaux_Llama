@@ -1,0 +1,217 @@
+@page "/addToThread"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<style> 
+ body{
+    background: url(https://intelchatstorage.blob.core.windows.net/bgcontainer/GalleryExhibitAdd.png)no-repeat;
+    background-size: 100% 100% ; 
+    color: black;
+    } 
+
+.buttonNext-div {
+  position: relative;
+  float: left;  
+  margin-left:px; 
+  font-size:x-large; 
+  display: inline-block;
+}
+
+.buttonNext {
+  position: fixed;
+  bottom:75px;     
+  right:290px;
+}
+
+.buttonSelect-div {
+  position: relative;
+  float: right;  
+  margin-right:20px; 
+  font-size:x-large; 
+  display: inline-block;
+}
+
+.buttonHOT {
+  position: fixed;
+  bottom:140px;    
+  left:290px;
+}
+
+
+.ArtifactInfo {
+  background-color: rgba(0,0,0,.3);
+        position: absolute;
+        top: 380px;
+        left: 300px;
+        width: 310px;
+        height: 600px;
+        float: right;
+        /* Required for text-overflow to do anything */
+        white-space: wrap;
+        overflow: hidden;
+    }
+
+.center{
+  text-align: center;
+}
+
+.exhibitgallery {
+        position: absolute;
+        top: 250px;
+        left: 310px;
+        width: 600px;
+        height: 100px;
+        float: right;
+        display: inline-block;
+        text-overflow: ellipsis;
+        /* Required for text-overflow to do anything */
+        white-space: wrap;
+        overflow: hidden;
+    }
+
+.selecttitle {
+        position: absolute;
+        top: 140px;
+        left: 860px;
+        width: 700px;
+    }
+
+</style>
+
+
+
+
+<!-- Display page title here if desired -->
+<div class="center">
+  <h1 class="display-8"></h1>
+</div>
+
+@{
+    if (dropDownCounter == 0)
+    {
+        DropDownThread();
+        DropDownTitle();
+        dropDownCounter++;
+    }
+    if (artTitle != null)
+    {
+        getArtifact();
+    }
+}
+
+
+<AuthorizeView>
+  <!-- Show this section if the user is logged in as an authorized role -->
+  <Authorized>
+
+ 
+   <!-- SELECTOR *** Display Gallery Selector from site.CSS -->
+   <div class="exhibitgallery">
+        <label>
+          Gallery:
+          <select class="form-control" @bind="threadData.ThreadID">
+            @foreach (var thread in threadlist)
+            {
+              <option value="@thread.ThreadID"> @thread.Thread </option>
+            }       
+          </select>
+        </label><br><br>
+    </div>>
+
+   <!-- SELECTOR *** Display Exhibit Selector from site.CSS -->
+   <div class="selecttitle">
+        <label>
+           Exhibit:
+          <select @bind="artTitle" @onclick="DisplayMessageNo">
+                @foreach (var title in titlelist)
+                {
+                  <option value="@title.Title"> @title.Title </option>
+                }
+          </select>
+        </label><br><br>
+   </div>>
+
+
+
+   <!-- IMAGE *** Display Artifact Image from cloud storage via URL using site.CSS -->
+    <div class="ExhibitArtifact800">
+      <img src="@threadedArtData.ImgUrl" style="margin:0px">
+    </div>
+
+
+
+   <!-- BUTTON *** Commit Action via site.CSS -->
+    <div class="buttoncommit" >
+          <form @onsubmit="insertArtifact">
+            <button class="buttonSelect" type="submit" @onclick="DisplayMessageYes">Acquire this Artifact</button>
+          </form>
+    </div>
+    
+
+   <!-- PANEL *** Display Artifact Information Panel -->
+   <div class="ArtifactInfo">
+
+            <div class="row">
+                <div class="col-lg-16">
+                    Title:
+                    <label for="ArtTitle" />
+                    <input type="text" value="@threadedArtData.ArtTitle" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-16">
+                    Artist:
+                    <label asp-for="@threadedArtData.Artist"></label>
+                    <input asp-for="@threadedArtData.Artist" value="@threadedArtData.Artist" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-16">
+                    Phase:
+                    <label asp-for="@threadedArtData.Phase"></label>
+                    <input asp-for="@threadedArtData.Phase" value="@threadedArtData.Phase" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-16">
+                    Compostion:
+                    <label asp-for="@threadedArtData.Compostion"></label>
+                    <input asp-for="@threadedArtData.Compostion" value="@threadedArtData.Compostion" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-16">
+                    Location:
+                    <label asp-for="@threadedArtData.Location"></label>
+                    <input asp-for="@threadedArtData.Location" value="@threadedArtData.Location" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-16">
+                    Narative:
+                    <label asp-for="@threadedArtData.Narative"></label>
+                    <input asp-for="@threadedArtData.Narative" value="@threadedArtData.Narative" class="form-control" />
+                </div>
+            </div>
+
+   </div> 
+
+
+        @if(displayMessage != false){
+          <div class="SuccessMessage">
+            <label>You have successfully added @threadedArtData.ArtTitle to the List</label>
+          </div>
+        }
+  </Authorized>
+
+  <NotAuthorized>
+    <center>
+      <p>You must be logged in with Curator LOGIN TOKEN cura to use this page</p>
+    </center>
+  </NotAuthorized>
+
+</AuthorizeView>

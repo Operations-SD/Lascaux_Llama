@@ -1,0 +1,72 @@
+﻿@page "/Memobox"
+
+@using Microsoft.AspNetCore.Components
+
+<PageTitle>Main Page</PageTitle>
+
+<div class="engineer-page">
+    <button @onclick="ToggleMemoPage" class="toggle-button">Create Memo</button>
+
+    @if (isMemoPageOpen)
+    {
+        <div class="memo-page">
+            <iframe src="Memo" class="memo-iframe"></iframe>
+        </div>
+    }
+</div>
+
+
+
+@code {
+    private bool isMemoPageOpen = false;
+
+    private void ToggleMemoPage()
+    {
+        isMemoPageOpen = !isMemoPageOpen;
+    }
+}
+
+<style>
+    .main-page {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .toggle-button {
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .memo-page {
+        position: absolute;
+        top: 800px;
+        left: 0px;
+        width: 1400px;
+        height: 280px;
+        border: 1px solid #ccc;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+        cursor: grab;
+    }
+
+    .engineer-page:active {
+        cursor: grabbing;
+    }
+
+    .memo-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+ 
+
+</style>
+

@@ -1,0 +1,450 @@
+﻿@page "/Brand"
+@inject NnetDbContext db
+@inject NavigationManager _nav
+@inject IConfiguration _configuration
+@* @inject NounService nounService *@
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+@using System.Data.Common;
+@* @using IntelChat.Services; *@
+
+<style>
+	body {
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Language.png")no-repeat; /*Background to blob*/
+		background-size: 1920px 1080px;
+		background-position: left 0px top 0px;
+		background-color: #000000;
+		color: white;
+		opacity: 100%;
+		width: 1920px;
+		height: 1080px;
+	}
+
+	#img-panel-marque {
+		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Marque.png);
+		position: absolute;
+		top: 90px;
+		left: 600px;
+		width: 580px;
+		border-radius: 0px;
+		background-size: cover;
+	}
+
+	#img-table {
+		content: url("https://agineuralnet.blob.core.windows.net/banners/bnr_Brand.png");
+		position: absolute;
+		top: 72px;
+		left: 816px;
+		width: 150px;
+		border-radius: 0px;
+		background-size: cover;
+		opacity: 90%;
+	}
+
+
+	#btn-luster-noun {
+		content: url(https://agineuralnet.blob.core.windows.net/buttons/Btn_Luster_Noun.png);
+		position: absolute;
+		top: 85px;
+		left: 820px;
+		width: 140px;
+		border-radius: 8px;
+		background-size: cover;
+	}
+
+	#img-panel-fluer {
+		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
+		position: absolute;
+		top: 80px;
+		left: 1250px;
+		width: 188px;
+		border-radius: 8px;
+		background-size: cover;
+	}
+
+	#btn-panel-list {
+		left: 10px;
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+	}
+
+		#btn-panel-list:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-add {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_A.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 202px;
+	}
+
+		#btn-panel-add:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-change {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_C.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 394px;
+	}
+
+		#btn-panel-change:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#btn-panel-delete {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		top: 110px;
+		left: 1000px;
+		opacity: 100%;
+	}
+
+		#btn-panel-delete:hover {
+			box-shadow: 0 5px 10px rgba(0,0,0,.5);
+			transform: scale(.85);
+		}
+
+	#img-panel-shadow-black {
+		border-radius: 12px;
+		background-size: cover;
+		height: 700px;
+		width: 600px;
+	}
+</style>
+
+<div class="noun-page">
+	<!-- ************************************************************************************ -->
+	<!-- ************************** DISPLAY POD & Person ************************************ -->
+	<!-- ************************************************************************************ -->
+
+	<h3>
+		<p style="color:#424242;font-size:24px">Pod: @pod</p>
+		<p style="color:#424242;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
+	</h3>
+
+	<!-- ************************************************************************************ -->
+	<!-- ********************************** DISPLAY PANELS ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div><img id="img-panel-marque"></div>
+	<div><img id="btn-luster-noun"></div>
+	<div><img id="img-panel-fluer"></div>
+	<div><img id="img-table"></div>
+
+	<div style="position:absolute;left:1670px;top:385px;width:140px;height:60px;background-color:red;color:bisque;text-align:center;padding:5px;font-weight:bolder;">Post Notes</div>
+
+
+	<!-- ************************************************************************************ -->
+	<!-- **************************** DISPLAY PANEL CRUD BUTTONS **************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="boxButton">
+		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
+		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** ENTITY LIST  *********************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show == "list")
+	{
+		<div class="ShadowText">
+			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
+		</div>
+
+		<div class="exhibitPanel">
+			<table id="listTable">
+				@*A "table" (really a list) of all records of the same type as selected table crud value*@
+				<tr>
+					<th>ID#   Label   Code   Role   Status   Count Reg/Max</th>
+				</tr>
+				@foreach (var entity in entities)
+				{   // Loop through each label of the currently selected table
+						<tr>
+							@*
+								<td @onclick="@(() => _nav.NavigateTo("/BrandDetails?pod="+pod+"&pid="+pid+"&id="+entity.BrandId+"&prevPage=/Brand"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
+				@entity.BrandId   @entity.BrandCode   @entity.BrandRole   @entity.BrandStatus   @entity.BrandCntReg   @entity.BrandCntMax
+								</td>
+							*@
+							<td>
+								@entity.BrandId   @entity.BrandLabel   @entity.BrandCode   @entity.BrandRole   @entity.BrandStatus   @entity.BrandCntReg   @entity.BrandCntMax
+							</td>
+						</tr>
+					// Display only the goal's description
+				}
+			</table>
+		</div>
+	}
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* LOCATION CREATE ****************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show == "add")
+	{
+		<br>
+		<div style="font-size:x-large; ">
+			<form @onsubmit="OnCreate">
+
+				<div class="ShadowText">
+					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
+				</div>
+
+				<div class="boxFilter">
+					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
+						 style="border-radius: 12px;background-size: cover;">
+					<button class="commitCreate" type="submit"></button>
+				</div>
+
+				<div class="exhibitInfo" style="overflow-y:scroll;">
+
+					<label>
+						Code:
+						<input class="form-control" @bind="@entity["add"].BrandCode" maxlength="42" required />
+					</label><br>
+
+					<label>
+						Label:
+						<input class="form-control" @bind="@entity["add"].BrandLabel" maxlength="42" required />
+					</label><br>
+
+					<label>
+						Image:
+						<input class="form-control" @bind="@entity["add"].BrandImage" maxlength="128" required />
+					</label><br>
+
+					<label>
+						Status:
+						<input class="form-control" @bind="@entity["add"].BrandStatus" maxlength="1" required />
+					</label><br>
+
+					<label>
+						Count Max:
+						<input class="form-control" @bind="@entity["add"].BrandCntMax" required />
+					</label><br>
+
+					<label>
+						Eligibility:
+						<input class="form-control" @bind="@entity["add"].BrandEligibility" required />
+					</label><br>
+
+					<label>
+						Reg Date Closed:
+						<input class="form-control" @bind="@entity["add"].BrandRegDateClosed" required />
+					</label><br>
+
+					<label>
+						Cost:
+						<input class="form-control" @bind="@entity["add"].BrandCost" required />
+					</label><br>
+
+					<label>
+						Guide FK:
+						<input class="form-control" @bind="@entity["add"].BrandGuide" required />
+					</label><br>
+
+					<label>
+						Role:
+						<input class="form-control" @bind="@entity["add"].BrandRole" maxlength="4" required />
+					</label><br>
+
+					<label>
+						NOVA FK:
+						<input class="form-control" @bind="@entity["add"].NovaIdFk" required />
+					</label><br>
+
+					<label>
+						Location FK:
+						<input class="form-control" @bind="@entity["add"].LocationIdFk" required />
+					</label><br>
+					
+					<label>
+						Channel Alpha:
+						<input class="form-control" @bind="@entity["add"].ChannelAlpha" maxlength="4" required />
+					</label><br>
+
+					<label>
+						Channel Beta:
+						<input class="form-control" @bind="@entity["add"].ChannelBeta" maxlength="4" required />
+					</label><br>
+
+					<label>
+						Channel Gamma:
+						<input class="form-control" @bind="@entity["add"].ChannelGamma" maxlength="4" required />
+					</label><br>
+				</div>
+			</form>
+		</div>
+	}
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* NOUN CHANGE ********************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show.Equals("change"))
+	{
+		<div style="font-size:x-large; display: inline-block;">
+			<form @onsubmit="OnChange">
+				<div class="ShadowText">
+					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
+				</div>
+
+				<div class="boxFilter">
+					<div class="PypeType">
+						<label>
+							<select class="form-control" value="@entity["change"].BrandId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
+								@foreach (var entity in entities)
+								{
+									<option value="@entity.BrandId"> @entity.BrandLabel</option>
+								}
+							</select>
+						</label>
+					</div>
+
+					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
+						 style="border-radius: 12px;background-size: cover;">
+					<button class="commitChange" type="submit"></button>
+				</div>
+
+				<div class="exhibitInfo" style="overflow-y:scroll;">
+					<label>
+						Code:
+						<input class="form-control" @bind="@entity["change"].BrandCode" maxlength="42" required />
+					</label><br><br>
+
+					<label>
+						Label:
+						<input class="form-control" @bind="@entity["change"].BrandLabel" maxlength="42" required />
+					</label><br><br>
+
+					<label>
+						Image:
+						<input class="form-control" @bind="@entity["change"].BrandImage" maxlength="128" required />
+					</label><br><br>
+
+					<label>
+						Status:
+						<input class="form-control" @bind="@entity["change"].BrandStatus" maxlength="1" required />
+					</label><br><br>
+
+					<label>
+						Count Max:
+						<input class="form-control" @bind="@entity["change"].BrandCntMax" required />
+					</label><br><br>
+
+					<label>
+						Eligibility:
+						<input class="form-control" @bind="@entity["change"].BrandEligibility" required />
+					</label><br><br>
+
+					<label>
+						Reg Date Closed:
+						<input type="datetime" class="form-control" @bind="@entity["change"].BrandRegDateClosed" required />
+					</label><br><br>
+
+					<label>
+						Cost:
+						<input class="form-control" @bind="@entity["change"].BrandCost" required />
+					</label><br><br>
+
+					<label>
+						Guide FK:
+						<input class="form-control" @bind="@entity["change"].BrandGuide" required />
+					</label><br><br>
+
+					<label>
+						Role:
+						<input class="form-control" @bind="@entity["change"].BrandRole" maxlength="4" required />
+					</label><br><br>
+
+					<label>
+						NOVA FK:
+						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />
+					</label><br><br>
+
+					<label>
+						Location FK:
+						<input class="form-control" @bind="@entity["change"].LocationIdFk" required />
+					</label><br><br>
+
+					<label>
+						Channel Alpha:
+						<input class="form-control" @bind="@entity["change"].ChannelAlpha" maxlength="4" required />
+					</label><br><br>
+
+					<label>
+						Channel Beta:
+						<input class="form-control" @bind="@entity["change"].ChannelBeta" maxlength="4" required />
+					</label><br><br>
+
+					<label>
+						Channel Gamma:
+						<input class="form-control" @bind="@entity["change"].ChannelGamma" maxlength="4" required />
+					</label><br><br>
+				</div>
+			</form>
+		</div>
+	}
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* LOCATION DELETE ****************************** -->
+	<!-- ************************************************************************************ -->
+	@if (show.Equals("delete"))
+	{
+		<div style="font-size:x-large; display: inline-block;">
+			<form @onsubmit="OnDelete">
+
+				<div class="ShadowText">
+					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
+						 style="border-radius: 12px;background-size: cover;">
+				</div>
+
+				<div class="boxFilter">
+					<div class="PypeType">
+						<label>
+							<select class="form-control" value="@entity["delete"].BrandId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
+								@foreach (var entity in entities)
+								{
+									if (entity.BrandStatus == "D")
+									{
+										<option value="@entity.BrandId"> @entity.BrandLabel</option>
+									}
+								}
+							</select>
+						</label>
+					</div>
+
+					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
+						 style="border-radius: 12px;background-size: cover;">
+					<button class="commitDelete" type="submit"></button>
+				</div>
+				<div class="exhibitInfo" style="overflow-y:scroll;">
+					Only if the Status = D
+				</div>
+			</form>
+		</div>
+	}
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("//Lascaux?pod="+pod+"&pid="+pid))"
+			style="top:840px;left:20px;height:60px;">
+		Lascaux
+	</button>
+
+
+
+
+
+
+
+</div>
+
+
+
