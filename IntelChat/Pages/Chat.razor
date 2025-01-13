@@ -9,141 +9,50 @@
 <style>
     body {
         background: url("https://agineuralnet.blob.core.windows.net/panels/Panel_Chat520.png") no-repeat;
-        background-position: left 40px top 10px; /* Offset margin */
+        background-position: left 40px top 10px;
         background-size: 400px 900px;
-        background-color:#111111;
+        background-color: #111111;
         opacity: 90%;
         color: blanchedalmond;
         border-radius: 5px;
     }
 
-    .boxchatx {
-        background:url("https://aineuralnet.blob.core.windows.net/banners/Banner_engr.png") no-repeat;
-        padding: 0;
-        margin: 0;
-        position: absolute; /* edge of chat page */
-
-    /*     background-color:mediumorchid; */
-        top: 0px;
-        left: 10px;
-        width: 360px;
-        height: 260px;
-        font-size: 32px;
-        text-align: center;
-        background-size: cover;
+    .chat-container {
+        height: 900px; /* Match the height of the background image */
+        width: 400px; /* Match the width of the background image */
+        margin-top: 10px; /* Adjust top margin as needed */
+        margin-left: 40px; /* Align with the background image position */
+        position: absolute; /* Ensure alignment with the background */
+        overflow: auto; /* Enable scrolling for overflow content */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+        border-radius: 8px;
+        padding: 15px;
     }
 
-    boxdialoguex {
-        background: url("https://aineuralnet.blob.core.windows.net/panels/Panel_luster.png") no-repeat;
-        padding: 0;
-        margin: 0;
-        position: absolute; /* edge of chat page */
-        top: 4px;
-        left: 10px;
-        width: 390px;
-        height: 260px;
-        font-size: 24px;
-        text-align: center;
-        background-size: cover;
+    .message-input-container {
+        margin-top: 20px;
+        margin-left: 40px; /* Align input section with the chat container */
+        width: 400px; /* Match the width of the chat container */
     }
 
-    boxdialoguecommx {
-        background: url("https://aineuralnet.blob.core.windows.net/panels/Panel_luster.png") no-repeat;
-        padding: 0;
-        margin: 0;
-        position: absolute; /* edge of chat page */
-        top: 230px;
-        left: 20px;
-        width: 340px;
-        font-size: 18px;
-        text-align: center;
-        background-size: cover;
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #0056b3;
     }
-
 </style>
 
-
-
-<!-- ************************************************************************************ -->
-<!-- ****************** If you need a PANEL over the background ************************* -->
-<!-- ************************************************************************************ -->
-
-@* <boxchat>
-    <div class="boxchat">
-        <img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Chat_top.png"
-             style="position:absolute; left:00px;top:10px;width:400px;opacity:70%;"> 
-        <textarea style="font-size:18px;">
-          text from boxchat
-        </textarea>
-    </div>
-</boxchat> *@
-
-
-
-
-@* <boxdialogue>
- <div class="boxdialogue" style="top:100px">
-        <img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Chat_top.png"
-             style="position:absolute; left:0px;top:4px;width:400px;opacity:100%;">
-
-     <!-- ************************************************************************************ -->
-     <!-- ************************ EXIT Chat button ****************************************** -->
-     <!-- ************************************************************************************ -->
-
-        <div style="position:absolute;top:15px;width:80px;left:0px;color:aquamarine;opacity:55%">
-            <button type="button" @onclick="Send" disabled="@(!IsConnected)">X</button>
-        </div>
-
-    <!-- ************************************************************************************ -->
-    <!-- ************************ Chat user name ******************************************** -->
-    <!-- ************************************************************************************ -->
-   
-        <div style="position:absolute;top:15px;width:160px;left:120px;">
-            <input @bind="usernameInput" type="text" class="form-control" placeholder="Your name" readonly="@isUserReadonly" maxlength="32" disabled />
-        </div>
-    
-    <!-- ************************************************************************************ -->
-    <!-- ************************ Chat send button ****************************************** -->
-    <!-- ************************************************************************************ -->
-
-        <div style="position:absolute;top:15px;width:80px;right:0px;color:aquamarine;opacity:55%;">
-            <button type="button" @onclick="Send" disabled="@(!IsConnected)" >S</button>
-        </div>
-
-    <!-- ************************************************************************************ -->
-    <!-- ************************ Chat "text" to send *************************************** -->
-    <!-- ************************************************************************************ -->
-
-        <div style="position:absolute;top:80px;width:360px;left:20px;">
-            <textarea @bind="messageInput" class="form-control" placeholder="Start typing..."></textarea>
-        </div>
-  
- </div>
-</boxdialogue> *@
-
-
-
-
-
-<boxdialoguecomm>
- <div class="boxdialoguecomm" style="top:100px">
-
-    <!-- ************************************************************************************ -->
-    <!-- ************************ Chat comm blocks ****** relative to iframe Chat *********** -->
-    <!-- ************************************************************************************ -->
-   <div class="container overflow-auto shadow-sm p-3 mb-5 bg-white rounded border-light-rounded" 
-        style="left:10px; height: 720px;width:380px;opacity:70%; ">
-
-     @if (!userMessages.Any())
-     {
+<div class="chat-container shadow-sm">
+    @if (!userMessages.Any())
+    {
         <p>No messages yet, start chatting!</p>
-     }
+    }
 
-     @foreach (var userMessage in userMessages)
-     {
+    @foreach (var userMessage in userMessages)
+    {
         <div class="row mb-3 d-flex @(userMessage.CurrentUser ? "justify-content-end" : "")">
-            <div class="card shadow @(userMessage.CurrentUser ? "color-green mr-5" : "ml-5")" 
-            style="margin-left: 10px; margin-right: 10px; width: 16rem;">
+            <div class="card shadow @(userMessage.CurrentUser ? "color-green mr-5" : "ml-5")"
+                 style="margin-left: 10px; margin-right: 10px; width: 16rem;">
                 <div class="card-header">
                     @(userMessage.CurrentUser ? "You" : userMessage.Username)
                 </div>
@@ -155,37 +64,21 @@
                 </div>
             </div>
         </div>
-     }
-   </div> 
-  </div>
-</boxdialoguecomm>
+    }
+</div>
 
-
-
-
-
-
-
-
-@* <div>
-    <boxchat>
-        <div class="boxchat">
-            <img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png">
-            <textarea style="font-size:32px;">
-                print bottom
-            </textarea>
+<div class="container message-input-container">
+    <div class="row">
+        <div class="col">
+            <textarea @bind="messageInput" class="form-control" placeholder="Start typing..."></textarea>
         </div>
-    </boxchat>
-
-
-</div> *@
-
-@* <boxdialoge>
-    <div class="boxdialogue">
-        <img src="https://agineuralnet.blob.core.windows.net/panels/Panel_luster.png"
-             style="left:100px;top:330px;width:380px;height:280px;">
-        <textarea style="font-size:18px;top:0px">
-         Dialogue BOX
-        </textarea>
+    </div><br />
+    <div class="row">
+        <div class="col-4">
+            <input @bind="usernameInput" type="text" class="form-control" placeholder="Your name" readonly="@isUserReadonly" maxlength="32" disabled />
+        </div>
+        <div class="col-3">
+            <button type="button" @onclick="Send" disabled="@(!IsConnected)" class="btn btn-primary">Send</button>
+        </div>
     </div>
-</boxdialoge> *@
+</div>
