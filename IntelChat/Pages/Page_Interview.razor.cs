@@ -83,7 +83,7 @@ namespace IntelChat.Pages
 					QuestionText = reader.GetString(1),
 					QuestionType = reader.GetString(2),
 					QuestionStatus = reader.GetString(3),
-					NovaIdFk = reader.GetInt32(4),
+					NovaIdFk = reader.GetInt32(5),
 				});
 			}
 
