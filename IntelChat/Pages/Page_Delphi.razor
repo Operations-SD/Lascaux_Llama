@@ -1,0 +1,375 @@
+﻿@page "/Delphi"
+@inject NnetDbContext db            // Inject the ServerDbContext service for database access
+@inject NavigationManager _nav
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+
+
+<style>
+	body {
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Delphi.png") no-repeat;
+		background-size: 1920px 1080px;
+		background-position: left 0px top 0px;
+		opacity: 90%;
+		min-height: 100vh;
+		width: 100%;
+		color: blanchedalmond;
+		background-color: antiquewhite
+	}
+</style>
+
+
+<div class="engineer-page"
+
+
+<!-- ************************************************************************************ -->
+<!-- ********************************* Cloud Page Activity ****************************** -->
+<!-- ************************************************************************************ -->
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/POD?pod=" + 3 + "&pid=" + 11))"
+				style="top:460px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				POD invitation
+		</button>
+	</div>
+
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Person?pod=" + 3 + "&pid=" + 11))"
+				style="top:540px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				Person
+		</button>
+	</div>
+
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Location?pod=" + 3 + "&pid=" + 11))"
+				style="top:620px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				Location
+		</button>
+
+	</div>
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/URL?pod=" + 3 + "&pid=" + 11))"
+				style="top:700px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				URL cloud link
+		</button>
+	</div>
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))"
+				style="top:780px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				TASK schedule
+		</button>
+	</div>
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Work?pod=" + 3 + "&pid=" + 11))"
+				style="top:860px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				WORK skills
+		</button>
+	</div>
+
+</div>
+
+<!-- ************************************************************************************ -->
+<!-- ****************************** Screen Video ********** SOCRATES ******************** -->
+<!-- ************************************************************************************ -->
+
+<div style="top:10px; left:890px; position:absolute; overflow:hidden; filter: brightness(40%);z-index:1;opacity:40%;">
+
+@* 	<iframe width="400" height="220" src="https://www.youtube.com/embed/CdF8zpUTZhg" title="Socrates - Plato - Aristotle" 
+		frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+		referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	</iframe> *@
+
+@* 	<iframe width="460" height="260" src="https://www.youtube.com/embed/YQcuTYcxxWc" title="Socrates - The Philosopher Who Knew He Knew Nothing - The Great Greek Philosophers" 
+		frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+		referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	</iframe> *@
+
+</div>
+
+
+<div style="top:760px; left:1060px; position:absolute; overflow:hidden; filter: brightness(40%);z-index:1;opacity:50%;">
+
+	<iframe width="380" height="220" src="https://www.youtube.com/embed/A3o60SHiVEM" title=" Live a Happy Life | STOICISM PHILOSOPHY"
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	</iframe>
+
+</div>
+
+<!-- ************************************************************************************ -->
+<!-- ************************************* Projector Overlay **************************** -->
+<!-- ************************************************************************************ -->
+@if (showIframe)
+{
+	<div>
+		<!-- ************** Frame Projector image display Greece ****** SOCRATES ********** -->
+		<iframe src="@imagePath" width="800" height="900" frameborder="0"
+				style="position:absolute; top:40px;left:180px;width:800px; opacity:60%;">
+		</iframe>
+
+		<button class="btn btn-danger" @onclick="CloseIframe"
+				style="position:absolute; top:450px;left:20px;width:90px; opacity:70%; color:black">
+			Close Socrates
+		</button>
+
+		<!-- ****** BUTTON and projector video ******-->
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Nnet?pod=" + 3 + "&pid=" + 11))"
+				style="position:absolute; top:940px; left:440px; height:60px; width:260px; opacity:90%; color:dimgray;z-index:2;">
+			Socrates go to
+		</button>
+
+		<div style="top:10px; left:890px; position:absolute; overflow:hidden; filter: brightness(40%);z-index:1;opacity:95%;">
+            <iframe width="923" height="519" src="https://www.youtube.com/embed/rtDAbsW-OZA"
+                    title="Wisdom, Socrates, and the Oracle at Delphi"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+
+		</div>
+	</div>
+}
+
+
+
+
+
+
+
+
+else
+{
+	<button class="btn btn-primary" @onclick="OpenIframe"
+			style="position:absolute; top:450px;left:20px;width:90px; opacity:70%; color:black">
+		Socrates
+	</button>
+}
+@code {
+	private bool showIframe = false;
+	private string imagePath = "https://agineuralnet.blob.core.windows.net/panels/Panel_Socrates.png"; // Replace with your .png file path
+
+	private void OpenIframe()
+	{ showIframe = true; }
+
+	private void CloseIframe()
+	{ showIframe = false; }
+}
+
+@if (showIframe2)
+{
+	<div>
+		<!-- ****************** Frame Projector image display Greece ****** PLATO ****************** -->
+		<iframe src="@imagePath2" width="800" height="900" frameborder="0"
+				style="position:absolute; top:40px;left:180px;width:800px; opacity:60%;">
+		</iframe>
+
+		<button class="btn btn-danger" @onclick="CloseIframe2"
+				style="position:absolute; top:530px;left:20px;width:90px; opacity:70%; color:black">
+			Close Plato
+		</button>
+
+		<!-- ****** BUTTON and projector video ******-->
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Nnet?pod=" + 3 + "&pid=" + 11))"
+				style="position:absolute; top:940px; left:440px; height:60px; width:260px; opacity:90%; color:dimgray;z-index:2;">
+			Plato go to
+		</button>
+
+		<div style="top:10px; left:890px; position:absolute; overflow:hidden; filter: brightness(40%);z-index:1;opacity:95%;">
+            <iframe width="923" height="519" src="https://www.youtube.com/embed/BbHYfzwnSrU"
+                    title="The Philosophy Of Plato"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+		</div>
+
+	</div>
+}
+else
+{
+	<button class="btn btn-primary" @onclick="OpenIframe2"
+			style="position:absolute; top:530px;left:20px;width:90px; opacity:70%; color:black">
+		Plato
+	</button>
+}
+@code {
+	private bool showIframe2 = false;
+	private string imagePath2 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Plato.png"; // Replace with your .png file path
+
+	private void OpenIframe2()
+	{ showIframe2 = true; }
+
+	private void CloseIframe2()
+	{ showIframe2 = false; }
+}
+
+@if (showIframe3)
+{
+	<div>
+		<!-- **************** Frame Projector image display Greece ****** ARISTOTLE ***************** -->
+		<iframe src="@imagePath3" width="800" height="900" frameborder="0"
+				style="position:absolute; top:40px;left:180px;width:800px; opacity:40%;">
+		</iframe>
+
+		<button class="btn btn-danger" @onclick="CloseIframe3"
+				style="position:absolute; top:610px;left:20px; width:90px;opacity:70%; color:black">
+			Close Aristotle
+		</button>
+
+		<!-- ****** BUTTON and projector video ******-->
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Nnet?pod=" + 3 + "&pid=" + 11))"
+				style="position:absolute; top:940px; left:440px; height:60px; width:260px; opacity:90%; color:dimgray;z-index:2;">
+			Aristotle go to
+		</button>
+
+		<div style="top:10px; left:890px; position:absolute; overflow:hidden; filter: brightness(40%);z-index:1;opacity:95%;">
+            <iframe width="923" height="519" src="https://www.youtube.com/embed/Pbl2OKOqRDc"
+                    title="The Life and Philosophy of Aristotle"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+		</div>
+
+	</div>
+}
+else
+{
+	<button class="btn btn-primary" @onclick="OpenIframe3"
+			style="position:absolute; top:610px;left:20px;width:90px; opacity:70%; color:black">
+		Aristotle
+	</button>
+}
+@code {
+	private bool showIframe3 = false;
+	private string imagePath3 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Aristotle.png"; // Replace with your .png file path
+
+	private void OpenIframe3()
+	{ showIframe3 = true; }
+
+	private void CloseIframe3()
+	{ showIframe3 = false; }
+}
+
+@if (showIframe4)
+{
+	<div>
+		<!-- ******************* Frame Projector image display Greece ****** Maxims ****************** -->
+		<iframe src="@imagePath4" width="800" height="900" frameborder="0"
+				style="position:absolute; top:40px;left:180px;width:800px; opacity:80%;">
+	    </iframe>
+
+
+
+        <!-- ****** BUTTON and projector video ******-->
+        <button class="general-menu-button"
+                @onclick="@(() => _nav.NavigateTo("/Interview?pod=" + 3 + "&pid=" + 11))"
+                style="position:absolute; top:940px; left:440px; height:60px; width:260px; opacity:90%; color:dimgray;z-index:2;">
+            Interview
+        </button>
+		<div style="top:10px; left:890px; position:absolute; overflow:hidden; filter: brightness(40%);z-index:1;opacity:95%;">
+            <iframe width="923" height="519" src="https://www.youtube.com/embed/hK8FAtkSdjc"
+                    title="Ancient Delphi: The Center of the Universe Explained"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+
+		</div>
+
+
+
+
+		<button class="btn btn-danger" @onclick="CloseIframe4"
+				style="position:absolute; top:690px;left:20px;width:90px; opacity:70%; color:black">
+			Close Maxims
+		</button>
+	</div>
+}
+else
+{
+	<button class="btn btn-primary" @onclick="OpenIframe4"
+			style="position:absolute; top:690px;left:20px;width:90px; opacity:70%; color:black">
+		Maxims
+	</button>
+}
+@code {
+	private bool showIframe4 = false;
+	private string imagePath4 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Maxims.png"; // Replace with your .png file path
+
+	private void OpenIframe4()
+	{ showIframe4 = true; }
+
+	private void CloseIframe4()
+	{ showIframe4 = false; }
+}
+<!-- ************************************************************************************ -->
+<!-- ****************************** End of Projector Overlay **************************** -->
+<!-- ************************************************************************************ -->
+
+
+
+<!-- ************************************************************************************ -->
+<!-- ********************************* Display MEMO Panel ******************************* -->
+<!-- ************************************************************************************ -->
+<div class="engineer-page">
+	<button @onclick="ToggleMemoPage" class="toggle-button"
+			style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+		toggle MEMO
+	</button>
+
+	@if (isMemoPageOpen)
+	{
+		<div class="memo-page" style="z-index:1; position:absolute;top:780px;left:200px;width:1200px;height:280px; opacity:95%">
+			<iframe src="CommMemo" class="memo-iframe"></iframe>
+		</div>
+	}
+</div>
+<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
+@code {
+	private bool isMemoPageOpen = false;
+
+	private void ToggleMemoPage()
+	{
+		isMemoPageOpen = !isMemoPageOpen;
+	}
+}
+
+
+<!-- ************************************************************************************ -->
+<!-- ********************************* Display CHAT Panel ******************************* -->
+<!-- ************************************************************************************ -->
+<div class="engineer-page">
+	<button @onclick="ToggleChatPage" class="toggle-button"
+			style="top:960px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+		toggle CHAT
+	</button>
+
+	@if (isChatPageOpen)
+	{
+		<div class="chat-page" style="z-index:1;position:absolute;top:0px;left:1400px;width:520px;height:1060px; opacity:80%">
+			<iframe src="Chat" class="chat-iframe"></iframe>
+		</div>
+	}
+</div>
+<!-- ********************************* TOGGLE CHAT Panel ******************************* -->
+@code {
+	private bool isChatPageOpen = false;
+
+	private void ToggleChatPage()
+	{
+		isChatPageOpen = !isChatPageOpen;
+	}
+}

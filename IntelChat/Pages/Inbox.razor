@@ -1,0 +1,88 @@
+﻿@page "/Inbox"
+@inject NnetDbContext db
+@inject NavigationManager _nav
+@inject IConfiguration _configuration
+@inject NounService nounService
+@inject IHttpContextAccessor context
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+@using System.Data.Common;
+@using IntelChat.Services;
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
+@using ThreadingTask = System.Threading.Tasks.Task;
+
+<style>
+	body {
+		background: url("https://agineuralnet.blob.core.windows.net/panels/Panel_Memo.png") no-repeat fixed;
+		background-size: 1200px 280px;
+	}
+
+	textarea {
+		border-radius: 5px;
+		padding: 12px 20px;
+		box-sizing: border-box;
+		border: 2px solid #cccccc;
+		border-radius: 4px;
+		background-color: #c6d1ef;
+		font-size: 16px;
+		width: 300px;
+		left: 40px;
+	}
+</style>
+
+
+
+
+<!-- ************************************************************************************ -->
+<!-- **************************   INBOX  *************** STYLE ************************** -->
+<!-- ************************************************************************************ -->
+<select @onchange=ChangeInbox 
+	style="position:absolute;width:460px;display:block;text-align:center;height:50px;background-color:#c6d1ef;border-color:#abb4cd;left:40px;top:60px;opacity:70%;">
+	<option value="" disabled selected>Inbox</option>
+	@foreach (Memo memo in memos)
+	{
+		<option value="@memo.MemoDateTime">From: @memo.MemoPersonFrom | @memo.MemoDateTime</option>
+	}
+</select>
+
+
+<!-- ************************************************************************************ -->
+<!-- **************************   INBOX  *************** STYLE ************************** -->
+<!-- ************************************************************************************ -->
+<div style="position:absolute;width:460px;left:40px;top:150px;opacity:70%;">
+
+	<textarea @bind=message style="width:460px;height:300px;left:100px;" /><br /><br />
+
+	<label for="message_type" style="color:#000000;left:100px">Message Type: </label>
+
+	<select @bind=messageType name="message_type" style="color:#000000;float:left;background-color:#c6d1ef;">
+		<option value="REMD">Reminder</option>
+		<option value="QUES">Question</option>
+		<option value="CONC">Concern</option>
+		<option value="COMM">Comment</option>
+		<option value="AFFM">Affirmation</option>
+		<option value="MISC">Miscellaneous</option>
+	</select>
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************** MEMO recipient ****************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<select @bind=roleRecipient name="role_recipient" style="color:#000000;left:40px;background-color:#c6d1ef;">
+		<option value="self">Self</option>
+		<option value="acad">POD Academy</option>
+		<option value="admn">Administration</option>
+		<option value="engr">Engineer</option>
+		<option value="xprt">Domain Expert</option>
+	</select>
+	<label for="role_recipient" style="color:#000000;left:40px;">Recipient: </label><br /><br />
+
+    <!-- ************************************************************************************ -->
+    <!-- ************************** MEMO SEND *********************************************** -->
+    <!-- ************************************************************************************ -->
+
+	<button class="modal-btn" @onclick=CreateMemo style="height:50px;width:460px;background-color:#c6d1ef;border-radius:5px;border:3px;">Send Memo</button><br /><br />
+</div>

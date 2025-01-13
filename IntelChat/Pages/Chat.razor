@@ -1,0 +1,84 @@
+﻿@page "/Chat"
+@layout ChatLayout
+@using Microsoft.AspNetCore.SignalR.Client
+@using Models
+@inject NavigationManager NavigationManager
+@inject IHttpContextAccessor context
+@implements IAsyncDisposable
+
+<style>
+    body {
+        background: url("https://agineuralnet.blob.core.windows.net/panels/Panel_Chat520.png") no-repeat;
+        background-position: left 40px top 10px;
+        background-size: 400px 900px;
+        background-color: #111111;
+        opacity: 90%;
+        color: blanchedalmond;
+        border-radius: 5px;
+    }
+
+    .chat-container {
+        height: 900px; /* Match the height of the background image */
+        width: 400px; /* Match the width of the background image */
+        margin-top: 10px; /* Adjust top margin as needed */
+        margin-left: 40px; /* Align with the background image position */
+        position: absolute; /* Ensure alignment with the background */
+        overflow: auto; /* Enable scrolling for overflow content */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+        border-radius: 8px;
+        padding: 15px;
+    }
+
+    .message-input-container {
+        margin-top: 20px;
+        margin-left: 40px; /* Align input section with the chat container */
+        width: 400px; /* Match the width of the chat container */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #0056b3;
+    }
+</style>
+
+<div class="chat-container shadow-sm">
+    @if (!userMessages.Any())
+    {
+        <p>No messages yet, start chatting!</p>
+    }
+
+    @foreach (var userMessage in userMessages)
+    {
+        <div class="row mb-3 d-flex @(userMessage.CurrentUser ? "justify-content-end" : "")">
+            <div class="card shadow @(userMessage.CurrentUser ? "color-green mr-5" : "ml-5")"
+                 style="margin-left: 10px; margin-right: 10px; width: 16rem;">
+                <div class="card-header">
+                    @(userMessage.CurrentUser ? "You" : userMessage.Username)
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item @(userMessage.CurrentUser ? "color-green" : "")">@userMessage.Message</li>
+                </ul>
+                <div class="card-footer">
+                    <span class="small">@userMessage.DateSent.ToString("HH:mm | MMM dd")</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="container message-input-container">
+    <div class="row">
+        <div class="col">
+            <textarea @bind="messageInput" class="form-control" placeholder="Start typing..."></textarea>
+        </div>
+    </div><br />
+    <div class="row">
+        <div class="col-4">
+            <input @bind="usernameInput" type="text" class="form-control" placeholder="Your name" readonly="@isUserReadonly" maxlength="32" disabled />
+        </div>
+        <div class="col-3">
+            <button type="button" @onclick="Send" disabled="@(!IsConnected)" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+</div>
