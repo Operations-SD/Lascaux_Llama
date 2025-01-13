@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Claims;
@@ -21,6 +22,13 @@ namespace IntelChat.Pages
 		public bool showImage = true;
 		public bool isChatIframeVisible = false; // Manages the visibility of the Chat iframe
 		public bool isMemoIframeVisible = false; // Manages the visibility of the Memo iframe
+		private bool isDraggingMemo = false;
+		private (int X, int Y) memoIframePosition = (0, 700);
+		private (int X, int Y) mouseStartMemo = (0, 0);
+		private bool isMemoInteractive = true;
+		private bool isDraggingChat = false;
+		private (int X, int Y) chatIframePosition = (1710, 60);
+		private (int X, int Y) mouseStartChat = (0, 0);
 		public string ChatiframeSource = "";      // Holds the source of the iframe to be displayed
 		public string MemoiframeSource = "";
 		public string show = "";
@@ -80,6 +88,56 @@ namespace IntelChat.Pages
 			isMemoIframeVisible = false; // Hide the iframe
 			MemoiframeSource = "";       // Clear the iframe source
 		}
+
+		/// *********************************************************************************
+		/// ************************ Draggable IFrames *************************************
+		/// *********************************************************************************
+
+		// Initiates dragging for the Chat iframe
+		private void StartDraggingChat(MouseEventArgs e)
+		{
+			isDraggingChat = true; // Set dragging state to true for the Chat iframe
+			mouseStartChat = ((int)e.ClientX - chatIframePosition.X, (int)e.ClientY - chatIframePosition.Y); // Calculate initial offset
+		}
+
+		// Initiates dragging for the Memo iframe
+		private void StartDraggingMemo(MouseEventArgs e)
+		{
+			isDraggingMemo = true; // Set dragging state to true for the Memo iframe
+			mouseStartMemo = ((int)e.ClientX - memoIframePosition.X, (int)e.ClientY - memoIframePosition.Y); // Calculate initial offset
+		}
+
+		// Handles the mouse move event globally for dragging
+		private void OnMouseMoveGlobal(MouseEventArgs e)
+		{
+			if (isDraggingMemo)
+			{
+				// Update position of the Memo iframe based on the current mouse position
+				memoIframePosition = ((int)e.ClientX - mouseStartMemo.X, (int)e.ClientY - mouseStartMemo.Y);
+				StateHasChanged(); // Refresh the UI to reflect position changes
+			}
+			else if (isDraggingChat)
+			{
+				// Update position of the Chat iframe based on the current mouse position
+				chatIframePosition = ((int)e.ClientX - mouseStartChat.X, (int)e.ClientY - mouseStartChat.Y);
+				StateHasChanged(); // Refresh the UI to reflect position changes
+			}
+		}
+
+		// Ends the dragging operation globally
+		private void OnMouseUpGlobal()
+		{
+			if (isDraggingMemo)
+			{
+				isDraggingMemo = false; // Reset dragging state for the Memo iframe
+			}
+			else if (isDraggingChat)
+			{
+				isDraggingChat = false; // Reset dragging state for the Chat iframe
+			}
+		}
+
+
 
 		public void ShowVideo() { ShowModal(); show = "video"; }
 		public void ShowAudio() { ShowModal(); show = "audio"; }
