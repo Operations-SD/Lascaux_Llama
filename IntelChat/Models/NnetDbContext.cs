@@ -37,6 +37,8 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<CfgVerifyPype> CfgVerifyPypes { get; set; }
 
+    public virtual DbSet<Command> Commands { get; set; }
+
     public virtual DbSet<FilterPype> FilterPypes { get; set; }
 
     public virtual DbSet<Guide> Guides { get; set; }
@@ -114,8 +116,6 @@ public partial class NnetDbContext : DbContext
     public virtual DbSet<Tuner> Tuners { get; set; }
 
     public virtual DbSet<Url> Urls { get; set; }
-
-    public virtual DbSet<Urllocked> Urllockeds { get; set; }
 
     public virtual DbSet<Verb> Verbs { get; set; }
 
@@ -551,6 +551,59 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Pype_type");
         });
 
+        modelBuilder.Entity<Command>(entity =>
+        {
+            entity.HasKey(e => new { e.CommandInitiator, e.CommandDtime });
+
+            entity.ToTable("Command");
+
+            entity.Property(e => e.CommandInitiator)
+                .HasDefaultValue(1)
+                .HasColumnName("Command_Initiator");
+            entity.Property(e => e.CommandDtime)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("Command_DTime");
+            entity.Property(e => e.CommandConnect)
+                .HasMaxLength(128)
+                .HasDefaultValue("Connection 128  not assigned")
+                .HasComment("Physical Site")
+                .HasColumnName("Command_Connect");
+            entity.Property(e => e.CommandLabel16)
+                .HasMaxLength(16)
+                .HasDefaultValue("label16")
+                .IsFixedLength()
+                .HasColumnName("Command_label16");
+            entity.Property(e => e.CommandResponse)
+                .HasDefaultValue((byte)1)
+                .HasColumnName("Command_Response");
+            entity.Property(e => e.CommandSeverity)
+                .HasDefaultValue((byte)4)
+                .HasColumnName("Command_Severity");
+            entity.Property(e => e.CommandStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Command_status");
+            entity.Property(e => e.CommandString)
+                .HasMaxLength(512)
+                .HasDefaultValue("Command 512 No String")
+                .HasColumnName("Command_String");
+            entity.Property(e => e.CommandType)
+                .HasMaxLength(4)
+                .HasDefaultValue("loca")
+                .IsFixedLength()
+                .HasColumnName("Command_type");
+            entity.Property(e => e.NeuronIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Neuron_ID_FK");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.PersonIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Person_ID_FK");
+        });
+
         modelBuilder.Entity<FilterPype>(entity =>
         {
             entity
@@ -593,22 +646,24 @@ public partial class NnetDbContext : DbContext
 
         modelBuilder.Entity<Guide>(entity =>
         {
+            entity.HasKey(e => e.GuideId).HasName("PK_Guide_UMD");
+
             entity.ToTable("Guide");
 
             entity.Property(e => e.GuideId).HasColumnName("Guide_ID");
             entity.Property(e => e.BrainIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Brain_ID_FK");
-            entity.Property(e => e.GuideDateOrgin)
+            entity.Property(e => e.GuideDtOrgin)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
-                .HasColumnName("Guide_date_orgin");
-            entity.Property(e => e.GuideDateRevision)
+                .HasColumnName("Guide_dt_orgin");
+            entity.Property(e => e.GuideDtRevision)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
-                .HasColumnName("Guide_date_revision");
+                .HasColumnName("Guide_dt_revision");
             entity.Property(e => e.GuideEligible)
-                .HasDefaultValue((byte)100)
+                .HasDefaultValue((byte)50)
                 .HasColumnName("Guide_eligible");
             entity.Property(e => e.GuideImage)
                 .HasDefaultValue(1)
@@ -627,10 +682,10 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("A")
                 .IsFixedLength()
                 .HasColumnName("Guide_status");
-            entity.Property(e => e.GuideTag)
+            entity.Property(e => e.GuideTags)
                 .HasMaxLength(255)
-                .HasDefaultValue("Maxim")
-                .HasColumnName("Guide_tag");
+                .HasDefaultValue("tag")
+                .HasColumnName("Guide_tags");
             entity.Property(e => e.GuideType)
                 .HasMaxLength(4)
                 .HasDefaultValue("nnet")
@@ -642,7 +697,9 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_ID_FK");
-            entity.Property(e => e.ProgramFk).HasColumnName("Program_FK");
+            entity.Property(e => e.ProgramIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("URL_ID_FK");
@@ -1029,7 +1086,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_FK");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Program_FK");
         });
@@ -2201,54 +2258,6 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.UrlType)
                 .HasMaxLength(4)
                 .HasDefaultValue("html")
-                .IsFixedLength()
-                .HasColumnName("URL_type");
-        });
-
-        modelBuilder.Entity<Urllocked>(entity =>
-        {
-            entity.HasKey(e => e.UrlId).HasName("PK_URL");
-
-            entity.ToTable("URLlocked");
-
-            entity.Property(e => e.UrlId).HasColumnName("URL_ID");
-            entity.Property(e => e.NovaIdFk)
-                .HasDefaultValue(1)
-                .HasColumnName("NOVA_ID_FK");
-            entity.Property(e => e.UrlAdvanceLevel)
-                .HasDefaultValue((byte)3)
-                .HasColumnName("URL_advance_level");
-            entity.Property(e => e.UrlChain)
-                .HasDefaultValue(1)
-                .HasColumnName("URL_chain");
-            entity.Property(e => e.UrlCloud)
-                .HasMaxLength(128)
-                .HasDefaultValue("https://agineuralnet.blob.core.windows.net/cards/ImageName.png")
-                .HasColumnName("URL_cloud");
-            entity.Property(e => e.UrlDescription)
-                .HasMaxLength(128)
-                .HasDefaultValue("URL description")
-                .HasColumnName("URL_Description");
-            entity.Property(e => e.UrlLabel)
-                .HasMaxLength(16)
-                .HasDefaultValue("label16")
-                .IsFixedLength()
-                .HasColumnName("URL_label");
-            entity.Property(e => e.UrlStars)
-                .HasDefaultValue((byte)3)
-                .HasColumnName("URL_stars");
-            entity.Property(e => e.UrlStatus)
-                .HasMaxLength(1)
-                .HasDefaultValue("A")
-                .IsFixedLength()
-                .HasColumnName("URL_status");
-            entity.Property(e => e.UrlTag)
-                .HasMaxLength(1024)
-                .HasDefaultValue("tag")
-                .HasColumnName("URL_tag");
-            entity.Property(e => e.UrlType)
-                .HasMaxLength(4)
-                .HasDefaultValue("png")
                 .IsFixedLength()
                 .HasColumnName("URL_type");
         });

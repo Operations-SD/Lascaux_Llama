@@ -36,7 +36,7 @@ public partial class Location
 
     public int PodFk { get; set; }
 
-    public int ProgramFk { get; set; }
+    public int ProgramIdFk { get; set; }
 
     public int PersonFkAdmn { get; set; }
 

@@ -57,10 +57,10 @@ namespace IntelChat.Pages
 				new SqlParameter("@type", entity["add"].GuideType),
 				new SqlParameter("@status", entity["add"].GuideStatus),
 				new SqlParameter("@image", entity["add"].GuideImage),
-				new SqlParameter("@dt_origin", entity["add"].GuideDateOrgin),
-				new SqlParameter("@dt_revision", entity["add"].GuideDateRevision),
+				new SqlParameter("@dt_origin", entity["add"].GuideDtOrgin),
+				new SqlParameter("@dt_revision", entity["add"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["add"].ProgramFk)
+				new SqlParameter("@program_fk", entity["add"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}
@@ -98,10 +98,10 @@ namespace IntelChat.Pages
 					GuideType = reader.GetString(3),
 					GuideStatus = reader.GetString(4),
 					GuideImage = reader.GetInt32(5),
-					GuideDateOrgin = reader.GetDateTime(6),
-					GuideDateRevision = reader.GetDateTime(7),
+					GuideDtOrgin = reader.GetDateTime(6),
+					GuideDtRevision = reader.GetDateTime(7),
 					NovaIdFk = reader.GetInt32(8),
-					ProgramFk = reader.GetInt32(9)
+					ProgramIdFk = reader.GetInt32(9)
 				});
 			}
 			reader.Close();
@@ -131,10 +131,10 @@ namespace IntelChat.Pages
 				new SqlParameter("@type", entity["change"].GuideType),
 				new SqlParameter("@status", entity["change"].GuideStatus),
 				new SqlParameter("@image", entity["change"].GuideImage),
-				new SqlParameter("@dt_origin", entity["change"].GuideDateOrgin),
-				new SqlParameter("@dt_revision", entity["change"].GuideDateRevision),
+				new SqlParameter("@dt_origin", entity["change"].GuideDtOrgin),
+				new SqlParameter("@dt_revision", entity["change"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["change"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["change"].ProgramFk)
+				new SqlParameter("@program_fk", entity["change"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}

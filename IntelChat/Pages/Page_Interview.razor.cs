@@ -184,10 +184,10 @@ namespace IntelChat.Pages
 					GuideType = reader.GetString(3),
 					GuideStatus = reader.GetString(4),
 					GuideImage = reader.GetInt32(5),
-					GuideDateOrgin = reader.GetDateTime(6),
-					GuideDateRevision = reader.GetDateTime(7),
+					GuideDtOrgin = reader.GetDateTime(6),
+					GuideDtRevision = reader.GetDateTime(7),
 					NovaIdFk = reader.GetInt32(8),
-					ProgramFk = reader.GetInt32(9)
+					ProgramIdFk = reader.GetInt32(9)
 				};
 				reader.Close();
 				return guide;
