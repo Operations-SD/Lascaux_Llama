@@ -9,6 +9,8 @@ using System.Data.SqlClient;
 using static System.Net.Mime.MediaTypeNames;
 using ThreadingTask = System.Threading.Tasks.Task;
 using static IntelChat.Pages.Page_Nova;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using System.Security.Cryptography;
 
 namespace IntelChat.Pages
 {
@@ -145,7 +147,9 @@ namespace IntelChat.Pages
 				new SqlParameter("@pod", pod),
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_Input_Filter", filter),
-				new SqlParameter("@noun", subid)
+				new SqlParameter("@noun", subid),
+				new SqlParameter("@verb", actid),
+				new SqlParameter("@object", objid)
 			};
 			return await ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
@@ -370,17 +374,17 @@ namespace IntelChat.Pages
 		
 		*/
 		
-		private async ThreadingTask LoadNOVA(string sp, string filter = "****")
+		private async ThreadingTask LoadNOVA(string sp, string filter = "NOVA")
 		{
-			var reader = await Read(sp);
+			var reader = await Read(sp, filter);
 			if (reader == null) return;
 
-			List<XnovaDictionaryNova> entities = new List<XnovaDictionaryNova>();
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
 			while (await reader.ReadAsync())
 			{
-				entities.Add(new XnovaDictionaryNova
+				entities.Add(new LascauxFromNova
 				{
-					About = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
 					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
 					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
 					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
@@ -406,7 +410,7 @@ namespace IntelChat.Pages
 			///					&& (objid == 0 || entity.O == objid)
 			///					&& pid == entity.Pid);
 			novas.Clear();
-			foreach (XnovaDictionaryNova entity in entities)
+			foreach (LascauxFromNova entity in entities)
 			{
 				novas.Add(new Lascaux
 				{
@@ -555,56 +559,53 @@ namespace IntelChat.Pages
 		/// **************** CASE ********************** Internal Procedure LoadTask **************
 		/// **************** CASE ********************** Internal Procedure LoadTask **************
 		/// **************** CASE ********************** Internal Procedure LoadTask **************
-		private async ThreadingTask LoadTask(string sp, string filter = "****")
+		private async ThreadingTask LoadTask(string sp, string filter = "TASK")
 		{
-			var reader = await Read(sp);
+			var reader = await Read(sp, filter);
 			if (reader == null) return;
 
-			List<XnovaDictionaryInterview> entities = new List<XnovaDictionaryInterview>();
+			List<LascauxFromTask> entities = new List<LascauxFromTask>();
 			while (await reader.ReadAsync())
 			{
-				entities.Add(new XnovaDictionaryInterview
+				entities.Add(new LascauxFromTask
 				{
-					About = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
 					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
-					G = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
-					Q = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0,
-					QuestionText = !reader.IsDBNull(4) ? reader.GetString(4) : "",
-					N = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0,
-					NovaDescription = !reader.IsDBNull(6) ? reader.GetString(6) : "",
-					S = !reader.IsDBNull(7) ? reader.GetInt32(7) : 0,
-					Subject = !reader.IsDBNull(8) ? reader.GetString(8) : "",
-					SubjectDescription = !reader.IsDBNull(9) ? reader.GetString(9) : "",
-					SubjectUrl = !reader.IsDBNull(10) ? reader.GetString(10) : "",
-					V = !reader.IsDBNull(11) ? reader.GetInt32(11) : 0,
-					Verb = !reader.IsDBNull(12) ? reader.GetString(12) : "",
-					VerbDescription = !reader.IsDBNull(13) ? reader.GetString(13) : "",
-					VerbUrl = !reader.IsDBNull(14) ? reader.GetString(14) : "",
-					O = !reader.IsDBNull(15) ? reader.GetInt32(15) : 0,
-					Object = !reader.IsDBNull(16) ? reader.GetString(16) : "",
-					ObjectDescription = !reader.IsDBNull(17) ? reader.GetString(17) : "",
-					ObjectUrl = !reader.IsDBNull(18) ? reader.GetString(18) : "",
-					Pid = !reader.IsDBNull(19) ? reader.GetInt32(19) : 0
+					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+					S = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
+					Subject = !reader.IsDBNull(5) ? reader.GetString(5) : "",
+					SubjectDescription = !reader.IsDBNull(6) ? reader.GetString(6) : "",
+					SubjectUrl = !reader.IsDBNull(7) ? reader.GetString(7) : "",
+					A = !reader.IsDBNull(8) ? reader.GetInt32(8) : 0,
+					Action = !reader.IsDBNull(9) ? reader.GetString(9) : "",
+					ActionDescription = !reader.IsDBNull(10) ? reader.GetString(10) : "",
+					ActionUrl = !reader.IsDBNull(11) ? reader.GetString(11) : "",
+					O = !reader.IsDBNull(12) ? reader.GetInt32(12) : 0,
+					Object = !reader.IsDBNull(13) ? reader.GetString(13) : "",
+					ObjectDescription = !reader.IsDBNull(14) ? reader.GetString(14) : "",
+					ObjectUrl = !reader.IsDBNull(15) ? reader.GetString(15) : "",
+					Pid = !reader.IsDBNull(16) ? reader.GetInt32(16) : 0
 				});
 			}
 			reader.Close();
 
-			entities = entities.FindAll(entity => pid == entity.Pid);
+			//entities = entities.FindAll(entity => pid == entity.Pid);
 			novas.Clear();
-			foreach (XnovaDictionaryInterview entity in entities)
+			foreach (LascauxFromTask entity in entities)
 			{
 				novas.Add(new Lascaux
 				{
-					NovaId = entity.N ?? 0,
+					NovaId = entity.N,
 					NovaDescription = entity.NovaDescription ?? "",
 					NovaSubjectLabel = entity.Subject ?? "",
-					NovaActionLabel = entity.Verb ?? "",
+					NovaActionLabel = entity.Action ?? "",
 					NovaObjectLabel = entity.Object ?? "",
 					NovaSubjectDescription = entity.SubjectDescription ?? "",
-					NovaActionDescription = entity.VerbDescription ?? "",
+					NovaActionDescription = entity.ActionDescription ?? "",
 					NovaObjectDescription = entity.ObjectDescription ?? "",
 					SubjectURL = entity.SubjectUrl ?? "",
-					ActionURL = entity.VerbUrl ?? "",
+					ActionURL = entity.ActionUrl ?? "",
 					ObjectURL = entity.ObjectUrl ?? ""
 				});
 			}
@@ -707,8 +708,8 @@ namespace IntelChat.Pages
 					await LoadQuestion(sp);
 					break;
 
-				case "Task":
-					sp = "sp_nova_Dictionary_Task";
+				case "TASK":
+					sp = "sp_Lascaux_#temp";
 					await LoadTask(sp);
 					break;
 				case "Work":
