@@ -109,21 +109,29 @@
 		width: 600px;
 	}
 
-	/*********** DirectSelect Input Box ***************/
+	/*********** Common Styles for Input Boxes ***************/
+	.FilterInput {
+		width: 116px;
+		padding: 10px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 8px; /* Rounded edges */
+		box-sizing: border-box; /* Ensures consistent dimensions including padding and borders */
+	}
+
+	/*********** Positioning for Tag Filter ***************/
+	.TagFilter {
+		position: absolute;
+		top: 430px; /* Adjust this to place it above DirectSelect */
+		right: 600px;
+	}
+
+	/*********** Positioning for Direct Select ***************/
 	.DirectSelect {
 		position: absolute;
-		top: 825px;
-		right: 154px;
+		top: 360px; /* Positioned below TagFilter */
+		right: 600px;
 	}
-
-	.DirectSelect input {
-		width: 232px;
-		padding: 10px;
-		font-size: 20px;
-	}
-	/**************************************************/
-
-
 </style>
 
 <div class="noun-page">
@@ -155,7 +163,14 @@
 	<!-- *********************************** DIRECT SELECT ID ******************************* -->
 	<!-- ************************************************************************************ -->
 	<div class="DirectSelect">
-		<input id="directSelectId" type="text" @bind="directSelectId" @onkeypress="HandleDirectSelectKeyPress" />
+		<input id="directSelectId" class="FilterInput" type="text" @bind="directSelectId" @onkeypress="HandleDirectSelectKeyPress" placeholder="Enter ID" />
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** TAG FILTERING ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="TagFilter">
+		<input id="tagFilter" class="FilterInput" @bind="tagFilter" @oninput="ApplyTagFilter" placeholder="Enter Tag" />
 	</div>
 
 	<!-- ************************************************************************************ -->

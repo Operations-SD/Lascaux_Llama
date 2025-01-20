@@ -81,9 +81,9 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
-			var reader = Read(status);
+			var reader = Read(status, filter);
 			if (reader == null) return;
 
 			entities.Clear();
@@ -97,13 +97,15 @@ namespace IntelChat.Pages
 					NounType = reader.GetString(3),
 					NounStatus = reader.GetString(4),
 					PodIdFk = reader.GetInt32(5),
-					UrlIdPk = reader.GetInt32(6)
+					UrlIdPk = reader.GetInt32(6),
+					NounTag = reader.GetString(7)
 				});
 			}
 			reader.Close();
 		}
 
-		
+
+
 
 		/// <summary>Handle events triggered by the change of the change filter select</summary>
 		/// <param name="args">Arguments from a filter change event</param>
@@ -280,5 +282,27 @@ namespace IntelChat.Pages
 				}
 			}
 		}
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Read"),
+				new SqlParameter("@PROC_filter", filter),
+				new SqlParameter("@status", status),
+				new SqlParameter("@pod", pod)
+			};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Noun]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
+		}
+		
+
 	}
 }
