@@ -228,43 +228,43 @@ font-size:22px;
 	<!-- Subject Image -->
 	@if (novaLasc.SubjectURL is not null)
 	{
-		<img src="@novaLasc.SubjectURL" alt="@novaLasc.NovaSubjectLabel"
-			 style="position: absolute; top: @(subjectImagePosition.Y)px; left: @(subjectImagePosition.X)px;
+			<img src="@novaLasc.SubjectURL" alt="@novaLasc.NovaSubjectLabel"
+				 style="position: absolute; top: @(subjectImagePosition.Y)px; left: @(subjectImagePosition.X)px;
                     width: @(subjectIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
                     height: @(subjectIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
                     z-index: @(subjectIsDragging ? "1005" : subjectZIndex);
                     cursor: @(subjectIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
-			 @onmousedown="@(e => StartDragging("Subject", e))"
-			 @onmouseup="@(e => StopDragging("Subject", e))"
-			 @onmousemove="@(e => OnMouseMove("Subject", e))" />
+				 @onmousedown="@(e => StartDragging("Subject", e))"
+				 @onmouseup="@(e => StopDragging("Subject", e))"
+				 @onmousemove="@(e => OnMouseMove("Subject", e))" />
 	}
 
 	<!-- Action Image -->
 	@if (novaLasc.ActionURL is not null)
 	{
-		<img src="@novaLasc.ActionURL" alt="@novaLasc.NovaActionLabel"
-			 style="position: absolute; top: @(actionImagePosition.Y)px; left: @(actionImagePosition.X)px;
+			<img src="@novaLasc.ActionURL" alt="@novaLasc.NovaActionLabel"
+				 style="position: absolute; top: @(actionImagePosition.Y)px; left: @(actionImagePosition.X)px;
                     width: @(actionIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
                     height: @(actionIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
                     z-index: @(actionIsDragging ? "1005" : actionZIndex);
                     cursor: @(actionIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
-			 @onmousedown="@(e => StartDragging("Action", e))"
-			 @onmouseup="@(e => StopDragging("Action", e))"
-			 @onmousemove="@(e => OnMouseMove("Action", e))" />
+				 @onmousedown="@(e => StartDragging("Action", e))"
+				 @onmouseup="@(e => StopDragging("Action", e))"
+				 @onmousemove="@(e => OnMouseMove("Action", e))" />
 	}
 
 	<!-- Object Image -->
 	@if (novaLasc.ObjectURL is not null)
 	{
-		<img src="@novaLasc.ObjectURL" alt="@novaLasc.NovaObjectLabel"
-			 style="position: absolute; top: @(objectImagePosition.Y)px; left: @(objectImagePosition.X)px;
+			<img src="@novaLasc.ObjectURL" alt="@novaLasc.NovaObjectLabel"
+				 style="position: absolute; top: @(objectImagePosition.Y)px; left: @(objectImagePosition.X)px;
                     width: @(objectIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
                     height: @(objectIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
                     z-index: @(objectIsDragging ? "1005" : objectZIndex);
-                    cursor: @(objectIsDragging ? "grabbing" : "grab");"
-			 @onmousedown="@(e => StartDragging("Object", e))"
-			 @onmouseup="@(e => StopDragging("Object", e))"
-			 @onmousemove="@(e => OnMouseMove("Object", e))" />
+                    cursor: @(objectIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
+				 @onmousedown="@(e => StartDragging("Object", e))"
+				 @onmouseup="@(e => StopDragging("Object", e))"
+				 @onmousemove="@(e => OnMouseMove("Object", e))" />
 	}
 
 	<!-- Drop Zone for Subject/Object -->

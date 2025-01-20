@@ -11,6 +11,7 @@ using ThreadingTask = System.Threading.Tasks.Task;
 using static IntelChat.Pages.Page_Nova;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace IntelChat.Pages
 {
@@ -719,6 +720,135 @@ namespace IntelChat.Pages
 
 			}
 			if (novas.Any()) selectedId = novas[0].NovaId;
+		}
+
+		private bool subjectIsDragging = false, actionIsDragging = false, objectIsDragging = false;
+		private bool subjectIsInsideDropZone = false, actionIsInsideDropZone = false, objectIsInsideDropZone = false;
+
+		private (int X, int Y) subjectImagePosition = (324, 522);
+		private (int X, int Y) actionImagePosition = (575, 522);
+		private (int X, int Y) objectImagePosition = (826, 522);
+
+		private (int X, int Y) mouseStart = (0, 0);
+		private readonly (int Width, int Height) originalImageSize = (200, 200);
+		private (int Width, int Height) resizedImageSize = (98, 98); // Resized image dimensions for drop zone
+
+		private string subjectZIndex = "1000";
+		private string actionZIndex = "1000";
+		private string objectZIndex = "1000";
+
+		private string dropMessage = ""; // Message for invalid drops
+
+		// Drop zone dimensions and positions with calculated left coordinates
+		private readonly (int X, int Y, int Width, int Height) subjectObjectDropZone = (1253, -2, 98, 98); // Adjusted for "right" position
+		private readonly (int X, int Y, int Width, int Height) actionDropZone = (1253, 111, 98, 98);      // Adjusted for "right" position
+
+
+		// Start dragging logic
+		private void StartDragging(string type, MouseEventArgs e)
+		{
+			mouseStart = type switch
+			{
+				"Subject" => ((int)e.ClientX - subjectImagePosition.X, (int)e.ClientY - subjectImagePosition.Y),
+				"Action" => ((int)e.ClientX - actionImagePosition.X, (int)e.ClientY - actionImagePosition.Y),
+				"Object" => ((int)e.ClientX - objectImagePosition.X, (int)e.ClientY - objectImagePosition.Y),
+				_ => mouseStart
+			};
+
+			if (type == "Subject") subjectIsDragging = true;
+			if (type == "Action") actionIsDragging = true;
+			if (type == "Object") objectIsDragging = true;
+
+			dropMessage = ""; // Clear any previous message
+		}
+
+		// Stop dragging logic
+		private void StopDragging(string type, MouseEventArgs e)
+		{
+			if (type == "Subject") subjectIsDragging = false;
+			if (type == "Action") actionIsDragging = false;
+			if (type == "Object") objectIsDragging = false;
+
+			HandleDrop(e.ClientX, e.ClientY, type);
+		}
+
+		// Mouse move logic
+		private void OnMouseMove(string type, MouseEventArgs e)
+		{
+			if (type == "Subject" && subjectIsDragging)
+			{
+				subjectImagePosition = ((int)e.ClientX - mouseStart.X, (int)e.ClientY - mouseStart.Y);
+			}
+			else if (type == "Action" && actionIsDragging)
+			{
+				actionImagePosition = ((int)e.ClientX - mouseStart.X, (int)e.ClientY - mouseStart.Y);
+			}
+			else if (type == "Object" && objectIsDragging)
+			{
+				objectImagePosition = ((int)e.ClientX - mouseStart.X, (int)e.ClientY - mouseStart.Y);
+			}
+		}
+
+		// Handle drop logic
+		private void HandleDrop(double mouseX, double mouseY, string type)
+		{
+			bool isInsideSubjectObjectDropZone =
+				mouseX >= subjectObjectDropZone.X &&
+				mouseX <= (subjectObjectDropZone.X + subjectObjectDropZone.Width) &&
+				mouseY >= subjectObjectDropZone.Y &&
+				mouseY <= (subjectObjectDropZone.Y + subjectObjectDropZone.Height);
+
+			bool isInsideActionDropZone =
+				mouseX >= actionDropZone.X &&
+				mouseX <= (actionDropZone.X + actionDropZone.Width) &&
+				mouseY >= actionDropZone.Y &&
+				mouseY <= (actionDropZone.Y + actionDropZone.Height);
+
+			// Handle Subject and Object drop
+			if ((type == "Subject" || type == "Object") && isInsideSubjectObjectDropZone)
+			{
+				SnapToDropZone(subjectObjectDropZone, type, "1006"); // Higher z-index after dropping
+				dropMessage = ""; // Clear message
+			}
+			// Handle Action drop
+			else if (type == "Action" && isInsideActionDropZone)
+			{
+				SnapToDropZone(actionDropZone, type, "1006"); // Higher z-index after dropping
+				dropMessage = ""; // Clear message
+			}
+			// Invalid drop
+			else
+			{
+				dropMessage = $"{type} does not belong in this drop zone.";
+			}
+		}
+
+		// Snap the image to the drop zone
+		private void SnapToDropZone((int X, int Y, int Width, int Height) dropZone, string type, string newZIndex)
+		{
+			var position = (
+				dropZone.X + (dropZone.Width - resizedImageSize.Width) / 2,
+				dropZone.Y + (dropZone.Height - resizedImageSize.Height) / 2
+			);
+
+			switch (type)
+			{
+				case "Subject":
+					subjectImagePosition = position;
+					subjectIsInsideDropZone = true;
+					subjectZIndex = newZIndex; // Update z-index
+					break;
+				case "Action":
+					actionImagePosition = position;
+					actionIsInsideDropZone = true;
+					actionZIndex = newZIndex; // Update z-index
+					break;
+				case "Object":
+					objectImagePosition = position;
+					objectIsInsideDropZone = true;
+					objectZIndex = newZIndex; // Update z-index
+					break;
+			}
 		}
 	}
 }
