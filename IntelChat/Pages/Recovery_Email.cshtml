@@ -1,0 +1,36 @@
+﻿@page "/Recovery/Email"
+@using IntelChat.Models;
+@using Microsoft.AspNetCore.Components;
+@model IntelChat.Pages.RecoveryEmailModel
+@inject NnetDbContext db;
+@inject NavigationManager _nav;
+@inject IConfiguration _config;
+@using Microsoft.AspNetCore.Identity;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	ViewData["pod"] = 3;
+	ViewData["Title"] = "Recover Account";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row" style="margin:50px">
+	<div class="col-md-4">
+		<section>
+			<form id="account" method="post">
+				<h2>Send Email to Recover an Intel-a-Chat Account</h2>
+				Fields marked * are required<br />
+				<hr />
+
+				<input asp-for="Input.Pod" class="form-control" aria-required="true" maxlength="32" value="@ViewData["pod"]" hidden />
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="form-floating" style="margin:10px">
+					<label asp-for="Input.Email" class="form-label">Email *</label><br />
+					<input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" maxlength="320" />
+				</div>
+				<div style="margin:10px">
+					<button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Submit</button>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
