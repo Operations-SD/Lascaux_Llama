@@ -33,7 +33,7 @@ namespace IntelChat.Pages
 			memberDescriptions.Add(new SelectListItem("-", "0"));
 			foreach (CommunityMember member in members)
 			{
-				memberDescriptions.Add(new SelectListItem($"{member.username} | POD: {member.pod} | PID: {member.pid} | {member.role}", member.pid.ToString()));
+				memberDescriptions.Add(new SelectListItem($" POD: {member.pod} | PID: {member.pid} | {member.username} |{member.role}", member.pid.ToString()));
 			}
 		}
 

@@ -19,6 +19,8 @@
 		width: 1920px;
 		height: 1080px;
 		font-size: 18px;
+		border-radius:0px;
+		margin:0px;
 	}
 
 	button {
@@ -26,6 +28,7 @@
 		border: 0px;
 		border-radius: 15px;
 		font-size: 0;
+		filter: brightness(50%);
 	}
 
 	button:hover {
@@ -39,11 +42,28 @@
 <!-- ************************************************************************************ -->
 <!-- ******************** Select PERSON (USER & ROLE) from DropDown ********************* -->
 <!-- ************************************************************************************ -->
-
 <form id="registration" method="post">
 	<select input asp-for="Input.Member" asp-items="@Model.memberDescriptions"
-			style="position:absolute;top:390px;left:140px;width:500px;max-height;20px;:90px;font-size:28px;color:darkred;background-color:darkgray" required></select>
+			style="position:absolute;top:540px;left:140px;width:500px;max-height:40px;font-size:28px;color:darkred;background-color:darkgray" required></select>
 
 <!-- ******************** RETURN to MENU with selected USER ***************************** -->
-	<button type="submit" style="position:absolute;top:860px;left:164px;width:460px;height:110px">RETURN</button>
+	<button type="submit" style="position:absolute;top:920px;left:120px;width:250px;height:70px;color:darkred;">RETURN</button>
+
+<!-- ******************** COLOSSUS Video ***************************** -->
+	<div style="top:10px; left:10px; position:absolute; overflow:hidden; filter: brightness(60%);opacity:80% ">
+	<iframe width="923" height="519" src="https://www.youtube.com/embed/WVG7dcPOLZY"
+			title="Colossus: The Forbin Project - AI Predictions from 1970"
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	</iframe>
+	</div>
+
+<!-- ******************** ELAN MUSK Video ************************* -->
+	<div style="top:574px; left:160px; position:absolute; overflow:hidden; filter: brightness(50%);opacity:60% ">
+	<iframe width="460" height="260" src="https://www.youtube.com/embed/mEmAP3oFWos" title="Did Elon Musk Remove AI Sci-Fi Film Colossus The Forbin Project To Protect His Own Super Computer?" 
+	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	</iframe>
+	</div>
+
 </form>
