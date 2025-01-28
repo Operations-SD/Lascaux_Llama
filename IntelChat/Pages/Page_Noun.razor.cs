@@ -15,13 +15,26 @@ namespace IntelChat.Pages
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pod { get; set; }
+
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
 
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? nounId { get; set; } // Noun ID for navigation
+
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public string? show { get; set; } // Tab to display
+
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public string? type { get; set; } // Type of noun (Subject or Object)
+
+
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		private string? show { get; set; } = "list";
 		private List<Pype> pypes = new List<Pype>();
 		private List<Noun> entities = new List<Noun>();
 		private Dictionary<String, Noun> entity = new Dictionary<String, Noun>();
@@ -177,11 +190,12 @@ namespace IntelChat.Pages
 		}
 
 		/// <summary>Fill fields in the change tab based on entity selection</summary>
-		private void AutoFill(int id, String type)
+		private void AutoFill(int id, string type)
 		{
-			var target = entities.Find(e => e.NounId == id);
+			var target = entities.FirstOrDefault(e => e.NounId == id); // Find the entity by nounId
 			if (target != null) entity[type] = target;
 		}
+
 
 		/// <summary>Reads pypes from the database using a stored procedure</summary>
 		/// <returns>Reader for the entities that were read from the database</returns>
@@ -231,6 +245,7 @@ namespace IntelChat.Pages
 
 		protected override void OnInitialized()
 		{
+			// Initialize default entities and filters
 			entity["add"] = new Noun();
 			entity["change"] = new Noun();
 			entity["delete"] = new Noun();
@@ -238,22 +253,53 @@ namespace IntelChat.Pages
 			filter["change"] = "****";
 			filter["delete"] = "****";
 
+			// Load data for Noun entities
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].NounId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (nounId.HasValue)
+						{
+							AutoFill(nounId.Value, "change"); // Populate fields for specific NounId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].NounId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.NounStatus == "D") != null)
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.NounStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.NounId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+					default:
+						show = "list"; // Default to list view
+						break;
+				}
+			}
+			else
 			{
-				entity["delete"] = entities.Where(e => e.NounStatus == "D").First();
-				AutoFill(entity["delete"].NounId, "delete");
+				// Default behavior if `show` is not specified
+				Console.WriteLine("No screen change option provided, defaulting to 'list' tab.");
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].NounId, "change");
+				}
+				show = "list";
 			}
-			show = "list";
-
 		}
 
 		private void OnItemSelected(int id)
