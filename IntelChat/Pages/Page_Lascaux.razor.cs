@@ -819,14 +819,10 @@ namespace IntelChat.Pages
 				SnapToDropZone(subjectObjectDropZone, type, "1006"); // Align image in drop zone
 
 				// Pass the corresponding NounId for Subject or Object
-				int? nounId = GetNounId(type);
+				int? nounId = GetId(type);
 				if (nounId.HasValue)
 				{
-					NavigateToNounPage(type, nounId.Value);
-				}
-				else
-				{
-					dropMessage = $"Failed to retrieve NounId for {type}.";
+					NavigateToPage(type, nounId.Value);
 				}
 			}
 
@@ -834,7 +830,12 @@ namespace IntelChat.Pages
 			else if (type == "Action" && isInsideActionDropZone)
 			{
 				SnapToDropZone(actionDropZone, type, "1006"); // Higher z-index after dropping
-				dropMessage = ""; // Clear message
+
+				int? verbId = GetId(type);
+				if (verbId.HasValue)
+				{
+					NavigateToPage(type, verbId.Value);
+				}
 			}
 
 			// Invalid drop
@@ -872,20 +873,29 @@ namespace IntelChat.Pages
 			}
 		}
 
-		private int? GetNounId(string type)
+		private int? GetId(string type)
 		{
 			int? id = type switch
 			{
 				"Subject" => novaLasc?.SubId,
+				"Action" => novaLasc?.ActId,
 				"Object" => novaLasc?.ObjId,
 				_ => null
 			};
 			return id;
 		}
 
-		private void NavigateToNounPage(string type, int nounId)
+		private void NavigateToPage(string type, int typeId)
 		{
-			NavigationManager.NavigateTo($"/Noun?pod={pod}&pid={pid}&prevPage=Lascaux&show=change&type={(type == "Subject" ? "NounSubject" : "NounObject")}&nounId={nounId}");
+			string url = type switch
+			{
+				"Subject" => $"/Noun?pod={pod}&pid={pid}&prevPage=Lascaux&show=change&type=NounSubject&nounId={typeId}",
+				"Object" => $"/Noun?pod={pod}&pid={pid}&prevPage=Lascaux&show=change&type=NounObject&nounId={typeId}",
+				"Action" => $"/Verb?pod={pod}&pid={pid}&prevPage=Lascaux&show=change&type=NounVerb&verbId={typeId}",
+				_ => throw new InvalidOperationException($"Unknown type: {type}")
+			};
+
+			NavigationManager.NavigateTo(url);
 		}
 
 	}
