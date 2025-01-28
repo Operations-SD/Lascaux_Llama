@@ -117,9 +117,6 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
-
-
-
 		/// <summary>Handle events triggered by the change of the change filter select</summary>
 		/// <param name="args">Arguments from a filter change event</param>
 		private void OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
@@ -196,7 +193,6 @@ namespace IntelChat.Pages
 			if (target != null) entity[type] = target;
 		}
 
-
 		/// <summary>Reads pypes from the database using a stored procedure</summary>
 		/// <returns>Reader for the entities that were read from the database</returns>
 		private SqlDataReader? ReadPype()
@@ -208,9 +204,6 @@ namespace IntelChat.Pages
 
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
 		}
-
-
-
 
 		/// <summary>Load pypes from the database into a list</summary>
 		private void LoadReadPypeResults()
@@ -233,9 +226,6 @@ namespace IntelChat.Pages
 			}
 			reader.Close();
 		}
-
-
-
 
 		public void NavigateToLascaux(bool isSubject)
 		{
@@ -348,7 +338,5 @@ namespace IntelChat.Pages
 			tagFilter = e.Value?.ToString() ?? string.Empty;
 			LoadReadResults("*", tagFilter);
 		}
-		
-
 	}
 }
