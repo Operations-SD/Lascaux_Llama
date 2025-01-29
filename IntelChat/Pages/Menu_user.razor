@@ -190,10 +190,11 @@
 	</div>
 
 
+
 	<!-- ************************************************************************************ -->
 	<!-- ************************** DISPLAY PUSH-BUTTON PANEL ******************************* -->
 	<!-- ************************************************************************************ -->
-	<div class="box_push_btn" style="position:absolute; top:580px; left:720px; opacity:90%;">
+	<div class="box_push_btn" style="position:absolute; top:600px; left:260px; opacity:90%;">
 		<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_radio.png">
 
         <div>
@@ -209,11 +210,11 @@
 				style="top:35px;left:150px;width:64px;height:48px; opacity:70%">
             </button>        </div>
         <div>
-			<button class="btn_push_4" @onclick="@(()=>_nav.NavigateTo("/Memobox?pod="+pod+"&pid="+pid))"
+			<button class="btn_push_4" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))"
 				style="top:35px;left:220px;width:64px;height:48px; opacity:70%">
             </button>        </div>
         <div>
-			<button class="btn_push_5" 
+			<button class="btn_push_5" @onclick="@(()=>_nav.NavigateTo("/DelphiMaxims?pod="+pod+"&pid="+pid))"
 				style="top:35px;left:290px;width:64px;height:48px; opacity:70%">
             </button>        </div>
         <div>
@@ -236,46 +237,76 @@
 	<!-- ***************************** PROCESSES ******************************************** -->
 	<!-- ************************************************************************************ -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Answer?pod="+pod+"&pid="+pid))"
-			style="top:460px;left:410px;height:60px;">
+			style="top:460px;left:480px;height:60px;width:240px;">
+		Action Plan
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Answer?pod="+pod+"&pid="+pid))"
+			style="top:460px;left:1300px;height:60px;width:240px;">
 		Contemplation
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
-			style="top:460px;left:1300px;height:60px;">
+			style="top:600px;left:920px;height:60px;width:240px;">
 		Interview
 	</button>
 
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** External Cloud Links ********************************* -->
 	<!-- ************************************************************************************ -->
-	<a href="https://www.youtube.com/watch?v=dNN7KO2C-Ak">
+
+@* 	<a href="https://www.youtube.com/watch?v=dNN7KO2C-Ak">
+		<button class="lesson-menu-button"
+				style="top:300px;left:1680px;width:200px; height:50px; opacity:70%; color:#222222">
+			Caretta
+		</button>
+	</a> *@
+
+
+	<a href="https://www.google.com/books/edition/The_Republic_of_Plato/JSFQAQAAIAAJ?hl=en&gbpv=1&pg=PA2&printsec=frontcover">
 		<button class="lesson-menu-button" 
 		style="top:300px;left:1680px;width:200px; height:50px; opacity:70%; color:#222222">
-			Caretta
+			Plato
 		</button>
 	</a>
 
-	<a 
-		<button class="lesson-menu-button" @onclick="@(()=>_nav.NavigateTo("/Audio?pod="+pod+"&pid="+pid))"
+	<a 	<button class="lesson-menu-button" @onclick="@(()=>_nav.NavigateTo("/Audio?pod="+pod+"&pid="+pid))"
 		style="top:380px;left:1680px;width:200px; height:50px; opacity:70%; color:#222222">
 			Audio
 		</button>
 	</a>
 
-	<a 
-		<button class="lesson-menu-button" @onclick="@(()=>_nav.NavigateTo("/Video?pod="+pod+"&pid="+pid))"
+	<a 	<button class="lesson-menu-button" @onclick="@(()=>_nav.NavigateTo("/Video?pod="+pod+"&pid="+pid))"
 		style="top:460px;left:1680px;width:200px;height:50px; opacity:70%;color:#222222">
 			Video
 		</button>
 	</a>
 
-	<div 
+@* 	<div 
 		href="https://radio.garden/listen/heavy1/rH122vcl">
 		<button class="lesson-menu-button"
 			style="top:540px;left:1680px;width:200px; height:50px; opacity:70%; color:#222222">
 			World Radio
 		</button>
+	</div> *@
+
+
+	<div class="user_banner" style="top:180px; left:1400px; filter: brightness(40%);opacity:60% ">
+		<img src="images/Earth.gif" alt="earth planet" /
 	</div>
+
+
+	<a href="https://radio.garden/listen/heavy1/rH122vcl">
+		<button class="world-radio-button" style="top:180px;left:1400px;width:200px; height:200px; opacity:20%; color:#222222">World Radio></button>
+	</a>
+
+
+
+
+
+
+
+
 
 	<!-- ************************************************************************************ -->
 	<!-- ****************************** AUDIO RADIO Buttons ********************************* -->
@@ -336,7 +367,6 @@
 		Neural Net
 	</button>
 </div>
-
 
 
 <!-- ************************* End of PAGE ************************** -->
