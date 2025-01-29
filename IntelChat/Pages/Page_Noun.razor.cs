@@ -300,7 +300,13 @@ namespace IntelChat.Pages
 		}
 
 		// <summary> Handle item selection from entering ID into field </summary>
-		private string directSelectId { get; set; }
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
 		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
 		{
 			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
@@ -310,7 +316,8 @@ namespace IntelChat.Pages
 				if (selectedEntity != null)
 				{
 					AutoFill(id, "change"); // Populate fields with selected entity
-					show = "change";       // Switch to the change screen
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
 				}
 				else
 				{
@@ -318,6 +325,7 @@ namespace IntelChat.Pages
 				}
 			}
 		}
+
 
 		private string tagFilter { get; set; } = string.Empty;
 		private SqlDataReader? Read(string status = "*", string filter = "****")

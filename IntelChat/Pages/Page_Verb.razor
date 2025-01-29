@@ -109,27 +109,32 @@
 
 	/*********** Common Styles for Input Boxes ***************/
 	.FilterInput {
-		width: 116px;
-		padding: 10px;
+		width: 155px;
+		height: 40px;
+		padding: 5px;
 		font-size: 16px;
 		border: 1px solid #ccc;
-		border-radius: 8px; /* Rounded edges */
+		background-color: antiquewhite;
+		border-radius: 4px; /* Rounded edges */
+		text-align: center;
 		box-sizing: border-box; /* Ensures consistent dimensions including padding and borders */
-	}
-
-	/*********** Positioning for Tag Filter ***************/
-	.TagFilter {
-		position: absolute;
-		top: 430px; /* Adjust this to place it above DirectSelect */
-		right: 600px;
 	}
 
 	/*********** Positioning for Direct Select ***************/
 	.DirectSelect {
 		position: absolute;
-		top: 360px; /* Positioned below TagFilter */
-		right: 600px;
+		top: 355px; /* Positioned below TagFilter */
+		right: 425px;
 	}
+
+	/*********** Positioning for Tag Filter ***************/
+	.TagFilter {
+		position: absolute;
+		top: 405px; /* Adjust this to place it above DirectSelect */
+		right: 425px;
+		opacity: 1;
+	}
+
 </style>
 
 <div class="verb-page">
@@ -166,7 +171,10 @@
 	<!-- *********************************** DIRECT SELECT ID ******************************* -->
 	<!-- ************************************************************************************ -->
 	<div class="DirectSelect">
-		<input id="directSelectId" class="FilterInput" type="text" @bind="directSelectId" @onkeypress="HandleDirectSelectKeyPress" placeholder="Enter ID" />
+		<input id="directSelectId" class="FilterInput" type="text"
+			   @oninput="UpdateDirectSelectId"
+			   @onkeydown="HandleDirectSelectKeyPress"
+			   placeholder="Enter ID" />
 	</div>
 
 	<!-- ************************************************************************************ -->
