@@ -26,6 +26,8 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public string? type { get; set; } // Type of noun (Subject or Object)
 
+		public string? StoredVerb { get; set; }
+		
 		[Inject]
         public NotificationService NotificationService { get; set; }
 		private List<Pype> pypes = new List<Pype>();
@@ -201,10 +203,30 @@ namespace IntelChat.Pages
 
 		/// <summary>Reads pypes from the database using a stored procedure</summary>
 		/// <returns>Reader for the entities that were read from the database</returns>
-		private SqlDataReader? ReadPype()
+		
+		private (string Noun, string Verb)? ReadNounVerb()
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@pod", pod ?? 0) // Ensure a default value if `pod` is null
+			};
+
+			using var reader = ExecuteStoredProcedure("dbo.sp_Pype_NOVA_Test", parameters, true);
+			if (reader != null && reader.Read())
+			{
+				string noun = reader["Noun"]?.ToString() ?? string.Empty;
+				string verb = reader["Verb"]?.ToString() ?? string.Empty;
+				reader.Close();
+				return (noun, verb);
+			}
+			return null;
+		}
+		
+		
+		private SqlDataReader? ReadPype(string filter)
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", "COOK"),
+				new SqlParameter("@PROC_Input_Filter", filter),
 				new SqlParameter("@pod", pod)
 			};
 
@@ -214,7 +236,10 @@ namespace IntelChat.Pages
 		/// <summary>Load pypes from the database into a list</summary>
 		private void LoadReadPypeResults()
 		{
-			var reader = ReadPype();
+			var result = ReadNounVerb();
+			StoredVerb = result.Value.Noun;
+			
+			var reader = ReadPype(StoredVerb);
 			if (reader == null) return;
 
 			pypes.Clear();
