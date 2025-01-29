@@ -123,6 +123,36 @@
 		height: 700px;
 		width: 600px;
 	}
+
+
+	.popup-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.8);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.popup-content {
+		background: #ffffff;
+		padding: 10px;
+		border-radius: 8px;
+		text-align: center;
+	}
+
+	.popup-close {
+		margin-top: 10px;
+		padding: 5px 10px;
+		border: none;
+		background-color: red;
+		color: white;
+		cursor: pointer;
+	}
+
 </style>
 
 
@@ -179,28 +209,53 @@
 			</div>
 
 			<table id="listTable">
-				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				<tr>
-					<th>ID# Status Type Label Description</th>
-				</tr>
-				@foreach (var entity in entities)
-				{   // Loop through each label of the currently selected table
-					@if (filter["list"] == "****" || entity.UrlType == filter["list"])
+				<thead>
+					<tr>
+						<th>ID#</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Label</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var entity in entities)
 					{
-						<tr>
-							@*
-				<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
-				@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
-				</td>
-				*@
-							<td>
-								@entity.UrlId   @entity.UrlStatus   @entity.UrlType   @entity.UrlLabel   @entity.UrlDescription
-							</td>
-						</tr>
+						@if (filter["list"] == "****" || entity.UrlType == filter["list"])
+						{
+							<tr>
+								<td>@entity.UrlId &nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td>@entity.UrlStatus &nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td>@entity.UrlType &nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td>
+									@if (entity.UrlType.Trim().ToLower() == "png")
+									{
+										<a href="javascript:void(0);" @onclick="@(() => ShowImagePopup(entity.UrlCloud))">
+											@entity.UrlLabel
+										</a>
+									}
+									else
+									{
+										@entity.UrlLabel
+									}
+								</td>
+								<td>@entity.UrlDescription</td>
+							</tr>
+						}
 					}
-					// Display only the goal's description
-				}
+				</tbody>
 			</table>
+
+		</div>
+	}
+
+	@if (showPopup)
+	{
+		<div class="popup-overlay" @onclick="CloseImagePopup">
+			<div class="popup-content">
+				<iframe src="@selectedImageUrl" frameborder="0" width="500" height="500"></iframe>
+				<button class="popup-close" @onclick="CloseImagePopup">Close</button>
+			</div>
 		</div>
 	}
 
