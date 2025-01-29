@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System.Data;
 using System.Data.SqlClient;
 using ThreadingTask = System.Threading.Tasks.Task;
@@ -15,9 +16,20 @@ namespace IntelChat.Pages
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
-        [Inject]
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? verbId { get; set; } // Noun ID for navigation
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public string? show { get; set; } // Tab to display
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public string? type { get; set; } // Type of noun (Subject or Object)
+
+		public string? StoredVerb { get; set; }
+		
+		[Inject]
         public NotificationService NotificationService { get; set; }
-        private string? show { get; set; } = "list";
 		private List<Pype> pypes = new List<Pype>();
 		private List<Verb> entities = new List<Verb>();
 		private Dictionary<String, Verb> entity = new Dictionary<String, Verb>();
@@ -78,7 +90,7 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
 			var reader = Read(status);
 			if (reader == null) return;
@@ -189,19 +201,32 @@ namespace IntelChat.Pages
 			if (target != null) entity[type] = target;
 		}
 
-
-
-
-
-
-
-
 		/// <summary>Reads pypes from the database using a stored procedure</summary>
 		/// <returns>Reader for the entities that were read from the database</returns>
-		private SqlDataReader? ReadPype()
+		
+		private (string Noun, string Verb)? ReadNounVerb()
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@pod", pod ?? 0) // Ensure a default value if `pod` is null
+			};
+
+			using var reader = ExecuteStoredProcedure("dbo.sp_Pype_NOVA_Test", parameters, true);
+			if (reader != null && reader.Read())
+			{
+				string noun = reader["Noun"]?.ToString() ?? string.Empty;
+				string verb = reader["Verb"]?.ToString() ?? string.Empty;
+				reader.Close();
+				return (noun, verb);
+			}
+			return null;
+		}
+		
+		
+		private SqlDataReader? ReadPype(string filter)
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", "COOK"),
+				new SqlParameter("@PROC_Input_Filter", filter),
 				new SqlParameter("@pod", pod)
 			};
 
@@ -211,7 +236,10 @@ namespace IntelChat.Pages
 		/// <summary>Load pypes from the database into a list</summary>
 		private void LoadReadPypeResults()
 		{
-			var reader = ReadPype();
+			var result = ReadNounVerb();
+			StoredVerb = result.Value.Noun;
+			
+			var reader = ReadPype(StoredVerb);
 			if (reader == null) return;
 
 			pypes.Clear();
@@ -235,6 +263,7 @@ namespace IntelChat.Pages
 
 		protected override void OnInitialized()
 		{
+			// Initialize default entities and filters
 			entity["add"] = new Verb();
 			entity["change"] = new Verb();
 			entity["delete"] = new Verb();
@@ -242,24 +271,107 @@ namespace IntelChat.Pages
 			filter["change"] = "****";
 			filter["delete"] = "****";
 
+			// Load data for Noun entities
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].VerbId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (verbId.HasValue)
+						{
+							AutoFill(verbId.Value, "change"); // Populate fields for specific NounId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].VerbId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.VerbStatus == "D") != null)
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.VerbStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.VerbId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+					default:
+						show = "list"; // Default to list view
+						break;
+				}
+			}
+			else
 			{
-				entity["delete"] = entities.Where(e => e.VerbStatus == "D").First();
-				AutoFill(entity["delete"].VerbId, "delete");
+				// Default behavior if `show` is not specified
+				Console.WriteLine("No screen change option provided, defaulting to 'list' tab.");
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].VerbId, "change");
+				}
+				show = "list";
 			}
+		}
 
-			show = "list";
+		private void OnItemSelected(int id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
 
-			// verbService.Verbs = this.entities;
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.VerbId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Read"),
+				new SqlParameter("@PROC_filter", filter),
+				new SqlParameter("@status", status),
+				new SqlParameter("@pod", pod)
+			};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Verb]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
 		}
 	}
 }

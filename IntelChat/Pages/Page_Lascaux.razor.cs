@@ -20,6 +20,9 @@ namespace IntelChat.Pages
 	/// *********************************************************************************
 	public partial class Page_Lascaux
 	{
+		[Inject]
+		public NavigationManager NavigationManager { get; set; }
+
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pod { get; set; }
@@ -44,7 +47,7 @@ namespace IntelChat.Pages
 
 
 		private List<Lascaux> novas = new List<Lascaux>();
-		public  Lascaux novaLasc = new Lascaux();
+		public Lascaux novaLasc = new Lascaux();
 
 		/// ****************************************************************************************
 		/// *****************  Input LASCAUX - NOVA LIST  (not NULLS?) ******* MODEL ***************
@@ -52,16 +55,19 @@ namespace IntelChat.Pages
 		public class Lascaux
 		{
 			public int NovaId { get; set; }
-			public string ? NovaDescription { get; set; }
-			public string ? NovaSubjectLabel { get; set; }
-			public string ? NovaActionLabel { get; set; }
-			public string ? NovaObjectLabel { get; set; }
-			public string ? NovaSubjectDescription { get; set; }
-			public string ? NovaActionDescription { get; set; }
-			public string ? NovaObjectDescription { get; set; }
-			public string ? SubjectURL { get; set; }
-			public string ? ActionURL { get; set; }
-			public string ? ObjectURL { get; set; }
+			public string? NovaDescription { get; set; }
+			public string? NovaSubjectLabel { get; set; }
+			public string? NovaActionLabel { get; set; }
+			public string? NovaObjectLabel { get; set; }
+			public string? NovaSubjectDescription { get; set; }
+			public string? NovaActionDescription { get; set; }
+			public string? NovaObjectDescription { get; set; }
+			public string? SubjectURL { get; set; }
+			public string? ActionURL { get; set; }
+			public string? ObjectURL { get; set; }
+			public int SubId { get; set; } // Subject NounId
+			public int ActId { get; set; } // Action VerbId
+			public int ObjId { get; set; } // Object NounId
 		}
 
 		/// **************************************************** select NOVA to display from LIST ***********************
@@ -85,7 +91,7 @@ namespace IntelChat.Pages
 		}
 
 
-		  
+
 		/// *********************************************************************************
 		/// ******************* Display Next / Previous NOVA ********************************
 		/// *********************************************************************************
@@ -105,7 +111,7 @@ namespace IntelChat.Pages
 				selectedId = novas[curIndex - 1].NovaId;
 			}
 		}
-		 
+
 
 
 		//*******************************************************************************
@@ -167,7 +173,7 @@ namespace IntelChat.Pages
 		}
 
 		*/
-		
+
 		/// ************************ LOAD INTERVIEW *****************************************
 		/// ************************ LOAD INTERVIEW *****************************************
 		/// ************************ LOAD INTERVIEW *****************************************
@@ -178,7 +184,7 @@ namespace IntelChat.Pages
 
 			List<XnovaDictionaryInterview> entities = new List<XnovaDictionaryInterview>();
 			while (await reader.ReadAsync())
-			{	
+			{
 				entities.Add(new XnovaDictionaryInterview
 				{
 					About = !reader.IsDBNull(0) ? reader.GetString(0) : "",
@@ -374,7 +380,7 @@ namespace IntelChat.Pages
 		}
 		
 		*/
-		
+
 		private async ThreadingTask LoadNOVA(string sp, string filter = "NOVA")
 		{
 			var reader = await Read(sp, filter);
@@ -425,14 +431,17 @@ namespace IntelChat.Pages
 					NovaObjectDescription = entity.ObjectDescription ?? "",
 					SubjectURL = entity.SubjectUrl ?? "",
 					ActionURL = entity.ActionUrl ?? "",
-					ObjectURL = entity.ObjectUrl ?? ""
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
 				});
 			}
 
 			reader.Close();
 		}
 
-		
+
 
 
 		/// ************************ LOAD POD **********************************************
@@ -554,7 +563,7 @@ namespace IntelChat.Pages
 		/// ************************ LOAD VERB **********************************************
 		/// ************************ LOAD VERB **********************************************
 		/// ************************ LOAD VERB **********************************************
-	
+
 
 
 		/// **************** CASE ********************** Internal Procedure LoadTask **************
@@ -694,7 +703,7 @@ namespace IntelChat.Pages
 					sp = "sp_nova_Dictionary_Noun_Subject";
 					await LoadNounSubject(sp);
 					break;
-				
+
 				case "NounObject":
 					sp = "sp_nova_Dictionary_Noun_Object";
 					await LoadNounObject(sp);
@@ -807,15 +816,28 @@ namespace IntelChat.Pages
 			// Handle Subject and Object drop
 			if ((type == "Subject" || type == "Object") && isInsideSubjectObjectDropZone)
 			{
-				SnapToDropZone(subjectObjectDropZone, type, "1006"); // Higher z-index after dropping
-				dropMessage = ""; // Clear message
+				SnapToDropZone(subjectObjectDropZone, type, "1006"); // Align image in drop zone
+
+				// Pass the corresponding NounId for Subject or Object
+				int? nounId = GetId(type);
+				if (nounId.HasValue)
+				{
+					NavigateToPage(type, nounId.Value);
+				}
 			}
+
 			// Handle Action drop
 			else if (type == "Action" && isInsideActionDropZone)
 			{
 				SnapToDropZone(actionDropZone, type, "1006"); // Higher z-index after dropping
-				dropMessage = ""; // Clear message
+
+				int? verbId = GetId(type);
+				if (verbId.HasValue)
+				{
+					NavigateToPage(type, verbId.Value);
+				}
 			}
+
 			// Invalid drop
 			else
 			{
@@ -850,5 +872,31 @@ namespace IntelChat.Pages
 					break;
 			}
 		}
+
+		private int? GetId(string type)
+		{
+			int? id = type switch
+			{
+				"Subject" => novaLasc?.SubId,
+				"Action" => novaLasc?.ActId,
+				"Object" => novaLasc?.ObjId,
+				_ => null
+			};
+			return id;
+		}
+
+		private void NavigateToPage(string type, int typeId)
+		{
+			string url = type switch
+			{
+				"Subject" => $"/Noun?pod={pod}&pid={pid}&prevPage=Lascaux&show=change&type=NounSubject&nounId={typeId}",
+				"Object" => $"/Noun?pod={pod}&pid={pid}&prevPage=Lascaux&show=change&type=NounObject&nounId={typeId}",
+				"Action" => $"/Verb?pod={pod}&pid={pid}&prevPage=Lascaux&show=change&type=NounVerb&verbId={typeId}",
+				_ => throw new InvalidOperationException($"Unknown type: {type}")
+			};
+
+			NavigationManager.NavigateTo(url);
+		}
+
 	}
 }

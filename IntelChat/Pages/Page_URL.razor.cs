@@ -236,5 +236,19 @@ namespace IntelChat.Pages
 			show = "list";
 		}
 
+		private bool showPopup = false;
+		private string? selectedImageUrl = null;
+
+		private void ShowImagePopup(string imageUrl)
+		{
+			selectedImageUrl = imageUrl;
+			showPopup = true;
+		}
+
+		private void CloseImagePopup()
+		{
+			showPopup = false;
+			selectedImageUrl = null;
+		}
 	}
 }

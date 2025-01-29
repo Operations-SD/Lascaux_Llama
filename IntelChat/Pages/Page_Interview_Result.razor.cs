@@ -120,10 +120,12 @@ namespace IntelChat.Pages
 					AnswerResponse = reader.GetInt16(1),
 					AnswerSeverity = reader.GetInt16(2),
 					QuestionText = reader.GetString(3),
-					PypeLabel = reader.GetString(4),
-					PypeDesc = reader.GetString(5)
+					//PypeLabel = reader.GetString(4),
+					//PypeDesc = reader.GetString(5)
 				});
 			}
+			//Console.WriteLine($"Features count: {features.Count}");
+
 
 			reader.Close();
 		}
@@ -240,19 +242,37 @@ namespace IntelChat.Pages
 		private void LoadResult()
 		{
 			scores.Clear();
-			features.ForEach(feature => {
-				if (scores.ContainsKey(feature.QuestionType)) scores[feature.QuestionType]
-					+= GetScore(feature.AnswerResponse, feature.AnswerSeverity);
-				else scores.Add(feature.QuestionType, GetScore(feature.AnswerResponse, feature.AnswerSeverity));
+			features.ForEach(feature =>
+			{
+				short score = GetScore(feature.AnswerResponse, feature.AnswerSeverity);
+				if (scores.ContainsKey(feature.QuestionType))
+					scores[feature.QuestionType] += score;
+				else
+					scores.Add(feature.QuestionType, score);
 			});
-			scores = scores.OrderByDescending(score => score.Value).ToDictionary(score => score.Key, score => score.Value);
+    
+			// Make sure we have at least one element before calling MaxBy
+			if (scores.Any())
+			{
+				var maxEntry = scores.MaxBy(score => score.Value);
+				result.Type = maxEntry.Key;
+        
+				var feature = features.Find(f => f.QuestionType == result.Type);
+				if (feature != null)
+				{
+					result.Label = feature.PypeLabel;
+					result.Desc = feature.PypeDesc;
+				}
+			}
+			else
+			{
 
-			result.Type = scores.MaxBy(score => score.Value).Key;
-			var feature = features.Find(feature => feature.QuestionType == result.Type);
-			if (feature == null) return;
-			result.Label = feature.PypeLabel;
-			result.Desc = feature.PypeDesc;
+				result.Type = "";
+				result.Label = "(no data)";
+				result.Desc = "(no description available)";
+			}
 		}
+
 
 		private void Exit()
 		{
