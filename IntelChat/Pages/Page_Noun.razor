@@ -199,9 +199,9 @@
 						<option value="****">****</option>
 						@foreach (var pype in pypes)
 						{
-							if (pype.PypeId == "FOOD")
+							if (pype.PypeId == StoredNoun)
 							{
-								<option value="@pype.PypeType">@pype.PypeType</option>
+								<option value="@pype.PypeType">@pype.PypeLabel</option>
 							}
 						}
 					</select>
@@ -274,7 +274,7 @@
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
-								if (pype.PypeId == "FOOD")
+								if (pype.PypeId == StoredNoun)
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
@@ -313,7 +313,7 @@
 								<option value="****">****</option>
 								@foreach (var pype in pypes)
 								{
-									if (pype.PypeId == "FOOD")
+									if (pype.PypeId == StoredNoun)
 									{
 										<option value="@pype.PypeType">@pype.PypeType</option>
 									}
@@ -358,7 +358,7 @@
 						<select @bind="@entity["change"].NounType" required>
 							@foreach (var pype in pypes)
 							{
-								if (pype.PypeId == "FOOD")
+								if (pype.PypeId == StoredNoun)
 								{
 									<option value="@pype.PypeType">@pype.PypeType</option>
 								}
@@ -403,7 +403,7 @@
 								<option value="****">****</option>
 								@foreach (var pype in pypes)
 								{
-									if (pype.PypeId == "FOOD")
+									if (pype.PypeId == StoredNoun)
 									{
 										<option value="@pype.PypeType">@pype.PypeType</option>
 									}
