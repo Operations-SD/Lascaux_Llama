@@ -1,0 +1,90 @@
+﻿@using System.Timers
+@implements IDisposable
+
+<div class="clock-container">
+    <div class="clock" style="--offset: @timeOffset[0]">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+    </div>
+    <div class="clock" style="--offset: @timeOffset[1]">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+    </div>
+    <div class="clock" style="--offset: @timeOffset[2]">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+    </div>
+</div>
+
+@code {
+    private DateTime[] timeZones = new DateTime[3];
+    private int[] timeOffset = { 9, 1, -5 }; // Time zone offsets: Tokyo (UTC+9), Berlin (UTC+1), Dearborn, Michigan (UTC-5)
+    private Timer timer;
+
+    protected override void OnInitialized()
+    {
+        UpdateTime();
+        timer = new Timer(1000);
+        timer.Elapsed += (s, e) => InvokeAsync(UpdateTime);
+        timer.Start();
+    }
+
+    private void UpdateTime()
+    {
+        for (int i = 0; i < timeZones.Length; i++)
+        {
+            timeZones[i] = DateTime.UtcNow.AddHours(timeOffset[i]);
+        }
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
+    }
+}
+
+<style>
+    .clock-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .clock {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border: 2px solid black;
+        border-radius: 50%;
+    }
+
+    .hour, .minute, .second {
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform-origin: bottom;
+        transform: translateX(-50%) rotate(calc(var(--offset, 0) * 30deg));
+    }
+
+    .hour {
+        width: 4px;
+        height: 40%;
+        background: black;
+    }
+
+    .minute {
+        width: 2px;
+        height: 50%;
+        background: gray;
+    }
+
+    .second {
+        width: 1px;
+        height: 60%;
+        background: red;
+    }
+</style>
