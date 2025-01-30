@@ -237,7 +237,7 @@ namespace IntelChat.Pages
 		private void LoadReadPypeResults()
 		{
 			var result = ReadNounVerb();
-			StoredVerb = result.Value.Noun;
+			StoredVerb = result.Value.Verb;
 			
 			var reader = ReadPype(StoredVerb);
 			if (reader == null) return;
