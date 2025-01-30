@@ -221,8 +221,10 @@
 					@if (filter["list"] == "****" || verb.VerbType == filter["list"])
 					{
 						<tr>
-							<td @onclick="@(() => _nav.NavigateTo("/VerbDetails?pod="+pod+"&pid="+pid+"&id="+@verb.VerbId+"&prevPage=/Verb"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
-								@verb.PodIdFk     @verb.VerbId     @verb.VerbStatus     @verb.VerbType  @verb.VerbLabel @verb.VerbDescription
+							<td @onclick="@(() => OnItemSelected(verb.VerbId))"
+								onmouseover="this.style.color='#AAAAAA'"
+								onMouseOut="this.style.color='#FFFFFF'">
+								@verb.PodIdFk @verb.VerbId @verb.VerbStatus @verb.VerbType @verb.VerbLabel @verb.VerbDescription
 							</td>
 						</tr>
 					}

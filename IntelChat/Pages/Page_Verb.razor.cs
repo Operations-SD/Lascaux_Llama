@@ -2,6 +2,8 @@ using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using ThreadingTask = System.Threading.Tasks.Task;
@@ -13,18 +15,22 @@ namespace IntelChat.Pages
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pod { get; set; }
+
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
+
 		[Parameter]
 		[SupplyParameterFromQuery]
-		public int? verbId { get; set; } // Noun ID for navigation
+		public int? verbId { get; set; } // Verb ID for navigation
+
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public string? show { get; set; } // Tab to display
+
 		[Parameter]
 		[SupplyParameterFromQuery]
-		public string? type { get; set; } // Type of noun (Subject or Object)
+		public string? type { get; set; }
 
 		public string? StoredVerb { get; set; }
 		
@@ -92,13 +98,13 @@ namespace IntelChat.Pages
 		/// <param name="status">Status of the entities that will be loaded</param>
 		private void LoadReadResults(string status = "*", string filter = "****")
 		{
-			var reader = Read(status);
+			var reader = Read(status, filter);
 			if (reader == null) return;
 
 			entities.Clear();
 			while (reader.Read())
 			{
-				entities.Add(new Verb
+				var verb = new Verb
 				{
 					VerbId = reader.GetInt32(0),
 					VerbLabel = reader.GetString(1),
@@ -106,24 +112,26 @@ namespace IntelChat.Pages
 					VerbType = reader.GetString(3),
 					VerbStatus = reader.GetString(4),
 					PodIdFk = reader.GetInt32(5),
-					UrlIdPk = reader.GetInt32(6)
-				});
+					UrlIdPk = reader.GetInt32(6),
+					VerbTag = reader.GetString(7)
+				};
+				entities.Add(verb);
 			}
 			reader.Close();
 		}
 
-        /// <summary>Synchronizes entities from the database into a singleton service, after reading. </summary>
-        /// <param name="status">Status of the entities that will be loaded</param>
-        //private void SyncAndLoadReadResults(string status = "*")
-        //{
-        //    LoadReadResults(status);
-        //   verbService.Verbs = this.entities;
-        //}
+		/// <summary>Synchronizes entities from the database into a singleton service, after reading. </summary>
+		/// <param name="status">Status of the entities that will be loaded</param>
+		//private void SyncAndLoadReadResults(string status = "*")
+		//{
+		//    LoadReadResults(status);
+		//   verbService.Verbs = this.entities;
+		//}
 
-        /// <summary>Handle events triggered by the change of the change filter select</summary>
-        /// <param name="args">Arguments from a filter change event</param>
+		/// <summary>Handle events triggered by the change of the change filter select</summary>
+		/// <param name="args">Arguments from a filter change event</param>
 		/// 
-        private void OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
+		private void OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
 		{
 			filter[type] = args.Value.ToString();
 			var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(verb => verb.VerbType == filter[type]);
@@ -169,7 +177,7 @@ namespace IntelChat.Pages
 		{
 			Create();
 			entities.Add(entity["add"]);
-		//	SyncAndLoadReadResults();
+			//	SyncAndLoadReadResults();
 			NotificationService.Notify("Verb created successfully!", NotificationType.Success);
 		}
 
@@ -179,7 +187,7 @@ namespace IntelChat.Pages
 			Change();
 			entities.Remove(entities.Find(e => e.VerbId == entity["change"].VerbId));
 			entities.Add(entity["change"]);
-		//	SyncAndLoadReadResults();
+			//	SyncAndLoadReadResults();
 			NotificationService.Notify("Verb changed successfully!", NotificationType.Success);
 		}
 
@@ -195,7 +203,7 @@ namespace IntelChat.Pages
 
 
 		/// <summary>Fill fields in the change tab based on entity selection</summary>
-		private void AutoFill(int id, String type)
+		private void AutoFill(int id, string type)
 		{
 			var target = entities.Find(e => e.VerbId == id);
 			if (target != null) entity[type] = target;
@@ -310,7 +318,6 @@ namespace IntelChat.Pages
 			else
 			{
 				// Default behavior if `show` is not specified
-				Console.WriteLine("No screen change option provided, defaulting to 'list' tab.");
 				if (entities.Any())
 				{
 					entity["change"] = entities.First();
