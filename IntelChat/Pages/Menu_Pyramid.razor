@@ -6,7 +6,6 @@
 @using System.Data.SqlClient;
 @using System.Data;
 
-
 <style>
 	body {
 		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Pyramid.png") no-repeat;
@@ -20,14 +19,10 @@
 	}
 </style>
 
-
 <div class="engineer-page"
-
-
-<!-- ************************************************************************************ -->
-<!-- ***************************** Internal Cloud Activity ****************************** -->
-<!-- ************************************************************************************ -->
-
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** Internal Cloud Activity ****************************** -->
+	<!-- ************************************************************************************ -->
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/POD?pod=" + 3 + "&pid=" + 11))"
@@ -35,7 +30,6 @@
 			POD invitation
 		</button>
 	</div>
-
 
 	<div>
 		<button class="general-menu-button"
@@ -45,25 +39,12 @@
 		</button>
 	</div>
 
-
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/Location?pod=" + 3 + "&pid=" + 11))"
 				style="top:300px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
 			Location
 		</button>
-
-				<div class="main-page" style="position:absolute; top:200px;left:880px;width:64px;height:48px; opacity:70%"
-			<iframe src="Engineer" class="engineer-iframe" style="position:absolute; top:200px;left:880px;width:64px;height:48px; opacity:70%">
-
-			</iframe>
-		</div>
-
-
-
-
-
-
 	</div>
 
 	<div>
@@ -89,13 +70,11 @@
 			WORK skills
 		</button>
 	</div>
-
 </div>
 
 <!-- ************************************************************************************ -->
 <!-- ********************************* Upper Left Video ********** EGYPT **************** -->
 <!-- ************************************************************************************ -->
-
 <div style="top:10px; left:4px; position:absolute; overflow:hidden; filter: brightness(60%);z-index:1;opacity:70%;">
 	<iframe width="700" height="380" src="https://www.youtube.com/embed/WIVv0n7EmIs" title="Enigma - Mea Culpa Part II - NG Remix"
 			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -112,19 +91,19 @@
 	<div>
 		<!-- ************** Frame Projector image display Eygpt ****** Phareoh ********** -->
         <iframe src="@imagePath" width="1200" height="920" frameborder="0"
-                style="position:absolute; top:40px;left:440px;width:1200px; opacity:40%;">
+                style="position:absolute; top:40px;left:440px;width:1200px; opacity:50%;">
 		</iframe>
 
         <button class="btn btn-danger" @onclick="CloseIframe"
-				style="position:absolute; top:400px;left:20px;width:90px; opacity:70%; color:black">
-			Close Pharaoh
+				style="position:absolute; top:500px;left:60px;width:90px; opacity:30%; color:black">
+			Close
 		</button>
     </div>
 }
 else
 {
 		<button class="btn btn-primary" @onclick="OpenIframe"
-			style="position:absolute; top:400px;left:20px;width:90px; opacity:70%; color:black">
+			style="position:absolute; top:500px;left:60px;width:90px; opacity:40%; color:black">
 		Pharaoh
 		</button>
 }
@@ -144,19 +123,19 @@ else
 	<div>
 		<!-- ****************** Frame Projector image display Eygpt ****** HORUS ****************** -->
 		<iframe src="@imagePath2" width="1200" height="920" frameborder="0"
-				style="position:absolute; top:40px;left:440px;width:1200px; opacity:40%;">
+				style="position:absolute; top:40px;left:440px;width:1200px; opacity:50%;">
 		</iframe>
 
 		<button class="btn btn-danger" @onclick="CloseIframe2"
-				style="position:absolute; top:480px;left:20px;width:90px; opacity:80%; color:black">
-			Close Horus
+				style="position:absolute; top:580px;left:60px;width:90px; opacity:30%; color:black">
+			Close
 		</button>
 	</div>
 }
 else
 {
 	<button class="btn btn-primary" @onclick="OpenIframe2"
-			style="position:absolute; top:480px;left:20px;width:90px; opacity:70%; color:black">
+			style="position:absolute; top:580px;left:60px;width:90px; opacity:40%; color:black">
 		Horus
 	</button>
 }
@@ -176,19 +155,19 @@ else
 	<div>
 		<!-- **************** Frame Projector image display Eygpt ****** Egyptian ***************** -->
 		<iframe src="@imagePath3" width="1200" height="920" frameborder="0"
-				style="position:absolute; top:40px;left:440px;width:1200px; opacity:40%;">
+				style="position:absolute; top:40px;left:440px;width:1200px; opacity:50%;">
 		</iframe>
 
 		<button class="btn btn-danger" @onclick="CloseIframe3"
-				style="position:absolute; top:560px;left:20px; width:90px;opacity:70%; color:black">
-			Close Egypt
+				style="position:absolute; top:660px;left:60px; width:90px;opacity:30%; color:black">
+			Close
 		</button>
 	</div>
 }
 else
 {
 	<button class="btn btn-primary" @onclick="OpenIframe3"
-			style="position:absolute; top:560px;left:20px;width:90px; opacity:70%; color:black">
+			style="position:absolute; top:660px;left:60px;width:90px; opacity:40%; color:black">
 		Egypt
 	</button>
 }
@@ -208,19 +187,19 @@ else
 	<div>
 		<!-- ******************* Frame Projector image display Eygpt ****** Sutekh ****************** -->
 		<iframe src="@imagePath4" width="1200" height="920" frameborder="0"
-				style="position:absolute; top:40px;left:440px;width:1200px; opacity:40%;">
+				style="position:absolute; top:40px;left:440px;width:1200px; opacity:60%;">
 		</iframe>
 
 		<button class="btn btn-danger" @onclick="CloseIframe4"
-				style="position:absolute; top:640px;left:20px;width:90px; opacity:70%; color:black">
-			Close Sutekh
+				style="position:absolute; top:740px;left:60px;width:90px; opacity:30%; color:black">
+			Close
 		</button>
 	</div>
 }
 else
 {
 	<button class="btn btn-primary" @onclick="OpenIframe4"
-			style="position:absolute; top:640px;left:20px;width:90px; opacity:70%; color:black">
+			style="position:absolute; top:740px;left:60px;width:90px; opacity:40%; color:black">
 		Sutekh
 	</button>
 }
@@ -246,7 +225,7 @@ else
 <!-- ************************************************************************************ -->
 <div class="engineer-page">
 	<button @onclick="ToggleMemoPage" class="toggle-button"
-			style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+			style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:60%">
 		toggle MEMO
 	</button>
 
