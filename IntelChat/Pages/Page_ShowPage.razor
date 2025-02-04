@@ -73,14 +73,14 @@
 
 <div class="bluray-page">
     <button @onclick="ToggleMemoPage" class="toggle-button"
-            style="position:absolute;top:1020px;left:10px;width:148px;height:48px; color:grey; opacity:100%">
+            style="position:absolute;top:400px;left:10px;width:148px;height:48px; color:grey; opacity:100%">
         toggle MEMO
     </button>
 
     @if (isMemoPageOpen)
     {
-        <div class="memo-page" style="z-index:1; position:absolute;bottom:10px;left:200px;width:1200px;height:280px; opacity:70%">
-            <iframe src="CommMemo" class="memo-iframe"></iframe>
+        <div class="chat-page" style="z-index:1;position:absolute;top:110px;right:110px;width:520px;height:1060px; opacity:70%">
+            <Inbox />
         </div>
     }
 </div>
@@ -99,17 +99,19 @@
 	<!-- ************************************************** (css) .engineer-page ************ -->
 	<div class="bluray-page">
 		<button @onclick="ToggleChatPage" class="toggle-button"
-				style="top:960px;left:10px;width:148px;height:48px; opacity:100%">
+				style="top:480px;left:10px;width:148px;height:48px; opacity:100%">
 			toggle CHAT
 		</button>
 
+
 		@if (isChatPageOpen)
 		{
-			<div class="chat-page" style="z-index:1;position:absolute;top:0px;right:10px;width:520px;height:1060px; opacity:70%">
-				<iframe src="Chat" class="chat-iframe"></iframe>
+			<div class="chat-page" style="z-index:1;position:absolute;top:110px;right:110px;width:520px;height:1060px; opacity:70%">
+                <Chat />
 			</div>
 		}
 	</div>
+
 	<!-- ********************************* Display CHAT Panel ******************************* -->
 	@code {
 		private bool isChatPageOpen = false;

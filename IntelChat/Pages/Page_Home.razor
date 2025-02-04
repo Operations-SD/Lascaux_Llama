@@ -140,7 +140,7 @@
                            cursor: pointer; 
                            font-size: 16px; 
                            padding: 0 5px;" 
-			@onmousedown:stopPropagation
+						@onmousedown:stopPropagation
 						@onclick="HideChat">
 					✖
 				</button>
@@ -166,35 +166,37 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
                 background: white;">
 
-			<!-- Draggable Crossbar for Memo -->
-			<div style="display: flex; 
-                    align-items: center; 
-                    justify-content: space-between; 
-                    height: 30px; 
-                    background-color: #f0f0f0; 
-                    padding: 5px; 
-                    border-bottom: 1px solid #ddd; 
-                    cursor: grab;"
-				 @onmousedown="StartDraggingMemo">
-				<!-- Crossbar Label -->
-				<span></span>
-				<!-- Close Button for Memo -->
-				<button style="background: none; 
-                           border: none; 
-                           color: #888; 
-                           cursor: pointer; 
-                           font-size: 16px; 
-                           padding: 0 5px;" 
+		<!-- Draggable Crossbar for Memo -->
+		<div style="display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 30px;
+            background-color: #f0f0f0;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            cursor: grab;"
+			 @onmousedown="StartDraggingMemo">
+
+			<span></span>
+			<!-- Close Button (Now Properly Positioned to the Right) -->
+			<button style="background: none;
+                   border: none;
+                   color: #888;
+                   cursor: pointer;
+                   font-size: 16px;
+                   padding: 0 5px;"
 			@onmousedown:stopPropagation
-						@onclick="HideMemo">
-					✖
-				</button>
-			</div>
+					@onclick="HideMemo">
+				✖
+			</button>
+		</div>
 
 			<!-- Memo Iframe -->
-			<iframe src="@MemoiframeSource" 
-					style="width: 100%; height: 400px; border: none;">
-			</iframe>
+			<div src="@MemoiframeSource" style="width: 100%; height: 400px; overflow-y: auto; padding: 5px; position: relative; display: block;">
+					<div style="width: 100%; height: 100%; display: block; position: relative;">
+						<DynamicComponent Type="typeof(Inbox)" />
+					</div>
+			</div>
 		</div>
 }
 
