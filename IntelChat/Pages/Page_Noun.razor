@@ -10,9 +10,9 @@
 @using System.Data.Common;
 @* @using IntelChat.Services;  *@
 
- <style>
+<style>
 	body {
-		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Noun.png")no-repeat; /* NOUN BG from blob container */
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Noun.png")no-repeat; /*Background to blob*/
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
 		color: antiquewhite;
@@ -20,7 +20,6 @@
 		width: 1920px;
 		height: 1080px;
 		background-color: #000000;
-		position:absolute;
 	}
 
 	#img-panel-marque {
@@ -34,7 +33,7 @@
 	}
 
 	#btn-luster-noun {
-		content: url(https://agineuralnet.blob.core.windows.net/buttons/Btn_Luster_Noun.png);
+		content: url(https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Noun.png);
 		position: absolute;
 		top: 85px;
 		left: 820px;
@@ -93,9 +92,8 @@
 		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
 		background-size: cover;
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		position:absolute;
-		top: 800px;
-		left: 645px;/*********** relative to Banner ***************/
+		top: 110px;
+		left: 1000px;
 		opacity: 100%;
 	}
 
@@ -104,12 +102,11 @@
 		transform: scale(.85);
 	}
 
-	/*********** NOUN LIST SHADOW BOX ***************/
 	#img-panel-shadow-black {
 		border-radius: 12px;
 		background-size: cover;
 		height: 700px;
-		width: 850px;
+		width: 600px;
 	}
 
 	/*********** Common Styles for Input Boxes ***************/
@@ -142,24 +139,13 @@
 
 </style>
 
-
-
-<div class="crud-page">
-
+<div class="noun-page">
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************ Lock onto a Person within a POD *************************** -->
+	<!-- *************************** Lock onto a Person and a POD *************************** -->
 	<!-- ************************************************************************************ -->
-
-
-
-	<p style="color:#333333;font-size:24px;top:10px;position:absolute">Pod: @pod</p>
-	<p style="color:#333333;font-size:24px;top:40px;position:absolute">Pid: @pid</p>
-
-
-
-@* 	<p style="color:#333333;font-size:24px">Pod: @pod</p><br>
-	<p style="color:#333333;font-size:24px;top:48px;position:absolute">Pid: @pid</p> *@
+	<p style="color:grey;font-size:24px">Pod: @pod</p><br>
+	<p style="color:grey;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
 
 	<!-- ************************************************************************************ -->
 	<!-- ********************************** DISPLAY PANELS ********************************** -->
@@ -198,15 +184,15 @@
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** NOUN LIST GRID ************ shadow ************* -->
-	<!-- ******************************** text-overflow:ellipsis; * overflow-x:scroll; ****** -->
+	<!-- ************************************************************************************ -->
 	@if (show == "list")
 	{
 
 		<div class="ShadowText">
-			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_list.png">
+			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 		</div>
 
-		<div class="exhibitPanel" style="overflow-y:scroll;">
+		<div class="exhibitPanel" style="overflow-y:scroll;height:630px;text-overflow:ellipsis;overflow-x:scroll;">
 			<div class="ListFilter">
 				<label>
 					<select value="@filter["list"]" @onchange="@(e => filter["list"] = e.Value.ToString())">
@@ -255,7 +241,7 @@
 			<form @onsubmit="OnCreate">
 
 				<div class="ShadowText">
-					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_list.png">
+					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
 
 				<div class="boxFilter">
@@ -273,7 +259,7 @@
 
 					<label>
 						Description:
-						<input class="form-control" @bind="@entity["add"].NounDescription" maxlength="64" required />
+						<input class="form-control" @bind="@entity["add"].NounDescription" maxlength="255" required />
 					</label><br><br>
 
 
@@ -315,11 +301,10 @@
 				@**@
 
 				<div class="ShadowText">
-					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_list.png">
+					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
 
 
-				<!-- ******************************************* .noun-page .boxFilter ****************** -->
 				<div class="boxFilter">
 
 					<div class="PypeTypeFilter">
@@ -406,7 +391,7 @@
 			<form @onsubmit="OnDelete">
 
 				<div class="ShadowText">
-					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_list.png"
+					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png"
 						 style="border-radius: 12px;background-size: cover;">
 				</div>
 
@@ -468,7 +453,6 @@
 	</button>
 
 </div>
-
 
 
 
