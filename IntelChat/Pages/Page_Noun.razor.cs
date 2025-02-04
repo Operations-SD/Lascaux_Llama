@@ -148,7 +148,7 @@ namespace IntelChat.Pages
 			ExecuteStoredProcedure("dbo.[CRUD_Noun]", parameters);
 		}
 
-		/// <summary>Delete an entity in the database using a stored procedure</summary>
+		/// <summary>Delete an entity in the database using a stored procedure status ==> D </summary>
 		private void Delete()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
