@@ -3,10 +3,432 @@
     padding: 0; /* Reset default padding if needed */
 }
 
+
+
+.crud-page .boxButton {
+    padding: 0;
+    margin: 0;
+    width: 1000px;
+    height: 100px;
+    text-align: right;
+    top: 90px;
+    left: 600px;
+    color: #FF0000;
+    position: absolute;
+    opacity: 100%;
+    background-image: url("../images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
+    background-size: cover;
+}
+
+.crud-page button {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 180px;
+    height: 90px;
+    top: 76px;
+    left: 0px;
+    border-radius: 8px;
+    transition-duration: .60s;
+    color: black;
+    background-color: limegreen;
+    text-align: center;
+    opacity: 100%;
+}
+
+.crud-page .buttonList {
+    left: 660px;
+    opacity: 90%;
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonList:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+.crud-page .buttonAdd {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonAdd:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+.crud-page .buttonChange {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonChange:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+.crud-page .buttonDelete {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonDelete:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+/* ****************************************************** CFG ...NOUN LIST ROWS on Shadow PANEL ************ */
+.crud-page .exhibitPanel {
+    position: absolute;
+    top: 336px;
+    max-height: 740px;
+    left: 340px;
+    color: blanchedalmond;
+    width: 800px;
+    font-size: x-large;
+    /*text-overflow: ellipsis;*/
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+
+
+/* ************************************************************* CFG main shadow for LISTS ********* */
+.crud-page .exhibitInfo {
+    position: absolute;
+    top: 370px;
+    left: 520px;
+    color: blanchedalmond;
+    width: 800px;
+    height: 740px;
+    font-size: x-large;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.crud-page .Shadow {
+    position: absolute;
+    top: 120px;
+    left: 1520px;
+    width: 250px;
+    height: 920px;
+    background-color: grey background-size: cover;
+    border-radius: 12px;
+    opacity: 95%;
+}
+
+/* ************************************************************* CFG main shadow for LISTS ********* */
+.crud-page .ShadowText {
+    position: absolute;
+    top: 320px;
+    left: 304px;
+    width: 850px;
+    height: 700px;
+    background-color: grey background-size: cover;
+    border-radius: 12px;
+    opacity: 95%;
+}
+
+/* ********************************************************** CFG change or create COMMIT BOX ********* */
+.crud-page .boxFilter {
+    margin: 10;
+    position: absolute;
+    top: 500px;
+    left: 1230px;
+    background-color: bisque border-radius: 12px;
+    opacity: 85%;
+    width: 220px;
+    height: 360px;
+    background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit.png");
+}
+
+.crud-page .ListFilter {
+    margin: 0;
+    position: absolute;
+    top: 0px;
+    left: 470px;
+    color: blanchedalmond;
+    background-color: bisque border-radius: 12px;
+    opacity: 55%;
+    width: 160px;
+    height: 200px;
+    font-size: x-large;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
 /*
-    NOUN DETAILS PAGE
+    ************************************************************************   .crud-page  ==>  .crud-page
+    ************************************************************************   .crud-page  ==>  .crud-page
+    ************************************************************************   .crud-page  ==>  .crud-page
 */
-.noun-details button {
+
+.crud-page .boxButton {
+    padding: 0;
+    margin: 0;
+    width: 1000px;
+    height: 100px;
+    text-align: right;
+    top: 90px;
+    left: 600px;
+    color: #FF0000;
+    position: absolute;
+    opacity: 100%;
+    background-image: url("../images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
+    background-size: cover;
+}
+
+.crud-page button {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 180px;
+    height: 90px;
+    top: 76px;
+    left: 0px;
+    border-radius: 8px;
+    transition-duration: .60s;
+    color: black;
+    background-color: limegreen;
+    text-align: center;
+    opacity: 100%;
+}
+
+.crud-page .buttonList {
+    left: 660px;
+    opacity: 90%;
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonList:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+.crud-page .buttonAdd {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonAdd:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+.crud-page .buttonChange {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonChange:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+.crud-page .buttonDelete {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .buttonDelete:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+/* ****************************************************** CFG ...NOUN LIST ROWS on Shadow PANEL ************ */
+.crud-page .exhibitPanel {
+    position: absolute;
+    top: 336px;
+    max-height: 740px;
+    left: 340px;
+    color: blanchedalmond;
+    width: 800px;
+    font-size: x-large;
+    /*text-overflow: ellipsis;*/
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+
+
+/* ************************************************************* CFG main shadow for LISTS ********* */
+.crud-page .exhibitInfo {
+    position: absolute;
+    top: 370px;
+    left: 520px;
+    color: blanchedalmond;
+    width: 800px;
+    height: 740px;
+    font-size: x-large;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.crud-page .Shadow {
+    position: absolute;
+    top: 120px;
+    left: 1520px;
+    width: 250px;
+    height: 920px;
+    background-color: grey background-size: cover;
+    border-radius: 12px;
+    opacity: 95%;
+}
+
+/* ************************************************************* CFG main shadow for LISTS ********* */
+.crud-page .ShadowText {
+    position: absolute;
+    top: 320px;
+    left: 304px;
+    width: 850px;
+    height: 700px;
+    background-color: grey background-size: cover;
+    border-radius: 12px;
+    opacity: 95%;
+}
+
+/* ********************************************************** CFG change or create COMMIT BOX ********* */
+.crud-page .boxFilter {
+    margin: 10;
+    position: absolute;
+    top: 500px;
+    left: 1230px;
+    background-color: bisque border-radius: 12px;
+    opacity: 85%;
+    width: 220px;
+    height: 360px;
+    background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit.png");
+}
+
+.crud-page .ListFilter {
+    margin: 0;
+    position: absolute;
+    top: 0px;
+    left: 470px;
+    color: blanchedalmond;
+    background-color: bisque border-radius: 12px;
+    opacity: 55%;
+    width: 160px;
+    height: 200px;
+    font-size: x-large;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+/* CFG ***************************************************************** CHANGE ... Filter Select Commit ********************* */
+/* CFG ***************************************************************** CHANGE ... Filter Select Commit ********************* */
+/* CFG ***************************************************************** CHANGE ... Filter Select Commit ********************* */
+
+/* CFG FILTER FOR CHANGE SELECT */
+.crud-page .PypeTypeFilter {
+    margin: 0;
+    position: absolute;
+    top: 60px;
+    left: 24px;
+    color: blanchedalmond;
+    background-color: bisque border-radius: 12px;
+    opacity: 55%;
+    width: 160px;
+    height: 200px;
+    font-size: x-large;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* CFG Pype FOR CHANGE SELECT */
+.crud-page .PypeType {
+    margin: 0;
+    position: absolute;
+    top: 143px;
+    left: 24px;
+    color: blanchedalmond;
+    background-color: bisque border-radius: 12px;
+    opacity: 80%;
+    width: 440px;
+    font-size: x-large;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* CFG BUTTON FOR CHANGE Commit */
+.crud-page .commitChange {
+    position: absolute;
+    top: 285px;
+    left: 40px;
+    width: 120px;
+    height: 50px;
+    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_chg.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .commitChange:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+/* ********************************* CFG BUTTON FOR DELETE Commit ... only Status=D ********************************** */
+.crud-page .commitDelete {
+    position: absolute;
+    top: 285px;
+    left: 40px;
+    width: 120px;
+    height: 50px;
+    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_del.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .commitDelete:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+/* ********************************* CFG BUTTON FOR CREATE Commit ... ********************************** */
+.crud-page .commitCreate {
+    position: absolute;
+    top: 285px;
+    left: 40px;
+    width: 120px;
+    height: 50px;
+    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_add.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+    .crud-page .commitCreate:hover {
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        transform: scale(.85);
+    }
+
+
+/* ************************************************************************* end of .crud-page ************ */
+/* ************************************************************************* end of .crud-page ************ */
+/* ************************************************************************* end of .crud-page ************ */
+
+.crud-details button {
     padding: 0;
     margin: 0;
     width: 200px;
@@ -22,19 +444,19 @@
     transition-duration: .60s;
 }
 
-    .noun-details .buttonA {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/btnArtifactA.png");
-        background-size: cover;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
+.crud-details .buttonA {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/btnArtifactA.png");
+    background-size: cover;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
 
-    .noun-details .buttonA:hover {
+    .crud-details .buttonA:hover {
         box-shadow: 0 5px 10px rgba(0,0,0,.5);
         transform: scale(.95);
     }
 
 
-.noun-details jukebox {
+.crud-details jukebox {
     position: absolute;
     left: 90%;
     top: 95%;
@@ -42,7 +464,7 @@
     opacity: 40%;
 }
 
-.noun-details boxCRUD {
+.crud-details boxCRUD {
     padding: 0;
     margin: 0;
     width: 1000px;
@@ -58,7 +480,7 @@
 }
 
 
-.noun-details boxbuttons {
+.crud-details boxbuttons {
     padding: 0;
     margin: 0;
     width: 900px;
@@ -73,7 +495,7 @@
     background-size: cover;
 }
 
-.noun-details .exhibitPanel {
+.crud-details .exhibitPanel {
     position: absolute;
     top: 370px;
     left: 500px;
@@ -86,7 +508,7 @@
     overflow: hidden;
 }
 
-.noun-details .exhibitInfo {
+.crud-details .exhibitInfo {
     position: absolute;
     top: 50px;
     left: 600px;
@@ -101,146 +523,11 @@
 }
 
 /*
-    Media_Audio PAGE
+************************************************************************ .engineer-page == > .role-menu
+************************************************************************ .engineer-page == > .role-menu
+************************************************************************ .engineer-page == > .role-menu
 */
-.audio-page {
-    background: url("https://intelchatstorage.blob.core.windows.net/bgcontainer/BG_Audio.png");
-    background-size: contain;
-    height: 100%;
-    width: 100%;
-    color: white;
-}
-
-.world-radio-button {
-    position: absolute;
-    width: 200px;
-    height: 120px;
-    left: 710px;
-    top: 610px;
-    background-color: white;
-    border-radius: 0px;
-    opacity: 10%;
-}
-
-
-/*
-    Media_Video PAGE
-*/
-.video-page {
-    background-color: white;
-    color: black;
-}
-
-.video-page .backimg {
-    background-image: url('../images/BG/BoatParty.png') no-repeat; /*missing resource*/
-    opacity: 50%;
-    width: 50%;
-    height: 50%;
-    background-repeat: no-repeat;
-}
-
-/*
-    Menu_acad
-*/
-
-.academy-page button {
-    padding: 0;
-        margin: 0;
-        position: absolute;
-        width: 280px;
-        height: 120px;
-        text-align: center;
-        top: 100px;
-        color: black;
-        background-color: pink;
-        border-radius: 24px;
-        position: absolute;
-        left: 210px;
-        opacity: 100%;
-        border-radius: 8px;
-        transition-duration: .60s;
-}
-
-    .academy-page .buttonReport01 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Report.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .academy-page .buttonReport01:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-    .academy-page .buttonMenu02 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Verb.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .academy-page .buttonMenu02:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-    .academy-page .buttonMenu03 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_NOVA.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .academy-page .buttonMenu03:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.academy-page .exhibitPanel {
-    position: absolute;
-    top: 370px;
-    left: 500px;
-    color: black;
-    width: 540px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.academy-page .exhibitInfo {
-    position: absolute;
-    top: 350px;
-    left: 600px;
-    color: blanchedalmond;
-    width: 540px;
-    height: 700px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-    .academy-page .titlebanner {
-        position: absolute;
-        top: 50px;
-        left: 660px;
-        background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/UseCase_engr.png");
-        padding: 0;
-        margin: 0;
-        color: black;
-        border-radius: 24px;
-    }
-
-
-/*
-    Menu_admn
-*/
-
-.administration-page button {
+.role-menu button {
     padding: 0;
     margin: 0;
     position: absolute;
@@ -258,235 +545,44 @@
     transition-duration: .60s;
 }
 
-    .administration-page .buttonReport01 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Report.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .administration-page .buttonReport01:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-    .administration-page .buttonMenu02 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Person.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .administration-page .buttonMenu02:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-    .administration-page .buttonMenu03 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_NOVA.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .administration-page .buttonMenu03:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.administration-page .exhibitPanel {
-    position: absolute;
-    top: 370px;
-    left: 500px;
-    color: black;
-    width: 540px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
+.role-menu .buttonMenu01 {
+    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Noun.png");
+    background-size: cover;
+    margin: 10px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
 }
 
-.administration-page .exhibitInfo {
-    position: absolute;
-    top: 350px;
-    left: 600px;
-    color: blanchedalmond;
-    width: 540px;
-    height: 700px;
-    margin: 44px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-    .administration-page .titlebanner {
-        position: absolute;
-        top: 50px;
-        left: 660px;
-        background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/UseCase_admn.png");
-        padding: 0;
-        margin: 0;
-        color: black;
-        border-radius: 24px;
-    }
-
-/*
-    Menu_ainn
-*/
-
-.ainn-page button {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    width: 280px;
-    height: 120px;
-    text-align: center;
-    top: 100px;
-    color: black;
-    background-color: pink;
-    border-radius: 24px;
-    position: absolute;
-    left: 210px;
-    opacity: 100%;
-    border-radius: 8px;
-    transition-duration: .60s;
-}
-
-    .ainn-page .buttonReport01 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Report.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .ainn-page .buttonReport01:hover {
+    .role-menu .buttonMenu01:hover {
         box-shadow: 0 5px 10px rgba(0,0,0,.5);
         transform: scale(.85);
     }
 
-    .ainn-page .buttonMenu02 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Verb.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .ainn-page .buttonMenu02:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-    .ainn-page .buttonMenu03 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_NOVA.png");
-        background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .ainn-page .buttonMenu03:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.ainn-page .exhibitPanel {
-    position: absolute;
-    top: 370px;
-    left: 500px;
-    color: black;
-    width: 540px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.ainn-page .exhibitInfo {
-    position: absolute;
-    top: 350px;
-    left: 600px;
-    color: blanchedalmond;
-    width: 540px;
-    height: 700px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-    .ainn-page .titlebanner {
-        position: absolute;
-        top: 50px;
-        left: 660px;
-        background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/UseCase_admn.png");
-        padding: 0;
-        margin: 0;
-        color: black;
-        border-radius: 24px;
-    }
-
-/*
-    menu_engr
-*/
-.engineer-page button {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    width: 280px;
-    height: 120px;
-    text-align: center;
-    top: 100px;
-    color: black;
-    background-color: pink;
-    border-radius: 24px;
-    position: absolute;
-    left: 210px;
-    opacity: 100%;
-    border-radius: 8px;
-    transition-duration: .60s;
-}
-
-    .engineer-page .buttonMenu01 {
-        background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Noun.png"); background-size: cover;
-        margin: 10px;
-        box-shadow: 0 30px 60px rgba(0,0,0,.5);
-    }
-
-    .engineer-page .buttonMenu01:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.engineer-page .buttonMenu02 {
+.role-menu .buttonMenu02 {
     background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Verb.png");
     background-size: cover;
     margin: 10px;
     box-shadow: 0 30px 60px rgba(0,0,0,.5);
 }
 
-    .engineer-page .buttonMenu02:hover {
+    .role-menu .buttonMenu02:hover {
         box-shadow: 0 5px 10px rgba(0,0,0,.5);
         transform: scale(.85);
     }
 
-.engineer-page .buttonMenu03 {
+.role-menu .buttonMenu03 {
     background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_NOVA.png");
     background-size: cover;
     margin: 10px;
     box-shadow: 0 30px 60px rgba(0,0,0,.5);
 }
 
-    .engineer-page .buttonMenu03:hover {
+    .role-menu .buttonMenu03:hover {
         box-shadow: 0 5px 10px rgba(0,0,0,.5);
         transform: scale(.85);
     }
 
 
-.engineer-page .exhibitPanel {
+.role-menu .exhibitPanel {
     position: absolute;
     top: 370px;
     left: 500px;
@@ -499,7 +595,7 @@
     overflow: hidden;
 }
 
-.engineer-page .exhibitInfo {
+.role-menu .exhibitInfo {
     position: absolute;
     top: 350px;
     left: 600px;
@@ -513,7 +609,7 @@
     overflow: hidden;
 }
 
-.engineer-page .titlebanner {
+.role-menu .titlebanner {
     position: absolute;
     top: 50px;
     left: 660px;
@@ -524,10 +620,6 @@
     border-radius: 24px;
 }
 
-
-/*
-    Menu_User
-*/
 .user-page button {
     padding: 0;
     margin: 0;
@@ -594,582 +686,19 @@
 }
 
 /*
-    Menu_xprt
+    *********************************************************** .interview
+    *********************************************************** .interview
+    *********************************************************** .interview
 */
-.expert-page button {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    width: 280px;
-    height: 120px;
-    text-align: center;
-    top: 100px;
-    color: black;
-    background-color: pink;
-    border-radius: 24px;
-    position: absolute;
-    left: 210px;
-    opacity: 100%;
-    border-radius: 8px;
-    transition-duration: .60s;
-}
-
-.expert-page .buttonMenu01 {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Goal.png");
-    background-size: cover;
-    margin: 10px;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .expert-page .buttonMenu01:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.expert-page .buttonMenu02 {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Task.png");
-    background-size: cover;
-    margin: 10px;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .expert-page .buttonMenu02:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.expert-page .buttonMenu03 {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_NOVA.png");
-    background-size: cover;
-    margin: 10px;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .expert-page .buttonMenu03:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.expert-page .titlebanner {
-    position: absolute;
-    top: 50px;
-    left: 660px;
-    background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/UseCase_xprt.png");
-    padding: 0;
-    margin: 0;
-    color: black;
-    border-radius: 24px;
-}
-
 /*
-    NOUN PAGE
-*/
-.noun-page jukeboxXXX {
-    position: absolute;
-    left: 90%;
-    top: 95%;
-    border-radius: 0px;
-    opacity: 40%;
-}
+    *********************************************************** .user-page
+    *********************************************************** .user-page
+    *********************************************************** .user-page
 
 
-.noun-page .boxButton {
-    padding: 0;
-    margin: 0;
-    width: 1000px;
-    height: 100px;
-    text-align: right;
-    top: 90px;
-    left: 600px;
-    color: #FF0000;
-    position: absolute;
-    opacity: 100%;
-    background-image: url("../images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
-    background-size: cover;
-}
-
-.noun-page button {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    width: 180px;
-    height: 90px;
-    top: 76px;
-    left: 0px;
-    border-radius: 8px;
-    transition-duration: .60s;
-    color: black;
-    background-color: limegreen;
-    text-align: center;
-    opacity: 100%;
-}
-
-.noun-page .buttonList {
-    left: 660px;
-    opacity: 90%;
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .noun-page .buttonList:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.noun-page .buttonAdd {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .noun-page .buttonAdd:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.noun-page .buttonChange {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .noun-page .buttonChange:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.noun-page .buttonDelete {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .noun-page .buttonDelete:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
 
 
-.noun-page .exhibitPanel {
-    position: absolute;
-    top: 370px;
-    max-height: 700px;
-    left: 420px;
-    color: blanchedalmond;
-    width: 563px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow-y: auto;
-    overflow-x: scroll;
-}
 
-.noun-page .exhibitInfo {
-    position: absolute;
-    top: 370px;
-    left: 420px;
-    color: blanchedalmond;
-    width: 540px;
-    height: 700px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.noun-page .Shadow {
-    position: absolute;
-    top: 120px;
-    left: 1520px;
-    width: 250px;
-    height: 920px;
-    background-color: grey background-size: cover;
-    border-radius: 12px;
-    opacity: 95%;
-}
-
-.noun-page .ShadowText {
-    position: absolute;
-    top: 360px;
-    left: 390px;
-    width: 500px;
-    height: 700px;
-    background-color: grey background-size: cover;
-    border-radius: 12px;
-    opacity: 95%;
-}
-
-.noun-page .boxFilter {
-    margin: 10;
-    position: absolute;
-    top: 360px;
-    left: 1020px;
-    background-color: bisque border-radius: 12px;
-    opacity: 85%;
-    width: 200px;
-    height: 360px;
-    background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit.png");
-}
-
-.noun-page .PypeTypeFilter {
-    margin: 0;
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    color: blanchedalmond;
-    background-color: bisque border-radius: 12px;
-    opacity: 55%;
-    width: 160px;
-    height: 200px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.noun-page .ListFilter {
-    margin: 0;
-    position: absolute;
-    top: 0px;
-    left: 470px;
-    color: blanchedalmond;
-    background-color: bisque border-radius: 12px;
-    opacity: 55%;
-    width: 160px;
-    height: 200px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.noun-page .PypeType {
-    margin: 0;
-    position: absolute;
-    top: 143px;
-    left: 45px;
-    color: blanchedalmond;
-    background-color: bisque border-radius: 12px;
-    opacity: 80%;
-    width: 440px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.noun-page .commitChange {
-    position: absolute;
-    top: 285px;
-    left: 40px;
-    width: 120px;
-    height: 50px;
-    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_chg.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .noun-page .commitChange:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.noun-page .commitDelete {
-    position: absolute;
-    top: 285px;
-    left: 40px;
-    width: 120px;
-    height: 50px;
-    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_del.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .noun-page .commitDelete:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.noun-page .commitCreate {
-    position: absolute;
-    top: 285px;
-    left: 40px;
-    width: 120px;
-    height: 50px;
-    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_add.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .noun-page .commitCreate:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-
-/* Page_Verb*/
-.verb-page .boxButton {
-    padding: 0;
-    margin: 0;
-    width: 1000px;
-    height: 100px;
-    text-align: right;
-    top: 90px;
-    left: 600px;
-    color: #FF0000;
-    position: absolute;
-    opacity: 100%;
-    background-image: url("../images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
-    background-size: cover;
-}
-
-.verb-page button {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    width: 180px;
-    height: 90px;
-    top: 76px;
-    left: 0px;
-    border-radius: 8px;
-    transition-duration: .60s;
-    color: black;
-    background-color: limegreen;
-    text-align: center;
-    opacity: 100%;
-}
-
-
-.verb-page .buttonList {
-    left: 660px;
-    opacity: 90%;
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .verb-page .buttonList:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.verb-page .buttonAdd {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .verb-page .buttonAdd:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.verb-page .buttonChange {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .verb-page .buttonChange:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.verb-page .buttonDelete {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .verb-page .buttonDelete:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-
-.verb-page jukebox {
-    position: absolute;
-    left: 90%;
-    top: 95%;
-    border-radius: 0px;
-    opacity: 40%;
-}
-
-.verb-page boxCRUD {
-    padding: 0;
-    margin: 0;
-    width: 1000px;
-    height: 100px;
-    text-align: right;
-    top: 90px;
-    left: 820px;
-    color: #FF0000;
-    position: absolute;
-    opacity: 75%;
-    background-image: url("../images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
-    background-size: cover;
-}
-
-.verb-page .ListFilter {
-    margin: 0;
-    position: absolute;
-    top: 0px;
-    left: 470px;
-    color: blanchedalmond;
-    background-color: bisque border-radius: 12px;
-    opacity: 55%;
-    width: 160px;
-    height: 200px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-
-.verb-page .exhibitPanel {
-    position: absolute;
-    top: 370px;
-    left: 420px;
-    color: blanchedalmond;
-    width: 540px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.verb-page .exhibitInfo {
-    position: absolute;
-    top: 370px;
-    left: 420px;
-    color: blanchedalmond;
-    width: 540px;
-    height: 700px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.verb-page .Shadow {
-    position: absolute;
-    top: 120px;
-    left: 1520px;
-    width: 250px;
-    height: 920px;
-    background-color: grey background-size: cover;
-    border-radius: 12px;
-    opacity: 95%;
-}
-
-.verb-page .ShadowText {
-    position: absolute;
-    top: 360px;
-    left: 390px;
-    width: 500px;
-    height: 920px;
-    background-color: grey background-size: cover;
-    border-radius: 12px;
-    opacity: 95%;
-}
-
-.verb-page .boxFilter {
-    margin: 10;
-    position: absolute;
-    top: 360px;
-    left: 1020px;
-    background-color: bisque border-radius: 12px;
-    opacity: 85%;
-    width: 200px;
-    height: 360px;
-}
-
-.verb-page .PypeTypeFilter {
-    margin: 0;
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    color: blanchedalmond;
-    background-color: bisque border-radius: 12px;
-    opacity: 55%;
-    width: 160px;
-    height: 200px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.verb-page .PypeType {
-    margin: 0;
-    position: absolute;
-    top: 143px;
-    left: 51px;
-    color: blanchedalmond;
-    background-color: bisque border-radius: 12px;
-    opacity: 55%;
-    width: 440px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.verb-page .commitChange {
-    position: absolute;
-    top: 285px;
-    left: 40px;
-    width: 120px;
-    height: 50px;
-    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_chg.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .verb-page .commitChange:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.verb-page .commitDelete {
-    position: absolute;
-    top: 285px;
-    left: 40px;
-    width: 120px;
-    height: 50px;
-    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_del.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .verb-page .commitDelete:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.verb-page .commitCreate {
-    position: absolute;
-    top: 285px;
-    left: 40px;
-    width: 120px;
-    height: 50px;
-    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/btn_commit_add.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .verb-page .commitCreate:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
 
 .interview-page .response-button {
     background-color: transparent;

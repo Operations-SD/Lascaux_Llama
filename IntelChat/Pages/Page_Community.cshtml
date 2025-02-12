@@ -30,40 +30,62 @@
 		font-size: 0;
 		filter: brightness(50%);
 	}
-
 	button:hover {
 		opacity: 20%;
 		filter: brightness(100%);
 	}
+
 </style>
-
-
 
 <!-- ************************************************************************************ -->
 <!-- ******************** Select PERSON (USER & ROLE) from DropDown ********************* -->
-<!-- ************************************************************************************ -->
 <form id="registration" method="post">
 	<select input asp-for="Input.Member" asp-items="@Model.memberDescriptions"
-			style="position:absolute;top:540px;left:140px;width:500px;max-height:40px;font-size:28px;color:darkred;background-color:darkgray" required></select>
+			style="position:absolute;top:540px;left:100px;width:500px;max-height:40px;font-size:28px;color:darkred;background-color:darkgray" required></select>
 
+
+<!-- ************************************************************************************ -->
 <!-- ******************** RETURN to MENU with selected USER ***************************** -->
-	<button type="submit" style="position:absolute;top:920px;left:120px;width:250px;height:70px;color:darkred;">RETURN</button>
+	<button type="submit" style="position:absolute;top:533px;left:644px;width:250px;height:70px;color:darkred;">RETURN</button>
 
-<!-- ******************** COLOSSUS Video ***************************** -->
+<!-- ************************************************************************************ -->
+<!-- *************************************** COLOSSUS Video ***************************** -->
 	<div style="top:10px; left:10px; position:absolute; overflow:hidden; filter: brightness(60%);opacity:80% ">
-	<iframe width="923" height="519" src="https://www.youtube.com/embed/WVG7dcPOLZY"
+		<iframe width="923" height="519" src="https://www.youtube.com/embed/WVG7dcPOLZY"
 			title="Colossus: The Forbin Project - AI Predictions from 1970"
 			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-	</iframe>
+		</iframe>
 	</div>
 
-<!-- ******************** ELAN MUSK Video ************************* -->
-	<div style="top:574px; left:160px; position:absolute; overflow:hidden; filter: brightness(50%);opacity:60% ">
-	<iframe width="460" height="260" src="https://www.youtube.com/embed/mEmAP3oFWos" title="Did Elon Musk Remove AI Sci-Fi Film Colossus The Forbin Project To Protect His Own Super Computer?" 
-	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-	</iframe>
+<!-- ************************************************************************************ -->
+<!-- ****************************************** ELAN MUSK Video ************************* -->
+	<div style="top:574px; left:120px; position:absolute; overflow:hidden; filter: brightness(50%);opacity:60% ">
+		<iframe width="460" height="260" src="https://www.youtube.com/embed/mEmAP3oFWos" title="Did Elon Musk Remove AI Sci-Fi Film Colossus The Forbin Project To Protect His Own Super Computer?" 
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+		</iframe>
+	</div>
+
+	<div style="top:850px; left:30px; position:absolute; overflow:hidden; filter: brightness(80%);opacity:20% ">
+		<iframe width="320" height="180" src="https://www.youtube.com/embed/H1mb3ARvSJo" title="Elon Musk - How To Learn Anything"
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+		</iframe>
+	</div>
+
+	<div style="top:850px; left:370px; position:absolute; overflow:hidden; filter: brightness(80%);opacity:20% ">
+		<iframe width="320" height="180" src="https://www.youtube.com/embed/XK6MyKmIew8" title="Elon Musk&#39;s 3 Rules To Learning Anything" 
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+		</iframe>
+	</div>
+
+	<div style="top:850px; left:720px; position:absolute; overflow:hidden; filter: brightness(80%);opacity:20% ">
+		<iframe width="320" height="180" src="https://www.youtube.com/embed/_jHAVO9VbqE" title="Elon Musk’s Secret To Learning Anything Faster" 
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+		</iframe>
 	</div>
 
 </form>
