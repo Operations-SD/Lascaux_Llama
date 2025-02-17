@@ -269,6 +269,8 @@ namespace IntelChat.Pages
 		//********************** Override the OnInitialized method ********************
 		//********************** ReRead lists when necessary ********************
 
+		
+		// Handle screen change options
 		protected override void OnInitialized()
 		{
 			// Initialize default entities and filters
@@ -291,7 +293,7 @@ namespace IntelChat.Pages
 					case "change":
 						if (verbId.HasValue)
 						{
-							AutoFill(verbId.Value, "change"); // Populate fields for specific NounId
+							AutoFill(verbId.Value, "change"); // Populate fields for specific VerbId
 						}
 						else if (entities.Any())
 						{
@@ -310,8 +312,11 @@ namespace IntelChat.Pages
 						break;
 
 					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
 					default:
-						show = "list"; // Default to list view
+						show = string.Empty; // Prevent default listing when navigating normally
 						break;
 				}
 			}
@@ -323,7 +328,7 @@ namespace IntelChat.Pages
 					entity["change"] = entities.First();
 					AutoFill(entity["change"].VerbId, "change");
 				}
-				show = "list";
+				show = string.Empty; // Do not show the list by default
 			}
 		}
 

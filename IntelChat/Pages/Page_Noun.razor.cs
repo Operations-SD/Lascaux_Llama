@@ -300,23 +300,26 @@ namespace IntelChat.Pages
 						break;
 
 					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
 					default:
-						show = "list"; // Default to list view
+						show = string.Empty; // Prevent default listing when navigating normally
 						break;
 				}
 			}
 			else
 			{
 				// Default behavior if `show` is not specified
-				Console.WriteLine("No screen change option provided, defaulting to 'list' tab.");
 				if (entities.Any())
 				{
 					entity["change"] = entities.First();
 					AutoFill(entity["change"].NounId, "change");
 				}
-				show = "list";
+				show = string.Empty; // Do not show the list by default
 			}
 		}
+
 
 		private void OnItemSelected(int id)
 		{
