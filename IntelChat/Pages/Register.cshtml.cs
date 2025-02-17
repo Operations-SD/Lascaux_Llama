@@ -191,51 +191,42 @@ namespace IntelChat.Pages
 			}
 		}
 
-		private Brand? ReadBrand(String code)
+		private Brand? ReadBrand(string code)
 		{
 			string spName = "dbo.[CRUD_Brand]";
-			SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
-			SqlCommand cmd = new SqlCommand(spName, connection);
-
-			List<SqlParameter> parameters = new List<SqlParameter>
+			using (SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection")))
+			using (SqlCommand cmd = new SqlCommand(spName, connection))
 			{
-				new SqlParameter("@PROC_action", "Read"),
-				new SqlParameter("@status", "*")
-			};
-			parameters.ForEach(parameter => cmd.Parameters.Add(parameter));
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("@PROC_Action", "Read");
+				cmd.Parameters.AddWithValue("@Brand_Code", code);
+				cmd.Parameters.AddWithValue("@status", "A");
 
-			connection.Open();
-			cmd.CommandType = CommandType.StoredProcedure;
-			SqlDataReader reader = cmd.ExecuteReader();
-
-			List<Brand> brands = new List<Brand>();
-			while (reader.Read())
-			{
-				brands.Add(new Brand()
+				connection.Open();
+				using (SqlDataReader reader = cmd.ExecuteReader())
 				{
-					BrandId = reader.GetInt32(0),
-					BrandCode = reader.GetString(1),
-					BrandLabel = reader.GetString(2),
-				//	BrandImage = reader.GetString(3),
-					BrandStatus = reader.GetString(3),
-					BrandCntMax = reader.GetInt16(4),
-					BrandCntReg = reader.GetInt16(5),
-					BrandRegDateClosed = reader.GetDateTime(6),
-					BrandEligibility = reader.GetInt16(7),
-					BrandCost = reader.GetDecimal(8),
-					GuideIdFk = reader.GetInt32(9),
-					BrandRole = reader.GetString(10),
-					NovaIdFk = reader.GetInt32(11),
-					ProgramIdFk = reader.GetInt32(12),
-					LocationIdFk = reader.GetInt32(13),
-					//ChannelAlpha = reader.GetString(15),
-					//ChannelBeta = reader.GetString(16),
-					//ChannelGamma = reader.GetString(17)
-				});
-				connection.Close();
-				return brands.Find(brand => brand.BrandCode == code);
+					if (reader.Read())
+					{
+						return new Brand()
+						{
+							BrandId = reader.GetInt32(0),
+							BrandCode = reader.GetString(1),
+							BrandLabel = reader.GetString(2),
+							BrandStatus = reader.GetString(3),
+							BrandCntMax = reader.GetInt16(4),
+							BrandCntReg = reader.GetInt16(5),
+							BrandRegDateClosed = reader.GetDateTime(6),
+							BrandEligibility = reader.GetInt16(7),
+							BrandCost = reader.GetDecimal(8),
+							GuideIdFk = reader.GetInt32(9),
+							BrandRole = reader.GetString(10),
+							NovaIdFk = reader.GetInt32(11),
+							ProgramIdFk = reader.GetInt32(12),
+							LocationIdFk = reader.GetInt32(13)
+						};
+					}
+				}
 			}
-			connection.Close();
 			return null;
 		}
 
