@@ -10,8 +10,8 @@
 <!-- ************************************************************************************ -->
 <!-- ********************************* DISPLAY POD# and PID# **************************** -->
 <!-- ************************************************************************************ -->
-<p style="position:absolute;top:030px;left:20px;font-size:22px;opacity:20%;color:aquamarine">POD: @pod</p>
-<p style="position:absolute;top:060px;left:20px;font-size:22px;opacity:20%;color:aquamarine">PID: @pid</p>
+<p style="position:absolute;top:030px;left:20px;font-size:22px;opacity:20%;color:#333333">POD: @pod</p>
+<p style="position:absolute;top:060px;left:20px;font-size:22px;opacity:20%;color:#333333">PID: @pid</p>
 
 <style>
 	body {
@@ -21,7 +21,7 @@
 		opacity: 100%;
 		min-height: 100vh;
 		width: 100%;
-		color: blanchedalmond;
+		color:#333333;
 		background-color: antiquewhite
 	}
 
@@ -194,12 +194,6 @@
 	}
 	else
 	{
-		<button @onclick="Process"
-				class="general-interview-button"
-				style="color:red;width:160px;height:50px;top:400px;left:34px;">
-			PROCESS
-		</button>
-
 		<div class="interview-page">
 			@*
 			***********************************************************************************
@@ -222,11 +216,6 @@
 
 
 			<menu>
-				<button @onclick="Exit"
-				class="menu-button" style="width:160px;height:70px;top:50px;left:20px;">
-					&nbsp;
-				</button>
-
 				<button @onclick="GoToPreviousQuestion"
 				class="menu-button" style="left:400px;top:150px;height:90px;width:170px;opacity:0%">
 					&nbsp;
@@ -332,16 +321,18 @@
 
 
 		<!-- ************************************************************************************ -->
-		<!-- *************************** MODAL options Buttons  ********************************* -->
+		<!-- ******************************** BUTTONS ******************************************* -->
 		<!-- ************************************************************************************ -->
-		<button class="general-interview-button" @onclick=ShowMemo style="width:160px;height:75px;top:500px;left:34px;color:antiquewhite">Memo</button>
-		<button class="general-interview-button" @onclick=ShowChat style="width:160px;height:75px;top:600px;left:34px;color:antiquewhite">Chat</button>
-		<button class="general-interview-button" @onclick=ShowInfo style="width:160px;height:75px;top:700px;left:34px;color:antiquewhite">.pdf</button>
+		<button class="general-interview-button" @onclick=ShowMemo  style="width:160px;height:60px;top:500px;left:34px;color:antiquewhite">Memo</button>
+		<button class="general-interview-button" @onclick=ShowChat  style="width:160px;height:60px;top:570px;left:34px;color:antiquewhite">Chat</button>
+		<button class="general-interview-button" @onclick="Exit"    style="width:160px;height:60px;top:640px;left:34px;color:antiquewhite">Return</button>
 
-		<button class="general-interview-button" @onclick="NavigateToLascaux" style="width:160px;height:75px;top:800px;left:34px;color:antiquewhite">Lascaux</button>
+		<button class="general-interview-button" @onclick="Process" style="width:160px;height:60px;top:560px;left:1550px;color:red;">Evaluation</button>
+@* 		<button class="menu-button" @onclick="Exit" style="width:160px;height:70px;top:555px;left:20px;">Return;	</button>
+		<button class="general-interview-button" @onclick=ShowInfo style="width:160px;height:75px;top:1000px;left:34px;color:antiquewhite">.pdf</button>
+		<button class="general-interview-button" @onclick="NavigateToLascaux" style="width:160px;height:75px;top:800px;left:34px;color:antiquewhite">Lascaux</button> *@
+
 	}
-
-
 
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* HELP Overlay ********************************* -->
@@ -350,20 +341,20 @@
 	{
 		<div>
 			<iframe src="@imagePath" width="1400" height="920" frameborder="0"
-					style="position:absolute; top:0px;left:0px;width:1400px; height:800px; opacity:60%;">
+					style="position:absolute; top:0px;left:0px;width:1400px; height:800px; opacity:90%;">
 			</iframe>
 			<br />
 			<button class="btn btn-danger" @onclick="CloseIframe"
-					style="position:absolute; top:360px;left:20px; opacity:70%; color:black">
-				Close Image
+					style="position:absolute; top:740px;left:40px; opacity:70%; color:black">
+				Close HELP
 			</button>
 		</div>
 	}
 	else
 	{
 		<button class="btn btn-primary" @onclick="OpenIframe"
-				style="position:absolute; top:360px;left:20px; opacity:70%; color:black">
-			Show Image
+				style="position:absolute; top:740px;left:40px; opacity:70%; color:black">
+			Show HELP
 		</button>
 	}
 	@code {

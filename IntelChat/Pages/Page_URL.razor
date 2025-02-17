@@ -22,6 +22,18 @@
 		height: 1080px;
 	}
 
+	.box-abso {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width:1920px;
+		height:1080px;
+		padding: 0;
+		margin: 0;
+		color: black;
+	}
+
+
 	#img-panel-marque {
 		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Marque.png);
 		position: absolute;
@@ -29,6 +41,16 @@
 		left: 600px;
 		width: 580px;
 		border-radius: 0px;
+		background-size: cover;
+	}
+
+	#img-panel-fluer {
+		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_fluer.png);
+		position: absolute;
+		top: 150px;
+		left: 1310px;
+		width: 188px;
+		border-radius: 8px;
 		background-size: cover;
 	}
 
@@ -43,8 +65,8 @@
 		opacity: 50%;
 	}
 
-	#btn-luster-noun {
-		content: url(https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Noun.png);
+	#btn-luster-URL {
+		content: url("https://agineuralnet.blob.core.windows.net/buttons/btn_URL.png");
 		position: absolute;
 		top: 85px;
 		left: 820px;
@@ -53,15 +75,7 @@
 		background-size: cover;
 	}
 
-	#img-panel-fluer {
-		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
-		position: absolute;
-		top: 150px;
-		left: 1310px;
-		width: 188px;
-		border-radius: 8px;
-		background-size: cover;
-	}
+
 
 	#btn-panel-list {
 		left: 10px;
@@ -121,7 +135,7 @@
 		border-radius: 12px;
 		background-size: cover;
 		height: 700px;
-		width: 600px;
+		width: 850px;
 	}
 
 
@@ -153,10 +167,29 @@
 		cursor: pointer;
 	}
 
+	/*********** Positioning for Direct Select ***************/
+	.DirectSelect {
+		position: absolute;
+		top: 355px; /* Positioned below TagFilter */
+		right: 425px;
+	}
+
+	/*********** Positioning for Tag Filter ***************/
+	.TagFilter {
+		position: absolute;
+		top: 405px; /* Adjust this to place it above DirectSelect */
+		right: 425px;
+		opacity: 1;
+	}
+
 </style>
 
 
-<div class="noun-page">
+<div class="globe-120" style="top:80px; left:110px; filter: brightness(80%);opacity:80% ">
+	<img src="images/Earth.gif" alt="earth planet">
+</div>
+
+<div class="crud-page">
 
 	<!-- ************************************************************************************ -->
 	<!-- *************************** Lock onto a Person and a POD *************************** -->
@@ -168,10 +201,8 @@
 	<!-- ********************************** DISPLAY PANELS ********************************** -->
 	<!-- ************************************************************************************ -->
 	<div><img id="img-panel-marque"></div>
-	<div><img id="btn-luster-noun"></div>
+	<div><img id="btn-luster-URL"></div>
 	<div><img id="img-panel-fluer"></div>
-	<div style="position:absolute;left:820px;top:85px;width:140px;height:60px;background-color:#000000;color:#FFFFFF;text-align:center;padding:5px;font-weight:bolder;">URLS</div>
-	<div style="position:absolute;left:1570px;top:385px;width:140px;height:60px;background-color:#000000;color:#FFFFFF;text-align:center;padding:5px;font-weight:bolder;">URLS</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- **************************** DISPLAY PANEL CRUD BUTTONS **************************** -->
@@ -183,16 +214,20 @@
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
 
+
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** URL LIST  ************************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show == "list")
+	
 	{
 		<div class="ShadowText">
 			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 		</div>
 
-		<div class="exhibitPanel">
+
+		<!-- *** this is the data that goes onto the shadow panel *** -->
+		<div class="exhibitPanel" style="overflow-y:scroll;height:630px;text-overflow:ellipsis;overflow-x:scroll;">
 			<div class="ListFilter">
 				<label>
 					<select value="@filter["list"]" @onchange="@(e => filter["list"] = e.Value.ToString())">

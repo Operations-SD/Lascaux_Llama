@@ -10,7 +10,7 @@ main {
 
 
 
-@media (max-width: 840.98px) {
+@media (max-width: 841px) {
     .top-row:not(.auth) {
         display: none;
     }

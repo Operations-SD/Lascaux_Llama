@@ -66,7 +66,7 @@
 		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_2_8.png") no-repeat;
 		background-size: contain;
 		border-radius: 8%;
-		box-shadow: 0 60px 90px rgba(0,0,0,.5);
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
 		}
 		.btn_push_2:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5); 	transform: scale(.8);
@@ -185,7 +185,7 @@
 		<img src="https://agineuralnet.blob.core.windows.net/panels/Mindset.png" />
 	</div>
 
-	<div class="user_banner" style="top:700px; left:540px; opacity:60%">
+	<div class="user_banner" style="top:700px; left:580px; opacity:60%">
 		<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Mindset_Q.png" />
 	</div>
 
@@ -194,7 +194,7 @@
 	<!-- ************************************************************************************ -->
 	<!-- ************************** DISPLAY PUSH-BUTTON PANEL ******************************* -->
 	<!-- ************************************************************************************ -->
-	<div class="box_push_btn" style="position:absolute; top:550px; left:120px; opacity:60%;">
+	<div class="box_push_btn" style="position:absolute; top:600px; left:20px; opacity:60%;">
 		<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_radio.png">
 
         <div>
@@ -238,22 +238,38 @@
 
 
 	<!-- ************************************************************************************ -->
-	<!-- ***************************** PROCESSES ******************************************** -->
+	<!-- ***************************** Comment "HOVER" text ********************************* -->
 	<!-- ************************************************************************************ -->
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
-			style="top:460px;left:480px;height:60px;width:240px;">
-		Action Plan
+
+	<!-- *** Pyramid ( Learning and applying MY-skills to improve society ) **** -->
+	<button    class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Pyramid?pod="+pod+"&pid="+pid))" 
+			style="top:490px;left:480px;height:60px;width:240px;">
+		Pyramid
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
+	<!-- *** Delphi ( build MY-sense of purpose and MY-commitment to discipine ) **** -->
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))" 
 			style="top:490px;left:1300px;height:60px;width:240px;">
-		Contemplation
+		Delphi
 	</button>
 
+	<!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
+    <button     class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
+            style="top:620px;left:660px;width:220px;height:50px; opacity:70%;color:#222222">
+        Action Plan
+    </button>
+
+	<!-- *** continue from the last MY-Guide that you selected **** -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
 			style="top:610px;left:920px;height:60px;width:240px;">
-		Interview
+		MY Interview
 	</button>
+
+    <!-- *** understand MY-Mind to develop MY dicipline and a "sense of purpose", leading to a meaningful life **** -->
+    <button   class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"   
+            style="top:620px;left:1200px;width:220px;height:50px; opacity:70%;color:#222222">
+        Contemplation
+    </button>
 
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** Mind Action MENUS ************************************ -->
@@ -261,16 +277,16 @@
 	
 	<div>
 		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Audio?pod="+pod+"&pid="+pid))"
-		style="top:360px;left:1720px;width:160px; height:50px; opacity:70%; color:#222222">
+		style="top:300px;left:1720px;width:160px; height:50px; opacity:70%; color:#222222">
 			Audio
 		</button>
 
 		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Video?pod="+pod+"&pid="+pid))"
-		style="top:430px;left:1720px;width:160px;height:50px; opacity:70%;color:#222222">
+		style="top:360px;left:1720px;width:160px;height:50px; opacity:70%;color:#222222">
 			Video
 		</button>
 	
-		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Pyramid?pod="+pod+"&pid="+pid))"
+@* 		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Pyramid?pod="+pod+"&pid="+pid))"
 		style="top:500px;left:1720px;width:160px;height:50px; opacity:70%;color:#222222">
 			Pyramid
 		</button>
@@ -278,7 +294,7 @@
 		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))"
 		style="top:570px;left:1720px;width:160px;height:50px; opacity:70%;color:#222222">
 			Delphi
-		</button>
+		</button> *@
     </div>
 
 	<div class="user_banner" style="top:180px; left:1400px; filter: brightness(40%);opacity:60% ">
@@ -308,12 +324,12 @@
 	<!-- ****************************** Bottom Left Buttons ********************************* -->
 	<!-- ************************************************************************************ -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:790px;height:60px;color:RED;border:0px;width:140px;opacity:60%">
+			style="position:absolute;left:30px;top:900px;height:60px;color:RED;border:0px;width:140px;opacity:60%">
 		HELP
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:865px;height:60px;color:RED;border:0px;width:140px;opacity:60%">
+			style="position:absolute;left:30px;top:980px;height:60px;color:RED;border:0px;width:140px;opacity:60%">
 		Return
 	</button>
 
@@ -327,7 +343,7 @@
 		</iframe>
 	</div>
 
-    <div style="top:670px; left:1420px; position:absolute; overflow:hidden; filter: brightness(80%);opacity:80% ">
+    <div style="top:690px; left:1420px; position:absolute; overflow:hidden; filter: brightness(80%);opacity:80% ">
         <iframe width="480" height="280" src='https://www.youtube.com/embed/dNN7KO2C-Ak'
                 frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen>
         </iframe>
@@ -346,7 +362,7 @@
 	</button>
 </div>
 
-<div class="titlebanner" style="opacity:30%;top:1040px; left:40px; width:300px; height:20px; position:absolute; filter: brightness(40%);">
+<div class="titlebanner" style="opacity:30%;top:1040px; left:1520px; width:300px; height:20px; position:absolute; filter: brightness(40%);">
     <img src="https://agineuralnet.blob.core.windows.net/panels/Panel_CFG_copyright.png" />
 </div>
 

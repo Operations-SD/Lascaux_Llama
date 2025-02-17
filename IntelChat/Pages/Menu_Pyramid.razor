@@ -19,14 +19,14 @@
 	}
 </style>
 
-<div class="engineer-page"
+<div class="role-menu"
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** Internal Cloud Activity ****************************** -->
 	<!-- ************************************************************************************ -->
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/POD?pod=" + 3 + "&pid=" + 11))"
-				style="top:140px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				style="top:140px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
 			POD invitation
 		</button>
 	</div>
@@ -34,7 +34,7 @@
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/Person?pod=" + 3 + "&pid=" + 11))"
-				style="top:220px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				style="top:220px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
 			Person
 		</button>
 	</div>
@@ -42,7 +42,7 @@
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/Location?pod=" + 3 + "&pid=" + 11))"
-				style="top:300px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				style="top:300px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
 			Location
 		</button>
 	</div>
@@ -50,7 +50,7 @@
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/URL?pod=" + 3 + "&pid=" + 11))"
-				style="top:380px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				style="top:380px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
 			URL cloud link
 		</button>
 	</div>
@@ -58,7 +58,7 @@
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))"
-				style="top:460px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				style="top:460px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
 			TASK schedule
 		</button>
 	</div>
@@ -66,10 +66,11 @@
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/Work?pod=" + 3 + "&pid=" + 11))"
-				style="top:540px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
+				style="top:540px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
 			WORK skills
 		</button>
 	</div>
+
 </div>
 
 <!-- ************************************************************************************ -->
@@ -272,6 +273,11 @@ else
 		isChatPageOpen = !isChatPageOpen;
 	}
 }
+
+<div style="opacity:30%;top:1040px; left:1520px; width:300px; height:20px; position:absolute; filter: brightness(40%);">
+	<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_CFG_copyright.png" />
+</div>
+
 
 
 
