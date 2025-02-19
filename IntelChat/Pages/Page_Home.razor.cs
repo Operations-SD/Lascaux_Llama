@@ -23,11 +23,11 @@ namespace IntelChat.Pages
 		public bool isChatIframeVisible = false; // Manages the visibility of the Chat iframe
 		public bool isMemoIframeVisible = false; // Manages the visibility of the Memo iframe
 		private bool isDraggingMemo = false;
-		private (int X, int Y) memoIframePosition = (450, 300);
+		private (int X, int Y) memoIframePosition = (0, 700);
 		private (int X, int Y) mouseStartMemo = (0, 0);
 		private bool isMemoInteractive = true;
 		private bool isDraggingChat = false;
-		private (int X, int Y) chatIframePosition = (800, 60);
+		private (int X, int Y) chatIframePosition = (1710, 60);
 		private (int X, int Y) mouseStartChat = (0, 0);
 		public string ChatiframeSource = "";      // Holds the source of the iframe to be displayed
 		public string MemoiframeSource = "";
@@ -174,7 +174,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@pod_id", 3),
-				new SqlParameter("@pod_status", "*")
+				new SqlParameter("@pod_status", "A")
 			};
 			var reader = await ExecuteStoredProcedure("dbo.[CRUD_POD]", parameters, true);
 			if (reader == null) return;
