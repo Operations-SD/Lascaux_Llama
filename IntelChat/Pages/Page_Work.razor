@@ -31,20 +31,8 @@
 		background-size: cover;
 	}
 
-	#img-table {
-		content: url("https://agineuralnet.blob.core.windows.net/banners/bnr_Work.png");
-		position: absolute;
-		top: 48px;
-		left: 792px;
-		width: 200px;
-		border-radius: 0px;
-		background-size: cover;
-		opacity: 50%;
-	}
-
-
-	#btn-luster-noun {
-		content: url(https://agineuralnet.blob.core.windows.net/buttons/Btn_Luster_Noun.png);
+	#btn-luster-work {
+		content: url(https://agineuralnet.blob.core.windows.net/banners/bnr_Work.png);
 		position: absolute;
 		top: 85px;
 		left: 820px;
@@ -68,11 +56,13 @@
 		opacity: 90%;
 		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		filter: brightness(80%);
 	}
 
 		#btn-panel-list:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#btn-panel-add {
@@ -80,11 +70,13 @@
 		background-size: cover;
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
 		left: 202px;
+		filter: brightness(80%);
 	}
 
 		#btn-panel-add:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#btn-panel-change {
@@ -92,11 +84,13 @@
 		background-size: cover;
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
 		left: 394px;
+		filter: brightness(80%);
 	}
 
 		#btn-panel-change:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#btn-panel-delete {
@@ -106,22 +100,50 @@
 		top: 110px;
 		left: 1000px;
 		opacity: 100%;
+		filter: brightness(80%);
 	}
 
 		#btn-panel-delete:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#img-panel-shadow-black {
 		border-radius: 12px;
 		background-size: cover;
-		height: 700px;
-		width: 600px;
+	}
+
+	/*********** Common Styles for Input Boxes ***************/
+	.FilterInput {
+		width: 155px;
+		height: 40px;
+		padding: 5px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		background-color: antiquewhite;
+		border-radius: 4px; /* Rounded edges */
+		text-align: center;
+		box-sizing: border-box; /* Ensures consistent dimensions including padding and borders */
+	}
+
+	/*********** Positioning for Direct Select ***************/
+	.DirectSelect {
+		position: absolute;
+		top: 355px; /* Positioned below TagFilter */
+		right: 425px;
+	}
+
+	/*********** Positioning for Tag Filter ***************/
+	.TagFilter {
+		position: absolute;
+		top: 405px; /* Adjust this to place it above DirectSelect */
+		right: 425px;
+		opacity: 1;
 	}
 </style>
 
-<div class="noun-page">
+<div class="crud-page">
 
 	<!-- ************************************************************************************ -->
 	<!-- *************************** Lock onto a Person and a POD *************************** -->
@@ -134,7 +156,7 @@
 	<!-- ********************************** DISPLAY PANELS ********************************** -->
 	<!-- ************************************************************************************ -->
 	<div><img id="img-panel-marque"></div>
-	<div><img id="btn-luster-noun"></div>
+	<div><img id="btn-luster-work"></div>
 	<div><img id="img-panel-fluer"></div>
 	<div><img id="img-table"></div>
 
@@ -149,6 +171,22 @@
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
 
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" class="FilterInput" type="text"
+			   @oninput="UpdateDirectSelectId"
+			   @onkeydown="HandleDirectSelectKeyPress"
+			   placeholder="Enter ID" />
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** TAG FILTERING ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="TagFilter">
+		<input id="tagFilter" class="FilterInput" @bind="tagFilter" @oninput="ApplyTagFilter" placeholder="Enter Tag" />
+	</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** WORK LIST  ************************************* -->
