@@ -1,11 +1,13 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using ThreadingTask = System.Threading.Tasks.Task;
+using System.Threading.Tasks;
+using ThreadingLocation = System.Threading.Tasks.Task;
 
 namespace IntelChat.Pages
 {
@@ -18,9 +20,13 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
 
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? locationId { get; set; } // Task ID for navigation
+
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		private string? show { get; set; } = "list";
+		private string? show { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Location> entities = new List<Location>();
 		private Dictionary<String, Location> entity = new Dictionary<String, Location>();
@@ -82,7 +88,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
+				new SqlParameter("@location_status", status),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Location]", parameters, true);
@@ -90,9 +96,9 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
-			var reader = Read(status);
+			var reader = Read(status, filter);
 			if (reader == null) return;
 
 			entities.Clear();
@@ -125,7 +131,7 @@ namespace IntelChat.Pages
 
 		/// <summary>Handle events triggered by the change of the change filter select</summary>
 		/// <param name="args">Arguments from a filter change event</param>
-		private async ThreadingTask OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
+		private async ThreadingLocation OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
 		{
 			filter[type] = args.Value.ToString();
 			var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(entity => entity.LocationType == filter[type]);
@@ -172,7 +178,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Delete"),
 				new SqlParameter("@id", entity["delete"].LocationId),
-				new SqlParameter("@status", entity["delete"].LocationStatus)
+				new SqlParameter("@location_status", entity["delete"].LocationStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Location]", parameters);
 		}
@@ -249,6 +255,7 @@ namespace IntelChat.Pages
 
 		protected override void OnInitialized()
 		{
+
 			entity["add"] = new Location();
 			entity["change"] = new Location();
 			entity["delete"] = new Location();
@@ -259,19 +266,105 @@ namespace IntelChat.Pages
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].LocationId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (locationId.HasValue)
+						{
+							AutoFill(locationId.Value, "change"); // Populate fields for specific NounId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].LocationId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.LocationStatus == "D") != null)
-			{
-				entity["delete"] = entities.Where(e => e.LocationStatus == "D").First();
-				AutoFill(entity["delete"].LocationId, "delete");
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.LocationStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.LocationId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
+					default:
+						show = string.Empty; // Prevent default listing when navigating normally
+						break;
+				}
 			}
-			show = "list";
+			else
+			{
+				// Default behavior if `show` is not specified
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].LocationId, "change");
+				}
+				show = string.Empty; // Do not show the list by default
+			}
 		}
-	
+
+		private void OnItemSelected(int id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
+
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.LocationId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+					{
+						new SqlParameter("@PROC_action", "Read"),
+						new SqlParameter("@PROC_filter", filter),
+						new SqlParameter("@location_status", status),
+						new SqlParameter("@pod", pod)
+					};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Location]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
+		}
 	}
 }
