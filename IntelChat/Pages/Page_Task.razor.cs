@@ -214,7 +214,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Delete"),
 				new SqlParameter("@id", entity["delete"].TaskId),
-				new SqlParameter("@status", entity["delete"].TaskStatus)
+				new SqlParameter("@task_status", entity["delete"].TaskStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Task]", parameters);
 		}
@@ -416,7 +416,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", filter),
-				new SqlParameter("@status", status),
+				new SqlParameter("@task_status", status),
 				new SqlParameter("@pod", pod)
 			};
 
