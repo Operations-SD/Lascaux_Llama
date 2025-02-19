@@ -23,7 +23,6 @@
 		background: url("https://agineuralnet.blob.core.windows.net/background/BG_HomePage.png") no-repeat;
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
-		background-color: #000000;
 		margin: 0;
 		padding: 0;
 		color:seashell;
@@ -76,8 +75,7 @@
         box-sizing: border-box;
         border: 2px solid #cccccc;
         border-radius: 4px;
-        background-color: #c6d1ef;
-        color: seashell;
+        color:black
         font-size: 12px;
     }
 
@@ -109,17 +107,20 @@
    ********************************************************************************* *@
 
 @if (isChatIframeVisible)
-{
-		<!-- Chat Container -->
+{	
+	<!-- Chat Container ******************* this is the Outer Box ***************** -->
+	<!-- Chat Container ******************* this is the Outer Box ***************** -->
+	<!-- Chat Container ******************* this is the Outer Box ***************** -->
+
 		<div style="position: absolute; 
                 top: @(chatIframePosition.Y)px; 
                 left: @(chatIframePosition.X)px; 
                 z-index: 1000; 
-				height: 1000px;
+				height: 980px;
                 width: 520px; 
                 border: 1px solid #ccc; 
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-                background: white;">
+                background:white;">
 
 			<!-- Draggable Crossbar for Chat -->
 			<div style="display: flex; 
@@ -155,49 +156,52 @@
 
 @if (isMemoIframeVisible)
 {
-		<!-- Memo Container -->
-		<div style="position: absolute; 
-                top: @(memoIframePosition.Y)px; 
-                left: @(memoIframePosition.X)px; 
-                z-index: 1000;
-				height: 280px;
-                width: 1200px; 
-                border: 1px solid #ccc; 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-                background: white;">
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+
+	<div style="position: absolute; 
+            top: @(memoIframePosition.Y)px; 
+            left: @(memoIframePosition.X)px; 
+            z-index: 1000;
+			height: 510px;
+            width: 600px; 
+            border: 1px solid #ccc; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            background: white;">
 
 		<!-- Draggable Crossbar for Memo -->
 		<div style="display: flex;
             align-items: center;
             justify-content: space-between;
             height: 30px;
-            background-color: #f0f0f0;
+            background-color: tranparent;
             padding: 5px;
             border-bottom: 1px solid #ddd;
             cursor: grab;"
-			 @onmousedown="StartDraggingMemo">
+			@onmousedown="StartDraggingMemo">
 
-			<span></span>
-			<!-- Close Button (Now Properly Positioned to the Right) -->
+				<span></span>
+				<!-- Close Button (Now Properly Positioned to the Right) -->
 			<button style="background: none;
-                   border: none;
-                   color: #888;
-                   cursor: pointer;
-                   font-size: 16px;
-                   padding: 0 5px;"
-			@onmousedown:stopPropagation
-					@onclick="HideMemo">
+				border: none;
+				color: #888;
+				cursor: pointer;
+				font-size: 16px;
+				padding: 0 5px;"
+				@onmousedown:stopPropagation
+				@onclick="HideMemo">
 				✖
 			</button>
 		</div>
 
 			<!-- Memo Iframe -->
-			<div src="@MemoiframeSource" style="width: 100%; height: 400px; overflow-y: auto; padding: 5px; position: relative; display: block;">
-					<div style="width: 100%; height: 100%; display: block; position: relative;">
+		<div src="@MemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
+				<div style="width: 600px; height: 480px; display: block; position: relative;">
 						<DynamicComponent Type="typeof(Inbox)" />
-					</div>
-			</div>
+				</div>
 		</div>
+	</div>
 }
 
 @if (isDraggingMemo || isDraggingChat)
@@ -252,16 +256,16 @@ else
     <!-- ************************************************************************************ -->
     <!-- ********************************* DISPLAY POD# and PID# **************************** -->
     <!-- ************************************************************************************ -->
-	<p style="position:absolute;top:030px;left:20px;font-size:22px;opacity:20%;color:aquamarine">POD: @pod</p>
-	<p style="position:absolute;top:060px;left:20px;font-size:22px;opacity:20%;color:aquamarine">PID: @pid</p>
+	<p style="position:absolute;top:030px;left:20px;font-size:22px;opacity:30%;color:aquamarine">Pod: @pod</p>
+	<p style="position:absolute;top:060px;left:20px;font-size:22px;opacity:30%;color:aquamarine">Pid: @pid</p>
 
 
 	<!-- ************************************************************************************ -->
 	<!-- ********************************* GOTO PAGE_ROUTINGcode***************************** -->
 	<!-- ************************************************************************************ -->
-	<a href="/Register" style="position:absolute;top:090px;left:200px;font-size:24px;color:#FFFFFF">Register</a>
-	<a href="/Login"    style="position:absolute;top:130px;left:200px;font-size:24px;color:#FFFFFF">Login</a>
-	<a href="/Logout"   style="position:absolute;top:170px;left:200px;font-size:24px;color:#FFFFFF">Logout</a>
+	<a href="/Register" style="opacity:40%;position:absolute;top:090px;left:200px;font-size:24px;color:aquamarine">Register</a>
+	<a href="/Login"    style="opacity:40%;position:absolute;top:130px;left:200px;font-size:24px;color:aquamarine">Login</a>
+	<a href="/Logout"   style="opacity:40%;position:absolute;top:170px;left:200px;font-size:24px;color:aquamarine">Logout</a>
 
 
 	<!-- ************************************************************************************ -->
