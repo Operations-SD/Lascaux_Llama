@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -18,6 +19,10 @@ namespace IntelChat.Pages
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
+
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? taskId { get; set; } // Task ID for navigation
 
 		[Inject]
 		public NotificationService NotificationService { get; set; }
@@ -83,7 +88,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
+				new SqlParameter("@task_status", status),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Task]", parameters, true);
@@ -91,6 +96,7 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
+		/*
 		private void LoadReadResults(string status = "*")
 		{
 			var reader = Read(status);
@@ -123,6 +129,42 @@ namespace IntelChat.Pages
 			}
 			reader.Close();
 		}
+		*/
+
+		
+		private void LoadReadResults(string status = "*", string filter = "****")
+		{
+			var reader = Read(status, filter);
+			if (reader == null) return;
+
+			entities.Clear();
+			while (reader.Read())
+			{
+				entities.Add(new Task
+				{
+					TaskId = reader.GetInt32(0),
+					TaskLabel32 = reader.GetString(1),
+					TaskType = reader.GetString(2),
+					TaskStatus = reader.GetString(3),
+					TaskLevel = reader.GetInt16(4),
+					TaskDescription = reader.GetString(5),
+					TaskDuration = reader.GetInt16(6),
+					TaskStartDate = reader.GetDateTime(7),
+					TaskFinishDate = reader.GetDateTime(8),
+					TaskEntryDate = reader.GetDateTime(9),
+					TaskPrevious = reader.GetInt32(10),
+					PersonIdFk = reader.GetInt32(11),
+					NovaIdFk = reader.GetInt32(12),
+					NounIdFk = reader.GetInt32(13),
+					PodIdFk = reader.GetInt32(14),
+					TaskSeq = reader.GetInt16(15),
+					TaskParent = reader.GetInt32(16),
+					TaskUrl = reader.GetInt32(16)
+				});
+			}
+			reader.Close();
+		}
+		
 
 		/// <summary>Handle events triggered by the change of the change filter select</summary>
 		/// <param name="args">Arguments from a filter change event</param>
@@ -181,15 +223,15 @@ namespace IntelChat.Pages
 		private void OnCreate()
 		{
 			Create();
-			LoadReadResults();
+			entities.Add(entity["add"]);
 			NotificationService.Notify("Task created successfully!", NotificationType.Success);
 		}
 
 		/// <summary>Handle events triggered by entity changes</summary>
 		private void OnChange()
 		{
-			Change();
-			LoadReadResults();
+			entities.Remove(entities.Find(e => e.TaskId == entity["change"].TaskId));
+			entities.Add(entity["change"]);
 			NotificationService.Notify("Task changed successfully!", NotificationType.Success);
 		}
 
@@ -197,7 +239,7 @@ namespace IntelChat.Pages
 		private void OnDelete()
 		{
 			Delete();
-			LoadReadResults();
+			entities.Remove(entities.Find(e => e.TaskId == entity["delete"].TaskId));
 			NotificationService.Notify("Task deleted successfully!", NotificationType.Success);
 			show = "list";
 		}
@@ -260,6 +302,54 @@ namespace IntelChat.Pages
 			LoadReadResults();
 			LoadReadPypeResults();
 
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
+			{
+				switch (show)
+				{
+					case "change":
+						if (taskId.HasValue)
+						{
+							AutoFill(taskId.Value, "change"); // Populate fields for specific NounId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].TaskId, "change"); // Default to first entity
+						}
+						break;
+
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.TaskStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.TaskId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
+					default:
+						show = string.Empty; // Prevent default listing when navigating normally
+						break;
+				}
+			}
+			else
+			{
+				// Default behavior if `show` is not specified
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].TaskId, "change");
+				}
+				show = string.Empty; // Do not show the list by default
+			}
+
+
+			/*
 			entity["add"].TaskStartDate = DateTime.Today;
 			entity["add"].TaskFinishDate = DateTime.Today;
 			entity["add"].TaskEntryDate = DateTime.Today;
@@ -276,6 +366,7 @@ namespace IntelChat.Pages
 				AutoFill(entity["delete"].TaskId, "delete");
 			}
 			show = "list";
+			*/
 		}
 
 		public void NavigateToLascaux()
@@ -283,7 +374,61 @@ namespace IntelChat.Pages
 			_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&type={3}", pod, pid, "Task", "Task"), true);
 		}
 
+		private void OnItemSelected(int id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
 
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.TaskId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Read"),
+				new SqlParameter("@PROC_filter", filter),
+				new SqlParameter("@status", status),
+				new SqlParameter("@pod", pod)
+			};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Noun]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
+			//LoadReadResults("*");
+		}
 
 
 	}

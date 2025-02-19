@@ -117,11 +117,39 @@
 		border-radius: 12px;
 		background-size: cover;
 		height: 700px;
-		width: 600px;
+		width: 850px;
+	}
+
+	/*********** Common Styles for Input Boxes ***************/
+	.FilterInput {
+		width: 155px;
+		height: 40px;
+		padding: 5px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		background-color: antiquewhite;
+		border-radius: 4px; /* Rounded edges */
+		text-align: center;
+		box-sizing: border-box; /* Ensures consistent dimensions including padding and borders */
+	}
+
+	/*********** Positioning for Direct Select ***************/
+	.DirectSelect {
+		position: absolute;
+		top: 355px; /* Positioned below TagFilter */
+		right: 425px;
+	}
+
+	/*********** Positioning for Tag Filter ***************/
+	.TagFilter {
+		position: absolute;
+		top: 405px; /* Adjust this to place it above DirectSelect */
+		right: 425px;
+		opacity: 1;
 	}
 </style>
 
-<div class="noun-page">
+<div class="crud-page">
 
 
 	<!-- ************************************************************************************ -->
