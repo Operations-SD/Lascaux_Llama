@@ -420,7 +420,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@pod", pod)
 			};
 
-			return ExecuteStoredProcedure("dbo.[CRUD_Noun]", parameters, true);
+			return ExecuteStoredProcedure("dbo.[CRUD_Task]", parameters, true);
 		}
 
 		private void ApplyTagFilter(ChangeEventArgs e)
