@@ -84,9 +84,9 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*", string filter = "****")
+		private void LoadReadResults(string status = "*")
 		{
-			var reader = Read(status, filter);
+			var reader = Read(status);
 			if (reader == null) return;
 
 			entities.Clear();
@@ -311,27 +311,5 @@ namespace IntelChat.Pages
 				}
 			}
 		}
-
-
-		private string tagFilter { get; set; } = string.Empty;
-		private SqlDataReader? Read(string status = "*", string filter = "****")
-		{
-			List<SqlParameter> parameters = new List<SqlParameter>
-			{
-				new SqlParameter("@PROC_action", "Read"),
-				new SqlParameter("@PROC_filter", filter),
-				new SqlParameter("@registration_status", status),
-				//new SqlParameter("@pod", pod)
-			};
-
-			return ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters, true);
-		}
-
-		private void ApplyTagFilter(ChangeEventArgs e)
-		{
-			tagFilter = e.Value?.ToString() ?? string.Empty;
-			LoadReadResults("*", tagFilter);
-		}
-
 	}
 }
