@@ -323,12 +323,13 @@
 		<!-- ************************************************************************************ -->
 		<!-- ******************************** BUTTONS ******************************************* -->
 		<!-- ************************************************************************************ -->
-		<button class="general-interview-button" @onclick=ShowMemo  style="width:160px;height:60px;top:500px;left:34px;color:antiquewhite">Memo</button>
+	<button class="general-interview-button" @onclick=ShowMemo  style="width:160px;height:60px;top:500px;left:34px;color:antiquewhite">Memo</button>
+//	<button class="home-btn" @onclick=ShowMemo style="position:absolute;top:127px;left:1465px;width:270px;height:116px;z-index:2001">Memo</button>
 		<button class="general-interview-button" @onclick=ShowChat  style="width:160px;height:60px;top:570px;left:34px;color:antiquewhite">Chat</button>
 		<button class="general-interview-button" @onclick="Exit"    style="width:160px;height:60px;top:640px;left:34px;color:antiquewhite">Return</button>
 
 		<button class="general-interview-button" @onclick="Process" style="width:160px;height:60px;top:560px;left:1550px;color:red;">Evaluation</button>
-@* 		<button class="menu-button" @onclick="Exit" style="width:160px;height:70px;top:555px;left:20px;">Return;	</button>
+@*		<button class="menu-button" @onclick="Exit" style="width:160px;height:70px;top:555px;left:20px;">Return;	</button>
 		<button class="general-interview-button" @onclick=ShowInfo style="width:160px;height:75px;top:1000px;left:34px;color:antiquewhite">.pdf</button>
 		<button class="general-interview-button" @onclick="NavigateToLascaux" style="width:160px;height:75px;top:800px;left:34px;color:antiquewhite">Lascaux</button> *@
 
@@ -367,5 +368,70 @@
 		private void CloseIframe()
 		{ showIframe = false; }
 	}
+	@if (isMemoIframeVisible)
+{
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+
+	<div style="position: absolute;
+            top: @(memoIframePosition.Y)px;
+            left: @(memoIframePosition.X)px;
+            z-index: 1000;
+			height: 510px;
+            width: 600px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: white;">
+
+		<!-- Draggable Crossbar for Memo -->
+		<div style="display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 30px;
+            background-color: tranparent;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            cursor: grab;"
+			 @onmousedown="StartDraggingMemo">
+
+			<span></span>
+			<!-- Close Button (Now Properly Positioned to the Right) -->
+			<button style="background: none;
+				border: none;
+				color: #888;
+				cursor: pointer;
+				font-size: 16px;
+				padding: 0 5px;"
+			@onmousedown:stopPropagation
+					@onclick="HideMemo">
+				✖
+			</button>
+		</div>
+
+		<!-- Memo Iframe -->
+		<div src="@MemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
+			<div style="width: 600px; height: 480px; display: block; position: relative;">
+				<DynamicComponent Type="typeof(Inbox)" />
+			</div>
+		</div>
+	</div>
+}
+
+@if (isDraggingMemo)
+{
+	<!-- Transparent Overlay for Global Drag Handling -->
+	<div style="position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 9999;
+                background: transparent;"
+		 @onmousemove="OnMouseMoveGlobal"
+		 @onmouseup="OnMouseUpGlobal">
+	</div>
+}
+
 	<!-- *************************** End of HELP Overlay ******************************** -->
 
