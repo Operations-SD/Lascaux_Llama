@@ -56,7 +56,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@username", entity["add"].RegistrationUsername),
 				new SqlParameter("@password", entity["add"].RegistrationStatus),
 				new SqlParameter("@email", entity["add"].RegistrationEmail),
-				new SqlParameter("@status", entity["add"].RegistrationStatus),
+				new SqlParameter("@registration_status", entity["add"].RegistrationStatus),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters);
@@ -71,8 +71,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read_All"),
 				//new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
-
+				new SqlParameter("@registration_status", status),
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters, true);
 		}
@@ -124,7 +123,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@username", entity["change"].RegistrationUsername),
 				new SqlParameter("@password", entity["change"].RegistrationStatus),
 				new SqlParameter("@email", entity["change"].RegistrationEmail),
-				new SqlParameter("@status", entity["change"].RegistrationStatus),
+				new SqlParameter("@registration_status", entity["change"].RegistrationStatus),
 				new SqlParameter("@person_id_fk", entity["change"].PersonIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters);
@@ -137,7 +136,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Delete"),
 				new SqlParameter("@id", entity["delete"].RegistrationId),
-				new SqlParameter("@status", entity["delete"].RegistrationStatus)
+				new SqlParameter("@registration_status", entity["delete"].RegistrationStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters);
 		}

@@ -199,8 +199,8 @@ namespace IntelChat.Pages
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue("@PROC_Action", "Read");
-				cmd.Parameters.AddWithValue("@Brand_Code", code);
-				cmd.Parameters.AddWithValue("@status", "A");
+				cmd.Parameters.AddWithValue("@brand_code", code);
+				cmd.Parameters.AddWithValue("@brand_status", "*");
 
 				connection.Open();
 				using (SqlDataReader reader = cmd.ExecuteReader())
@@ -216,13 +216,13 @@ namespace IntelChat.Pages
 							BrandCntMax = reader.GetInt16(4),
 							BrandCntReg = reader.GetInt16(5),
 							BrandRegDateClosed = reader.GetDateTime(6),
-							BrandEligibility = reader.GetInt16(7),
-							BrandCost = reader.GetDecimal(8),
-							GuideIdFk = reader.GetInt32(9),
-							BrandRole = reader.GetString(10),
-							NovaIdFk = reader.GetInt32(11),
+							BrandRole = reader.GetString(7),
+							BrandEligibility = reader.GetInt16(8),
+							BrandCost = reader.GetDecimal(9),
+							LocationIdFk = reader.GetInt32(11),
 							ProgramIdFk = reader.GetInt32(12),
-							LocationIdFk = reader.GetInt32(13)
+							GuideIdFk = reader.GetInt32(13),
+							NovaIdFk = reader.GetInt32(14)
 						};
 					}
 				}
@@ -301,10 +301,10 @@ namespace IntelChat.Pages
 				new SqlParameter("@last", last),
 				new SqlParameter("@label", label),
 				new SqlParameter("@type", type),
-				new SqlParameter("@status", status),
+				new SqlParameter("@person_status", status),
 				new SqlParameter("@role", role),
 				new SqlParameter("@date_time", dateTime),
-				new SqlParameter("@pod_id_fk", podIdFk),
+				new SqlParameter("@pod", podIdFk),
 				new SqlParameter("@location_id_fk", locationIdFk)
 			};
 			parameters.ForEach(parameter => cmd.Parameters.Add(parameter));
