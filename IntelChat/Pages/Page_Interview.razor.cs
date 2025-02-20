@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -35,16 +36,28 @@ namespace IntelChat.Pages
 		public string name = "";
 		public string message = "";
 		public string messageType = "";
+        // memo 
+       // public bool isChatIframeVisible = false; // Manages the visibility of the Chat iframe
+        public bool isMemoIframeVisible = false; // Manages the visibility of the Memo iframe
+        private bool isDraggingMemo = false;
+        private (int X, int Y) memoIframePosition = (0, 700);
+        private (int X, int Y) mouseStartMemo = (0, 0);
+        private bool isMemoInteractive = true;
+       // private bool isDraggingChat = false;
+        //private (int X, int Y) chatIframePosition = (1710, 60);
+        //private (int X, int Y) mouseStartChat = (0, 0);
+        //public string ChatiframeSource = "";      // Holds the source of the iframe to be displayed
+        public string MemoiframeSource = "";
 
-		/// <summary>Executes a stored procedure and (optionally) returns a reader for its results</summary>
-		/// <param name="procedure">Name of the stored procedure</param>
-		/// <param name="parameters">List of arguments for the stored procedure</param>
-		/// <param name="reader">Whether a reader for the stored procedure results should be returned</param>
-		/// <returns>
-		/// Reader for the results of the stored procedure, if reader = true
-		/// null, if reader = false
-		/// </returns>
-		private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
+        /// <summary>Executes a stored procedure and (optionally) returns a reader for its results</summary>
+        /// <param name="procedure">Name of the stored procedure</param>
+        /// <param name="parameters">List of arguments for the stored procedure</param>
+        /// <param name="reader">Whether a reader for the stored procedure results should be returned</param>
+        /// <returns>
+        /// Reader for the results of the stored procedure, if reader = true
+        /// null, if reader = false
+        /// </returns>
+        private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
 		{
 			var connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
 			using var command = new SqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure };
@@ -198,7 +211,7 @@ namespace IntelChat.Pages
 		public void HideModal() => modal = false;
 		public void ShowModal() => modal = true;
 		public void ShowChat() { ShowModal(); show = "chat"; }
-		public void ShowMemo() { ShowModal(); show = "memo"; }
+		//public void ShowMemo() { ShowModal(); show = "memo"; }
 		public void ShowInfo() { ShowModal(); show = "info"; }
 
 		/// *********************************************************************************
@@ -318,9 +331,56 @@ namespace IntelChat.Pages
 
 		protected override void OnInitialized()
 		{
-		    LoadQuestion();
+			LoadQuestion();
 			LoadAnswer();
 			LoadPreviousAnswer();
 		}
+	
+
+	// Initiates dragging for the Memo iframe
+		private void StartDraggingMemo(MouseEventArgs e)
+		{
+			isDraggingMemo = true; // Set dragging state to true for the Memo iframe
+			mouseStartMemo = ((int)e.ClientX - memoIframePosition.X, (int)e.ClientY - memoIframePosition.Y); // Calculate initial offset
+		}
+
+		// Handles the mouse move event globally for dragging
+		private void OnMouseMoveGlobal(MouseEventArgs e)
+		{
+			if (isDraggingMemo)
+			{
+				// Update position of the Memo iframe based on the current mouse position
+				memoIframePosition = ((int)e.ClientX - mouseStartMemo.X, (int)e.ClientY - mouseStartMemo.Y);
+				StateHasChanged(); // Refresh the UI to reflect position changes
+			}
+			/*else if (isDraggingChat)
+			{
+				// Update position of the Chat iframe based on the current mouse position
+				chatIframePosition = ((int)e.ClientX - mouseStartChat.X, (int)e.ClientY - mouseStartChat.Y);
+				StateHasChanged(); // Refresh the UI to reflect position changes
+			}*/
+		}
+
+		// Ends the dragging operation globally
+		private void OnMouseUpGlobal()
+		{
+			if (isDraggingMemo)
+			{
+				isDraggingMemo = false; // Reset dragging state for the Memo iframe
+			}
+		
 	}
+        public void ShowMemo()
+        {
+            MemoiframeSource = "/Inbox";// Set iframe source to Inbox page
+            isMemoIframeVisible = true;
+        }
+        public void HideMemo()
+        {
+            isMemoIframeVisible = false; // Hide the iframe
+            MemoiframeSource = "";       // Clear the iframe source
+        }
+    }
+
 }
+
