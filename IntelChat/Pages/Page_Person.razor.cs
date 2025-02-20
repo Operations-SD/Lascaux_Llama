@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -19,9 +20,13 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
 
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? personId { get; set; } // Noun ID for navigation
+
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		private string? show { get; set; } = "list";
+		private string? show { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Person> entities = new List<Person>();
 		private Dictionary<String, Person> entity = new Dictionary<String, Person>();
@@ -57,7 +62,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@last", entity["add"].PersonFirst),
 				new SqlParameter("@label", entity["add"].PersonLabel),
 				new SqlParameter("@type", entity["add"].PersonPypeDdMyme),
-				new SqlParameter("@status", entity["add"].PersonStatus),
+				new SqlParameter("@person_status", entity["add"].PersonStatus),
 				new SqlParameter("@role", entity["add"].PersonPypeDdRole),
 				new SqlParameter("@date_time", entity["add"].PersonDatetime),
 				new SqlParameter("@pod_id_fk", pod),
@@ -75,7 +80,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
+				new SqlParameter("@person_status", status),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Person]", parameters, true);
@@ -83,9 +88,9 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
-			var reader = Read(status);
+			var reader = Read(status, filter);
 			if (reader == null) return;
 
 			entities.Clear();
@@ -132,7 +137,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@last", entity["add"].PersonFirst),
 				new SqlParameter("@label", entity["add"].PersonLabel),
 				new SqlParameter("@type", entity["add"].PersonPypeDdMyme),
-				new SqlParameter("@status", entity["add"].PersonStatus),
+				new SqlParameter("@person_status", entity["add"].PersonStatus),
 				new SqlParameter("@role", entity["add"].PersonPypeDdRole),
 				new SqlParameter("@date_time", entity["add"].PersonDatetime),
 				new SqlParameter("@pod_id_fk", pod),
@@ -158,7 +163,7 @@ namespace IntelChat.Pages
 		private void OnCreate()
 		{
 			Create();
-			LoadReadResults();
+			entities.Add(entity["add"]);
 			NotificationService.Notify("Person created successfully!", NotificationType.Success);
 		}
 
@@ -166,7 +171,8 @@ namespace IntelChat.Pages
 		private void OnChange()
 		{
 			Change();
-			LoadReadResults();
+			entities.Remove(entities.Find(e => e.PersonId == entity["change"].PersonId));
+			entities.Add(entity["change"]);
 			NotificationService.Notify("Person changed successfully!", NotificationType.Success);
 		}
 
@@ -174,8 +180,9 @@ namespace IntelChat.Pages
 		private void OnDelete()
 		{
 			Delete();
-			LoadReadResults();
+			entities.Remove(entities.Find(e => e.PersonId == entity["delete"].PersonId));
 			NotificationService.Notify("Person deleted successfully!", NotificationType.Success);
+			show = "list";
 			show = "list";
 		}
 
@@ -236,18 +243,106 @@ namespace IntelChat.Pages
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].PersonId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (personId.HasValue)
+						{
+							AutoFill(personId.Value, "change"); // Populate fields for specific NounId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].PersonId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.PersonStatus == "D") != null)
-			{
-				entity["delete"] = entities.Where(e => e.PersonStatus == "D").First();
-				AutoFill(entity["delete"].PersonId, "delete");
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.PersonStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.PersonId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
+					default:
+						show = string.Empty; // Prevent default listing when navigating normally
+						break;
+				}
 			}
-			show = "list";
+			else
+			{
+				// Default behavior if `show` is not specified
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].PersonId, "change");
+				}
+				show = string.Empty; // Do not show the list by default
+			}
+		}
+
+		private void OnItemSelected(int id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
+
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.PersonId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Read"),
+				new SqlParameter("@PROC_filter", filter),
+				new SqlParameter("@person_status", status),
+				new SqlParameter("@pod", pod)
+			};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Person]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
 		}
 
 	}
