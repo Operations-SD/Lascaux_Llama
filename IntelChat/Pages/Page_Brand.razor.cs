@@ -82,7 +82,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
+				new SqlParameter("@brand_status", status),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Brand]", parameters, true);
@@ -169,7 +169,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Delete"),
 				new SqlParameter("@id", entity["delete"].BrandId),
-				new SqlParameter("@status", entity["delete"].BrandStatus)
+				new SqlParameter("@brand_status", entity["delete"].BrandStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Brand]", parameters);
 		}

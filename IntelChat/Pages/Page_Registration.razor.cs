@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -18,9 +19,13 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
 
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? registrationId { get; set; } // Noun ID for navigation
+
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		private string? show { get; set; } = "list";
+		private string? show { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Registration> entities = new List<Registration>();
 		private Dictionary<String, Registration> entity = new Dictionary<String, Registration>();
@@ -56,7 +61,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@username", entity["add"].RegistrationUsername),
 				new SqlParameter("@password", entity["add"].RegistrationStatus),
 				new SqlParameter("@email", entity["add"].RegistrationEmail),
-				new SqlParameter("@status", entity["add"].RegistrationStatus),
+				new SqlParameter("@registration_status", entity["add"].RegistrationStatus),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters);
@@ -71,7 +76,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read_All"),
 				//new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
+				new SqlParameter("@registration_status", status),
 
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters, true);
@@ -124,7 +129,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@username", entity["change"].RegistrationUsername),
 				new SqlParameter("@password", entity["change"].RegistrationStatus),
 				new SqlParameter("@email", entity["change"].RegistrationEmail),
-				new SqlParameter("@status", entity["change"].RegistrationStatus),
+				new SqlParameter("@registration_status", entity["change"].RegistrationStatus),
 				new SqlParameter("@person_id_fk", entity["change"].PersonIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters);
@@ -137,7 +142,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Delete"),
 				new SqlParameter("@id", entity["delete"].RegistrationId),
-				new SqlParameter("@status", entity["delete"].RegistrationStatus)
+				new SqlParameter("@registration_status", entity["delete"].RegistrationStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Registration]", parameters);
 		}
@@ -146,7 +151,7 @@ namespace IntelChat.Pages
 		private void OnCreate()
 		{
 			Create();
-			LoadReadResults();
+			entities.Add(entity["add"]);
 			NotificationService.Notify("Registration created successfully!", NotificationType.Success);
 		}
 
@@ -154,7 +159,8 @@ namespace IntelChat.Pages
 		private void OnChange()
 		{
 			Change();
-			LoadReadResults();
+			entities.Remove(entities.Find(e => e.RegistrationId == entity["change"].RegistrationId));
+			entities.Add(entity["change"]);
 			NotificationService.Notify("Registration changed successfully!", NotificationType.Success);
 		}
 
@@ -162,8 +168,9 @@ namespace IntelChat.Pages
 		private void OnDelete()
 		{
 			Delete();
-			LoadReadResults();
+			entities.Remove(entities.Find(e => e.RegistrationId == entity["delete"].RegistrationId));
 			NotificationService.Notify("Registration deleted successfully!", NotificationType.Success);
+			show = "list";
 			show = "list";
 		}
 
@@ -224,19 +231,85 @@ namespace IntelChat.Pages
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].RegistrationId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (registrationId.HasValue)
+						{
+							AutoFill(registrationId.Value, "change"); // Populate fields for specific NounId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].RegistrationId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.RegistrationStatus == "D") != null)
-			{
-				entity["delete"] = entities.Where(e => e.RegistrationStatus == "D").First();
-				AutoFill(entity["delete"].RegistrationId, "delete");
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.RegistrationStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.RegistrationId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
+					default:
+						show = string.Empty; // Prevent default listing when navigating normally
+						break;
+				}
 			}
-			show = "list";
+			else
+			{
+				// Default behavior if `show` is not specified
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].RegistrationId, "change");
+				}
+				show = string.Empty; // Do not show the list by default
+			}
 		}
-	
+
+		private void OnItemSelected(int id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
+
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.RegistrationId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
 	}
 }
