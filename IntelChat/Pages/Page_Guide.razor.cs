@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -18,9 +19,13 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
 
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? guideId { get; set; } // Noun ID for navigation
+
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		private string? show { get; set; } = "list";
+		private string? show { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Guide> entities = new List<Guide>();
 		private Dictionary<String, Guide> entity = new Dictionary<String, Guide>();
@@ -82,9 +87,9 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
-			var reader = Read(status);
+			var reader = Read(status, filter);
 			if (reader == null) return;
 
 			entities.Clear();
@@ -100,8 +105,8 @@ namespace IntelChat.Pages
 					GuideImage = reader.GetInt32(5),
 					GuideDtOrgin = reader.GetDateTime(6),
 					GuideDtRevision = reader.GetDateTime(7),
-					NovaIdFk = reader.GetInt32(8),
-					ProgramIdFk = reader.GetInt32(9)
+					NovaIdFk = reader.GetInt32(10),
+					ProgramIdFk = reader.GetInt32(14)
 				});
 			}
 			reader.Close();
@@ -223,29 +228,119 @@ namespace IntelChat.Pages
 
 		protected override void OnInitialized()
 		{
-			entity["add"]    = new Guide();
+			// Initialize default entities and filters
+			entity["add"] = new Guide();
 			entity["change"] = new Guide();
 			entity["delete"] = new Guide();
-			filter["list"]   = "****";
+			filter["list"] = "****";
 			filter["change"] = "****";
 			filter["delete"] = "****";
 
+			// Load data for Guide entities
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].GuideId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (guideId.HasValue)
+						{
+							AutoFill(guideId.Value, "change"); // Populate fields for specific GuideId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].GuideId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.GuideStatus == "D") != null)
-			{
-				entity["delete"] = entities.Where(e => e.GuideStatus == "D").First();
-				AutoFill(entity["delete"].GuideId, "delete");
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.GuideStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.GuideId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
+					default:
+						show = string.Empty; // Prevent default listing when navigating normally
+						break;
+				}
 			}
-			show = "list";
+			else
+			{
+				// Default behavior if `show` is not specified
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].GuideId, "change");
+				}
+				show = string.Empty; // Do not show the list by default
+			}
 		}
-	
+
+
+		private void OnItemSelected(int id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
+
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.GuideId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Read"),
+				new SqlParameter("@PROC_filter", filter),
+				new SqlParameter("@status", status),
+				new SqlParameter("@pod", pod)
+			};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
+		}
 	}
 }
