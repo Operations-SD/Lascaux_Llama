@@ -45,8 +45,8 @@
 	#img-panel-fluer {
 		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
 		position: absolute;
-		top: 80px;
-		left: 1250px;
+		top: 150px;
+		left: 1310px;
 		width: 188px;
 		border-radius: 8px;
 		background-size: cover;
@@ -57,11 +57,13 @@
 		opacity: 90%;
 		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		filter: brightness(80%);
 	}
 
 		#btn-panel-list:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#btn-panel-add {
@@ -69,11 +71,13 @@
 		background-size: cover;
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
 		left: 202px;
+		filter: brightness(80%);
 	}
 
 		#btn-panel-add:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#btn-panel-change {
@@ -81,25 +85,29 @@
 		background-size: cover;
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
 		left: 394px;
+		filter: brightness(80%);
 	}
 
 		#btn-panel-change:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#btn-panel-delete {
 		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
 		background-size: cover;
 		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		top: 110px;
-		left: 1000px;
+		top: 810px;
+		left: 650px;
 		opacity: 100%;
+		filter: brightness(80%);
 	}
 
 		#btn-panel-delete:hover {
 			box-shadow: 0 5px 10px rgba(0,0,0,.5);
 			transform: scale(.85);
+			filter: brightness(100%);
 		}
 
 	#img-panel-shadow-black {
@@ -181,7 +189,9 @@
 								@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 							</td>
 							*@
-							<td>
+							<td @onclick="@(() => OnItemSelected(entity.RegistrationId))"
+								onmouseover="this.style.color='#AAAAAA'"
+								onMouseOut="this.style.color='#FFFFFF'">
 								@entity.RegistrationId   @entity.RegistrationStatus   @entity.RegistrationUsername   @entity.RegistrationEmail   @entity.PersonIdFk
 							</td>
 						</tr>

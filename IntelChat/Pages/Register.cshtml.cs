@@ -198,7 +198,7 @@ namespace IntelChat.Pages
 			using (SqlCommand cmd = new SqlCommand(spName, connection))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("@PROC_Action", "Read");
+				cmd.Parameters.AddWithValue("@PROC_Action", "Register");
 				cmd.Parameters.AddWithValue("@brand_code", code);
 				cmd.Parameters.AddWithValue("@brand_status", "*");
 
@@ -219,10 +219,10 @@ namespace IntelChat.Pages
 							BrandRole = reader.GetString(7),
 							BrandEligibility = reader.GetInt16(8),
 							BrandCost = reader.GetDecimal(9),
-							LocationIdFk = reader.GetInt32(11),
-							ProgramIdFk = reader.GetInt32(12),
-							GuideIdFk = reader.GetInt32(13),
-							NovaIdFk = reader.GetInt32(14)
+							LocationIdFk = reader.GetInt32(10),
+							ProgramIdFk = reader.GetInt32(11),
+							GuideIdFk = reader.GetInt32(12),
+							NovaIdFk = reader.GetInt32(13)
 						};
 					}
 				}

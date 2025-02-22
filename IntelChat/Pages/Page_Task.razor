@@ -231,7 +231,9 @@
 				@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 				</td>
 				*@
-							<td>
+							<td @onclick="@(() => OnItemSelected(entity.TaskId))"
+								onmouseover="this.style.color='#AAAAAA'"
+								onMouseOut="this.style.color='#FFFFFF'">
 								@entity.PodIdFk   @entity.TaskId   @entity.TaskStatus   @entity.TaskType   @entity.TaskLabel32   @entity.TaskDescription
 							</td>
 						</tr>

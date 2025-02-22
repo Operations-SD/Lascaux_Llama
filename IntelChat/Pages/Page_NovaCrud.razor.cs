@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -18,9 +19,13 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
 
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? novaId { get; set; }
+
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		private string? show { get; set; } = "list";
+		private string? show { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Nova> entities = new List<Nova>();
 		private Dictionary<String, Nova> entity = new Dictionary<String, Nova>();
@@ -60,7 +65,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@action", entity["add"].NovaAction),
 				new SqlParameter("@object", entity["add"].NovaObject),
 				new SqlParameter("@datetime", entity["add"].NovaDatetime),
-				new SqlParameter("@pod_id_fk", entity["add"].PodIdFk),
+				new SqlParameter("@pod", entity["add"].PodIdFk),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk),
 				new SqlParameter("@priority", entity["add"].NovaPrioriy),
 				new SqlParameter("@label", entity["add"].NovaLabel)
@@ -77,7 +82,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
+				new SqlParameter("@nova_status", status),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters, true);
@@ -85,9 +90,9 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
-			var reader = Read(status);
+			var reader = Read(status, filter);
 			if (reader == null) return;
 
 			entities.Clear();
@@ -98,15 +103,15 @@ namespace IntelChat.Pages
 					NovaId = reader.GetInt32(0),
 					NovaDescription = reader.GetString(1),
 					NovaType = reader.GetString(2),
-					NovaChannel = reader.GetInt32(3),
-					NovaSubject = reader.GetInt32(4),
-					NovaAction = reader.GetInt32(5),
-					NovaObject = reader.GetInt32(6),
-					NovaDatetime = reader.GetDateTime(7),
-					PodIdFk = reader.GetInt32(8),
-					PersonIdFk = reader.GetInt32(9),
-					NovaPrioriy = reader.GetInt16(10),
-					NovaLabel = reader.IsDBNull(11) ? string.Empty : reader.GetString(11)
+					NovaChannel = reader.GetInt32(4),
+					NovaSubject = reader.GetInt32(5),
+					NovaAction = reader.GetInt32(6),
+					NovaObject = reader.GetInt32(7),
+					NovaDatetime = reader.GetDateTime(8),
+					PodIdFk = reader.GetInt32(9),
+					PersonIdFk = reader.GetInt32(10),
+					NovaPrioriy = reader.GetInt16(11),
+					NovaLabel = reader.IsDBNull(12) ? string.Empty : reader.GetString(12)
 				});
 			}
 			reader.Close();
@@ -139,7 +144,7 @@ namespace IntelChat.Pages
 					new SqlParameter("@action", entity["change"].NovaAction),
 					new SqlParameter("@object", entity["change"].NovaObject),
 					new SqlParameter("@datetime", entity["change"].NovaDatetime),
-					new SqlParameter("@pod_id_fk", entity["change"].PodIdFk),
+					new SqlParameter("@pod", entity["change"].PodIdFk),
 					new SqlParameter("@person_id_fk", entity["change"].PersonIdFk),
 					new SqlParameter("@priority", entity["change"].NovaPrioriy),
 					new SqlParameter("@label", entity["change"].NovaLabel)
@@ -154,7 +159,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Delete"),
 				new SqlParameter("@id", entity["delete"].NovaId),
-				new SqlParameter("@status", entity["delete"].NovaStatus)
+				new SqlParameter("@nova_status", entity["delete"].NovaStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
 		}
@@ -231,6 +236,7 @@ namespace IntelChat.Pages
 
 		protected override void OnInitialized()
 		{
+			// Initialize default entities and filters
 			entity["add"] = new Nova();
 			entity["change"] = new Nova();
 			entity["delete"] = new Nova();
@@ -238,22 +244,111 @@ namespace IntelChat.Pages
 			filter["change"] = "****";
 			filter["delete"] = "****";
 
+			// Load data for Nova entities
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].NovaId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (novaId.HasValue)
+						{
+							AutoFill(novaId.Value, "change"); // Populate fields for specific NovaId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].NovaId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.NovaStatus == "D") != null)
-			{
-				entity["delete"] = entities.Where(e => e.NovaStatus == "D").First();
-				AutoFill(entity["delete"].NovaId, "delete");
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.NovaStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.NovaId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
+					default:
+						show = string.Empty; // Prevent default listing when navigating normally
+						break;
+				}
 			}
-			show = "list";
+			else
+			{
+				// Default behavior if `show` is not specified
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].NovaId, "change");
+				}
+				show = string.Empty; // Do not show the list by default
+			}
 		}
-	
+
+
+		private void OnItemSelected(int id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
+
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.NovaId == id);
+				if (selectedEntity != null)
+				{
+					AutoFill(id, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Read"),
+				new SqlParameter("@PROC_filter", filter),
+				new SqlParameter("@nova_status", status),
+				new SqlParameter("@pod", pod)
+			};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Nova]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
+		}
 	}
 }

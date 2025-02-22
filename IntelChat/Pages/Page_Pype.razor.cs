@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -18,9 +19,13 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
 
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public string? pypeId { get; set; } // pype ID for navigation
+
 		[Inject]
 		public NotificationService NotificationService { get; set; }
-		private string? show { get; set; } = "list";
+		private string? show { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Pype> entities = new List<Pype>();
 		private Dictionary<String, Pype> entity = new Dictionary<String, Pype>();
@@ -57,7 +62,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@Pype_status", entity["add"].PypeStatus),
 				new SqlParameter("@Pype_desc", entity["add"].PypeDesc),
 				new SqlParameter("@Pype_link", entity["add"].PypeLink),
-				new SqlParameter("@POD_ID_FK", entity["add"].PodIdFk),
+				new SqlParameter("@pod", entity["add"].PodIdFk),
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters);
 		}
@@ -71,7 +76,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@PROC_filter", "****"),
-				new SqlParameter("@status", status),
+				new SqlParameter("@pype_status", status),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters, true);
@@ -79,7 +84,7 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
 			var reader = Read(status);
 			if (reader == null) return;
@@ -125,7 +130,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@Pype_status", entity["change"].PypeStatus),
 				new SqlParameter("@Pype_desc", entity["change"].PypeDesc),
 				new SqlParameter("@Pype_link", entity["change"].PypeLink),
-				new SqlParameter("@POD_ID_FK", entity["change"].PodIdFk),
+				new SqlParameter("@pod", entity["change"].PodIdFk),
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters);
 		}
@@ -137,7 +142,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Delete"),
 				new SqlParameter("@id", entity["delete"].PypeId),
-				new SqlParameter("@status", entity["delete"].PypeStatus)
+				new SqlParameter("@pype_status", entity["delete"].PypeStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters);
 		}
@@ -214,6 +219,7 @@ namespace IntelChat.Pages
 
 		protected override void OnInitialized()
 		{
+			// Initialize default entities and filters
 			entity["add"] = new Pype();
 			entity["change"] = new Pype();
 			entity["delete"] = new Pype();
@@ -221,22 +227,111 @@ namespace IntelChat.Pages
 			filter["change"] = "****";
 			filter["delete"] = "****";
 
+			// Load data for Pype entities
 			LoadReadResults();
 			LoadReadPypeResults();
 
-			if (entities.Any())
+			// Handle screen change options
+			if (!string.IsNullOrEmpty(show))
 			{
-				entity["change"] = entities.First();
-				AutoFill(entity["change"].PypeId, "change");
-			}
+				switch (show)
+				{
+					case "change":
+						if (!string.IsNullOrEmpty(pypeId))
+						{
+							AutoFill(pypeId, "change"); // Populate fields for specific PypeId
+						}
+						else if (entities.Any())
+						{
+							entity["change"] = entities.First();
+							AutoFill(entity["change"].PypeId, "change"); // Default to first entity
+						}
+						break;
 
-			if (entities.Find(e => e.PypeStatus == "D") != null)
-			{
-				entity["delete"] = entities.Where(e => e.PypeStatus == "D").First();
-				AutoFill(entity["delete"].PypeId, "delete");
+					case "delete":
+						var deletedEntity = entities.FirstOrDefault(e => e.PypeStatus == "D");
+						if (deletedEntity != null)
+						{
+							entity["delete"] = deletedEntity;
+							AutoFill(deletedEntity.PypeId, "delete"); // Populate fields for the deleted entity
+						}
+						break;
+
+					case "list":
+						show = "list"; // Explicitly requested, so show the list
+						break;
+
+					default:
+						show = string.Empty; // Prevent default listing when navigating normally
+						break;
+				}
 			}
-			show = "list";
+			else
+			{
+				// Default behavior if `show` is not specified
+				if (entities.Any())
+				{
+					entity["change"] = entities.First();
+					AutoFill(entity["change"].PypeId, "change");
+				}
+				show = string.Empty; // Do not show the list by default
+			}
 		}
-	
+
+
+		private void OnItemSelected(string id)
+		{
+			// Find the selected entity by ID and set it for the change form
+			AutoFill(id, "change");
+			show = "change"; // Navigate to the change screen
+		}
+
+		// <summary> Handle item selection from entering ID into field </summary>
+		private string directSelectId = string.Empty;
+
+		private void UpdateDirectSelectId(ChangeEventArgs e)
+		{
+			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+		}
+
+		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		{
+			if (e.Key == "Enter" && !string.IsNullOrEmpty(directSelectId))
+			{
+				// Find the entity by ID and navigate to the change screen
+				var selectedEntity = entities.FirstOrDefault(entity => entity.PypeId == directSelectId);
+				if (selectedEntity != null)
+				{
+					AutoFill(directSelectId, "change"); // Populate fields with selected entity
+					show = "change";        // Switch to the change screen
+					await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+				}
+				else
+				{
+					NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+				}
+			}
+		}
+
+
+		private string tagFilter { get; set; } = string.Empty;
+		private SqlDataReader? Read(string status = "*", string filter = "****")
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Read"),
+				new SqlParameter("@PROC_filter", filter),
+				new SqlParameter("@Pype_status", status),
+				new SqlParameter("@pod", pod)
+			};
+
+			return ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters, true);
+		}
+
+		private void ApplyTagFilter(ChangeEventArgs e)
+		{
+			tagFilter = e.Value?.ToString() ?? string.Empty;
+			LoadReadResults("*", tagFilter);
+		}
 	}
 }
