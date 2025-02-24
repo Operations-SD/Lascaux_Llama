@@ -30,6 +30,7 @@ namespace IntelChat.Pages
        
         public string roleRecipient = "";
 		public string MessageTime = "";//time of the message that was sent
+        [Inject] NavigationManager NavigationManager { get; set; }
 
         private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
 		{
@@ -164,8 +165,9 @@ namespace IntelChat.Pages
         private void FilterMemosByPid(int senderPid)
         {
             currentSenderMemo.Clear(); // Ensure the list is empty before adding new memos
-            currentSenderMemo = memos.Where(m => m.MemoPersonFrom == senderPid).ToList();
-		
+            currentSenderMemo = memos.Where(m => m.MemoPersonFrom == senderPid && m.MemoPersonTo == pid).ToList();
+
+
         }
 
         private void ShowPreviousMemo()
@@ -197,64 +199,6 @@ namespace IntelChat.Pages
 		{
 			LoadMemos("Read_Grid", "Memo");
 		}
-
-
-        //******************************* iframes **************************************
-
-        public void HideModal() => modal = false;
-        public void ShowModal() => modal = true;
-        public bool isChatIframeVisible = false; // Manages the visibility of the Chat iframe
-
-        public string ChatiframeSource = "";
-        private bool isDraggingChat = false;
-        private (int X, int Y) chatIframePosition = (1710, 60);
-        private (int X, int Y) mouseStartChat = (0, 0);
-
-        [Inject] NavigationManager NavigationManager { get; set; }
-        public void ShowChat()
-        {
-            ChatiframeSource = "/Chat";  // Set the source of the iframe (chat page)
-            isChatIframeVisible = true;  // Show the iframe
-        }
-
-        public void HideChat()
-        {
-            isChatIframeVisible = false; // Hide the iframe
-            ChatiframeSource = "";       // Clear the iframe source
-        }
-
-
-        /*********************************************************************************
-		 ************************ Draggable IFrames **************************************
-		 *********************************************************************************/
-
-        private void StartDraggingChat(MouseEventArgs e)
-        {
-            isDraggingChat = true; // Set dragging state to true for the Chat iframe
-            mouseStartChat = ((int)e.ClientX - chatIframePosition.X, (int)e.ClientY - chatIframePosition.Y); // Calculate initial offset
-        }
-
-
-        // Handles the mouse move event globally for dragging
-        private void OnMouseMoveGlobal(MouseEventArgs e)
-        {
-           if (isDraggingChat)
-            {
-                // Update position of the Chat iframe based on the current mouse position
-                chatIframePosition = ((int)e.ClientX - mouseStartChat.X, (int)e.ClientY - mouseStartChat.Y);
-                StateHasChanged(); // Refresh the UI to reflect position changes
-            }
-        }
-
-        // Ends the dragging operation globally
-        private void OnMouseUpGlobal()
-        {
-           if (isDraggingChat)
-            {
-                isDraggingChat = false; // Reset dragging state for the Chat iframe
-            }
-        }
-
 
 
     }

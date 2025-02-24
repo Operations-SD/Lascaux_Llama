@@ -1,0 +1,154 @@
+﻿@page "/NewMemo"
+@inject NnetDbContext db
+@inject NavigationManager _nav
+@inject IConfiguration _configuration
+@inject NounService nounService
+@inject IHttpContextAccessor context
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+@using System.Data.Common;
+@using IntelChat.Services;
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
+@using ThreadingTask = System.Threading.Tasks.Task;
+
+<style>
+	/* Restrict RESPONSE UI inside the floating window */
+
+
+	/* ****************** This is the inner box ********************** */
+	/* ****************** This is the inner box ********************** */
+	/* ****************** This is the inner box ********************** */
+	.response-container {
+		position: absolute;
+		top:0px;
+		left:0px;
+		width: 600px;
+		height: 480px;
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Memo_send.png") no-repeat center;
+		padding: 0px;
+		overflow-y: auto;
+	}
+
+	.memo-textarea {
+		color:black;
+		position: absolute;
+		top: 100px;
+		left: 40px;
+		width: 460px;
+		height: 150px;
+		border: 2px solid #cccccc;
+		font-size: 16px;
+		padding: 12px;
+		box-sizing: border-box;
+		border-radius: 4px;
+		resize: none;
+	}
+</style>
+
+
+<!-- ****************************************************** offset from BOX ************************************************ -->
+<!-- ************ class="memo-container" style="position:absolute;left:400px;top:200px;opacity:70%;">*********************** -->
+<div class="response-container">
+
+	<!-- ************************************************************************************ -->
+	<!-- **************************   INBOX  *************** STYLE ************************** -->
+	<!-- ************************************************************************************ -->
+
+@* 	<select @onchange=ChangeInbox
+			style="position:absolute;width:400px;display:block;text-align:center;height:500px;background-color:#c6d1ef;border-color:#abb4cd;left:40px;top:60px;opacity:70%;">
+		<option value="" disabled selected>Inbox</option>
+		@foreach (Memo memo in memos)
+		{
+			<option value="@memo.MemoDateTime">From: @memo.MemoPersonFrom | @memo.MemoDateTime</option>
+		}
+	</select> *@
+	
+
+
+
+	<!-- ************************************************************************************ -->
+	<!-- **************************  MEMO  SENDER  ******************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<div style="position:absolute;width:400px;left:40px;top:10px;opacity:70%;">
+		<label for="message_type" style="color:#000000;left:100px">Sender:@ReadRoleFromPid(@pid) | @pid </label>
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************** MEMO Reciver ****************************************** -->
+	<!-- ************************************************************************************ -->
+	<div style="position:absolute; display: flex;width:400px;left:40px;top:40px;opacity:70%;">
+	<label for="role_recipient" style="color:#000000;left:40px;">Recipient: </label><br /><br />
+	<select @bind=roleRecipient name="role_recipient" style="color:#000000;left:40px;background-color:#c6d1ef;">
+		<option value="self">Self</option>
+			<option value="user">User</option>
+		<option value="acad">POD Academy</option>
+		<option value="admn">Administration</option>
+		<option value="engr">Engineer</option>
+		<option value="xprt">Domain Expert</option>
+	</select>
+
+		<label for="role_recipient" style="color:#000000;left:100px;">@ReadPodRolePerson(@roleRecipient) </label>
+	</div>
+	
+
+		<!-- ************************************************************************************ -->
+		<!-- ************************** MEMO regarding ****************************************** -->
+		<!-- ************************************************************************************ -->
+        <div style="position:absolute; display: flex;width:400px;left:40px;top:80px;opacity:70%;">
+		<label for="message_type" style="color:#000000;left:100px">Regarding: </label>
+            <select @bind=messageType name="message_type" style="color:#000000;float:left:40px;">
+                <option value="REMD">Reminder</option>
+                <option value="QUES">Question</option>
+                <option value="CONC">Concern</option>
+                <option value="COMM">Comment</option>
+                <option value="AFFM">Affirmation</option>
+                <option value="MISC">Miscellaneous</option>
+            </select>
+
+       
+        </div>
+
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************** MEMO Title ****************************************** -->
+	<!-- ************************************************************************************ -->
+
+	<div style="position:absolute;width:200px;left:80px;top:200px;opacity:70%;">
+		<label for="message_type" style="color:#000000;left:100px">CREATE NEW MEMO</label>
+	</div>
+
+
+
+
+	<!-- ************************************************************************************ -->
+	<!-- ************************** MEMO TEXT AREA ****************************************** -->
+	<!-- ************************************************************************************ -->
+
+		<div style="position:absolute;left:76px;top:236px;">
+			<textarea @bind=message style="font-size:18px;color:black;width:494px;height:160px;" /><br /><br />
+		</div>
+
+		<!-- ************************************************************************************ -->
+		<!-- ************************** MEMO SEND *********************************************** -->
+		<!-- ************************************************************************************ -->
+		<div>
+		<button class="modal-btn" @onclick=CreateMemo
+				style="position:absolute;top:410px;left:485px;height:30px;width:80px;background-color:darkred;border-radius:5px;border:3px;">
+			Send
+		</button>
+
+		@if (showResponseMessage)
+		{
+			<span style="position:absolute;top:420px;left:250px;color:green;font-weight:bold;">Message Sent!</span>
+		}
+
+
+
+		
+		</div>
+
+</div>

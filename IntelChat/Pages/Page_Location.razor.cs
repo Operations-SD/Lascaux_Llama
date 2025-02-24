@@ -161,9 +161,7 @@ namespace IntelChat.Pages
 					new SqlParameter("@longitude", entity["change"].Longitude),
 					new SqlParameter("@brain_fk", entity["change"].BrainFk),
 					new SqlParameter("@license_fk", entity["change"].LicenseFk),
-					new SqlParameter("@pod", pod),
 					new SqlParameter("@program_fk", pod),
-					new SqlParameter("@license_fk", entity["change"].LicenseFk),
 					new SqlParameter("@person_fk_admn", entity["change"].PersonFkAdmn),
 					new SqlParameter("@person_fk_engr", entity["change"].PersonFkAdmn),
 					new SqlParameter("@person_fk_xprt", entity["change"].PersonFkXprt)
