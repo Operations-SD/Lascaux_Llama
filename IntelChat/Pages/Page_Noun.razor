@@ -166,8 +166,8 @@
 	<!-- **************************** DISPLAY PANEL CRUD BUTTONS ********** EXIT ************ -->
 	<!-- ************************************************************************************ -->
 	<div class="boxButton">
-		<button id="btn-panel-list"   @onclick="@(() => show = "list")"></button>
-		<button id="btn-panel-add"    @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
@@ -277,8 +277,10 @@
 						we need a default/blank for NONE or null. added with <option value="">****</option>, this will need to be repeated
 						wherever a dropdown is ASSIGNING something for the first time. If it has a value, we do not need a default null selection
 					-->
+				</div>
+
+				<div class="exhibitInfo2">
 					<label>
-						Type
 						<select @bind="@entity["add"].NounType">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
@@ -296,6 +298,7 @@
 						<input class="form-control" @bind="@entity["add"].NounStatus" maxlength="1" required />
 					</label><br><br>
 				</div>
+
 			</form>
 		</div>
 	}
@@ -361,9 +364,17 @@
 						<input class="form-control" @bind="@entity["change"].NounDescription" maxlength="255" required />
 					</label><br><br>
 
+					<label style="position:absolute; top:400px;left:0px; ">
+						tag (contains):
+						<input class="form-control" @bind="@entity["change"].NounTag" maxlength="1024" required />
+					</label><br><br>
+
+				</div>
+
+				<div class="exhibitInfo2">
+
 					<label>
 
-						type:
 						<select @bind="@entity["change"].NounType" required>
 							@foreach (var pype in pypes)
 							{
@@ -381,10 +392,26 @@
 					</label><br><br>
 
 					<label>
-						image:
-						<input class="form-control" @bind="@entity["change"].UrlIdPk" type="number" required />
+						common parent:
+						<input class="form-control" @bind="@entity["change"].NounIdFkCommon" type="number" required />
 					</label><br><br>
 				</div>
+
+
+				<label style="position:absolute; top:385px;left:1600px; ">
+					image:
+					<input class="form-control" @bind="@entity["change"].UrlIdPk" type="number" required />
+				</label><br><br>
+
+				@if (!string.IsNullOrEmpty(ImageUrl))
+				{
+					<div style="position: absolute; top: 177px; left: 1592px;">
+						<label>Image Preview:</label>
+						<br />
+						<img src="@ImageUrl" alt="Selected Noun Image"
+							 width="200" height="200" style="object-fit: inherit; border-radius: 8px;" />
+					</div>
+				}
 
 			</form>
 		</div>
@@ -426,7 +453,7 @@
 							<select class="form-control" value="@entity["delete"].NounId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
 								@foreach (var noun in (filter["delete"] == "****") ? entities : entities.Where(noun => noun.NounType == filter["delete"]))
 								{
-									if(noun.NounStatus == "D")
+									if (noun.NounStatus == "D")
 									{
 										<option value="@noun.NounId"> @noun.NounLabel</option>
 									}
@@ -448,12 +475,23 @@
 
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* Buttons ************************************** -->
+	<!-- ******************************** NAV_ Buttons ************************************** -->
 	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:30px;top:600px;height:60px;border:0px;width:140px;">
+		Chat
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:30px;top:680px;height:60px;border:0px;width:140px;">
+		Memo
+	</button>
+
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Grid?pod="+pod+"&pid="+pid+"&entity="+pageName))"
 			style="position:absolute;left:30px;top:760px;height:60px;border:0px;width:140px;">
-		GRID
+		Grid
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
@@ -462,6 +500,7 @@
 	</button>
 
 </div>
+
 
 
 

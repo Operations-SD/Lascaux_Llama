@@ -1,4 +1,4 @@
-using IntelChat.Models;
+﻿using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -33,6 +33,8 @@ namespace IntelChat.Pages
 		public string? type { get; set; } // Type of noun (Subject or Object)
 		
 		public string? StoredNoun { get; set; }
+
+		public string ImageUrl { get; set; } = string.Empty;
 
 		[Inject]
 		public NotificationService NotificationService { get; set; }
@@ -190,14 +192,21 @@ namespace IntelChat.Pages
 		/// <summary>Fill fields in the change tab based on entity selection</summary>
 		private void AutoFill(int id, string type)
 		{
-			var target = entities.FirstOrDefault(e => e.NounId == id); // Find the entity by nounId
-			if (target != null) entity[type] = target;
+			var target = entities.FirstOrDefault(e => e.NounId == id);
+			if (target != null)
+			{
+				entity[type] = target;
+
+				//Fetch the image URL when selecting a noun
+				_ = LoadImageUrlAsync(target.UrlIdPk);
+			}
 		}
+
 
 		/// <summary>Reads pypes from the database using a stored procedure</summary>
 		/// <returns>Reader for the entities that were read from the database</returns>
 		///
-		
+
 		private (string Noun, string Verb)? ReadNounVerb()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
@@ -374,6 +383,37 @@ namespace IntelChat.Pages
 		{
 			tagFilter = e.Value?.ToString() ?? string.Empty;
 			LoadReadResults("*", tagFilter);
+		}
+
+		private string GetImageUrl(int urlId)
+		{
+			string imageUrl = string.Empty;
+
+			using (var connection = new SqlConnection(_configuration.GetValue<string>("ConnectionStrings:DefaultConnection")))
+			{
+				using (var command = new SqlCommand("GetImageUrlById", connection))
+				{
+					command.CommandType = CommandType.StoredProcedure;
+					command.Parameters.AddWithValue("@UrlId", urlId);
+					connection.Open();
+					var result = command.ExecuteScalar();
+					if (result != null)
+					{
+						imageUrl = result.ToString();
+					}
+				}
+			}
+
+			return imageUrl;
+		}
+
+		private async ThreadingTask LoadImageUrlAsync(int urlId)
+		{
+			if (urlId > 0)
+			{
+				ImageUrl = GetImageUrl(urlId);
+				await InvokeAsync(StateHasChanged); // ✅ Ensure the UI updates
+			}
 		}
 	}
 }
