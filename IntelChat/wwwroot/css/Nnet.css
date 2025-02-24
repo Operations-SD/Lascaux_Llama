@@ -97,11 +97,25 @@
 
 
 
-/* ************************************************************* CFG main shadow for LISTS ********* */
+/* ************************************************************* exhibit main CRUD text ********* */
 .crud-page .exhibitInfo {
     position: absolute;
     top: 370px;
-    left: 520px;
+    left: 340px;
+    color: blanchedalmond;
+    width: 800px;
+    height: 740px;
+    font-size: x-large;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.crud-page .exhibitInfo2 {
+    position: absolute;
+    top: 370px;
+    left: 740px;
     color: blanchedalmond;
     width: 800px;
     height: 740px;
@@ -248,37 +262,6 @@
         transform: scale(.85);
     }
 
-/* ****************************************************** CFG ...NOUN LIST ROWS on Shadow PANEL ************ */
-.crud-page .exhibitPanel {
-    position: absolute;
-    top: 336px;
-    max-height: 740px;
-    left: 340px;
-    color: blanchedalmond;
-    width: 800px;
-    font-size: x-large;
-    /*text-overflow: ellipsis;*/
-    white-space: nowrap;
-    overflow-x: auto;
-}
-
-
-
-/* ************************************************************* CFG main shadow for LISTS ********* */
-.crud-page .exhibitInfo {
-    position: absolute;
-    top: 370px;
-    left: 520px;
-    color: blanchedalmond;
-    width: 800px;
-    height: 740px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
-
 .crud-page .Shadow {
     position: absolute;
     top: 120px;
@@ -302,35 +285,6 @@
     opacity: 95%;
 }
 
-/* ********************************************************** CFG change or create COMMIT BOX ********* */
-.crud-page .boxFilter {
-    margin: 10;
-    position: absolute;
-    top: 500px;
-    left: 1230px;
-    background-color: bisque border-radius: 12px;
-    opacity: 85%;
-    width: 220px;
-    height: 360px;
-    background-image: url("https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit.png");
-}
-
-.crud-page .ListFilter {
-    margin: 0;
-    position: absolute;
-    top: 0px;
-    left: 470px;
-    color: blanchedalmond;
-    background-color: bisque border-radius: 12px;
-    opacity: 55%;
-    width: 160px;
-    height: 200px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
 
 
 /* CFG ***************************************************************** CHANGE ... Filter Select Commit ********************* */
@@ -372,7 +326,7 @@
     overflow: hidden;
 }
 
-/* CFG BUTTON FOR CHANGE Commit */
+/* ************************************************************************************** Commit CHANGE */
 .crud-page .commitChange {
     position: absolute;
     top: 285px;
@@ -389,7 +343,7 @@
         transform: scale(.85);
     }
 
-/* ********************************* CFG BUTTON FOR DELETE Commit ... only Status=D ********************************** */
+/* **************************** if statud = D ******************************************* Commit DELETE */
 .crud-page .commitDelete {
     position: absolute;
     top: 285px;
@@ -406,7 +360,7 @@
         transform: scale(.85);
     }
 
-/* ********************************* CFG BUTTON FOR CREATE Commit ... ********************************** */
+/* ************************************************************************************** Commit CREATE */
 .crud-page .commitCreate {
     position: absolute;
     top: 285px;
@@ -511,7 +465,7 @@
 .crud-details .exhibitInfo {
     position: absolute;
     top: 50px;
-    left: 600px;
+    left: 350px;
     color: blanchedalmond;
     width: 540px;
     height: 700px;
