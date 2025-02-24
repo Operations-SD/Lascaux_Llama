@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 //ADDED SERVICES-----------------------------------------------------------------------------------------------------------
+builder.Services.AddScoped<NewStateService>();
+builder.Services.AddScoped<ChatStateService>();
 builder.Services.AddSingleton<NounService>(); //noun service singleton to reduce DB reads
 builder.Services.AddSingleton<VerbService>(); //verb singleton - reduce reads
 builder.Services.AddSingleton<EntityService>(); //verb singleton - reduce reads

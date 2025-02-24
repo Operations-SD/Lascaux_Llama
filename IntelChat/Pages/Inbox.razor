@@ -23,6 +23,7 @@
 	/* ****************** This is the inner box ********************** */
 	.memo-container {
 		position: absolute;
+	    overflow-x:hidden;
 		top:0px;
 		left:0px;
 		width: 600px;
@@ -48,10 +49,11 @@
 	}
 </style>
 
-
 <!-- ****************************************************** offset from BOX ************************************************ -->
 <!-- ************ class="memo-container" style="position:absolute;left:400px;top:200px;opacity:70%;">*********************** -->
 <div class="memo-container">
+
+	
 
 	<!-- ************************************************************************************ -->
 	<!-- **************************   INBOX  *************** STYLE ************************** -->
@@ -76,11 +78,12 @@
 		<!-- ************************************************************************************ -->
 		<!-- ************************** MEMO Sender ****************************************** -->
 		<!-- ************************************************************************************ -->
-		<div style="position:absolute;display:flex; width:400px;left:40px;top:20px;opacity:70%;">
-		<label for="role_recipient" style="color:#000000;left:40px;">Sender: </label><br /><br />
+		<div style="position:absolute;display:flex; width:300px;left:40px;top:20px;opacity:70%;">
+		<label for="role_recipient" style="color:#000000;left:40px;">Sender: </label>
 			<select @onchange=OnRoleChanged name="role_recipient" style="color:#000000;left:45px;">
 			<option value="self">Self</option>
 			<option value="acad">POD Academy</option>
+			<option value="user">User</option>
 			<option value="admn">Administration</option>
 			<option value="engr">Engineer</option>
 			<option value="xprt">Domain Expert</option>
@@ -93,7 +96,7 @@
 	<!-- ************************************************************************************ -->
 
 	<div style="position:absolute;width:400px;left:40px;top:50px;opacity:70%;">
-		<label for="message_type" style="color:#000000;left:100px">Reciver: @ReadRoleFromPid(pid) </label>
+		<label for="message_type" style="color:#000000;left:100px">Reciver: @ReadRoleFromPid(pid) | @pid </label>
 	</div>
 
 		<!-- ************************************************************************************ -->
@@ -143,12 +146,31 @@
 		</div>
 
 		<!-- ************************************************************************************ -->
-		<!-- ************************** MEMO SEND *********************************************** -->
+		<!-- ************************** MEMO Respond *********************************************** -->
 		<!-- ************************************************************************************ -->
-		<div> 
-			<button class="modal-btn" @onclick=CreateMemo
-				style="position:absolute;top:410px;left:485px;height:30px;width:80px;background-color:darkred;border-radius:5px;border:3px;">	Send
-			</button>
+		<div>
+		@inject ChatStateService ChatService
+		<button class="modal-btn" @onclick=SendToResponse
+				style="position:absolute;top:410px;left:485px;height:30px;width:80px;background-color:darkred;border-radius:5px;border:3px;">	Respond
+		</button>
+
+		@inject NewStateService NewMemoService
+		<button class="modal-btn" @onclick="NewMemoService.ShowNewMemo"
+				style="position:absolute;top:410px;left:350px;height:30px;width:120px;background-color:darkred;border-radius:5px;border:3px;">
+			Create Memo
+		</button>
+
+
+
+		@code {
+			
+			void SendToResponse()
+			{
+				ChatService.RoleRecipient = @roleRecipient; // Set the value in service
+				ChatService.ReplyMessage = @message;
+				ChatService.ShowResponse(); // Trigger the response
+			}
+		}
 
 
 
@@ -165,70 +187,10 @@
 		</button>
 		</div>
 
+	
 
-	<!-- Chat Container ******************* for Iframes ***************** -->
-	@if (isChatIframeVisible)
-	{
-		<!-- Chat Container ******************* this is the Outer Box ***************** -->
-		<!-- Chat Container ******************* this is the Outer Box ***************** -->
-		<!-- Chat Container ******************* this is the Outer Box ***************** -->
 
-		<div style="position: absolute;
-                top: @(chatIframePosition.Y)px;
-                left: @(chatIframePosition.X)px;
-                z-index: 1000;
-				height: 1000px;
-                width: 520px;
-                border: 1px solid #ccc;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                background:white;">
-
-			<!-- Draggable Crossbar for Chat -->
-			<div style="display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    height: 30px;
-                    background-color: #f0f0f0;
-                    padding: 5px;
-                    border-bottom: 1px solid #ddd;
-                    cursor: grab;"
-				 @onmousedown="StartDraggingChat">
-				<!-- Crossbar Label -->
-				<span></span>
-				<!-- Close Button for Chat -->
-				<button style="background: none;
-                           border: none;
-                           color: #888;
-                           cursor: pointer;
-                           font-size: 16px;
-                           padding: 0 5px;"
-				@onmousedown:stopPropagation
-						@onclick="HideChat">
-					✖
-				</button>
-			</div>
-
-			<!-- Chat Iframe -->
-			<iframe src="@ChatiframeSource"
-					style="width: 100%; height: 1000px; border: none;">
-			</iframe>
-		</div>
-	}
-
-	@if ( isDraggingChat)
-	{
-		<!-- Transparent Overlay for Global Drag Handling -->
-		<div style="position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                z-index: 9999;
-                background: transparent;"
-			 @onmousemove="OnMouseMoveGlobal"
-			 @onmouseup="OnMouseUpGlobal">
-		</div>
-	}
+	
 
 
 
