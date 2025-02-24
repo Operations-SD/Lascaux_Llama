@@ -293,13 +293,13 @@ namespace IntelChat.Pages
 			SqlCommand cmd = new SqlCommand(spName, connection);
 
 			SqlParameter param1 = new SqlParameter("@PROC_action", "Create");
-			SqlParameter param2 = new SqlParameter("@nova_subject", subject);
-			SqlParameter param3 = new SqlParameter("@nova_action", action);
-			SqlParameter param4 = new SqlParameter("@nova_object", obj);
-			SqlParameter param5 = new SqlParameter("@nova_description", description);
-			SqlParameter param6 = new SqlParameter("@nova_type", type);
-			SqlParameter param7 = new SqlParameter("@nova_datetime", DateTime.Now);
-			SqlParameter param8 = new SqlParameter("@pod", pod);
+			SqlParameter param2 = new SqlParameter("@subject", subject);
+			SqlParameter param3 = new SqlParameter("@action", action);
+			SqlParameter param4 = new SqlParameter("@object", obj);
+			SqlParameter param5 = new SqlParameter("@description", description);
+			SqlParameter param6 = new SqlParameter("@type", type);
+			SqlParameter param7 = new SqlParameter("@datetime", DateTime.Now);
+			SqlParameter param8 = new SqlParameter("@pod_id_fk", pod);
 			SqlParameter param9 = new SqlParameter("@person_id_fk", pid);
 
 			cmd.Parameters.Add(param1);
