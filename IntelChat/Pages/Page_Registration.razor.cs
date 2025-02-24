@@ -186,7 +186,7 @@ namespace IntelChat.Pages
 		private SqlDataReader? ReadPype()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter> {
-				new SqlParameter("@PROC_Input_Filter", "ROLE"),
+				new SqlParameter("@PROC_Input_Filter", "role"),
 				new SqlParameter("@pod", pod)
 			};
 			return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
