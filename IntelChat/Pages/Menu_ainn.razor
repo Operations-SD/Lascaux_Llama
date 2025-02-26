@@ -6,89 +6,41 @@
 @using System.Data.SqlClient;
 @using System.Data;
 
-@* <style>
-/* 	body {
+<style>
+	body {
 		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Menu.png") no-repeat;
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
 		min-height: 100vh;
 		width: 100%;
-		opacity: 100%;
+		opacity: 1;
 		color: blanchedalmond;
+		margin: 0;
+		padding: 0;
 		background-color: #000000;
-	} */
-</style> *@
-
-
-
-<div class="video-background">
-	<video autoplay loop muted playsinline>
-		<source src="Blobs/Video/Starry_Night.mp4" type="video/mp4" />
-		Your browser does not support the video tag.
-	</video>
-
-@* 	<div class="content">
-		<h1>Welcome to Blazor!</h1>
-		<p>This is a Blazor page with an MP4 video background.</p>
-	</div> *@
-</div>
-
-<style>
-	.video-background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		z-index: -1; /* Push the video behind other elements */
-	}
-
-	video {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 100vw;
-		height: 100vh;
-		object-fit: cover; /* Ensures the video covers the entire viewport */
-		transform: translate(-50%, -50%);
-	}
-
-	.content {
-		position: relative;
-		z-index: 1; /* Bring the content above the video */
-		text-align: center;
-		color: white;
-		padding: 20px;
-	}
-
-	h1 {
-		font-size: 4em;
-		margin-bottom: 10px;
-	}
-
-	p {
-		font-size: 1.5em;
 	}
 </style>
 
 
 
 
-<div class="ainn-page">
 
-<!-- ************************************************************************************ -->
-<!-- *************************** Lock onto a Person and a POD *************************** -->
-<!-- ************************************************************************************ -->
-<br><br>
-<p style="color:#333333;font-size:24px;position:absolute">Pod: @pod</p><br><br>
-<p style="color:#333333;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
+
+
+
+<div class="role-menu">
+
+	<!-- ************************************************************************************ -->
+	<!-- *************************** Lock onto a Person and a POD *************************** -->
+	<!-- ************************************************************************************ -->
+	<p style="color:#444444;font-size:24px">Pod: @pod</p><br>
+	<p style="color:#444444;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
 
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** DISPLAY Banner ************************************ -->
 	<!-- ************************************************************************************ -->
 
-	<div class="titlebanner" style="z-index:1;top:10px;left:700px;position:absolute;">
+	<div class="titlebanner" style="z-index:1;top:10px;left:700px;position:absolute;opacity:60%;">
 		<img src="https://agineuralnet.blob.core.windows.net/banners/Banner_ainn.png" />
 	</div>
 
@@ -99,112 +51,100 @@
 	<!-- ************************************************************************************ -->
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Guide?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:300px;left:320px;height:60px;">
+			style="z-index:1;top:300px;left:320px;height:60px;width:200px;">
 		Guide
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:380px;left:320px;height:60px;">
+			style="z-index:1;top:380px;left:320px;height:60px;width:200px;">
 		Interview
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Question?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:460px;left:320px;height:60px;">
+			style="z-index:1;top:460px;left:320px;height:60px;width:200px;">
 		Question
 	</button>
 
-
-	<!-- ************************************************************************************ -->
-	<!-- ************************************* Buttons ************************************** -->
-	<!-- ************************************************************************************ -->
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:700px;height:60px;color:RED;width:140px;">
-		MEMO
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Command?pod="+pod+"&pid="+pid))"
+			style="z-index:1;top:540px;left:320px;height:60px;width:200px;">
+		Command
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:780px;height:60px;color:RED;border:0px;width:140px;">
-		HELP
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Execute?pod="+pod+"&pid="+pid))"
+			style="z-index:1;top:620px;left:320px;height:60px;width:200px;">
+		Execute
 	</button>
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:860px;height:60px;color:RED;border:0px;width:140px;">
-		Return
-	</button>
-
 
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* IFrame Video ********************************* -->
 	<!-- ************************************************************************************ -->
-
-	@* <div style="top:460px; left:680px; position:absolute; overflow:hidden;">
-		<iframe width='560' height='315' src='https://www.youtube.com/embed/m8e-FF8MsqU'
-				frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen>
+@* 
+	<div style="top:180px; left:400px; position:absolute; overflow:hidden;brightness(80%);opacity:80% ">
+		<iframe width="1280" height="640" src="https://www.youtube.com/embed/XgWI7dLzoaI" title="The Matrix [1999] - MODERN TRAILER [4K]" 
+			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 		</iframe>
 	</div> *@
+
+
+
+	<div style="top:180px; left:400px; position:absolute; overflow:hidden;brightness(80%);opacity:80% ">
+		<iframe width="1280" height="720" src="https://www.youtube.com/embed/m8e-FF8MsqU" title="Matrix Trailer HD (1999)"
+				frameborder="0" allow="accelerometer; autoplay; clipboard-write;encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerpolicy="strict-origin-when-cross-origin"
+				allowfullscreen>
+		</iframe>
+	</div>
+
+
+
 
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** External Cloud Links ********************************* -->
 	<!-- ************************************************************************************ -->
 
 	<a href="https://www.youtube.com/watch?v=dNN7KO2C-Ak">
-		<button class="lesson-menu-button" style="top:300px;left:1620px;width:200px; height:50px; opacity:70%; color:#222222">
+		<button class="general-menu-button" style="top:300px;left:1620px;width:200px; height:50px; opacity:70%; color:#222222">
 			Caretta
 		</button>
 	</a>
 
 	<a href="https://docs.blazorbootstrap.com/components/modal#optional-sizes">
-		<button class="lesson-menu-button" style="top:380px;left:1620px;width:200px; height:50px; opacity:70%; color:#222222">
+		<button class="general-menu-button" style="top:380px;left:1620px;width:200px; height:50px; opacity:70%; color:#222222">
 			Bootstrap
 		</button>
 	</a>
 
 	<a href="https://www.youtube.com/watch?v=SrEjoJ_G6tc">
-		<button class="lesson-menu-button" style="top:460px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
+		<button class="general-menu-button" style="top:460px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
 			Scaffold
 		</button>
 	</a>
 
 	<a href="https://www.youtube.com/watch?v=_w6N_nplmAw">
-		<button class="lesson-menu-button" style="top:540px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
+		<button class="general-menu-button" style="top:540px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
 			Images
 		</button>
 	</a>
 
 	<a href="https://www.youtube.com/watch?v=3_AsedRrqww&list=PL4LFuHwItvKbdK-ogNsOx2X58hHGeQm8c">
-		<button class="lesson-menu-button" style="top:620px;left:1620px;width:200px;height:50px;opacity:70%; color:#222222">
+		<button class="general-menu-button" style="top:620px;left:1620px;width:200px;height:50px;opacity:70%; color:#222222">
 			Pick List
 		</button>
 	</a>
 
 	<a href="https://www.youtube.com/watch?v=bwUXXjkyqhE&t=565s">
-		<button class="lesson-menu-button" style="top:700px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
+		<button class="general-menu-button" style="top:700px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
 			Print Report
 		</button>
 	</a>
 
 	<a href="https://www.youtube.com/watch?v=djU2Knv30q0&t=498s">
-		<button class="lesson-menu-button" style="top:780px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
+		<button class="general-menu-button" style="top:780px;left:1620px;width:200px;height:50px; opacity:70%;color:#222222">
 			Drag/Drop
 		</button>
 	</a>
 
-
-@* 	<div style="top:160px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:80% ">
-	<iframe width="1280" height="720" src="https://www.youtube.com/embed/m8e-FF8MsqU" title="Matrix Trailer HD (1999)"
-	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-	</iframe>
-	</div> *@
-
-	<div style="top:160px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:60% ">
-		<iframe width="1280" height="720" src="https://www.youtube.com/embed/m8e-FF8MsqU" title="Matrix Trailer HD (1999)"
-				frameborder="0" allow="accelerometer; autoplay; clipboard-write;encrypted-media; gyroscope; picture-in-picture; web-share" 
-				referrerpolicy="strict-origin-when-cross-origin"
-				allowfullscreen>
-		</iframe>
-	</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** MENU JUMP ************* ****************************** -->
@@ -213,11 +153,17 @@
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/Administration?pod=" + 3 + "&pid=" + 11))"
-				style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:dimgray;z-index:1;">
+				style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:darkred;z-index:1;">
 			Administration
 		</button>
 	</div>
 
+
+
+
+
+
+@* 
 	<!-- ************************************************************************************ -->
 	<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
 	<!-- ************************************************************************************ -->
@@ -243,9 +189,72 @@
 			isMemoPageOpen = !isMemoPageOpen;
 		}
 	}
+ *@
+
+
+
+
 
 </div>
 
 
-<!-- ************************* End of PAGE ************************** -->
+<!-- **************** COMMON END OF MENU ************************************************************* COMMON END OF MENU ******** -->
+<!-- ************************************************************************************ -->
+<!-- ************************************* HELP Overlay ********************************* -->
+<!-- ************************************************************************************ -->
+@if (showIframe)
+{
+	<div>
+		<iframe src="@imagePath" width="1920" height="1080" frameborder="0"
+				style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:90%;">
+		</iframe>
+		<br />
+		<button class="btn btn-danger" @onclick="CloseIframe"
+				style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+			Close HELP
+		</button>
+	</div>
+}
+else
+{
+	<button class="btn btn-primary" @onclick="OpenIframe"
+			style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+		Show HELP
+	</button>
+}
+@code {
+	private bool showIframe = false;
+	private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Menu_Help.png"; 
+
+	private void OpenIframe()
+	{ showIframe = true; }
+
+	private void CloseIframe()
+	{ showIframe = false; }
+}
+
+<!-- ************************************************************************************ -->
+<!-- ************************************* Buttons ************************************** -->
+<!-- ************************************************************************************ -->
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:710px;height:60px;border:0px;width:140px;color:#777777;">
+	Chat
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:790px;height:60px;border:0px;width:140px;color:#777777;">
+	Memo
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:870px;height:60px;border:0px;width:140px;color:#777777;">
+	Exit
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
+	Return
+</button>
+
+
 <!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->

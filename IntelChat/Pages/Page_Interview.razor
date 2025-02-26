@@ -126,74 +126,18 @@
 		text-align: center;
 	}
 
-	#modal {
-		background: url("https://intelchatstorage.blob.core.windows.net/bgcontainer/background-modal_blue.png") no-repeat;
-		background-size: 1870px 1030px;
-		position: absolute;
-		width: 1870px;
-		height: 1030px;
-		left: 25px;
-		top: 25px;
-		border: 5px solid #000000;
-		background-color: #FFFFFF;
-		box-sizing: border-box;
-		padding: 25px;
-	}
 
-	#modal-content {
-		background-color: #8ba3de;
-		width: 50%;
-		margin: 0 auto;
-		border: 5px solid #4a5674;
-		border-radius: 10px;
-		box-sizing: border-box;
-		padding: 25px;
-	}
-
-	#hide-modal {
-		font-size: 50px;
-		font-weight: bolder;
-		color: #000000;
-		float: right;
-		cursor: pointer
-	}
-
-		#hide-modal:hover {
-			color: #555555;
-		}
-	
-	.modal-btn {
-		width: 100%;
-	}
 </style>
 
-	@if (modal)
-	{
-		<div id="modal">
-			<p id="hide-modal" @onclick=HideModal>X</p>
-			<div id="modal-content">
-				@if (show == "chat")
-				{
-					<div style="z-index:1">
-						<Chat></Chat>
-					</div>
-				}
-				@if (show == "memo")
-				{
-					<div style="z-index:1">
-						<Inbox></Inbox>
-					</div>
-				}
-				@if (show == "info")
-				{
-					<embed src="https://intelchatstorage.blob.core.windows.net/documents/TestPDF.pdf" type="application/pdf" width='800' height='800' style="position: absolute; top: 10px; left: 10px">
-					<button class="modal-btn" @onclick=HideModal style="position: absolute; width: 100px; height: 50px; color: black; background-color: white; top: 40px; left: 30px; z-index: 10000;">Close PDF</button>
-				}
-			</div>
-		</div>
-	}
-	else
-	{
+<!-- ************************************************************************************ -->
+<!-- *************************** Lock onto a Person and a POD *************************** -->
+<!-- ************************************************************************************ -->
+<p style="color:#444444;position:absolute;left 10px;  font-size:24px;top:00px;margin:0px;">Pod: @pod</p>
+<p style="color:#444444;position:absolute;left 10px;  font-size:24px;top:30px;">Pid: @pid</p>
+
+
+
+
 		<div class="interview-page">
 			@*
 			***********************************************************************************
@@ -319,22 +263,6 @@
 			</boxmagnitude>
 		</div>
 
-
-		<!-- ************************************************************************************ -->
-		<!-- ******************************** BUTTONS ******************************************* -->
-		<!-- ************************************************************************************ -->
-	<button class="general-interview-button" @onclick=ShowMemo  style="width:160px;height:60px;top:500px;left:34px;color:antiquewhite">Memo</button>
-//	<button class="home-btn" @onclick=ShowMemo style="position:absolute;top:127px;left:1465px;width:270px;height:116px;z-index:2001">Memo</button>
-		<button class="general-interview-button" @onclick=ShowChat  style="width:160px;height:60px;top:570px;left:34px;color:antiquewhite">Chat</button>
-		<button class="general-interview-button" @onclick="Exit"    style="width:160px;height:60px;top:640px;left:34px;color:antiquewhite">Return</button>
-
-		<button class="general-interview-button" @onclick="Process" style="width:160px;height:60px;top:560px;left:1550px;color:red;">Evaluation</button>
-@*		<button class="menu-button" @onclick="Exit" style="width:160px;height:70px;top:555px;left:20px;">Return;	</button>
-		<button class="general-interview-button" @onclick=ShowInfo style="width:160px;height:75px;top:1000px;left:34px;color:antiquewhite">.pdf</button>
-		<button class="general-interview-button" @onclick="NavigateToLascaux" style="width:160px;height:75px;top:800px;left:34px;color:antiquewhite">Lascaux</button> *@
-
-	}
-
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* HELP Overlay ********************************* -->
 	<!-- ************************************************************************************ -->
@@ -346,7 +274,7 @@
 			</iframe>
 			<br />
 			<button class="btn btn-danger" @onclick="CloseIframe"
-					style="position:absolute; top:740px;left:40px; opacity:70%; color:black">
+					style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
 				Close HELP
 			</button>
 		</div>
@@ -354,7 +282,7 @@
 	else
 	{
 		<button class="btn btn-primary" @onclick="OpenIframe"
-				style="position:absolute; top:740px;left:40px; opacity:70%; color:black">
+				style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
 			Show HELP
 		</button>
 	}
@@ -434,4 +362,28 @@
 }
 
 	<!-- *************************** End of HELP Overlay ******************************** -->
+
+
+<!-- ************************************************************************************ -->
+<!-- ************************************* Buttons ************************************** -->
+<!-- ************************************************************************************ -->
+<button class="general-menu-button" @onclick=ShowChat
+		style="position:absolute;left:30px;top:740px;height:60px;border:0px;width:140px;color:#777777;">
+	Chat
+</button>
+
+<button class="general-menu-button" @onclick=ShowMemo 
+		style="position:absolute;left:30px;top:820px;height:60px;border:0px;width:140px;color:#777777;">
+	Memo
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:900px;height:60px;border:0px;width:140px;color:#777777;">
+	Return
+</button>
+
+<button class="general-interview-button" @onclick="Process" style="font-size:44px;width:160px;height:60px;top:730px;left:1450px;color:red;">Evaluation</button>
+
+
+<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->
 

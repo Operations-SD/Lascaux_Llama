@@ -24,8 +24,8 @@
 	<!-- ************************************************************************************ -->
 	<!-- *************************** Lock onto a Person and a POD *************************** -->
 	<!-- ************************************************************************************ -->
-	<p style="color:#333333;font-size:24px">Pod: @pod</p><br>
-	<p style="color:#333333;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
+	<p style="color:#444444;font-size:24px">Pod: @pod</p><br>
+	<p style="color:#444444;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
 	
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** DISPLAY Banner ************************************ -->
@@ -37,7 +37,7 @@
     <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
     <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
     <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
-	<div style="top:120px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
+	<div style="top:180px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
 	<iframe width="1280" height="720" src="https://www.youtube.com/embed/_Uj0kUBsrgs" title="Machines in Motion: The Steampunk City Transport System" 
 	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
 	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -78,19 +78,10 @@
 
 
 
-	<!-- ************************************************************************************ -->
-	<!-- ************************************* Buttons ************************************** -->
-	<!-- ************************************************************************************ -->
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:780px;height:60px;color:RED;border:0px;width:140px;">
-		HELP
-	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:860px;height:60px;color:RED;border:0px;width:140px;">
-		Return
-	</button>
 
+
+@* 
 	<!-- ************************************************************************************ -->
 	<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
 	<!-- ************************************************************************************ -->
@@ -116,7 +107,7 @@
 			isMemoPageOpen = !isMemoPageOpen;
 		}
 	}
-
+ *@
 
 	<div>
 		<!-- ************************************************************************************ -->
@@ -124,7 +115,7 @@
 		<!-- ************************************************************************************ -->
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/User?pod=" + 3 + "&pid=" + 11))"
-				style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:dimgray;z-index:1;">
+				style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:darkred;z-index:1;">
 			Mind Voyagger
 		</button>
 	</div>
@@ -190,8 +181,67 @@
 </div>
 
 
+<!-- **************** COMMON END OF MENU ************************************************************* COMMON END OF MENU ******** -->
 
-<!-- ************************* End of PAGE class="academy-page" ******************************** -->
+<!-- ************************************************************************************ -->
+<!-- ************************************* HELP Overlay ********************************* -->
+<!-- ************************************************************************************ -->
+@if (showIframe)
+{
+	<div>
+		<iframe src="@imagePath" width="1920" height="1080" frameborder="0"
+				style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:90%;">
+		</iframe>
+		<br />
+		<button class="btn btn-danger" @onclick="CloseIframe"
+				style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+			Close HELP
+		</button>
+	</div>
+}
+else
+{
+	<button class="btn btn-primary" @onclick="OpenIframe"
+			style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+		Show HELP
+	</button>
+}
+@code {
+	private bool showIframe = false;
+	private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Menu_Help.png";
+
+	private void OpenIframe()
+	{ showIframe = true; }
+
+	private void CloseIframe()
+	{ showIframe = false; }
+}
+
+<!-- ************************************************************************************ -->
+<!-- ************************************* Buttons ************************************** -->
+<!-- ************************************************************************************ -->
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:710px;height:60px;border:0px;width:140px;color:#777777;">
+	Chat
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:790px;height:60px;border:0px;width:140px;color:#777777;">
+	Memo
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:870px;height:60px;border:0px;width:140px;color:#777777;">
+	Exit
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
+	Return
+</button>
+
+
+<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->
 
 
 

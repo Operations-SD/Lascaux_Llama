@@ -4,83 +4,6 @@
 }
 
 
-
-.crud-page .boxButton {
-    padding: 0;
-    margin: 0;
-    width: 1000px;
-    height: 100px;
-    text-align: right;
-    top: 90px;
-    left: 600px;
-    color: #FF0000;
-    position: absolute;
-    opacity: 100%;
-    background-image: url("../images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
-    background-size: cover;
-}
-
-.crud-page button {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    width: 180px;
-    height: 90px;
-    top: 76px;
-    left: 0px;
-    border-radius: 8px;
-    transition-duration: .60s;
-    color: black;
-    background-color: limegreen;
-    text-align: center;
-    opacity: 100%;
-}
-
-.crud-page .buttonList {
-    left: 660px;
-    opacity: 90%;
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .crud-page .buttonList:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.crud-page .buttonAdd {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .crud-page .buttonAdd:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.crud-page .buttonChange {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .crud-page .buttonChange:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.crud-page .buttonDelete {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
-    background-size: cover;
-    box-shadow: 0 30px 60px rgba(0,0,0,.5);
-}
-
-    .crud-page .buttonDelete:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
 /* ****************************************************** CFG ...NOUN LIST ROWS on Shadow PANEL ************ */
 .crud-page .exhibitPanel {
     position: absolute;
@@ -114,17 +37,115 @@
 
 .crud-page .exhibitInfo2 {
     position: absolute;
-    top: 370px;
+    top: 410px;
     left: 740px;
     color: blanchedalmond;
-    width: 800px;
-    height: 740px;
+    width: 400px;
+    height: 700px;
     font-size: x-large;
     text-overflow: ellipsis;
     /* Required for text-overflow to do anything */
     white-space: nowrap;
     overflow: hidden;
 }
+
+
+
+
+/*.crud-details .exhibitPanel {
+    position: absolute;
+    top: 370px;
+    left: 500px;
+    color: black;
+    width: 540px;
+    font-size: x-large;
+    text-overflow: ellipsis;*/
+    /* Required for text-overflow to do anything */
+    /*white-space: nowrap;
+    overflow: hidden;
+}
+
+.crud-details .exhibitInfo {
+    position: absolute;
+    top: 50px;
+    left: 350px;
+    color: blanchedalmond;
+    width: 540px;
+    height: 700px;
+    font-size: x-large;
+    text-overflow: ellipsis;*/
+    /* Required for text-overflow to do anything */
+    /*white-space: nowrap;
+    overflow: hidden;
+}*/
+
+
+
+
+.crud-page #img-panel-marque {
+    content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Marque.png);
+    position: absolute;
+    top: 90px;
+    left: 600px;
+    width: 580px;
+    border-radius: 0px;
+    background-size: cover;
+}
+
+.crud-page #img-panel-fluer {
+    content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
+    position: absolute;
+    top: 150px;
+    left: 1310px;
+    width: 188px;
+    border-radius: 8px;
+    background-size: cover;
+}
+
+.crud-page .boxButton {
+    padding: 0;
+    margin: 0;
+    width: 1000px;
+    height: 100px;
+    text-align: right;
+    top: 90px;
+    left: 600px;
+    color: #FF0000;
+    position: absolute;
+    opacity: 100%;
+    background-image: url("../images/GUI/DC_GUI_user_Direction.png"); /*missing resource*/
+    background-size: cover;
+}
+
+.crud-page button {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 180px;
+    height: 90px;
+    top: 76px;
+    left: 0px;
+    border-radius: 8px;
+    transition-duration: .60s;
+    color: black;
+    background-color: limegreen;
+    text-align: center;
+    opacity: 100%;
+}
+
+.crud-page #img-panel-shadow-black {
+    border-radius: 12px;
+    background-size: cover;
+    height: 700px;
+    width: 850px;
+}
+
+
+
+
+
+
+
 
 .crud-page .Shadow {
     position: absolute;
@@ -217,50 +238,104 @@
     opacity: 100%;
 }
 
-.crud-page .buttonList {
-    left: 660px;
+
+
+
+/*********** Common Styles for Input Boxes ***************/
+.crud-page .FilterInput {
+    width: 155px;
+    height: 40px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: antiquewhite;
+    border-radius: 4px; /* Rounded edges */
+    text-align: center;
+    box-sizing: border-box; /* Ensures consistent dimensions including padding and borders */
+}
+
+/*********** Positioning for Direct Select ***************/
+.crud-page .DirectSelect {
+    position: absolute;
+    top: 355px; /* Positioned below TagFilter */
+    right: 425px;
+}
+
+/*********** Positioning for Tag Filter ***************/
+.crud-page .TagFilter {
+    position: absolute;
+    top: 405px; /* Adjust this to place it above DirectSelect */
+    right: 425px;
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+.crud-page #btn-panel-list {
+    left: 10px;
     opacity: 90%;
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
+    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
     box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    filter: brightness(80%);
 }
 
-    .crud-page .buttonList:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
-
-.crud-page .buttonAdd {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
+#btn-panel-list:hover {
+    box-shadow: 0 5px 10px rgba(0,0,0,.5);
+    transform: scale(.85);
+    filter: brightness(100%);
+}
+.crud-page #btn-panel-add {
+    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_A.png");
     background-size: cover;
     box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    left: 202px;
+    filter: brightness(80%);
 }
 
-    .crud-page .buttonAdd:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
+#btn-panel-add:hover {
+    box-shadow: 0 5px 10px rgba(0,0,0,.5);
+    transform: scale(.85);
+    filter: brightness(100%);
+}
 
-.crud-page .buttonChange {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
+.crud-page #btn-panel-change {
+    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_C.png");
     background-size: cover;
     box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    left: 394px;
+    filter: brightness(80%);
 }
 
-    .crud-page .buttonChange:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
+#btn-panel-change:hover {
+    box-shadow: 0 5px 10px rgba(0,0,0,.5);
+    transform: scale(.85);
+    filter: brightness(100%);
+}
 
-.crud-page .buttonDelete {
-    background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
+.crud-page #btn-panel-delete {
+    background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
     background-size: cover;
     box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    top: 810px;
+    left: 650px;
+    opacity: 100%;
+    filter: brightness(80%);
 }
 
-    .crud-page .buttonDelete:hover {
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
-        transform: scale(.85);
-    }
+#btn-panel-delete:hover {
+    box-shadow: 0 5px 10px rgba(0,0,0,.5);
+    transform: scale(.85);
+    filter: brightness(100%);
+}
+
 
 .crud-page .Shadow {
     position: absolute;
@@ -449,32 +524,7 @@
     background-size: cover;
 }
 
-.crud-details .exhibitPanel {
-    position: absolute;
-    top: 370px;
-    left: 500px;
-    color: black;
-    width: 540px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
 
-.crud-details .exhibitInfo {
-    position: absolute;
-    top: 50px;
-    left: 350px;
-    color: blanchedalmond;
-    width: 540px;
-    height: 700px;
-    font-size: x-large;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
 
 /*
 ************************************************************************ .engineer-page == > .role-menu
