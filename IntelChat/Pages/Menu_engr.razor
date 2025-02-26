@@ -26,8 +26,8 @@
 	<!-- ************************************************************************************ -->
 	<!-- ************************ Lock onto a Person within a POD *************************** -->
 	<!-- ************************************************************************************ -->
-	<p style="color:#333333;font-size:24px;top:10px;position:absolute">Pod: @pod</p>
-	<p style="color:#333333;font-size:24px;top:40px;position:absolute">Pid: @pid</p>
+	<p style="color:#444444;font-size:24px">Pod: @pod</p><br>
+	<p style="color:#444444;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
 
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** DISPLAY Banner *** Return **************************** -->
@@ -111,31 +111,25 @@
 		</button>
 	</a>
 
-	<!-- ************************************************************************************ -->
-    <!-- ******************************** lower Left Buttons ******************************** -->
-    <!-- ************************************************************************************ -->
-    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-            style="position:absolute;left:30px;top:700px;height:60px;color:RED;border:0px;width:140px;">
-        HELP
-    </button>
 
-    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-            style="position:absolute;left:30px;top:780px;height:60px;color:RED;border:0px;width:140px;">
-        Return
-    </button>
 
 	<!-- ********************************** STEAMPUNK VIDEO ********************************* -->
 	<!-- ********************************** STEAMPUNK VIDEO ********************************* -->
 	<!-- ********************************** STEAMPUNK VIDEO ********************************* -->
-	<div style="top:120px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
+	<div style="top:180px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
 	<iframe width="1280" height="720" src="https://www.youtube.com/embed/_kh0b1kmBlM" title="A Steampunk Adventure - Clockwork Heart - AI Sci-Fi Short Film" 
 	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
 	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 	</iframe>
 	</div>
 
+
+
+
+
+@* 
 	<!-- ************************************************************************************ -->
-	<!-- ********************************* Display MEMO Panel ******************************* -->
+	<!-- ********************************* TOGGLE  MEMO Panel ******************************* -->
 	<!-- ************************************************************************************ -->
 	<div class="engineer-page">
 		<button @onclick="ToggleMemoPage" class="toggle-button"
@@ -184,7 +178,7 @@
 		{
 			isChatPageOpen = !isChatPageOpen;
 		}
-	}
+	} *@
 
 </div>
 
@@ -195,59 +189,69 @@
 
 	<button class="general-menu-button"
 			@onclick="@(() => _nav.NavigateTo("/Expert?pod=" + 3 + "&pid=" + 11))"
-			style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:dimgray;z-index:1;">
+			style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:darkred;z-index:1;">
 		Domain Expert
 	</button>
 </div>
 
+<!-- **************** COMMON END OF MENU ************************************************************* COMMON END OF MENU ******** -->
+<!-- ************************************************************************************ -->
+<!-- ************************************* HELP Overlay ********************************* -->
+<!-- ************************************************************************************ -->
+@if (showIframe)
+{
+	<div>
+		<iframe src="@imagePath" width="1920" height="1080" frameborder="0"
+				style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:90%;">
+		</iframe>
+		<br />
+		<button class="btn btn-danger" @onclick="CloseIframe"
+				style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+			Close HELP
+		</button>
+	</div>
+}
+else
+{
+	<button class="btn btn-primary" @onclick="OpenIframe"
+			style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+		Show HELP
+	</button>
+}
+@code {
+	private bool showIframe = false;
+	private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Menu_Help.png";
+
+	private void OpenIframe()
+	{ showIframe = true; }
+
+	private void CloseIframe()
+	{ showIframe = false; }
+}
+
+<!-- ************************************************************************************ -->
+<!-- ************************************* Buttons ************************************** -->
+<!-- ************************************************************************************ -->
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:710px;height:60px;border:0px;width:140px;color:#777777;">
+	Chat
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:790px;height:60px;border:0px;width:140px;color:#777777;">
+	Memo
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:870px;height:60px;border:0px;width:140px;color:#777777;">
+	Exit
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
+	Return
+</button>
 
 
-<!-- ************************* End of PAGE ************************** -->
 <!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->
 
-
-
-<!-- *************************************************************** insert Chat.razor ******** -->
-	@* <Chat /> *@
-
-
-<!-- ************************************************************************************ -->
-<!-- ************************************* IFrame Video ********************************* -->
-<!-- ************************************************************************************ -->
-@* 	<div style="top:0px; left:0px; position:absolute; overflow:hidden;">
-		<iframe width='600' height='340' src='https://www.youtube.com/embed/m8e-FF8MsqU'
-				frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen>
-		</iframe>
-	</div> *@
-
-<!-- ***********  src="https://www.youtube.com/embed/SrEjoJ_G6tc" *** -->
-<!-- ***********  src="https://www.youtube.com/embed/WIVv0n7EmIs" *** -->
-<!-- ************************************************************************************ -->
-@* 	<div style="top:500px; left:350px; position:absolute; overflow:hidden; filter: brightness(70%); ">
-		<iframe width="960" height="540" src="https://www.youtube.com/embed/SrEjoJ_G6tc"
-				title="Create an EF Core Model from Database First (Scaffold DB Context)"
-				frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-				referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-		</iframe>
-	</div>
-
-</div> *@
-
-
-<!-- **************************************** STEAMPUNK *************************** -->
-@* <div style="top:160px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
-<iframe width="1273" height="716" src="https://www.youtube.com/embed/BbDJ6LxsPNw" title="Enigma - MMX  | The Social Song"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-</iframe>
-</div> *@
-
-
-
-<!-- **************************************** STEAMPUNK *************************** -->
-@* 	<div style="top:160px; left:240px; position:absolute; overflow:hidden;brightness(80%);opacity:90% ">
-	<iframe width="1280" height="720" src="https://www.youtube.com/embed/o4INk3IIOpk" title="Steampunk 2150 | AI Short"
-	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-</iframe>
-	</div> *@
