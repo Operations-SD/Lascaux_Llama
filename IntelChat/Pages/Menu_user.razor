@@ -260,7 +260,7 @@
     </button>
 
 	<!-- *** continue from the last MY-Guide that you selected **** -->
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&interview="+guideIdSelection))"
 			style="top:610px;left:920px;height:60px;width:240px;">
 		MY Interview
 	</button>
@@ -356,18 +356,14 @@
 
 <!-- interview selection -->
 <div style="position:absolute; top:710px; left:200px;">
-	<select class="general-menu-button" style="height:60px; opacity:70%; width:270px;"
-			onchange="navigateToInterview(this.value)">
-		<!-- temp dummy values -->
-		<option value="#">Select Interview</option>
-		<option value="Interview1">Interview 1</option>
-		<option value="Interview2">Interview 2</option>
-		<option value="Interview3">Interview 3</option>
+	<select class="general-menu-button" style="height:60px; opacity:70%; width:270px;" @bind="@guideIdSelection" required>
+		<!-- default value (no interview selected) -->
+		<option value="">Select Interview</option>
 
 		<!-- actual guide values -->
 		@foreach (var guide in entities)
 		{   // Loop through each guide and display their labels to be selected from
-			<option value="{guide.GuideId}">{guide.GuideLabel}</option>
+			<option value="@guide.GuideId">@guide.GuideLabel</option>
 		}
 	</select>
 </div>
@@ -375,9 +371,9 @@
 <!-- navigation script for interview selection -->
 <script>
 	function navigateToInterview(interview) {
-		if (interview !== "#") {
+		if (interview != "#") {
 			// Assuming interviews are on the same page and just require a different 'id' or similar parameter
-			location.href = `/Interview?pod=${pod}&pid=${pid}&interview=${interview}`;
+			guideIdSelection = "&interview=${interview}";
 		}
 	}
 </script>

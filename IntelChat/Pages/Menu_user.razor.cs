@@ -25,6 +25,7 @@ namespace IntelChat.Pages
 		public int? pid { get; set; }
 
 		private List<Guide> entities = new List<Guide>();
+		private string guideIdSelection = "";
 
 		protected override void OnInitialized()
 		{
