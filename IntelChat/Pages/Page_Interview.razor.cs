@@ -102,7 +102,8 @@ namespace IntelChat.Pages
 					QuestionType = reader.GetString(2),
 					QuestionStatus = reader.GetString(3),
 					NovaIdFk = reader.GetInt32(5),
-				});
+				}); ;
+				hasInterview = true;
 			}
 
 			reader.Close();
