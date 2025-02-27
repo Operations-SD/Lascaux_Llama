@@ -17,7 +17,10 @@ namespace IntelChat.Pages
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
-		public int? gid { get; set; } = 3; // Temporary: ID for Intel-a-Chat Guide
+
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? gid { get; set; }
 		public Guide guide;
 
 
@@ -48,6 +51,8 @@ namespace IntelChat.Pages
         //private (int X, int Y) mouseStartChat = (0, 0);
         //public string ChatiframeSource = "";      // Holds the source of the iframe to be displayed
         public string MemoiframeSource = "";
+
+		private bool hasInterview = false; // set to true upon first initial question read - indicates an interview is present in the DB
 
         /// <summary>Executes a stored procedure and (optionally) returns a reader for its results</summary>
         /// <param name="procedure">Name of the stored procedure</param>
@@ -333,6 +338,11 @@ namespace IntelChat.Pages
 		protected override void OnInitialized()
 		{
 			LoadQuestion();
+			if (!hasInterview)
+			{
+				// no interview available, handle error
+				return;
+			}
 			LoadAnswer();
 			LoadPreviousAnswer();
 		}
