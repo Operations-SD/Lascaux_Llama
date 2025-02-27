@@ -252,7 +252,7 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Read"),
 				new SqlParameter("@pod_id", 3),
-				new SqlParameter("@pod_status", "*")
+				new SqlParameter("@pod_status", "A")
 			};
 			var reader = await ExecuteStoredProcedure("dbo.[CRUD_POD]", parameters, true);
 			if (reader == null) return;

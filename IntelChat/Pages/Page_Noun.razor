@@ -288,11 +288,12 @@
 					</label><br><br>
 				</div>
 
-
-				<label style="position:absolute; top:385px;left:1600px; ">
-					image:
-					<input class="form-control" @bind="@entity["change"].UrlIdPk" type="number" required />
-				</label><br><br>
+				<label style="position:absolute; top:415px; left:1580px;">
+					Image ID:
+					<input class="form-control" value="@entity["change"].UrlIdPk"
+						   @onchange="OnUrlIdChanged"
+						   type="number" required />
+				</label><br /><br />
 
 				@if (!string.IsNullOrEmpty(ImageUrl))
 				{
