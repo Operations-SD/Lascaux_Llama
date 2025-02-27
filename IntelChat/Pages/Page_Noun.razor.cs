@@ -38,6 +38,7 @@ namespace IntelChat.Pages
 
 		[Inject]
 		public NotificationService NotificationService { get; set; }
+
 		private List<Pype> pypes = new List<Pype>();
 		private List<Noun> entities = new List<Noun>();
 		private Dictionary<String, Noun> entity = new Dictionary<String, Noun>();
@@ -329,7 +330,6 @@ namespace IntelChat.Pages
 			}
 		}
 
-
 		private void OnItemSelected(int id)
 		{
 			// Find the selected entity by ID and set it for the change form
@@ -345,7 +345,7 @@ namespace IntelChat.Pages
 			directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
 		}
 
-		private async System.Threading.Tasks.Task HandleDirectSelectKeyPress(KeyboardEventArgs e)
+		private async ThreadingTask HandleDirectSelectKeyPress(KeyboardEventArgs e)
 		{
 			if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
 			{
@@ -363,7 +363,6 @@ namespace IntelChat.Pages
 				}
 			}
 		}
-
 
 		private string tagFilter { get; set; } = string.Empty;
 		private SqlDataReader? Read(string status = "*", string filter = "****")
@@ -415,5 +414,16 @@ namespace IntelChat.Pages
 				await InvokeAsync(StateHasChanged); // ✅ Ensure the UI updates
 			}
 		}
-	}
+
+        private async ThreadingTask OnUrlIdChanged(ChangeEventArgs e)
+        {
+            if (int.TryParse(e.Value?.ToString(), out int newUrlId))
+            {
+                entity["change"].UrlIdPk = newUrlId;
+                await LoadImageUrlAsync(newUrlId);
+            }
+        }
+
+
+    }
 }

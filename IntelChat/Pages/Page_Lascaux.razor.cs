@@ -897,6 +897,5 @@ namespace IntelChat.Pages
 
 			NavigationManager.NavigateTo(url);
 		}
-
 	}
 }
