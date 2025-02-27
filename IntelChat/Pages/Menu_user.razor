@@ -1,6 +1,7 @@
 ﻿@page "/User"
 @inject NnetDbContext db            // Inject the ServerDbContext service for database access
 @inject NavigationManager _nav
+@inject IConfiguration _configuration
 @layout CustomLayout
 @using IntelChat.Models
 @using System.Data.SqlClient;
@@ -352,6 +353,34 @@
 <div class="titlebanner" style="opacity:30%;top:1040px; left:1520px; width:300px; height:20px; position:absolute; filter: brightness(40%);">
     <img src="https://agineuralnet.blob.core.windows.net/panels/Panel_CFG_copyright.png" />
 </div>
+
+<!-- interview selection -->
+<div style="position:absolute; top:710px; left:200px;">
+	<select class="general-menu-button" style="height:60px; opacity:70%; width:270px;"
+			onchange="navigateToInterview(this.value)">
+		<!-- temp dummy values -->
+		<option value="#">Select Interview</option>
+		<option value="Interview1">Interview 1</option>
+		<option value="Interview2">Interview 2</option>
+		<option value="Interview3">Interview 3</option>
+
+		<!-- actual guide values -->
+		@foreach (var guide in entities)
+		{   // Loop through each guide and display their labels to be selected from
+			<option value="{guide.GuideId}">{guide.GuideLabel}</option>
+		}
+	</select>
+</div>
+
+<!-- navigation script for interview selection -->
+<script>
+	function navigateToInterview(interview) {
+		if (interview !== "#") {
+			// Assuming interviews are on the same page and just require a different 'id' or similar parameter
+			location.href = `/Interview?pod=${pod}&pid=${pid}&interview=${interview}`;
+		}
+	}
+</script>
 
 
 
