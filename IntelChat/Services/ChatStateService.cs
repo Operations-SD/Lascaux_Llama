@@ -10,5 +10,6 @@ public class ChatStateService
     public void ShowResponse()
     {
         OnShowResponse?.Invoke();
+        
     }
 }

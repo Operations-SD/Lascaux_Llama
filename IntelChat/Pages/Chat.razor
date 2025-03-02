@@ -8,6 +8,7 @@
 
 <style>
     body {
+        overflow:hidden;
         background: url("https://agineuralnet.blob.core.windows.net/panels/Panel_Chat520.png") no-repeat;
     }
 
@@ -42,29 +43,68 @@
 </style>
 
 <div class="chat-container shadow-sm">
+    @inject NewStateService NewMemoService
     @if (!userMessages.Any())
     {
         <p>No messages yet, start chatting!</p>
     }
+    
+
+    @functions {
+        string GetUserColor(string username)
+        {
+            int hash = username.GetHashCode();
+            int r = (hash & 0x7F0000) >> 16 | 0x80; // Ensures bright colors
+            int g = (hash & 0x007F00) >> 8 | 0x80;
+            int b = (hash & 0x00007F) | 0x80;
+            return $"#{r:X2}{g:X2}{b:X2}";
+        }
+    }
 
     @foreach (var userMessage in userMessages)
     {
+        string userColor = GetUserColor(userMessage.Username);
+
+        @code {
+
+        void SendToResponse(String mess)
+        {
+
+            NewMemoService.message = mess;
+            NewMemoService.ShowNewMemo(); // Trigger the response
+        }
+       }
+
         <div class="row mb-3 d-flex @(userMessage.CurrentUser ? "justify-content-end" : "")">
-            <div class="card shadow @(userMessage.CurrentUser ? "color-green mr-5" : "ml-5")"
-                 style="margin-left: 10px; margin-right: 10px; width: 16rem;">
+            <div class="card shadow"
+                 style="margin-left: 10px; margin-right: 10px; width: 16rem;
+                    background-color: @(userMessage.CurrentUser ? "#A8E6CF" : userColor);">
                 <div class="card-header">
                     @(userMessage.CurrentUser ? "You" : userMessage.Username)
+
+                    <button class="modal-btn" @onclick="() => SendToResponse(userMessage.Message)"
+                            style="position:relative; height:30px;width:120px;background-color:darkred;border-radius:5px;border:3px;">
+                        Memo
+                    </button>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item @(userMessage.CurrentUser ? "color-green" : "")">@userMessage.Message</li>
+                    <li class="list-group-item">@userMessage.Message</li>
                 </ul>
+
+               
                 <div class="card-footer">
                     <span class="small">@userMessage.DateSent.ToString("HH:mm | MMM dd")</span>
                 </div>
             </div>
         </div>
+
+       
     }
+
 </div>
+
+
+
 
 <div class="container message-input-container">
     <div class="row">

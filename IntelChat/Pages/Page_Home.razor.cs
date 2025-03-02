@@ -124,12 +124,13 @@ namespace IntelChat.Pages
         {
             NewMemoiframeSource = "/NewMemo";// Set iframe source to New Memo page
             isNewMemoIframeVisible = true;
-            StateHasChanged();
+            InvokeAsync(StateHasChanged);
         }
         public void HideNewMemo()
         {
             isNewMemoIframeVisible = false; // Hide the iframe
             NewMemoiframeSource = "";       // Clear the iframe source
+            StateHasChanged();
         }
 
         /*********************************************************************************

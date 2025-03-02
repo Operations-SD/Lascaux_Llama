@@ -24,7 +24,8 @@ namespace IntelChat.Pages
 		public string messageType = "";
 		private List<Memo> memos = new List<Memo>();
 		private List<Memo> currentSenderMemo = new List<Memo>(); // contains the memo of the current selecter sender
-        private int currentMemoIndex = -1;// for iteration of the current sender memos
+        [Inject]
+        private NewStateService NewMemoService { get; set; } = default!; // Inject the service
         private bool showResponseMessage = false;
        
         public string roleRecipient = "";
@@ -166,7 +167,7 @@ namespace IntelChat.Pages
         //******************************* stored proceedure **************************************
         protected override void OnInitialized()
 		{
-          
+			message = NewMemoService.message;
             LoadMemos("Read_Grid", "Memo");
 		}
 	}
