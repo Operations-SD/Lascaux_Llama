@@ -1,0 +1,172 @@
+﻿@page "/Spin_URL"
+@inject NnetDbContext db
+@inject NavigationManager _nav
+@inject IConfiguration _configuration
+@* @inject NounService nounService *@
+@layout CustomLayout
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+@using System.Data.Common;
+@* @using IntelChat.Services; *@
+
+<style>
+	body {
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Language.png")no-repeat; /*Background to blob*/
+		background-size: cover;
+		<!--background: left 0px top 0px;-->
+		background-color: #000000;
+		color: antiquewhite;
+		opacity: 70%;
+		<!--width: 1920px;
+		height: 1080px;-->
+	}
+
+    /* Full viewport centering */
+    html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        display: inline-block;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        width: 100%;
+        width: 850px;
+        height: 700px;
+        padding: 20px;
+        background-color: grey;
+        background-size: cover;
+        border-radius: 12px;
+        opacity: 95%;
+    }
+
+    .banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .entity-info {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        color: #000000;
+    }
+
+    .info-line {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .media-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .scaled-image {
+        width: 200px;
+        height: 200px;
+        object-fit: inherit;
+        border-radius: 8px;
+    }
+
+    .scaled-content {
+        width: 600px;
+        height: 400px;
+        border-radius: 8px;
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 300px;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+    }
+</style>
+
+@if (SelectedUrl != null)
+ {
+    <div class="container">
+
+        <!-- Entity Banner -->
+        <div class="banner">
+            <div class="entity-info">
+                <!-- Line 1: ID, Label, Description -->
+                <div class="info-line">
+                    <p><strong>ID:</strong> @SelectedUrl.UrlId</p>
+                    <p><strong>Label:</strong> @SelectedUrl.UrlLabel</p>
+                    <p><strong>Description:</strong> @SelectedUrl.UrlDescription</p>
+                </div>
+
+                <!-- Line 2: Type, Tag -->
+                <div class="info-line">
+                    <p><strong>Type:</strong> @SelectedUrl.UrlType</p>
+                    <p><strong>Tag:</strong> @SelectedUrl.UrlTag</p>
+                </div>
+
+                <!-- Line 3: URL -->
+                <div class="info-line">
+                    <p><strong>URL:</strong> <a href="@SelectedUrl.UrlCloud" target="_blank">@SelectedUrl.UrlCloud</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Display -->
+        <div class="media-section">
+            @if (IsImage(SelectedUrl.UrlCloud))
+            {
+                <img src="@SelectedUrl.UrlCloud" class="scaled-image" alt="Image">
+            }
+            else if (IsYouTube(SelectedUrl.UrlCloud))
+            {
+                <iframe class="scaled-content" src="@GetYouTubeEmbedUrl(SelectedUrl.UrlCloud)" allowfullscreen></iframe>
+            }
+            else if (IsPDF(SelectedUrl.UrlCloud))
+            {
+                <embed class="scaled-content" src="@SelectedUrl.UrlCloud" type="application/pdf">
+            }
+        </div> 
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="navigation">
+        <button @onclick="GoToPreviousUrl">Previous</button>
+        <button @onclick="GoToNextUrl">Next</button>
+        <button @onclick="GoToChainUrl">Chain</button>
+    </div>    
+}
+
+else
+{
+    <p>No URLs available.</p>
+}
+
+
