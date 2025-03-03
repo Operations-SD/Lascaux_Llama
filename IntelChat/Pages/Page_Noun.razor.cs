@@ -145,6 +145,7 @@ namespace IntelChat.Pages
 					new SqlParameter("@type", entity["change"].NounType),
 					new SqlParameter("@status", entity["change"].NounStatus),
 					new SqlParameter("@url_id_pk", entity["change"].UrlIdPk),
+					new SqlParameter("@tag", entity["change"].NounTag),
 					new SqlParameter("@pod", pod)
 			};
 
@@ -423,7 +424,5 @@ namespace IntelChat.Pages
                 await LoadImageUrlAsync(newUrlId);
             }
         }
-
-
     }
 }
