@@ -124,13 +124,16 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				//new SqlParameter("@pod", pod),
+				new SqlParameter("@pod", pod),
 				new SqlParameter("@Pype_type", entity["change"].PypeType),
 				new SqlParameter("@Pype_label", entity["change"].PypeLabel),
 				new SqlParameter("@Pype_status", entity["change"].PypeStatus),
 				new SqlParameter("@Pype_desc", entity["change"].PypeDesc),
 				new SqlParameter("@Pype_link", entity["change"].PypeLink),
-				new SqlParameter("@pod", entity["change"].PodIdFk),
+				new SqlParameter("@pype_seq", entity["change"].PypeSeq),
+                new SqlParameter("@pype_drop_tax", entity["change"].PypeDropTax),
+				new SqlParameter("@pype_pointer", entity["change"].PypePointer),
+				new SqlParameter("@pype_id", entity["change"].PypeId)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters);
 		}

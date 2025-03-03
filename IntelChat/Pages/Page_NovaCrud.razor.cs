@@ -68,7 +68,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@pod", entity["add"].PodIdFk),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk),
 				new SqlParameter("@priority", entity["add"].NovaPrioriy),
-				new SqlParameter("@label", entity["add"].NovaLabel)
+				new SqlParameter("@label", entity["add"].NovaLabel),
+				new SqlParameter("@nova_tag", entity["add"].NovaTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
 		}
@@ -138,6 +139,7 @@ namespace IntelChat.Pages
 					new SqlParameter("@id", entity["change"].NovaId),
 					new SqlParameter("@pod", pod),
 					new SqlParameter("@description", entity["change"].NovaDescription),
+					new SqlParameter("@nova_status", entity["change"].NovaStatus),
 					new SqlParameter("@type", entity["change"].NovaType),
 					new SqlParameter("@channel", entity["change"].NovaChannel),
 					new SqlParameter("@subject", entity["change"].NovaSubject),
@@ -147,7 +149,8 @@ namespace IntelChat.Pages
 					new SqlParameter("@pod", entity["change"].PodIdFk),
 					new SqlParameter("@person_id_fk", entity["change"].PersonIdFk),
 					new SqlParameter("@priority", entity["change"].NovaPrioriy),
-					new SqlParameter("@label", entity["change"].NovaLabel)
+					new SqlParameter("@label", entity["change"].NovaLabel),
+					new SqlParameter("@nova_tag", entity["change"].NovaTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
 		}

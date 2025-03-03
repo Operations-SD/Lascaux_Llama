@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -90,7 +91,7 @@ namespace IntelChat.Pages
 					QuestionText = reader.GetString(1),
 					QuestionType = reader.GetString(2),
 					QuestionStatus = reader.GetString(3),
-					NovaIdFk = reader.GetInt32(4)
+					NovaIdFk = reader.GetInt32(5)
 				});
 			}
 			reader.Close();
@@ -230,5 +231,38 @@ namespace IntelChat.Pages
 			show = "list";
 		}
 
-	}
+        private void OnItemSelected(int id)
+        {
+            // Find the selected entity by ID and set it for the change form
+            AutoFill(id, "change");
+            show = "change"; // Navigate to the change screen
+        }
+
+        // <summary> Handle item selection from entering ID into field </summary>
+        private string directSelectId = string.Empty;
+
+        private void UpdateDirectSelectId(ChangeEventArgs e)
+        {
+            directSelectId = e.Value?.ToString() ?? string.Empty; // Update the input value
+        }
+
+        private async ThreadingTask HandleDirectSelectKeyPress(KeyboardEventArgs e)
+        {
+            if (e.Key == "Enter" && int.TryParse(directSelectId, out int id))
+            {
+                // Find the entity by ID and navigate to the change screen
+                var selectedEntity = entities.FirstOrDefault(entity => entity.QuestionId == id);
+                if (selectedEntity != null)
+                {
+                    AutoFill(id, "change"); // Populate fields with selected entity
+                    show = "change";        // Switch to the change screen
+                    await InvokeAsync(StateHasChanged); // Ensure immediate UI re-render
+                }
+                else
+                {
+                    NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
+                }
+            }
+        }
+    }
 }

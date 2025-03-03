@@ -66,7 +66,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@role", entity["add"].PersonPypeDdRole),
 				new SqlParameter("@date_time", entity["add"].PersonDatetime),
 				new SqlParameter("@pod_id_fk", pod),
-				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk)
+				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk),
+				new SqlParameter("@tag", entity["add"].PersonTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Person]", parameters);
 		}
@@ -107,7 +108,8 @@ namespace IntelChat.Pages
 					PersonPypeDdRole = reader.GetString(6),
 					PersonDatetime = reader.GetDateTime(7),
 					PodIdFk = reader.GetInt32(8),
-					LocationIdFk = reader.GetInt32(9)
+					LocationIdFk = reader.GetInt32(9),
+					PersonTag = reader.GetString(10)
 				});
 			}
 			reader.Close();
@@ -141,8 +143,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@role", entity["add"].PersonPypeDdRole),
 				new SqlParameter("@date_time", entity["add"].PersonDatetime),
 				new SqlParameter("@pod_id_fk", pod),
-				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk)
-
+				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk),
+				new SqlParameter("@tag", entity["add"].PersonTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Person]", parameters);
 		}

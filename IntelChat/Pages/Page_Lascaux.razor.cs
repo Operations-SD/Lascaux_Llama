@@ -43,6 +43,9 @@ namespace IntelChat.Pages
 		public string? prevPage { get; set; }
 		[Parameter]
 		[SupplyParameterFromQuery]
+		public int? novaid { get; set; }
+		[Parameter]
+		[SupplyParameterFromQuery]
 		public string? type { get; set; } // *********** value from other page??? ************* Lascaux Case switch *********************
 
 

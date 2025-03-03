@@ -22,6 +22,10 @@ namespace IntelChat.Pages
 
 		[Parameter]
 		[SupplyParameterFromQuery]
+		public string? prevPage { get; set; }
+
+		[Parameter]
+		[SupplyParameterFromQuery]
 		public int? nounId { get; set; } // Noun ID for navigation
 
 		[Parameter]

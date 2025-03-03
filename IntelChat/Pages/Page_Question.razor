@@ -110,7 +110,7 @@
 	}
 </style>
 
-<div class="noun-page">
+<div class="crud-page">
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* METADATA ************************************* -->
 	<!-- ************************************************************************************ -->
@@ -137,6 +137,16 @@
 		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" class="FilterInput" type="text"
+			   @oninput="UpdateDirectSelectId"
+			   @onkeydown="HandleDirectSelectKeyPress"
+			   placeholder="Enter ID" />
 	</div>
 
 	<!-- ************************************************************************************ -->
@@ -179,7 +189,9 @@
 				@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 				</td>
 				*@
-							<td>
+							<td @onclick="@(() => OnItemSelected(entity.QuestionId))"
+								onmouseover="this.style.color='#AAAAAA'"
+								onMouseOut="this.style.color='#FFFFFF'">
 								@entity.QuestionId   @entity.QuestionStatus   @entity.QuestionType   @entity.QuestionText   @entity.NovaIdFk
 							</td>
 						</tr>
