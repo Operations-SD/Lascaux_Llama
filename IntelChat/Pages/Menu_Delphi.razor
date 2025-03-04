@@ -20,14 +20,16 @@
 	}
 </style>
 
+<!-- ************************************************************************************ -->
+<!-- *************************** Lock onto a Person and a POD *************************** -->
+<!-- ************************************************************************************ -->
+<p style="color:#444444;font-size:24px;top:500px;position:absolute">Pod: @pod</p>
+<p style="color:#444444;font-size:24px;top:530px;position:absolute">Pid: @pid</p>
 
 <div class="role-menu"
-
-
 <!-- ************************************************************************************ -->
 <!-- ********************************* Cloud Page Activity ****************************** -->
 <!-- ************************************************************************************ -->
-
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/POD?pod=" + 3 + "&pid=" + 11))"
@@ -35,7 +37,6 @@
 				POD invitation
 		</button>
 	</div>
-
 
 	<div>
 		<button class="general-menu-button"
@@ -45,19 +46,17 @@
 		</button>
 	</div>
 
-
 	<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/Location?pod=" + 3 + "&pid=" + 11))"
 				style="top:700px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
 				Location
 		</button>
-
 	</div>
 
 	<div>
 		<button class="general-menu-button"
-				@onclick="@(() => _nav.NavigateTo("/NOVA?pod=" + 3 + "&pid=" + 11))"
+				@onclick="@(() => _nav.NavigateTo("/URL?pod=" + 3 + "&pid=" + 11))"
 				style="top:780px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
 				URL cloud link
 		</button>
@@ -65,7 +64,7 @@
 
 	<div>
 		<button class="general-menu-button"
-				@onclick="@(() => _nav.NavigateTo("/Verb?pod=" + 3 + "&pid=" + 11))"
+				@onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))"
 				style="top:860px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
 				TASK schedule
 		</button>
@@ -73,7 +72,7 @@
 
 	<div>
 		<button class="general-menu-button"
-				@onclick="@(() => _nav.NavigateTo("/Noun?pod=" + 3 + "&pid=" + 11))"
+				@onclick="@(() => _nav.NavigateTo("/Work?pod=" + 3 + "&pid=" + 11))"
 				style="top:940px;left:1560px;height:60px; opacity:60%; color:dimgray;z-index:1;">
 				WORK skills
 		</button>
@@ -316,7 +315,7 @@ else
 <!-- ************************************************************************************ -->
 <!-- ********************************* Display MEMO Panel ******************************* -->
 <!-- ************************************************************************************ -->
-<div class="engineer-page">
+<div class="role-menu">
 	<button @onclick="ToggleMemoPage" class="toggle-button"
 			style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
 		toggle MEMO
@@ -343,7 +342,7 @@ else
 <!-- ************************************************************************************ -->
 <!-- ********************************* Display CHAT Panel ******************************* -->
 <!-- ************************************************************************************ -->
-<div class="engineer-page">
+<div class="role-menu">
 	<button @onclick="ToggleChatPage" class="toggle-button"
 			style="top:960px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
 		toggle CHAT
@@ -351,7 +350,7 @@ else
 
 	@if (isChatPageOpen)
 	{
-		<div class="chat-page" style="z-index:1;position:absolute;top:0px;left:1400px;width:520px;height:1060px; opacity:80%">
+		<div class="role-menu" style="z-index:1;position:absolute;top:0px;left:1400px;width:520px;height:1060px; opacity:80%">
 			<iframe src="Chat" class="chat-iframe"></iframe>
 		</div>
 	}
