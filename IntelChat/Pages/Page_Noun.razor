@@ -9,6 +9,7 @@
 @using System.Data;
 @using System.Data.Common;
 @* @using IntelChat.Services; *@
+@using Microsoft.JSInterop;
 
 <style>
 	body {
@@ -382,11 +383,10 @@
 		Grid
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/"+prevPage+"/?"+pod+"&pid="+pid+""))"
+	<button class="general-menu-button" @onclick='() => JSRuntime.InvokeVoidAsync("goBack")'
 			style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
 		Return
 	</button>
-
 </div>
 
 

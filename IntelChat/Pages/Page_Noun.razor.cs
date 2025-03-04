@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using ThreadingTask = System.Threading.Tasks.Task;
+using Microsoft.JSInterop;
 
 namespace IntelChat.Pages
 {
@@ -43,7 +44,10 @@ namespace IntelChat.Pages
 		[Inject]
 		public NotificationService NotificationService { get; set; }
 
-		private List<Pype> pypes = new List<Pype>();
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
+
+        private List<Pype> pypes = new List<Pype>();
 		private List<Noun> entities = new List<Noun>();
 		private Dictionary<String, Noun> entity = new Dictionary<String, Noun>();
 		private Dictionary<String, String> filter = new Dictionary<String, String>();
@@ -416,7 +420,7 @@ namespace IntelChat.Pages
 			if (urlId > 0)
 			{
 				ImageUrl = GetImageUrl(urlId);
-				await InvokeAsync(StateHasChanged); // ✅ Ensure the UI updates
+				await InvokeAsync(StateHasChanged); // Ensure the UI updates
 			}
 		}
 
@@ -428,5 +432,9 @@ namespace IntelChat.Pages
                 await LoadImageUrlAsync(newUrlId);
             }
         }
+
+        
+		
+
     }
 }

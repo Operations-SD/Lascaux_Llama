@@ -12,6 +12,7 @@ using static IntelChat.Pages.Page_Nova;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 namespace IntelChat.Pages
 {
@@ -48,8 +49,10 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public string? type { get; set; } // *********** value from other page??? ************* Lascaux Case switch *********************
 
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
 
-		private List<Lascaux> novas = new List<Lascaux>();
+        private List<Lascaux> novas = new List<Lascaux>();
 		public Lascaux novaLasc = new Lascaux();
 
 		/// ****************************************************************************************
@@ -900,5 +903,10 @@ namespace IntelChat.Pages
 
 			NavigationManager.NavigateTo(url);
 		}
-	}
+
+        private async ThreadingTask GoBack()
+        {
+            await JSRuntime.InvokeVoidAsync("goBack");
+        }
+    }
 }
