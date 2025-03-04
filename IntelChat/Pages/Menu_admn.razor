@@ -75,11 +75,11 @@
 			style="z-index:1;top:780px;Color:#FFFFFF;left:320px;height:60px;">
         Channel
     </button>
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Spin_URL?pod="+pod+"&pid="+pid))"
 			style="z-index:1;top:860px;Color:#FFFFFF;left:320px;height:60px;">
 		Spin URL
 	</button>
+
 
 </div>
 
@@ -113,26 +113,26 @@ allowfullscreen>
 @if (showIframe)
 {
 	<div>
-		<iframe src="@imagePath" width="1920" height="1080" frameborder="0"
+		<iframe src="@imagePath" width="1400" height="920" frameborder="0"
 				style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:90%;">
 		</iframe>
 		<br />
-		<button class="btn btn-danger" @onclick="CloseIframe"
-				style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
-			Close HELP
+		<button class="general-menu-button" @onclick="CloseIframe"
+				style="position:absolute; top:400px;left:30px; opacity:100%;height:60px;border:0px;brightness:100%;width:140px;color:red">
+			Close
 		</button>
 	</div>
 }
 else
 {
-	<button class="btn btn-primary" @onclick="OpenIframe"
-			style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
-		Show HELP
+	<button class="general-menu-button" @onclick="OpenIframe"
+			style="position:absolute; top:400px;left:30px; opacity:80%;height:60px;border:0px;width:140px;color:red">
+		HELP
 	</button>
 }
 @code {
 	private bool showIframe = false;
-	private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Menu_Help.png";
+	private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Menu_Help.png"; // Replace with your .png file path
 
 	private void OpenIframe()
 	{ showIframe = true; }
@@ -142,26 +142,26 @@ else
 }
 
 <!-- ************************************************************************************ -->
-<!-- ************************************* Buttons ************************************** -->
+<!-- *************************** Navigation Buttons ******************** ROLE *********** -->
 <!-- ************************************************************************************ -->
 <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
 		style="position:absolute;left:30px;top:710px;height:60px;border:0px;width:140px;color:#777777;">
-	Chat
-</button>
-
-<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
-		style="position:absolute;left:30px;top:790px;height:60px;border:0px;width:140px;color:#777777;">
 	Memo
 </button>
 
 <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:790px;height:60px;border:0px;width:140px;color:#777777;">
+	Read
+</button>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
 		style="position:absolute;left:30px;top:870px;height:60px;border:0px;width:140px;color:#777777;">
-	Exit
+	Chat
 </button>
 
 <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 		style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
-	Return
+	Exit
 </button>
 
 
