@@ -12,28 +12,18 @@
 
 <style>
 	body {
-		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Language.png")no-repeat; /*Background to blob*/
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Language.png");		 /*Background to blob*/
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
 		background-color: #000000;
 		color: antiquewhite;
-		opacity: 70%;
+		opacity: 80%;
 		width: 1920px;
 		height: 1080px;
 	}
 
-	#img-panel-marque {
-		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Marque.png);
-		position: absolute;
-		top: 90px;
-		left: 600px;
-		width: 580px;
-		border-radius: 0px;
-		background-size: cover;
-	}
-
 	#btn-luster-task {
-		content: url(https://agineuralnet.blob.core.windows.net/banners/bnr_Task.png);
+		content: url("https://agineuralnet.blob.core.windows.net/buttons/btn_TASK.png");
 		position: absolute;
 		top: 85px;
 		left: 820px;
@@ -42,111 +32,9 @@
 		background-size: cover;
 	}
 
-	#img-panel-fluer {
-		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
-		position: absolute;
-		top: 150px;
-		left: 1310px;
-		width: 188px;
-		border-radius: 8px;
-		background-size: cover;
-	}
-
-	#btn-panel-list {
-		left: 10px;
-		opacity: 90%;
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		filter: brightness(80%);
-	}
-		#btn-panel-list:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-
-	#btn-panel-add {
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_A.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		left: 202px;
-	}
-		#btn-panel-add:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-
-	#btn-panel-change {
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_C.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		filter: brightness(80%);
-		left: 394px;
-	}
-		#btn-panel-change:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-
-	#btn-panel-delete {
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		top: 110px;
-		left: 1000px;
-		opacity: 100%;
-		filter: brightness(80%);
-	}
-		#btn-panel-delete:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-	
-	#img-panel-shadow-black {
-		border-radius: 12px;
-		background-size: cover;
-		height: 700px;
-		width: 850px;
-	}
-
-	/*********** Common Styles for Input Boxes ***************/
-	.FilterInput {
-		width: 155px;
-		height: 40px;
-		padding: 5px;
-		font-size: 16px;
-		border: 1px solid #ccc;
-		background-color: antiquewhite;
-		border-radius: 4px; /* Rounded edges */
-		text-align: center;
-		box-sizing: border-box; /* Ensures consistent dimensions including padding and borders */
-	}
-
-	/*********** Positioning for Direct Select ***************/
-	.DirectSelect {
-		position: absolute;
-		top: 355px; /* Positioned below TagFilter */
-		right: 425px;
-	}
-
-	/*********** Positioning for Tag Filter ***************/
-	.TagFilter {
-		position: absolute;
-		top: 405px; /* Adjust this to place it above DirectSelect */
-		right: 425px;
-		opacity: 1;
-	}
 </style>
 
 <div class="crud-page">
-
 
 	<!-- ************************************************************************************ -->
 	<!-- *************************** Lock onto a Person and a POD *************************** -->
@@ -160,6 +48,9 @@
 	<div><img id="img-panel-marque"></div>
 	<div><img id="btn-luster-task"></div>
 	<div><img id="img-panel-fluer"></div>
+
+
+
 	<div><img id="img-table"></div>
 
 	<!-- ************************************************************************************ -->
@@ -266,9 +157,62 @@
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 
 					<label>
-						Label:
+						Label 32:
 						<input class="form-control" @bind="@entity["add"].TaskLabel32" maxlength="32" required />
 					</label><br><br>
+
+                    <label>
+                        Description:
+                        <input class="form-control" @bind="@entity["add"].TaskDescription" maxlength="255" required />
+                    </label><br>
+
+
+
+
+
+                    <label>
+                        Status:
+                        <input class="form-control" @bind="@entity["add"].TaskStatus" maxlength="1" required />
+                    </label><br>
+
+					<label>
+						Parent Task:
+						<input class="form-control" @bind="@entity["add"].TaskParent" />
+					</label><br>
+
+                    <label>
+                        Level:
+                        <input class="form-control" @bind="@entity["add"].TaskLevel" required />
+                    </label><br>
+
+
+
+
+					<label>
+						URL:
+						<input class="form-control" @bind="@entity["add"].TaskUrl" />
+					</label><br>
+
+                    <label>
+                        POD's duration:
+                        <input class="form-control" @bind="@entity["add"].TaskDuration" maxlength="16" required />
+                    </label><br>
+
+					<label>
+						Sort Sequence:
+						<input class="form-control" @bind="@entity["add"].TaskSeq" required />
+					</label><br>
+
+					<label>
+						Tag: (contains)
+					</label><br>
+
+					<textarea style="width:700px;height:80px; ">
+						<input class="form-control" @bind="@entity["add"].TaskTag" maxlength="1024" required />
+					</textarea>
+				</div>
+
+				<div class="exhibitInfo2">
 
 					<label>
 						Type:
@@ -285,74 +229,41 @@
 					</label><br><br>
 
 					<label>
-						Status:
-						<input class="form-control" @bind="@entity["add"].TaskStatus" maxlength="1" required />
-					</label><br>
-
-					<label>
-						Description:
-						<input class="form-control" @bind="@entity["add"].TaskDescription" maxlength="255" required />
-					</label><br>
-
-					<label>
-						Level:
-						<input class="form-control" @bind="@entity["add"].TaskLevel" required />
-					</label><br>
-
-					<label>
-						Duration:
-						<input class="form-control" @bind="@entity["add"].TaskDuration" maxlength="16" required />
-					</label><br>
-
-					<label>
-						Task Start Date:
+						Start Date:
 						<input type="date" class="form-control" @bind="@entity["add"].TaskStartDate" required />
 					</label><br>
 
 					<label>
-						Task Finish Date:
+						Finish Date:
 						<input type="date" class="form-control" @bind="@entity["add"].TaskFinishDate" />
 					</label><br>
 
 					<label>
-						Task Entry Date:
+						Entry Date:
 						<input type="date" class="form-control" @bind="@entity["add"].TaskEntryDate" required />
 					</label><br>
 
 					<label>
-						Task Previous:
+						Previous Task:
 						<input class="form-control" @bind="@entity["add"].TaskPrevious" required />
 					</label><br>
 
 					<label>
-						Person ID FK:
+						Person:
 						<input class="form-control" @bind="@entity["add"].PersonIdFk" required />
 					</label><br>
 
 					<label>
-						NOVA ID FK:
+						NOVA:
 						<input class="form-control" @bind="@entity["add"].NovaIdFk" required />
 					</label><br>
 
 					<label>
-						Noun ID FK:
+						Noun (object):
 						<input class="form-control" @bind="@entity["add"].NounIdFk" required />
 					</label><br>
 
-					<label>
-						Task Sequence:
-						<input class="form-control" @bind="@entity["add"].TaskSeq" required />
-					</label><br>
 
-					<label>
-						Task Parent:
-						<input class="form-control" @bind="@entity["add"].TaskParent"/>
-					</label><br>
-
-					<label>
-						Task URL:
-						<input class="form-control" @bind="@entity["add"].TaskUrl"/>
-					</label><br>
 				</div>
 			</form>
 		</div>
@@ -369,6 +280,7 @@
 					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
 
+				<!-- ************************************* Commit to Change ********************************** -->
 				<div class="boxFilter">
 					<div class="PypeTypeFilter">
 						<label>
@@ -401,12 +313,50 @@
 					<button class="commitChange" type="submit"></button>
 				</div>
 
+				<!-- ************************************* Display TASK Data ********************************** -->
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 					<label>
-						Label:
-						<input class="form-control" @bind="@entity["change"].TaskLabel32" maxlength="32" required />
-					</label><br><br>
+						Label 32:
+						<input class="form-control" @bind="@entity["change"].TaskLabel32" maxlength="32" required />		</label><br><br>
+                    <label>
+                        Description:
+                        <input class="form-control" @bind="@entity["change"].TaskDescription" maxlength="255" required />	</label><br>
+                    <label>
+                        Status:
+                        <input class="form-control" @bind="@entity["change"].TaskStatus" maxlength="1" required />
+                    </label><br>
+					<label>
+						Parent Task:
+						<input class="form-control" @bind="@entity["change"].TaskParent" />
+					</label><br>
 
+                    <label>
+                        Level:
+                        <input class="form-control" @bind="@entity["change"].TaskLevel" required />							</label><br>
+
+					<label>
+						Parent Task:
+						<input class="form-control" @bind="@entity["change"].TaskParent" />									</label><br>
+					<label>
+						URL:
+						<input class="form-control" @bind="@entity["change"].TaskUrl" />									</label><br>
+                    <label>
+                        POD's duration:
+                        <input class="form-control" @bind="@entity["change"].TaskDuration" maxlength="16" required />		</label><br>
+					<label>
+						Sort Sequence:
+						<input class="form-control" @bind="@entity["change"].TaskSeq" />									</label><br>
+
+
+					<label>
+						Tag: (contains)					</label><br>
+					<textarea style="width:700px;height:80px; ">
+						<input class="form-control" @bind="@entity["change"].TaskTag" maxlength="1024" required />
+					</textarea>
+
+				</div>
+
+				<div class="exhibitInfo2">
 					<label>
 						Type:
 						<select @bind="@entity["change"].TaskType">
@@ -422,75 +372,29 @@
 					</label><br><br>
 
 					<label>
-						Status:
-						<input class="form-control" @bind="@entity["change"].TaskStatus" maxlength="1" required />
-					</label><br>
-
+						Start Date:
+						<input type="date" class="form-control" @bind="@entity["change"].TaskStartDate" required />		</label><br>
 					<label>
-						Description:
-						<input class="form-control" @bind="@entity["change"].TaskDescription" maxlength="255" required />
-					</label><br>
-
+						Finish Date:
+						<input type="date" class="form-control" @bind="@entity["change"].TaskFinishDate" />				</label><br>
 					<label>
-						Level:
-						<input class="form-control" @bind="@entity["change"].TaskLevel" required />
-					</label><br>
-
+						Entry Date:
+						<input type="date" class="form-control" @bind="@entity["change"].TaskEntryDate" required />		</label><br>
 					<label>
-						Duration:
-						<input class="form-control" @bind="@entity["change"].TaskDuration" maxlength="16" required />
-					</label><br>
-
+						Previous Task:
+						<input class="form-control" @bind="@entity["change"].TaskPrevious" required />					</label><br>
 					<label>
-						Task Start Date:
-						<input type="date" class="form-control" @bind="@entity["change"].TaskStartDate" required />
-					</label><br>
-
+						Person:
+						<input class="form-control" @bind="@entity["change"].PersonIdFk" required />					</label><br>
 					<label>
-						Task Finish Date:
-						<input type="date" class="form-control" @bind="@entity["change"].TaskFinishDate" />
-					</label><br>
-
+						NOVA:
+						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />						</label><br>
 					<label>
-						Task Entry Date:
-						<input type="date" class="form-control" @bind="@entity["change"].TaskEntryDate" required />
-					</label><br>
-
-					<label>
-						Task Previous:
-						<input class="form-control" @bind="@entity["change"].TaskPrevious" required />
-					</label><br>
-
-					<label>
-						Person ID FK:
-						<input class="form-control" @bind="@entity["change"].PersonIdFk" required />
-					</label><br>
-
-					<label>
-						NOVA ID FK:
-						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />
-					</label><br>
-
-					<label>
-						Noun ID FK:
-						<input class="form-control" @bind="@entity["change"].NounIdFk" required />
-					</label><br>
-
-					<label>
-						Task Sequence:
-						<input class="form-control" @bind="@entity["change"].TaskSeq" />
-					</label><br>
-
-					<label>
-						Task Parent:
-						<input class="form-control" @bind="@entity["change"].TaskParent" />
-					</label><br>
-
-					<label>
-						Task URL:
-						<input class="form-control" @bind="@entity["change"].TaskUrl" />
-					</label><br>
+						Noun (object)::
+						<input class="form-control" @bind="@entity["change"].NounIdFk" required />						</label><br>
 				</div>
+
+
 			</form>
 		</div>
 	}
@@ -550,9 +454,43 @@
 		</div>
 	}
 
+	<!-- ************************************************************************************ -->
+	<!-- ************************************* HELP Overlay ********************************* -->
+	<!-- ************************************************************************************ -->
+	@if (showIframe)
+	{
+		<div>
+			<iframe src="@imagePath" width="1400" height="920" frameborder="0"
+					style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:90%;">
+			</iframe>
+			<br />
+			<button class="general-menu-button" @onclick="CloseIframe"
+					style="position:absolute; top:400px;left:40px; opacity:100%;height:60px;border:0px;brightness:100%;width:140px;color:red">
+				Close
+			</button>
+		</div>
+	}
+	else
+	{
+		<button class="general-menu-button" @onclick="OpenIframe"
+				style="position:absolute; top:400px;left:40px; opacity:80%;height:60px;border:0px;width:140px;color:red">
+			HELP
+		</button>
+	}
+	@code {
+		private bool showIframe = false;
+		private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_CRUD_page_help.png";
+
+		private void OpenIframe()
+		{ showIframe = true; }
+
+		private void CloseIframe()
+		{ showIframe = false; }
+	}
+
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* Buttons ************************************** -->
+	<!-- ******************************** NAVIGATION Buttons ******************************** -->
 	<!-- ************************************************************************************ -->
 
 	<button class="general-menu-button" @onclick="NavigateToLascaux"
@@ -570,9 +508,9 @@
 		GRID
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Nova?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
-		Return
+		Lascaux
 	</button>
 
 </div>

@@ -17,19 +17,119 @@
 		color: blanchedalmond;
 		background-color:antiquewhite
 	}
+
+	#btn-pyramid_Red {
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Btn_Pyramid_Red.png");
+		filter: brightness(80%);
+		position:absolute;
+		width:290px;
+		height:80px;
+		background-color:transparent;
+		filter: brightness(80%);
+		border:none;
+	}
+	#btn-pyramid_Red:hover {
+		transform: scale(1.25);
+		filter: brightness(100%);
+	}
+
+	#btn-pyramid_Yellow {
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Btn_Pyramid_Yellow.png");
+		filter: brightness(80%);
+		position: absolute;
+		width: 290px;
+		height: 80px;
+		background-color: transparent;
+		filter: brightness(80%);
+		border: none;
+	}
+
+		#btn-pyramid_Yellow:hover {
+			transform: scale(1.25);
+			filter: brightness(100%);
+		}
+
+	#btn-pyramid_Orange{
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Btn_Pyramid_Orange.png");
+		filter: brightness(80%);
+		position: absolute;
+		width: 290px;
+		height: 80px;
+		background-color: transparent;
+		filter: brightness(80%);
+		border: none;
+	}
+
+		#btn-pyramid_Orange:hover {
+			transform: scale(1.25);
+			filter: brightness(100%);
+		}
+
+	#btn-pyramid_Green {
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Btn_Pyramid_Green.png");
+		filter: brightness(80%);
+		position: absolute;
+		width: 290px;
+		height: 80px;
+		background-color: transparent;
+		filter: brightness(80%);
+		border: none;
+	}
+
+		#btn-pyramid_Green:hover {
+			transform: scale(1.25);
+			filter: brightness(100%);
+		}
+
+	#btn-pyramid_Blue {
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Btn_Pyramid_Blue.png");
+		filter: brightness(80%);
+		position: absolute;
+		width: 290px;
+		height: 80px;
+		background-color: transparent;
+		filter: brightness(80%);
+		border: none;
+	}
+
+		#btn-pyramid_Blue:hover {
+			transform: scale(1.25);
+			filter: brightness(100%);
+		}
+
 </style>
 
 <!-- ************************************************************************************ -->
 <!-- *************************** Lock onto a Person and a POD *************************** -->
 <!-- ************************************************************************************ -->
-<p style="color:#444444;font-size:24px;top:500px;position:absolute">Pod: @pod</p>
-<p style="color:#444444;font-size:24px;top:530px;position:absolute">Pid: @pid</p>
-
-
-
-
+<p style="color:#444444;font-size:24px;top:400px;position:absolute">Pod: @pod</p>
+<p style="color:#444444;font-size:24px;top:430px;position:absolute">Pid: @pid</p>
 
 <div class="role-menu"
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** Pyramid 5 points ************************************* -->
+	<!-- ************************************************************************************ -->
+
+		<button id="btn-pyramid_Red"    @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: Set Your Goals"
+				style="z-index:111;left:785px;top:120px;"		>	</button>
+
+		<button id="btn-pyramid_Yellow" @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: How does Reasoning Work"
+				style="z-index:111;left:420px;top:670px;"		>	</button>
+
+		<button id="btn-pyramid_Orange" @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: My Weekly Discipline"
+				style="z-index:111;left:1320px;top:670px;"		>	</button>
+
+		<button id="btn-pyramid_Blue"   @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: AGI Communication"
+				style="z-index:111;left:1270px;top:840px;"		>	</button>
+
+		<button id="btn-pyramid_Green"  @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: POD Construction & Use"
+				style="z-index:111;left:240px;top:790px;"		>	</button>
+
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** Internal Cloud Activity ****************************** -->
 	<!-- ************************************************************************************ -->
@@ -234,9 +334,9 @@ else
 <!-- ************************************************************************************ -->
 <!-- ********************************* TOGGLE MEMO Panel ******************************* -->
 <!-- ************************************************************************************ -->
-<div class="engineer-page">
+<div class="role-menu">
 	<button @onclick="ToggleMemoPage" class="toggle-button"
-			style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:60%">
+			style="position:absolute;top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:60%">
 		toggle MEMO
 	</button>
 
@@ -261,9 +361,9 @@ else
 <!-- ************************************************************************************ -->
 <!-- ********************************* Display CHAT Panel ******************************* -->
 <!-- ************************************************************************************ -->
-<div class="engineer-page">
+<div class="role-menu">
 	<button @onclick="ToggleChatPage" class="toggle-button"
-			style="top:960px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+			style="position:absolute;top:960px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
 		toggle CHAT
 	</button>
 
@@ -284,7 +384,7 @@ else
 	}
 }
 
-<div style="opacity:30%;top:1040px; left:1520px; width:300px; height:20px; position:absolute; filter: brightness(40%);">
+<div style="position:absolute;opacity:30%;top:1040px; left:1520px; width:300px; height:20px; position:absolute; filter: brightness(40%);">
 	<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_CFG_copyright.png" />
 </div>
 
