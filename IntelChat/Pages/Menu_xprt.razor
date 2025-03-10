@@ -53,17 +53,17 @@
 	<!-- *************************** GOAL   TASK   NOVA ***************************** .dbo ** -->
 	<!-- ************************************************************************************ -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Noun?pod="+pod+"&pid="+pid))"
-			style="top:300px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:300px;left:320px;height:60px;width:200px;">
 		Noun
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Verb?pod="+pod+"&pid="+pid))"
-			style="top:380px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:380px;left:320px;height:60px;width:200px;">
         Verb
     </button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/NovaCrud?pod="+pod+"&pid="+pid))"
-			style="top:460px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:460px;left:320px;height:60px;width:200px;">
 		NOVA
 	</button>
 
@@ -73,12 +73,12 @@
     </button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Task?pod="+pod+"&pid="+pid))"
-			style="top:620px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:620px;left:320px;height:60px;width:200px;">
         Task
     </button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Work?pod="+pod+"&pid="+pid))"
-			style="top:700px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:700px;left:320px;height:60px;width:200px;">
         Work
     </button>
 
@@ -88,7 +88,7 @@
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Guide?pod="+pod+"&pid="+pid))"
-			style="top:860px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:860px;left:320px;height:60px;width:200px;">
         Guide
     </button>
 
@@ -102,11 +102,60 @@
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/NOVA?pod="+pod+"&pid="+pid))"
-			style="top:380px;left:825px;height:60px;">
+			style="Z-index:1;top:380px;left:825px;height:60px;">
 		NOVA  s.v.o.
 	</button>
 
+	<!-- ************************************************************************************ -->
+	<!-- ***************************** External Cloud Links ********************************* -->
+	<!-- ************************************************************************************ -->
+	<a href="https://www.w3schools.com/tags/tag_iframe.ASP   ">
+		<button class="general-menu-button" style="z-index:1;top:300px;left:1450px;height:60px; color:red">
+			HTML
+		</button>
+	</a>
 
+	<a href="https://docs.blazorbootstrap.com/components/modal#optional-sizes">
+		<button class="general-menu-button" style="z-index:1;top:380px;left:1450px;height:60px; color:red">
+			Bootstrap
+		</button>
+	</a>
+
+	<a href="https://www.youtube.com/watch?v=SrEjoJ_G6tc">
+		<button class="general-menu-button" style="z-index:1;top:460px;left:1450px;height:60px; color:red">
+			Scaffold
+		</button>
+	</a>
+
+	<a href="https://www.youtube.com/watch?v=_w6N_nplmAw">
+		<button class="general-menu-button" style="z-index:1;top:540px;left:1450px;height:60px; color:red">
+			Images
+		</button>
+	</a>
+
+	<a href="https://www.foxnews.com/">
+		<button class="general-menu-button" style="z-index:1;top:620px;left:1450px;height:60px; color:red">
+			Fox News
+		</button>
+	</a>
+
+	<a href="https://www.youtube.com/watch?v=bwUXXjkyqhE&t=565s">
+		<button class="general-menu-button" style="z-index:1;top:700px;left:1450px;height:60px; color:red">
+			Print Report
+		</button>
+	</a>
+
+	<a href="https://www.youtube.com/watch?v=djU2Knv30q0&t=498s">
+		<button class="general-menu-button" style="z-index:1;top:780px;left:1450px;height:60px; color:red">
+			Drag N Drop
+		</button>
+	</a>
+
+	<a href="https://www.youtube.com/watch?v=xtpPspNdX58">
+		<button class="general-menu-button" style="z-index:1;top:860px;left:1450px;height:60px; color:red">
+			Data Trans OBJ
+		</button>
+	</a>
 
 <div>
 	<!-- ************************************************************************************ -->

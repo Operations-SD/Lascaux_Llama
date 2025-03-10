@@ -15,5 +15,8 @@ namespace IntelChat.Pages
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
+		[Parameter]
+		[SupplyParameterFromQuery]
+		public int? tid { get; set; }
 	}
 }

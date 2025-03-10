@@ -42,43 +42,40 @@
 	<!-- ******************************** TABLES ******************************************** -->
 	<!-- ************************************************************************************ -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Brain?pod="+pod+"&pid="+pid))"
-			style="z-index:1; top:300px;Color:#FFFFFF;left:320px;height:60px;">
+			style="z-index:1;top:300px;Color:#FFFFFF;left:320px;height:60px;width:200px;opacity:70%;">
 		Brain
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/POD?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:380px;left:320px;height:60px;">
+			style="z-index:1;top:380px;left:320px;height:60px;width:200px;">
         POD
     </button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Brand?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:460px;left:320px;height:60px;">
+			style="z-index:1;top:460px;left:320px;height:60px;width:200px;">
 		Brand
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Registration?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:540px;left:320px;height:60px;">
+			style="z-index:1;top:540px;left:320px;height:60px;width:200px;">
         Registration
     </button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Person?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:620px;left:320px;height:60px;">
+			style="z-index:1;top:620px;left:320px;height:60px;width:200px;">
         Person
     </button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Location?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:700px;left:320px;height:60px;">
+			style="z-index:1;top:700px;left:320px;height:60px;width:200px;">
 		Location
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Channel?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:780px;Color:#FFFFFF;left:320px;height:60px;">
+			style="z-index:1;top:780px;Color:#FFFFFF;left:320px;height:60px;width:200px;opacity:70%;">
         Channel
     </button>
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Spin_URL?pod="+pod+"&pid="+pid))"
-			style="z-index:1;top:860px;Color:#FFFFFF;left:320px;height:60px;">
-		Spin URL
-	</button>
+
 
 
 </div>
@@ -105,8 +102,8 @@ allowfullscreen>
 </div>
 
 
-
 <!-- **************** COMMON END OF MENU ************************************************************* COMMON END OF MENU ******** -->
+
 <!-- ************************************************************************************ -->
 <!-- ************************************* HELP Overlay ********************************* -->
 <!-- ************************************************************************************ -->
@@ -121,7 +118,64 @@ allowfullscreen>
 				style="position:absolute; top:400px;left:30px; opacity:100%;height:60px;border:0px;brightness:100%;width:140px;color:red">
 			Close
 		</button>
-	</div>
+
+		<!-- ************************************************************************************ -->
+		<!-- ***************************** External Cloud Links ********************************* -->
+		<!-- ************************************************************************************ -->
+
+		<a href="https://www.youtube.com/watch?v=NVELZRV_YeY">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:300px;left:1620px;width:220px; height:50px; opacity:70%; color:red">
+				1) Grok-3
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=0PVdS2RQe7g">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:380px;left:1620px;width:220px; height:50px; opacity:70%; color:red">
+				2) Grok -3
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=dX9CGRZwD-w">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:460px;left:1620px;width:220px;height:50px; opacity:70%;color:red">
+				Chip Fab
+			</button>
+		</a>
+
+
+		<a href="https://www.youtube.com/watch?v=Axd50ew4pco">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:540px;left:1620px;width:220px;height:50px; opacity:70%;color:red">
+				CPU vs GPU
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=h9Z4oGN89MU">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:620px;left:1620px;width:220px;height:50px; opacity:70%;color:red">
+				GPU
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=r5NQecwZs1A">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:700px;left:1620px;width:220px;height:50px; opacity:70%;color:red">
+				GPU plus
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=2CijJaNEh_Q">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:780px;left:1620px;width:220px;height:50px; opacity:70%;color:red">
+				Chip physics
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=DBMHXZDti2M">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:860px;left:1620px;width:220px;height:50px; opacity:70%;color:red">
+				take 5
+			</button>
+		</a>
+
+
+    </div>
+
+	
 }
 else
 {
@@ -129,6 +183,7 @@ else
 			style="position:absolute; top:400px;left:30px; opacity:80%;height:60px;border:0px;width:140px;color:red">
 		HELP
 	</button>
+
 }
 @code {
 	private bool showIframe = false;
