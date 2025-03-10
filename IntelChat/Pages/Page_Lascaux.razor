@@ -17,7 +17,7 @@
 		background-color: #000000;
 		background-position: left 0px top 0px;
 		opacity: 100%;
-		color: White; 
+		color: White;
 	}
 
 
@@ -116,7 +116,7 @@
 		overflow: hidden;
 	}
 
-		.pod_pid {
+	.pod_pid {
 		position: absolute;
 		top: 38px;
 		left: 1060px;
@@ -228,43 +228,43 @@ font-size:22px;
 	<!-- Subject Image -->
 	@if (novaLasc.SubjectURL is not null)
 	{
-			<img src="@novaLasc.SubjectURL" alt="@novaLasc.NovaSubjectLabel"
-				 style="position: absolute; top: @(subjectImagePosition.Y)px; left: @(subjectImagePosition.X)px;
-                    width: @(subjectIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
-                    height: @(subjectIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
-                    z-index: @(subjectIsDragging ? "1005" : subjectZIndex);
-                    cursor: @(subjectIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
-				 @onmousedown="@(e => StartDragging("Subject", e))"
-				 @onmouseup="@(e => StopDragging("Subject", e))"
-				 @onmousemove="@(e => OnMouseMove("Subject", e))" />
+		<img src="@novaLasc.SubjectURL" alt="@novaLasc.NovaSubjectLabel"
+		     style="position: absolute; top: @(subjectImagePosition.Y)px; left: @(subjectImagePosition.X)px;
+		     width: @(subjectIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
+		     height: @(subjectIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
+		     z-index: @(subjectIsDragging ? "1005" : subjectZIndex);
+		     cursor: @(subjectIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
+		     @onmousedown="@(e => StartDragging("Subject", e))"
+		     @onmouseup="@(e => StopDragging("Subject", e))"
+		     @onmousemove="@(e => OnMouseMove("Subject", e))" />
 	}
 
 	<!-- Action Image -->
 	@if (novaLasc.ActionURL is not null)
 	{
-			<img src="@novaLasc.ActionURL" alt="@novaLasc.NovaActionLabel"
-				 style="position: absolute; top: @(actionImagePosition.Y)px; left: @(actionImagePosition.X)px;
-                    width: @(actionIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
-                    height: @(actionIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
-                    z-index: @(actionIsDragging ? "1005" : actionZIndex);
-                    cursor: @(actionIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
-				 @onmousedown="@(e => StartDragging("Action", e))"
-				 @onmouseup="@(e => StopDragging("Action", e))"
-				 @onmousemove="@(e => OnMouseMove("Action", e))" />
+		<img src="@novaLasc.ActionURL" alt="@novaLasc.NovaActionLabel"
+		     style="position: absolute; top: @(actionImagePosition.Y)px; left: @(actionImagePosition.X)px;
+		     width: @(actionIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
+		     height: @(actionIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
+		     z-index: @(actionIsDragging ? "1005" : actionZIndex);
+		     cursor: @(actionIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
+		     @onmousedown="@(e => StartDragging("Action", e))"
+		     @onmouseup="@(e => StopDragging("Action", e))"
+		     @onmousemove="@(e => OnMouseMove("Action", e))" />
 	}
 
 	<!-- Object Image -->
 	@if (novaLasc.ObjectURL is not null)
 	{
-			<img src="@novaLasc.ObjectURL" alt="@novaLasc.NovaObjectLabel"
-				 style="position: absolute; top: @(objectImagePosition.Y)px; left: @(objectImagePosition.X)px;
-                    width: @(objectIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
-                    height: @(objectIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
-                    z-index: @(objectIsDragging ? "1005" : objectZIndex);
-                    cursor: @(objectIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
-				 @onmousedown="@(e => StartDragging("Object", e))"
-				 @onmouseup="@(e => StopDragging("Object", e))"
-				 @onmousemove="@(e => OnMouseMove("Object", e))" />
+		<img src="@novaLasc.ObjectURL" alt="@novaLasc.NovaObjectLabel"
+		     style="position: absolute; top: @(objectImagePosition.Y)px; left: @(objectImagePosition.X)px;
+		     width: @(objectIsInsideDropZone ? $"{resizedImageSize.Width}px" : $"{originalImageSize.Width}px");
+		     height: @(objectIsInsideDropZone ? $"{resizedImageSize.Height}px" : $"{originalImageSize.Height}px");
+		     z-index: @(objectIsDragging ? "1005" : objectZIndex);
+		     cursor: @(objectIsDragging ? "grabbing" : "grab"); user-drag: none; -webkit-user-drag: none;"
+		     @onmousedown="@(e => StartDragging("Object", e))"
+		     @onmouseup="@(e => StopDragging("Object", e))"
+		     @onmousemove="@(e => OnMouseMove("Object", e))" />
 	}
 
 	<!-- Drop Zone for Subject/Object -->
@@ -295,7 +295,7 @@ font-size:22px;
 		background-color:white;
 		opacity: 20%;
 		border-radius:8px;"
-		@onclick="GoToPreviousNova">	
+        @onclick="GoToPreviousNova">
 </button>
 
 <button style="
@@ -306,7 +306,7 @@ font-size:22px;
 		background-color:white;
 		opacity: 20%;
 		border-radius:8px;"
-		@onclick="GoToNextNova">	
+        @onclick="GoToNextNova">
 </button>
 
 <button style="
@@ -317,7 +317,7 @@ font-size:22px;
 		background-color:white;
 		opacity: 20%;
 		border-radius:8px;"
-		@onclick="GoBack">
+        @onclick="@(() => _nav.NavigateTo("/"+prevPage+"?pod="+pod+"&pid="+pid))">
 	Return
 </button>
 
@@ -346,11 +346,11 @@ font-size:22px;
 
 
 <div style="position:absolute; top:200px; left:1400px; position:absolute; overflow:hidden; filter: brightness(70%); ">
-	<iframe width="480" height="270" 
-			src="https://www.youtube.com/embed/iEAlq1GPgnc"
-			title="Create an EF Core Model from Database First (Scaffold DB Context)"
-			frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+	<iframe width="480" height="270"
+	        src="https://www.youtube.com/embed/iEAlq1GPgnc"
+	        title="Create an EF Core Model from Database First (Scaffold DB Context)"
+	        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+	        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 	</iframe>
 </div>
 
@@ -369,4 +369,3 @@ referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 	<iframe width='500' height='400' src="/Blobs/Video/Rain.mp4">
 	</iframe>
 </div> *@
-
