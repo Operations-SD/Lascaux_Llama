@@ -23,11 +23,11 @@ public partial class Person
 
     public string PersonMyCloud { get; set; } = null!;
 
-    public string? PersonTag { get; set; }
+    public string PersonTag { get; set; } = null!;
 
     public int LocationIdFk { get; set; }
 
-    public int ProgramIdFk { get; set; }
+    public int ProgramFk { get; set; }
 
     public int GuideIdFk { get; set; }
 

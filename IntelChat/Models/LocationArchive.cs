@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Location
+public partial class LocationArchive
 {
     public int LocationId { get; set; }
 
@@ -43,6 +43,4 @@ public partial class Location
     public int PersonFkEngr { get; set; }
 
     public int PersonFkXprt { get; set; }
-
-    public string LocationTag { get; set; } = null!;
 }

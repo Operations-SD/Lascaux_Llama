@@ -118,7 +118,7 @@ namespace IntelChat.Pages
 					GuideIdFk = reader.GetInt32(13),
 					BrandRole = reader.GetString(7),
 					NovaIdFk = reader.GetInt32(14),
-					ProgramIdFk = reader.GetInt32(12),
+					ProgramFk = reader.GetInt32(12),
 					LocationIdFk = reader.GetInt32(11),
 					PodIdFk = reader.GetInt32(16)
 				});

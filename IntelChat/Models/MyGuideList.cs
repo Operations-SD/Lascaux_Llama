@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Guide
+public partial class MyGuideList
 {
     public int GuideId { get; set; }
 

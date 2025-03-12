@@ -31,7 +31,7 @@ public partial class BrandArchive
 
     public int NovaIdFk { get; set; }
 
-    public int ProgramIdFk { get; set; }
+    public int ProgramFk { get; set; }
 
     public int LocationIdFk { get; set; }
 

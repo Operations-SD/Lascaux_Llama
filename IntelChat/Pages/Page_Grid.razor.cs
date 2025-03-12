@@ -171,7 +171,7 @@ namespace IntelChat.Pages
 					BrandGuide = reader.GetInt32(10),
 					BrandRole = reader.GetString(11),
 					NovaIdFk = reader.GetInt32(12),
-					ProgramIdFk = reader.GetInt32(13),
+					ProgramFk = reader.GetInt32(13),
 					LocationIdFk = reader.GetInt32(14),
 					ChannelAlpha = reader.GetString(15),
 					ChannelBeta = reader.GetString(16),
@@ -200,7 +200,7 @@ namespace IntelChat.Pages
 					GuideDtOrgin = reader.GetDateTime(6),
 					GuideDtRevision = reader.GetDateTime(7),
 					NovaIdFk = reader.GetInt32(8),
-					ProgramIdFk = reader.GetInt32(9)
+					ProgramFk = reader.GetInt32(9)
 				});
 			}
 			reader.Close();
@@ -249,7 +249,7 @@ namespace IntelChat.Pages
 					BrainFk = reader.GetInt32(11),
 					LicenseFk = reader.GetInt32(12),
 					PodFk = reader.GetInt32(13),
-					ProgramIdFk = reader.GetInt32(14),
+					ProgramFk = reader.GetInt32(14),
 					PersonFkAdmn = reader.GetInt32(15),
 					PersonFkEngr = reader.GetInt32(16),
 					PersonFkXprt = reader.GetInt32(17)
@@ -371,7 +371,7 @@ namespace IntelChat.Pages
 					PodId = reader.GetInt32(0),
 					PodLabel = reader.GetString(1),
 					PodDescription = reader.GetString(2),
-					PodPypeDdPods = reader.GetString(3),
+					PodType = reader.GetString(3),
 					PodStatus = reader.GetString(4),
 					PodPypeDdChan = reader.GetString(5),
 					PodImage = reader.GetString(6),
@@ -459,7 +459,7 @@ namespace IntelChat.Pages
 					TaskLabel32 = reader.GetString(1),
 					TaskType = reader.GetString(2),
 					TaskStatus = reader.GetString(3),
-					TaskLevel = reader.GetInt16(4),
+					TaskPlatue = reader.GetInt16(4),
 					TaskDescription = reader.GetString(5),
 					TaskDuration = reader.GetInt16(6),
 					TaskStartDate = reader.GetDateTime(7),

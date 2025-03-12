@@ -11,7 +11,7 @@ public partial class Memo
 
     public DateTime MemoDateTime { get; set; }
 
-    public DateTime? MemoDtOriginal { get; set; }
+    public DateTime MemoDtOriginal { get; set; }
 
     public byte MemoPriority { get; set; }
 
@@ -29,5 +29,5 @@ public partial class Memo
 
     public int QuestionIdFk { get; set; }
 
-    public int? MemoNova { get; set; }
+    public int MemoNova { get; set; }
 }

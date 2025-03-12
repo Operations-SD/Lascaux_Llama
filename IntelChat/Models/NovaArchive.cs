@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Nova
+public partial class NovaArchive
 {
     public int NovaId { get; set; }
 
@@ -32,6 +32,4 @@ public partial class Nova
     public string NovaLabel { get; set; } = null!;
 
     public string NovaTag { get; set; } = null!;
-
-    public int LocationIdFk { get; set; }
 }

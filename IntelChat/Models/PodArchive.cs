@@ -15,23 +15,27 @@ public partial class PodArchive
 
     public string PodStatus { get; set; } = null!;
 
-    public string PodChannel { get; set; } = null!;
+    public string PodPypeDdChan { get; set; } = null!;
 
-    public string PodUrlBase { get; set; } = null!;
-
-    public int PersonIdFk { get; set; }
-
-    public int LocationIdFk { get; set; }
-
-    public int NovaIdFk { get; set; }
+    public string PodImage { get; set; } = null!;
 
     public string PodPypeNoun { get; set; } = null!;
 
     public string PodPypeVerb { get; set; } = null!;
 
-    public string PodPypeTime { get; set; } = null!;
-
     public string PodTag { get; set; } = null!;
 
+    public string PodPypeDdTime { get; set; } = null!;
+
+    public int PersonIdFk { get; set; }
+
+    public int LocationIdFk { get; set; }
+
+    public int ProgramFk { get; set; }
+
     public int GuideIdFk { get; set; }
+
+    public int NovaIdFk { get; set; }
+
+    public int UrlIdFk { get; set; }
 }

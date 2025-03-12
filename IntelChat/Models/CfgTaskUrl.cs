@@ -11,7 +11,7 @@ public partial class CfgTaskUrl
 
     public string TaskType { get; set; } = null!;
 
-    public short TaskLevel { get; set; }
+    public short TaskPlatue { get; set; }
 
     public int PodIdFk { get; set; }
 

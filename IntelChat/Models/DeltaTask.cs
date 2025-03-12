@@ -15,5 +15,5 @@ public partial class DeltaTask
 
     public string TaskDescription { get; set; } = null!;
 
-    public short TaskLevel { get; set; }
+    public short TaskPlatue { get; set; }
 }

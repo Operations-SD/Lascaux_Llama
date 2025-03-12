@@ -228,7 +228,7 @@
 				</tr>
 				@foreach (var pod in entities)
 				{   // Loop through each label of the currently selected table
-					@if (filter["list"] == "****" || pod.PodPypeDdPods == filter["list"])
+					@if (filter["list"] == "****" || pod.PodType == filter["list"])
 					{
 						<tr>
 							@*
@@ -239,7 +239,7 @@
 							<td @onclick="@(() => OnItemSelected(pod.PodId))"
 								onmouseover="this.style.color='#AAAAAA'"
 								onMouseOut="this.style.color='#FFFFFF'">
-								@pod.PodId   @pod.PodStatus   @pod.PodPypeDdPods   @pod.PodLabel   @pod.PodDescription
+								@pod.PodId   @pod.PodStatus   @pod.PodType   @pod.PodLabel   @pod.PodDescription
 							</td>
 						</tr>
 					}
@@ -277,7 +277,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["add"].PodPypeDdPods">
+						<select @bind="@entity["add"].PodType">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -358,7 +358,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["change"].PodId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
-								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PodPypeDdPods == filter["change"]))
+								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PodType == filter["change"]))
 								{
 									<option value="@entity.PodId"> @entity.PodLabel</option>
 								}
@@ -379,7 +379,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["change"].PodPypeDdPods">
+						<select @bind="@entity["change"].PodType">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -463,7 +463,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["delete"].PodId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
-								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PodPypeDdPods == filter["delete"]))
+								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PodType == filter["delete"]))
 								{
 									if (entity.PodStatus == "D")
 									{

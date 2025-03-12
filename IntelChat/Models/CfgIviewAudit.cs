@@ -7,15 +7,11 @@ public partial class CfgIviewAudit
 {
     public int PersonId { get; set; }
 
-    public string PersonFirst { get; set; } = null!;
-
-    public string PersonLast { get; set; } = null!;
-
     public int GuideIdFk { get; set; }
 
-    public short InterviewSeq { get; set; }
+    public DateTime MyGuideDtInitial { get; set; }
 
-    public int QuestionId { get; set; }
+    public DateTime MyGuideDtFinish { get; set; }
 
-    public string QuestionText { get; set; } = null!;
+    public string GuidePurpose { get; set; } = null!;
 }

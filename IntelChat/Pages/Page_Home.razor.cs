@@ -262,7 +262,7 @@ namespace IntelChat.Pages
 				PodId = reader.GetInt32(0),
 				PodLabel = reader.GetString(1),
 				PodDescription = reader.GetString(2),
-				PodPypeDdPods = reader.GetString(3),
+				PodType = reader.GetString(3),
 				PodStatus = reader.GetString(4),
 				PodPypeDdChan = reader.GetString(5),
 				PodImage = reader.GetString(6),

@@ -11,7 +11,7 @@ public partial class Pod
 
     public string PodDescription { get; set; } = null!;
 
-    public string PodPypeDdPods { get; set; } = null!;
+    public string PodType { get; set; } = null!;
 
     public string PodStatus { get; set; } = null!;
 
@@ -31,11 +31,13 @@ public partial class Pod
 
     public int LocationIdFk { get; set; }
 
-    public int ProgramIdFk { get; set; }
+    public int ProgramFk { get; set; }
 
     public int GuideIdFk { get; set; }
 
     public int NovaIdFk { get; set; }
 
     public int UrlIdFk { get; set; }
+
+    public string PodRgb { get; set; } = null!;
 }
