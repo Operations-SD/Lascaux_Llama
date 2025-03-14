@@ -156,7 +156,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@PROC_Input_Filter", filter),
 				new SqlParameter("@noun", subid),
 				new SqlParameter("@verb", actid),
-				new SqlParameter("@object", objid)
+				new SqlParameter("@object", objid),
+				new SqlParameter("@nova",Page_Task.novaT.novaParamValue)
 			};
 			return await ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
@@ -574,10 +575,10 @@ namespace IntelChat.Pages
 			var reader = await Read(sp, filter);
 			if (reader == null) return;
 
-			List<LascauxFromTask> entities = new List<LascauxFromTask>();
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
 			while (await reader.ReadAsync())
 			{
-				entities.Add(new LascauxFromTask
+				entities.Add(new LascauxFromNova
 				{
 					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
 					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
@@ -599,10 +600,13 @@ namespace IntelChat.Pages
 				});
 			}
 			reader.Close();
-
-			//entities = entities.FindAll(entity => pid == entity.Pid);
+			/// **********************************************************************   ??????????????????????????????????????????
+			/// entities = entities.FindAll(entity => (subid == 0 || entity.S == subid)
+			///					&& (actid == 0 || entity.A == actid)
+			///					&& (objid == 0 || entity.O == objid)
+			///					&& pid == entity.Pid);
 			novas.Clear();
-			foreach (LascauxFromTask entity in entities)
+			foreach (LascauxFromNova entity in entities)
 			{
 				novas.Add(new Lascaux
 				{
@@ -616,7 +620,10 @@ namespace IntelChat.Pages
 					NovaObjectDescription = entity.ObjectDescription ?? "",
 					SubjectURL = entity.SubjectUrl ?? "",
 					ActionURL = entity.ActionUrl ?? "",
-					ObjectURL = entity.ObjectUrl ?? ""
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
 				});
 			}
 
@@ -627,17 +634,17 @@ namespace IntelChat.Pages
 		/// ************************ LOAD Work *****************************************
 		/// ************************ LOAD Work *****************************************
 		/// ************************ LOAD Work *****************************************
-		private async ThreadingTask LoadWork(string sp, string filter = "****")
+		private async ThreadingTask LoadWork(string sp, string filter = "WORK")
 		{
-			var reader = await Read(sp);
+			var reader = await Read(sp, filter);
 			if (reader == null) return;
 
-			List<XnovaDictionaryWork> entities = new List<XnovaDictionaryWork>();
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
 			while (await reader.ReadAsync())
 			{
-				entities.Add(new XnovaDictionaryWork
+				entities.Add(new LascauxFromNova
 				{
-					About = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
 					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
 					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
 					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
@@ -657,9 +664,13 @@ namespace IntelChat.Pages
 				});
 			}
 			reader.Close();
-
+			/// **********************************************************************   ??????????????????????????????????????????
+			/// entities = entities.FindAll(entity => (subid == 0 || entity.S == subid)
+			///					&& (actid == 0 || entity.A == actid)
+			///					&& (objid == 0 || entity.O == objid)
+			///					&& pid == entity.Pid);
 			novas.Clear();
-			foreach (XnovaDictionaryWork entity in entities)
+			foreach (LascauxFromNova entity in entities)
 			{
 				novas.Add(new Lascaux
 				{
@@ -673,7 +684,10 @@ namespace IntelChat.Pages
 					NovaObjectDescription = entity.ObjectDescription ?? "",
 					SubjectURL = entity.SubjectUrl ?? "",
 					ActionURL = entity.ActionUrl ?? "",
-					ObjectURL = entity.ObjectUrl ?? ""
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
 				});
 			}
 
@@ -723,14 +737,13 @@ namespace IntelChat.Pages
 					await LoadTask(sp);
 					break;
 				case "Work":
-					sp = "sp_nova_Dictionary_Work";
+					sp = "sp_Lascaux_#temp";
 					await LoadWork(sp);
 					break;
 
 			}
 			if (novas.Any()) selectedId = novas[0].NovaId;
 		}
-
 		private bool subjectIsDragging = false, actionIsDragging = false, objectIsDragging = false;
 		private bool subjectIsInsideDropZone = false, actionIsInsideDropZone = false, objectIsInsideDropZone = false;
 

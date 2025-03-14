@@ -164,10 +164,16 @@ namespace IntelChat.Pages
 			}
 			reader.Close();
 		}
-		
+
 
 		/// <summary>Handle events triggered by the change of the change filter select</summary>
 		/// <param name="args">Arguments from a filter change event</param>
+
+		public static class novaT
+		{
+			public static string novaParamValue = "";
+		}
+
 		private async ThreadingTask OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
 		{
 			filter[type] = args.Value.ToString();
@@ -177,6 +183,7 @@ namespace IntelChat.Pages
 			if (!entitiesFiltered.Any()) return;
 			entity[type] = (entitiesFiltered == null) ? entities.First() : entitiesFiltered.First();
 		}
+
 
 		/// <summary>Change an entity in the database using a stored procedure</summary>
 		private void Change()
