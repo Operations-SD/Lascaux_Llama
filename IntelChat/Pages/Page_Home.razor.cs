@@ -250,10 +250,10 @@ namespace IntelChat.Pages
 			/// 
             List<SqlParameter> parameters = new List<SqlParameter>
 			{
-                new SqlParameter("@PROC_action", "Home"),
-                new SqlParameter("@pod_id", pod),
-                new SqlParameter("@pod_status", "*")
-            };
+				new SqlParameter("@PROC_action", "Home"),
+				new SqlParameter("@pod_id", pod),
+				new SqlParameter("@pod_status", "*")
+			};
 			var reader = await ExecuteStoredProcedure("dbo.[CRUD_POD]", parameters, true);
 			if (reader == null) return;
 			await reader.ReadAsync();
@@ -262,7 +262,7 @@ namespace IntelChat.Pages
 				PodId = reader.GetInt32(0),
 				PodLabel = reader.GetString(1),
 				PodDescription = reader.GetString(2),
-				PodPypeDdPods = reader.GetString(3),
+				PodType = reader.GetString(3),
 				PodStatus = reader.GetString(4),
 				PodPypeDdChan = reader.GetString(5),
 				PodImage = reader.GetString(6),

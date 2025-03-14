@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class FilterPype
+public partial class FixPype
 {
-    public int PodIdFk { get; set; }
-
-    public string PodLabel { get; set; } = null!;
+    public string PypeId { get; set; } = null!;
 
     public string PypeType { get; set; } = null!;
 
@@ -16,4 +14,12 @@ public partial class FilterPype
     public string PypeStatus { get; set; } = null!;
 
     public string PypeDesc { get; set; } = null!;
+
+    public string PypeLink { get; set; } = null!;
+
+    public int PodIdFk { get; set; }
+
+    public byte PypeSeq { get; set; }
+
+    public short PypeDropTax { get; set; }
 }

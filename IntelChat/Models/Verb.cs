@@ -20,4 +20,6 @@ public partial class Verb
     public int UrlIdPk { get; set; }
 
     public string VerbTag { get; set; } = null!;
+
+    public int VerbCategory { get; set; }
 }

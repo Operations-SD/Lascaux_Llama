@@ -31,7 +31,6 @@
 		border-radius: 8px;
 		background-size: cover;
 	}
-
 </style>
 
 <div class="crud-page">
@@ -48,8 +47,6 @@
 	<div><img id="img-panel-marque"></div>
 	<div><img id="btn-luster-task"></div>
 	<div><img id="img-panel-fluer"></div>
-
-
 
 	<div><img id="img-table"></div>
 
@@ -86,10 +83,17 @@
 	@if (show == "list")
 	{
 	
-		<div class="ShadowText">
+	<div class="ShadowText">
 			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
-		</div>
+	</div>	
+		
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid+"&type=TASK"))" title="Create TEMP file from DD list - Page_Lascaux"
+				style="z-index:2;position:absolute;left:340px;top:240px;height:60px;border:0px;width:140px;color:darkred">
+		Lascaux
+	</button>
 
+		
+	<!-- ****************************** PypeId is the primary value for the Dropdown selection ***************** -->
 		<div class="exhibitPanel">
 			<div class="ListFilter">
 				<label>
@@ -104,7 +108,17 @@
 						}
 					</select>
 				</label>
-		</div>
+			</div>
+
+			@{
+				// Filter the entities based on the selected value
+				var filteredEntities = (filter["list"] == "****")
+					? entities
+					: entities.Where(entity => entity.TaskType == filter["list"]);
+
+				Page_Task.novaT.novaParamValue = string.Join(",", filteredEntities.Select(entity => entity.NovaIdFk));
+				//Console.WriteLine($"Filtered NovaIdFk values Work: {Page_Task.novaT.novaParamValue}");
+			}
 
 
 			<table id="listTable">
@@ -182,7 +196,7 @@
 
                     <label>
                         Level:
-                        <input class="form-control" @bind="@entity["add"].TaskLevel" required />
+                        <input class="form-control" @bind="@entity["add"].TaskPlatue" required />
                     </label><br>
 
 
@@ -273,7 +287,15 @@
 	<!-- ************************************* TASK CHANGE ********************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show.Equals("change"))
+
+
 	{
+		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Work?pod="+pod+"&pid="+pid))" title="Enter WORK for selected TASK - Page_Work"
+				style="z-index:2;position:absolute;left:1180px;top:360px;height:60px;border:0px;width:140px;color:darkred">
+			Work
+		</button>
+
+
 		<div style="font-size:x-large; display: inline-block;">
 			<form @onsubmit="OnChange">
 				<div class="ShadowText">
@@ -332,7 +354,7 @@
 
                     <label>
                         Level:
-                        <input class="form-control" @bind="@entity["change"].TaskLevel" required />							</label><br>
+                        <input class="form-control" @bind="@entity["change"].TaskPlatue" required />							</label><br>
 
 					<label>
 						Parent Task:
@@ -498,8 +520,8 @@
 		MEMO
 	</button>
 
-	<button class="general-menu-button" @onclick="NavigateToLascaux"
-			style="position:absolute;left:30px;top:680px;height:60px;border:0px;width:140px;">
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/NovaCrud?pod="+pod+"&pid="+pid))"
+			style="Z-index:1;top:680px;left:30px;height:60px;width:140px;">
 		NOVA
 	</button>
 
@@ -508,11 +530,10 @@
 		GRID
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Nova?pod="+pod+"&pid="+pid))"
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Expert?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
-		Lascaux
+		MENU
 	</button>
-
 </div>
 
 

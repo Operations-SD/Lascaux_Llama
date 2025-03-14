@@ -62,7 +62,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@task_label32", entity["add"].TaskLabel32),
 				new SqlParameter("@task_type", entity["add"].TaskType),
 				new SqlParameter("@task_status", entity["add"].TaskStatus),
-				new SqlParameter("@task_level", entity["add"].TaskLevel),
+				new SqlParameter("@task_level", entity["add"].TaskPlatue),
 				new SqlParameter("@task_description", entity["add"].TaskDescription),
 				new SqlParameter("@task_duration", entity["add"].TaskDuration),
 				new SqlParameter("@task_start_date", entity["add"].TaskStartDate),
@@ -111,7 +111,7 @@ namespace IntelChat.Pages
 					TaskLabel32 = reader.GetString(1),
 					TaskType = reader.GetString(2),
 					TaskStatus = reader.GetString(3),
-					TaskLevel = reader.GetInt16(4),
+					TaskPlatue = reader.GetInt16(4),
 					TaskDescription = reader.GetString(5),
 					TaskDuration = reader.GetInt16(6),
 					TaskStartDate = reader.GetDateTime(7),
@@ -146,7 +146,7 @@ namespace IntelChat.Pages
 					TaskLabel32 = reader.GetString(1),
 					TaskType = reader.GetString(2),
 					TaskStatus = reader.GetString(3),
-					TaskLevel = reader.GetInt16(4),
+					TaskPlatue = reader.GetInt16(4),
 					TaskDescription = reader.GetString(5),
 					TaskDuration = reader.GetInt16(6),
 					TaskStartDate = reader.GetDateTime(7),
@@ -164,10 +164,16 @@ namespace IntelChat.Pages
 			}
 			reader.Close();
 		}
-		
+
 
 		/// <summary>Handle events triggered by the change of the change filter select</summary>
 		/// <param name="args">Arguments from a filter change event</param>
+
+		public static class novaT
+		{
+			public static string novaParamValue = "";
+		}
+
 		private async ThreadingTask OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
 		{
 			filter[type] = args.Value.ToString();
@@ -177,6 +183,7 @@ namespace IntelChat.Pages
 			if (!entitiesFiltered.Any()) return;
 			entity[type] = (entitiesFiltered == null) ? entities.First() : entitiesFiltered.First();
 		}
+
 
 		/// <summary>Change an entity in the database using a stored procedure</summary>
 		private void Change()
@@ -189,7 +196,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@task_label32", entity["change"].TaskLabel32),
 				new SqlParameter("@task_type", entity["change"].TaskType),
 				new SqlParameter("@task_status", entity["change"].TaskStatus),
-				new SqlParameter("@task_level", entity["change"].TaskLevel),
+				new SqlParameter("@task_level", entity["change"].TaskPlatue),
 				new SqlParameter("@task_description", entity["change"].TaskDescription),
 				new SqlParameter("@task_duration", entity["change"].TaskDuration),
 				new SqlParameter("@task_start_date", entity["change"].TaskStartDate),

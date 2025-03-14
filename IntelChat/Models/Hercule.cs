@@ -5,7 +5,7 @@ namespace IntelChat.Models;
 
 public partial class Hercule
 {
-    public short TaskLevel { get; set; }
+    public short TaskPlatue { get; set; }
 
     public string TaskType { get; set; } = null!;
 

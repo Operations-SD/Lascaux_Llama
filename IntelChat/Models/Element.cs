@@ -7,17 +7,9 @@ public partial class Element
 {
     public int ElementId { get; set; }
 
-    public string ElementLabel { get; set; } = null!;
+    public string ElementLabel16 { get; set; } = null!;
 
     public string ElementType { get; set; } = null!;
 
-    public short ElementSeq { get; set; }
-
-    public short ElementByte { get; set; }
-
-    public int ElementInt { get; set; }
-
-    public float ElementReal { get; set; }
-
-    public int NounIdFk { get; set; }
+    public string ElementStatus { get; set; } = null!;
 }

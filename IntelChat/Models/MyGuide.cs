@@ -9,9 +9,11 @@ public partial class MyGuide
 
     public int GuideIdFk { get; set; }
 
-    public DateTime DateInitial { get; set; }
+    public DateTime MyGuideDtInitial { get; set; }
 
-    public DateTime DateSelected { get; set; }
+    public DateTime MyGuideDtFinish { get; set; }
 
-    public DateTime DateEvaluated { get; set; }
+    public DateTime MyGuideDtEvaluated { get; set; }
+
+    public byte MyGuideStars { get; set; }
 }

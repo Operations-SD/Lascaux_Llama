@@ -22,6 +22,16 @@
 		height: 1080px;
 	}
 
+	#img-panel-marque {
+		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Marque.png);
+		position: absolute;
+		top: 90px;
+		left: 600px;
+		width: 580px;
+		border-radius: 0px;
+		background-size: cover;
+	}
+
 	#btn-luster-noun {
 		content: url(https://agineuralnet.blob.core.windows.net/banners/bnr_POD.png);
 		position: absolute;
@@ -32,7 +42,107 @@
 		background-size: cover;
 	}
 
+	#img-panel-fluer {
+		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
+		position: absolute;
+		top: 150px;
+		left: 1310px;
+		width: 188px;
+		border-radius: 8px;
+		background-size: cover;
+	}
 
+	#btn-panel-list {
+		left: 10px;
+		opacity: 90%;
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		filter: brightness(80%);
+	}
+
+	#btn-panel-list:hover {
+		box-shadow: 0 5px 10px rgba(0,0,0,.5);
+		transform: scale(.85);
+		filter: brightness(100%);
+	}
+
+	#btn-panel-add {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_A.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 202px;
+		filter: brightness(80%);
+	}
+
+	#btn-panel-add:hover {
+		box-shadow: 0 5px 10px rgba(0,0,0,.5);
+		transform: scale(.85);
+		filter: brightness(100%);
+	}
+
+	#btn-panel-change {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_C.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		left: 394px;
+		filter: brightness(80%);
+	}
+
+	#btn-panel-change:hover {
+		box-shadow: 0 5px 10px rgba(0,0,0,.5);
+		transform: scale(.85);
+		filter: brightness(100%);
+	}
+
+	#btn-panel-delete {
+		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
+		background-size: cover;
+		box-shadow: 0 30px 60px rgba(0,0,0,.5);
+		top: 810px;
+		left: 650px;
+		opacity: 100%;
+		filter: brightness(80%);
+	}
+
+	#btn-panel-delete:hover {
+		box-shadow: 0 5px 10px rgba(0,0,0,.5);
+		transform: scale(.85);
+		filter: brightness(100%);
+	}
+
+	#img-panel-shadow-black {
+		border-radius: 12px;
+		background-size: cover;
+		height: 700px;
+		width: 850px;
+	}
+
+	/*********** Common Styles for Input Boxes ***************/
+	.FilterInput {
+		width: 155px;
+		height: 40px;
+		padding: 5px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		background-color: antiquewhite;
+		border-radius: 4px; /* Rounded edges */
+		text-align: center;
+		box-sizing: border-box; /* Ensures consistent dimensions including padding and borders */
+	}
+
+	/*********** Positioning for Direct Select ***************/
+	.DirectSelect {
+		position: absolute;
+		top: 355px; /* Positioned below TagFilter */
+		right: 425px;
+	}
+
+	/*********** Positioning for Tag Filter ***************/
+	.TagFilter {
+		position: absolute;
+		top: 405px; /* Adjust this to place it above DirectSelect */
+		right: 425px;
+		opacity: 1;
 	}
 </style>
 
@@ -54,16 +164,21 @@
 	<div><img id="img-panel-fluer"></div>
 	<div><img id="img-table"></div>
 
+	<div style="position:absolute;left:1670px;top:385px;width:140px;height:60px;background-color:red;color:bisque;text-align:center;padding:5px;font-weight:bolder;">Post Notes</div>
+
+
 	<!-- ************************************************************************************ -->
 	<!-- **************************** DISPLAY PANEL CRUD BUTTONS **************************** -->
 	<!-- ************************************************************************************ -->
 	<div class="boxButton">
-		<button id="btn-panel-list"   @onclick="@(() => show = "list")"></button>
-		<button id="btn-panel-add"    @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
 
+
+    <!-- <button class="general-interview-button" @onclick="NavigateToLascaux" style="width:160px;height:75px;top:800px;left:34px;color:antiquewhite">Lascaux </button>-->
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** DIRECT SELECT ID ******************************* -->
 	<!-- ************************************************************************************ -->
@@ -113,7 +228,7 @@
 				</tr>
 				@foreach (var pod in entities)
 				{   // Loop through each label of the currently selected table
-					@if (filter["list"] == "****" || pod.PodPypeDdPods == filter["list"])
+					@if (filter["list"] == "****" || pod.PodType == filter["list"])
 					{
 						<tr>
 							@*
@@ -124,7 +239,7 @@
 							<td @onclick="@(() => OnItemSelected(pod.PodId))"
 								onmouseover="this.style.color='#AAAAAA'"
 								onMouseOut="this.style.color='#FFFFFF'">
-								@pod.PodId   @pod.PodStatus   @pod.PodPypeDdPods   @pod.PodLabel   @pod.PodDescription
+								@pod.PodId   @pod.PodStatus   @pod.PodType   @pod.PodLabel   @pod.PodDescription
 							</td>
 						</tr>
 					}
@@ -135,7 +250,7 @@
 	}
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* POD CREATE *********************************** -->
+	<!-- ************************************* POD CREATE ****************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show == "add")
 	{
@@ -146,48 +261,23 @@
 				<div class="ShadowText">
 					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
+
 				<div class="boxFilter">
 					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
 						 style="border-radius: 12px;background-size: cover;">
 					<button class="commitCreate" type="submit"></button>
 				</div>
+
 				<div class="exhibitInfo" style="overflow-y:scroll;">
-					<label>
-						label 16:
-						<input class="form-control" @bind="@entity["add"].PodLabel" maxlength="16" required />			</label><br><br>
-                    <label>
-                        channel 4:
-						<input class="form-control" @bind="@entity["add"].PodPypeDdChan" required />					</label><br>
-					<label>
-						date time:
-						<input class="form-control" @bind="@entity["add"].PodPypeDdTime" required />					</label><br>
-                    <label>
-                        URL link 128:
-						<input class="form-control" @bind="@entity["add"].PodImage" maxlength="128" required />			</label><br>
-					<label>
-						pype noun:
-						<input class="form-control" @bind="@entity["add"].PodPypeNoun" required />						</label><br>
-					<label>
-						pype verb:
-						<input class="form-control" @bind="@entity["add"].PodPypeVerb" maxlength="128" required />		</label><br><br>
-					<label>
-						mission 256: tag: (contains)
-					</label><br>
 
-                    <!-- ****************************************************************************************************************** textarea ********************* -->
-                    <textarea style="position:absolute; top:550px;left:0px;width:400px;height:80px; ">
-						<input class="form-control" @bind="@entity["add"].PodDescription" maxlength="256" required />
-                     </textarea>
-
-					<!-- ****************************************************************************************************************** textarea ********************* -->
-					<textarea style="position:absolute; top:650px;left:0px;width:700px;height:80px; ">
-						<input class="form-control" @bind="@entity["add"].PodTag" maxlength="1024" required />
-					</textarea>
-				</div>
-
-				<div class="exhibitInfo2">
 					<label>
-						<select @bind="@entity["add"].PodPypeDdPods">
+						Label:
+						<input class="form-control" @bind="@entity["add"].PodLabel" maxlength="16" required />
+					</label><br><br>
+
+					<label>
+						Type:
+						<select @bind="@entity["add"].PodType">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -200,31 +290,46 @@
 					</label><br><br>
 
 					<label>
-						status:
-						<input class="form-control" @bind="@entity["add"].PodStatus" maxlength="1" required /></label><br>
-					<label>
-						person #:
-						<input class="form-control" @bind="@entity["add"].PersonIdFk" required />			</label><br>
-					<label>
-						location #:
-						<input class="form-control" @bind="@entity["add"].LocationIdFk" required />			</label><br>
-					<label>
-						program #:
-						<input class="form-control" @bind="@entity["add"].ProgramIdFk" required />			</label><br>
-					<label>
-						guide #:
-						<input class="form-control" @bind="@entity["add"].GuideIdFk" required />			</label><br>
-                    <label>
-                        NOVA #:
-                        <input class="form-control" @bind="@entity["add"].NovaIdFk" required />				</label><br>
+						Status:
+						<input class="form-control" @bind="@entity["add"].PodStatus" maxlength="1" required />
+					</label><br>
 
+					<label>
+						Description:
+						<input class="form-control" @bind="@entity["add"].PodDescription" maxlength="64" required />
+					</label><br>
+
+					<label>
+						Channel:
+						<input class="form-control" @bind="@entity["add"].PodPypeDdChan" required />
+					</label><br>
+
+					<label>
+						Pod URL Base:
+						<input class="form-control" @bind="@entity["add"].PodImage" maxlength="128" required />
+					</label><br>
+
+					<label>
+						Person ID FK:
+						<input class="form-control" @bind="@entity["add"].PersonIdFk" required />
+					</label><br>
+
+					<label>
+						Location ID FK:
+						<input class="form-control" @bind="@entity["add"].LocationIdFk" required />
+					</label><br>
+
+					<label>
+						NOVA ID FK:
+						<input class="form-control" @bind="@entity["add"].NovaIdFk" required />
+					</label><br>
 				</div>
 			</form>
 		</div>
 	}
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* POD CHANGE *********************************** -->
+	<!-- ************************************* POD CHANGE ********************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show.Equals("change"))
 	{
@@ -253,7 +358,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["change"].PodId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
-								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PodPypeDdPods == filter["change"]))
+								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.PodType == filter["change"]))
 								{
 									<option value="@entity.PodId"> @entity.PodLabel</option>
 								}
@@ -268,42 +373,13 @@
 
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 					<label>
-						label 16:
-						<input class="form-control" @bind="@entity["change"].PodLabel" maxlength="16" required />		</label><br><br>
-                    <label>
-                        channel 4:
-                        <input class="form-control" @bind="@entity["change"].PodPypeDdChan" required />					</label><br>
-					<label>
-						date time:
-						<input class="form-control" @bind="@entity["change"].PodPypeDdTime" required />					</label><br>
-                    <label>
-                        URL link 128:
-                        <input class="form-control" @bind="@entity["change"].PodImage" maxlength="128" required />		</label><br>
-					<label>
-						pype noun:
-						<input class="form-control" @bind="@entity["change"].PodPypeNoun" maxlength="4" required />		</label><br>
-					<label>
-						pype verb:
-						<input class="form-control" @bind="@entity["change"].PodPypeVerb" maxlength="4" required />		</label><br><br />
+						Label:
+						<input class="form-control" @bind="@entity["change"].PodLabel" maxlength="16" required />
+					</label><br><br>
 
 					<label>
-						mission 256: tag: (contains)
-					</label><br>
-
-                    <!-- ****************************************************************************************************************** textarea ********************* -->
-                    <textarea style="position:absolute; top:550px;left:0px;width:400px;height:80px; ">
-						<input class="form-control" @bind="@entity["change"].PodDescription" maxlength="256" required />
-                    </textarea>
-
-					<!-- ****************************************************************************************************************** textarea ********************* -->
-					<textarea style="position:absolute; top:650px;left:0px;width:700px;height:80px; ">
-						<input class="form-control" @bind="@entity["change"].PodTag" maxlength="1024" required />
-					</textarea>
-				</div>
-
-				<div class="exhibitInfo2">
-					<label>
-						<select @bind="@entity["change"].PodPypeDdPods">
+						Type:
+						<select @bind="@entity["change"].PodType">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -314,31 +390,48 @@
 							}
 						</select>
 					</label><br><br>
-                    <label>
-                        status:
-                        <input class="form-control" @bind="@entity["change"].PodStatus" maxlength="1" required />	</label><br>
+
 					<label>
-						person #:
-						<input class="form-control" @bind="@entity["change"].PersonIdFk" required />				</label><br>
+						Status:
+						<input class="form-control" @bind="@entity["change"].PodStatus" maxlength="1" required />
+					</label><br>
+
 					<label>
-						location #:
-						<input class="form-control" @bind="@entity["change"].LocationIdFk" required />				</label><br>
+						Description:
+						<input class="form-control" @bind="@entity["change"].PodDescription" maxlength="64" required />
+					</label><br>
+
 					<label>
-						program #:
-						<input class="form-control" @bind="@entity["change"].ProgramIdFk" required />				</label><br>
+						Channel:
+						<input class="form-control" @bind="@entity["change"].PodPypeDdChan" required />
+					</label><br>
+
 					<label>
-						guide #:
-						<input class="form-control" @bind="@entity["change"].GuideIdFk" required />					</label><br>
+						Pod URL Base:
+						<input class="form-control" @bind="@entity["change"].PodImage" maxlength="128" required />
+					</label><br>
+
 					<label>
-						NOVA #:
-						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />					</label><br>
+						Person ID FK:
+						<input class="form-control" @bind="@entity["change"].PersonIdFk" required />
+					</label><br>
+
+					<label>
+						Location ID FK:
+						<input class="form-control" @bind="@entity["change"].LocationIdFk" required />
+					</label><br>
+
+					<label>
+						NOVA ID FK:
+						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />
+					</label><br>
 				</div>
 			</form>
 		</div>
 	}
 
 	<!-- ************************************************************************************ -->
-	<!-- ****************************************** POD DELETE ****************************** -->
+	<!-- ************************************* POD DELETE ****************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show.Equals("delete"))
 	{
@@ -370,7 +463,7 @@
 					<div class="PypeType">
 						<label>
 							<select class="form-control" value="@entity["delete"].PodId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
-								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PodPypeDdPods == filter["delete"]))
+								@foreach (var entity in (filter["delete"] == "****") ? entities : entities.Where(entity => entity.PodType == filter["delete"]))
 								{
 									if (entity.PodStatus == "D")
 									{
@@ -392,68 +485,14 @@
 		</div>
 	}
 
-	<!-- ************************************************************************************ -->
-	<!-- ************************************* HELP Overlay ********************************* -->
-	<!-- ************************************************************************************ -->
-	@if (showIframe)
-	{
-		<div>
-			<iframe src="@imagePath" width="1400" height="920" frameborder="0"
-					style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:90%;">
-			</iframe>
-			<br />
-			<button class="general-menu-button" @onclick="CloseIframe"
-					style="position:absolute; top:400px;left:40px; opacity:100%;height:60px;border:0px;brightness:100%;width:140px;color:red">
-				Close
-			</button>
-		</div>
-	}
-	else
-	{
-		<button class="general-menu-button" @onclick="OpenIframe"
-				style="position:absolute; top:400px;left:40px; opacity:80%;height:60px;border:0px;width:140px;color:red">
-			HELP
-		</button>
-	}
-	@code {
-		private bool showIframe = false;
-		private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_CRUD_page_help.png";
-
-		private void OpenIframe()
-		{ showIframe = true; }
-
-		private void CloseIframe()
-		{ showIframe = false; }
-	}
-
-	<!-- ************************************************************************************ -->
-	<!-- ******************************** NAVIGATION Buttons ******************************** -->
-	<!-- ************************************************************************************ -->
-
-	@* 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:600px;height:60px;border:0px;width:140px;">
-		Chat
-	</button> *@
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:760px;height:60px;border:0px;width:140px;">
-		Memo
-	</button>
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("//Lascaux?pod="+pod+"&pid="+pid))"
+			style="top:840px;left:20px;height:60px;">
 		Lascaux
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Expert?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:920px;height:60px;border:0px;width:140px;">
-		Menu
-	</button>
+
 
 </div>
-
-<!-- *************************** End of Program ************* CFG Copyright 2025 ************************** -->
-
 
 
 

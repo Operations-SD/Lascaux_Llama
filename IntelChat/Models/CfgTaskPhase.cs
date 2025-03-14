@@ -9,7 +9,7 @@ public partial class CfgTaskPhase
 
     public string TaskType { get; set; } = null!;
 
-    public short TaskLevel { get; set; }
+    public short TaskPlatue { get; set; }
 
     public string TaskLabel32 { get; set; } = null!;
 

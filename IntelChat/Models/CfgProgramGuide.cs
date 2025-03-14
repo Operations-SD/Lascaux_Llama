@@ -10,4 +10,6 @@ public partial class CfgProgramGuide
     public int ProgramIdFk { get; set; }
 
     public int GuideIview { get; set; }
+
+    public string GuideLabel { get; set; } = null!;
 }

@@ -22,4 +22,6 @@ public partial class Noun
     public string NounTag { get; set; } = null!;
 
     public int NounIdFkCommon { get; set; }
+
+    public int? NounCategory { get; set; }
 }

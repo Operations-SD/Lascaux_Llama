@@ -23,7 +23,7 @@ public partial class Person
 
     public string PersonMyCloud { get; set; } = null!;
 
-    public string? PersonTag { get; set; }
+    public string PersonTag { get; set; } = null!;
 
     public int LocationIdFk { get; set; }
 

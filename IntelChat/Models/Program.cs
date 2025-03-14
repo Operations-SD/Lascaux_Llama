@@ -21,4 +21,6 @@ public partial class Program
     public string ProgramTag { get; set; } = null!;
 
     public int PersonIdFk { get; set; }
+
+    public int UrlIdFk { get; set; }
 }

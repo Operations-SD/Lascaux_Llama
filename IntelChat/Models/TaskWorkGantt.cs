@@ -9,7 +9,7 @@ public partial class TaskWorkGantt
 
     public int? TaskId { get; set; }
 
-    public short? TaskLevel { get; set; }
+    public short? TaskPlatue { get; set; }
 
     public string? TaskDescription { get; set; }
 

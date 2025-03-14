@@ -13,7 +13,7 @@ public partial class CfgTaskSeq
 
     public string TaskStatus { get; set; } = null!;
 
-    public short TaskLevel { get; set; }
+    public short TaskPlatue { get; set; }
 
     public string TaskDescription { get; set; } = null!;
 

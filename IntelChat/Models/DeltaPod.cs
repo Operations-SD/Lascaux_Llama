@@ -11,7 +11,7 @@ public partial class DeltaPod
 
     public string PodDescription { get; set; } = null!;
 
-    public string PodPypeDdPods { get; set; } = null!;
+    public string PodType { get; set; } = null!;
 
     public string PodStatus { get; set; } = null!;
 

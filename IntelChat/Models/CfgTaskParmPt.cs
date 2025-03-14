@@ -7,7 +7,7 @@ public partial class CfgTaskParmPt
 {
     public int PodIdFk { get; set; }
 
-    public short TaskLevel { get; set; }
+    public short TaskPlatue { get; set; }
 
     public string TaskType { get; set; } = null!;
 

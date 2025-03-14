@@ -22,4 +22,6 @@ public partial class NounTest
     public string NounTag { get; set; } = null!;
 
     public int NounCommon { get; set; }
+
+    public short NounTax { get; set; }
 }

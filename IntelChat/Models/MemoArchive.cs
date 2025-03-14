@@ -11,17 +11,23 @@ public partial class MemoArchive
 
     public DateTime MemoDateTime { get; set; }
 
+    public DateTime? MemoDtOriginal { get; set; }
+
     public byte MemoPriority { get; set; }
-
-    public int MemoPod { get; set; }
-
-    public int MemoNova { get; set; }
-
-    public int MemoChannel { get; set; }
 
     public string MemoType { get; set; } = null!;
 
     public string MemoStatus { get; set; } = null!;
 
     public string MemoMessage { get; set; } = null!;
+
+    public int MemoChannel { get; set; }
+
+    public int PodIdFk { get; set; }
+
+    public int GuideIdFk { get; set; }
+
+    public int QuestionIdFk { get; set; }
+
+    public int? MemoNova { get; set; }
 }
