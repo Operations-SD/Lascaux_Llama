@@ -36,7 +36,7 @@ public partial class Location
 
     public int PodFk { get; set; }
 
-    public int ProgramFk { get; set; }
+    public int ProgramIdFk { get; set; }
 
     public int PersonFkAdmn { get; set; }
 
@@ -45,4 +45,6 @@ public partial class Location
     public int PersonFkXprt { get; set; }
 
     public string LocationTag { get; set; } = null!;
+
+    public int NovaIdFk { get; set; }
 }

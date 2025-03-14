@@ -33,5 +33,5 @@ public partial class MyGuideList
 
     public int UrlIdFk { get; set; }
 
-    public int ProgramFk { get; set; }
+    public int ProgramIdFk { get; set; }
 }

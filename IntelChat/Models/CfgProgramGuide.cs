@@ -7,7 +7,7 @@ public partial class CfgProgramGuide
 {
     public string ProgramLabel { get; set; } = null!;
 
-    public int ProgramFk { get; set; }
+    public int ProgramIdFk { get; set; }
 
     public int GuideIview { get; set; }
 

@@ -91,6 +91,8 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<MyAnswer> MyAnswers { get; set; }
 
+    public virtual DbSet<MyAnswersArchive> MyAnswersArchives { get; set; }
+
     public virtual DbSet<MyGoal> MyGoals { get; set; }
 
     public virtual DbSet<MyGuide> MyGuides { get; set; }
@@ -128,6 +130,8 @@ public partial class NnetDbContext : DbContext
     public virtual DbSet<Program> Programs { get; set; }
 
     public virtual DbSet<ProgramGuide> ProgramGuides { get; set; }
+
+    public virtual DbSet<ProgramSpaQ> ProgramSpaQs { get; set; }
 
     public virtual DbSet<Pype> Pypes { get; set; }
 
@@ -326,7 +330,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_ID_FK");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk)
@@ -389,7 +393,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodId)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_ID");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(7)
                 .HasColumnName("Program_ID_FK");
         });
@@ -510,7 +514,7 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(16)
                 .IsFixedLength()
                 .HasColumnName("Guide_label");
-            entity.Property(e => e.ProgramFk).HasColumnName("Program_ID_FK");
+            entity.Property(e => e.ProgramIdFk).HasColumnName("Program_ID_FK");
             entity.Property(e => e.ProgramLabel)
                 .HasMaxLength(16)
                 .IsFixedLength()
@@ -841,7 +845,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_ID_FK");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk)
@@ -1305,6 +1309,9 @@ public partial class NnetDbContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("Location_type");
             entity.Property(e => e.Longitude).HasDefaultValue(-83.23397f);
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
             entity.Property(e => e.PersonFkAdmn)
                 .HasDefaultValue(1)
                 .HasColumnName("Person_FK_admn");
@@ -1317,7 +1324,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_FK");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Program_FK");
         });
@@ -1384,7 +1391,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_FK");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Program_FK");
         });
@@ -1584,9 +1591,24 @@ public partial class NnetDbContext : DbContext
 
         modelBuilder.Entity<MyAnswer>(entity =>
         {
-            entity.HasKey(e => new { e.PersonIdFk, e.QuestionIdFk });
+            entity.HasKey(e => new { e.PersonIdFk, e.QuestionIdFk }).HasName("PK_MY_Answers_1");
 
             entity.ToTable("MY_Answers");
+
+            entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
+            entity.Property(e => e.QuestionIdFk).HasColumnName("Question_ID_FK");
+            entity.Property(e => e.DateIview)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("Date_Iview");
+            entity.Property(e => e.MyResponse).HasColumnName("MY_response");
+            entity.Property(e => e.MySeverity).HasColumnName("MY_severity");
+        });
+
+        modelBuilder.Entity<MyAnswersArchive>(entity =>
+        {
+            entity.HasKey(e => new { e.PersonIdFk, e.QuestionIdFk }).HasName("PK_MY_Answers");
+
+            entity.ToTable("MY_Answers_archive");
 
             entity.Property(e => e.PersonIdFk).HasColumnName("Person_ID_FK");
             entity.Property(e => e.QuestionIdFk).HasColumnName("Question_ID_FK");
@@ -1674,7 +1696,7 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Guide_type");
             entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
             entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
-            entity.Property(e => e.ProgramFk).HasColumnName("Program_ID_FK");
+            entity.Property(e => e.ProgramIdFk).HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk).HasColumnName("URL_ID_FK");
         });
 
@@ -2015,7 +2037,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_ID_FK");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(3)
                 .HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk)
@@ -2087,7 +2109,7 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.PodIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("POD_ID_FK");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(3)
                 .HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk)
@@ -2204,7 +2226,7 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("pods")
                 .IsFixedLength()
                 .HasColumnName("POD_type");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk)
@@ -2248,7 +2270,7 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("chan")
                 .IsFixedLength()
                 .HasColumnName("POD_pypeDD_chan");
-            entity.Property(e => e.PodType)
+            entity.Property(e => e.PodPypeDdPods)
                 .HasMaxLength(4)
                 .HasDefaultValue("pods")
                 .IsFixedLength()
@@ -2277,7 +2299,7 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(255)
                 .HasDefaultValue("tag")
                 .HasColumnName("POD_tag");
-            entity.Property(e => e.ProgramFk)
+            entity.Property(e => e.ProgramIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Program_ID_FK");
             entity.Property(e => e.UrlIdFk)
@@ -2371,16 +2393,45 @@ public partial class NnetDbContext : DbContext
                 .HasDefaultValue("loca")
                 .IsFixedLength()
                 .HasColumnName("Program_type");
+            entity.Property(e => e.UrlIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("URL_ID_FK");
         });
 
         modelBuilder.Entity<ProgramGuide>(entity =>
         {
-            entity.HasKey(e => new { e.ProgramFk, e.GuideIdFk });
+            entity.HasKey(e => new { e.ProgramIdFk, e.GuideIdFk });
 
             entity.ToTable("Program_Guide");
 
-            entity.Property(e => e.ProgramFk).HasColumnName("Program_ID_FK");
+            entity.Property(e => e.ProgramIdFk).HasColumnName("Program_ID_FK");
             entity.Property(e => e.GuideIdFk).HasColumnName("Guide_ID_FK");
+        });
+
+        modelBuilder.Entity<ProgramSpaQ>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("Program_SPA_Qs");
+
+            entity.Property(e => e.GuideId).HasColumnName("Guide_ID");
+            entity.Property(e => e.GuideLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Guide_label");
+            entity.Property(e => e.InterviewSeq).HasColumnName("Interview_seq");
+            entity.Property(e => e.ProgramDesc)
+                .HasMaxLength(128)
+                .HasColumnName("Program_desc");
+            entity.Property(e => e.ProgramId).HasColumnName("Program_ID");
+            entity.Property(e => e.ProgramLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Program_label");
+            entity.Property(e => e.QuestionId).HasColumnName("Question_ID");
+            entity.Property(e => e.QuestionText)
+                .HasMaxLength(255)
+                .HasColumnName("Question_text");
         });
 
         modelBuilder.Entity<Pype>(entity =>

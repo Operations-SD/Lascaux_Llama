@@ -11,7 +11,7 @@ public partial class PodArchive
 
     public string PodDescription { get; set; } = null!;
 
-    public string PodType { get; set; } = null!;
+    public string PodPypeDdPods { get; set; } = null!;
 
     public string PodStatus { get; set; } = null!;
 
@@ -31,7 +31,7 @@ public partial class PodArchive
 
     public int LocationIdFk { get; set; }
 
-    public int ProgramFk { get; set; }
+    public int ProgramIdFk { get; set; }
 
     public int GuideIdFk { get; set; }
 

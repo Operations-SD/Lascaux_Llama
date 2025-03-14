@@ -31,7 +31,7 @@ public partial class Pod
 
     public int LocationIdFk { get; set; }
 
-    public int ProgramFk { get; set; }
+    public int ProgramIdFk { get; set; }
 
     public int GuideIdFk { get; set; }
 

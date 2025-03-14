@@ -65,7 +65,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@dt_origin", entity["add"].GuideDtOrgin),
 				new SqlParameter("@dt_revision", entity["add"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["add"].ProgramFk)
+				new SqlParameter("@program_fk", entity["add"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}
@@ -106,7 +106,7 @@ namespace IntelChat.Pages
 					GuideDtOrgin = reader.GetDateTime(6),
 					GuideDtRevision = reader.GetDateTime(7),
 					NovaIdFk = reader.GetInt32(10),
-					ProgramFk = reader.GetInt32(14)
+					ProgramIdFk = reader.GetInt32(14)
 				});
 			}
 			reader.Close();
@@ -139,7 +139,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@dt_origin", entity["change"].GuideDtOrgin),
 				new SqlParameter("@dt_revision", entity["change"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["change"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["change"].ProgramFk)
+				new SqlParameter("@program_fk", entity["change"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}

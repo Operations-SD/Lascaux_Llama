@@ -206,7 +206,7 @@ namespace IntelChat.Pages
 					GuideDtOrgin = reader.GetDateTime(6),
 					GuideDtRevision = reader.GetDateTime(7),
 					NovaIdFk = reader.GetInt32(8),
-					ProgramFk = reader.GetInt32(9)
+					ProgramIdFk = reader.GetInt32(9)
 				};
 				reader.Close();
 				return guide;

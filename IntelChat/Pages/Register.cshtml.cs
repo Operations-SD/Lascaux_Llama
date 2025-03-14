@@ -220,7 +220,7 @@ namespace IntelChat.Pages
 							BrandEligibility = reader.GetInt16(8),
 							BrandCost = reader.GetDecimal(9),
 							LocationIdFk = reader.GetInt32(10),
-							ProgramFk = reader.GetInt32(11),
+							ProgramIdFk = reader.GetInt32(11),
 							GuideIdFk = reader.GetInt32(12),
 							NovaIdFk = reader.GetInt32(13)
 						};

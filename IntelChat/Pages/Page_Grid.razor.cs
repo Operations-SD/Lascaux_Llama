@@ -171,7 +171,7 @@ namespace IntelChat.Pages
 					BrandGuide = reader.GetInt32(10),
 					BrandRole = reader.GetString(11),
 					NovaIdFk = reader.GetInt32(12),
-					ProgramFk = reader.GetInt32(13),
+					ProgramIdFk = reader.GetInt32(13),
 					LocationIdFk = reader.GetInt32(14),
 					ChannelAlpha = reader.GetString(15),
 					ChannelBeta = reader.GetString(16),
@@ -200,7 +200,7 @@ namespace IntelChat.Pages
 					GuideDtOrgin = reader.GetDateTime(6),
 					GuideDtRevision = reader.GetDateTime(7),
 					NovaIdFk = reader.GetInt32(8),
-					ProgramFk = reader.GetInt32(9)
+					ProgramIdFk = reader.GetInt32(9)
 				});
 			}
 			reader.Close();
@@ -249,7 +249,7 @@ namespace IntelChat.Pages
 					BrainFk = reader.GetInt32(11),
 					LicenseFk = reader.GetInt32(12),
 					PodFk = reader.GetInt32(13),
-					ProgramFk = reader.GetInt32(14),
+					ProgramIdFk = reader.GetInt32(14),
 					PersonFkAdmn = reader.GetInt32(15),
 					PersonFkEngr = reader.GetInt32(16),
 					PersonFkXprt = reader.GetInt32(17)
