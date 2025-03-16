@@ -115,6 +115,7 @@
 
 @if (SelectedUrl != null)
  {
+   
     <div class="container">
 
         <!-- Entity Banner -->
@@ -142,17 +143,36 @@
 
         <!-- Media Display -->
         <div class="media-section">
-            @if (IsImage(SelectedUrl.UrlCloud))
+            @if (GetUrlCategory(SelectedUrl.UrlCloud) == "Image")
             {
-                <img src="@SelectedUrl.UrlCloud" class="scaled-image" alt="Image">
+                <img src="@SelectedUrl.UrlCloud" alt="Embedded Image"
+                     style="max-width: 300px; max-height: 500px; width: auto; height: auto;">
             }
-            else if (IsYouTube(SelectedUrl.UrlCloud))
+            else if (GetUrlCategory(SelectedUrl.UrlCloud) == "YouTube Video" || GetUrlCategory(SelectedUrl.UrlCloud) == "Vimeo Video")
             {
-                <iframe class="scaled-content" src="@GetYouTubeEmbedUrl(SelectedUrl.UrlCloud)" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="@GetEmbeddedUrl(SelectedUrl.UrlCloud)" frameborder="0" allowfullscreen></iframe>
             }
-            else if (IsPDF(SelectedUrl.UrlCloud))
+            else if (GetUrlCategory(SelectedUrl.UrlCloud) == "Video File")
             {
-                <embed class="scaled-content" src="@SelectedUrl.UrlCloud" type="application/pdf">
+                <video width="100%" height="auto" controls>
+                    <source src="@GetEmbeddedUrl(SelectedUrl.UrlCloud)" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            }
+            else if (GetUrlCategory(SelectedUrl.UrlCloud) == "Audio File")
+            {
+                <audio controls>
+                    <source src="@GetEmbeddedUrl(SelectedUrl.UrlCloud)" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
+            }
+            else if (GetUrlCategory(SelectedUrl.UrlCloud) == "Document")
+            {
+                <iframe src="@GetEmbeddedUrl(SelectedUrl.UrlCloud)" width="100%" height="600px"></iframe>
+            }
+            else
+            {
+                <a href="@SelectedUrl.UrlCloud" target="_blank">Open Link</a>
             }
         </div>
 
@@ -178,22 +198,32 @@
 
     </div>
 
+    
+
+
     <!-- Navigation Buttons -->
     <div class="navigation">
-        <button @onclick="GoToPreviousUrl"       >Previous</button>
-        <button @onclick="GoToNextUrl"           >Next</button>
-        <button @onclick="GoToChainUrl"          >Chain</button>
+        <button @onclick="GoToPreviousUrl">Previous</button>
+        <button @onclick="GoToNextUrl">Next</button>
+        <button @onclick="GoToChainUrl">Chain</button>
+    </div>
 
+    <select @onchange="OnPriorityFilterChanged">
+        <option value="">All Priorities</option>
+        @foreach (var level in priorityLevels)
+        {
+            <option value="@level">Level @level</option>
+        }
+    </select>
+    
+    <select @onchange="OnUrlTypeFilterChanged">
+        <option value="All">All Types</option>
+        @foreach (var type in urlTypes)
+        {
+            <option value="@type">@type</option>
+        }
+    </select>
 
-
-
-
-    </div>    
+    <input type="text" @bind="tagFilter" @oninput="OnTagFilterChanged" placeholder="Filter by Tag" />
 }
-
-else
-{
-    <p>No URLs available.</p>
-}
-
 
