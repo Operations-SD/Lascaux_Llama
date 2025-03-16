@@ -255,19 +255,27 @@
 
 	<!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
     <button     class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
-            style="top:590px;left:660px;width:220px;height:50px; opacity:70%;color:#222222">
+            style="top:990px;left:660px;width:220px;height:50px; opacity:70%;color:#222222">
         Life Action
     </button>
 
+
+
+
+
+
+
+
+
 	<!-- *** continue from the last MY-Guide that you selected **** -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+guideIdSelection))"
-			style="top:610px;left:920px;height:60px;width:240px;">
+			style="z-index:5;top:610px;left:920px;height:60px;width:240px;">
 		MY Interview
 	</button>
 
     <!-- *** understand MY-Mind to develop MY dicipline and a "sense of purpose", leading to a meaningful life **** -->
     <button   class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"   
-            style="top:590px;left:1200px;width:220px;height:50px; opacity:70%;color:#222222">
+            style="top:990px;left:1200px;width:220px;height:50px; opacity:70%;color:#222222">
         Contemplation
     </button>
 
@@ -354,11 +362,18 @@
     <img src="https://agineuralnet.blob.core.windows.net/panels/Panel_CFG_copyright.png" />
 </div>
 
+
+
+
+<!-- ***************************************************************************** Interview dropdown M ******** -->
+<!-- ***************************************************************************** Interview dropdown M ******** -->
+<!-- ***************************************************************************** Interview dropdown M ******** -->
+<!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
 <!-- interview selection -->
-<div style="position:absolute; top:710px; left:200px;">
-	<select class="general-menu-button" style="height:60px; opacity:70%; width:270px;" @bind="@guideIdSelection" required>
+<div style="position:absolute; top:590px; left:650px;">
+	<select class="general-menu-button" style="height:50px; opacity:70%; width:240px; text-align:center;" @bind="@guideIdSelection" required>
 		<!-- default value (no interview selected) -->
-		<option value="">Select Interview</option>
+		<option value="">Life Action</option>
 
 		<!-- actual guide values -->
 		@foreach (var guide in entities)
@@ -379,6 +394,34 @@
 </script>
 
 
+
+<!-- ***************************************************************************** Interview dropdown B ******** -->
+<!-- ***************************************************************************** Interview dropdown B ******** -->
+<!-- ***************************************************************************** Interview dropdown B ******** -->
+<!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
+<!-- interview selection -->
+<div style="position:absolute; top:590px; left:1190px;">
+	<select class="general-menu-button" style="height:50px; opacity:70%; width:240px;text-align:center;" @bind="@guideIdSelection" required>
+		<!-- default value (no interview selected) -->
+		<option value="">Contemplation</option>
+
+		<!-- actual guide values -->
+		@foreach (var guide in entities)
+		{   // Loop through each guide and display their labels to be selected from
+			<option value="@guide.GuideId">@guide.GuideLabel</option>
+		}
+	</select>
+</div>
+
+<!-- navigation script for interview selection -->
+<script>
+	function navigateToInterview(interview) {
+		if (interview != "#") {
+			// Assuming interviews are on the same page and just require a different 'id' or similar parameter
+			guideIdSelection = "&interview=${interview}";
+		}
+	}
+</script>
 
 <!-- **************** COMMON END OF MENU ************************************************************* COMMON END OF MENU ******** -->
 
@@ -409,7 +452,7 @@ else
 }
 @code {
 	private bool showIframe = false;
-	private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Menu_Help.png";
+	private string imagePath = "https://agineuralnet.blob.core.windows.net/background/BG_Menu_User_help.png";
 
 	private void OpenIframe()
 	{ showIframe = true; }
@@ -431,15 +474,14 @@ else
 	Memo
 </button>
 
-<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 		style="position:absolute;left:30px;top:870px;height:60px;border:0px;width:140px;color:#777777;">
-	Exit
+	Profile
 </button>
 
 <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
-		style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
-	Return
+        style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
+    Exit
 </button>
-
 
 <!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->

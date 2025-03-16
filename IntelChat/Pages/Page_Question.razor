@@ -12,28 +12,18 @@
 
 <style>
 	body {
-		background: url("https://intelchatstorage.blob.core.windows.net/bgcontainer/Lascaux_noun.png")no-repeat; /*Background to blob*/
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Noun.png")no-repeat; /*Background to blob*/
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
-		background-color: #000000;
-		color: white;
-		opacity: 100%;
+		color: antiquewhite;
+		opacity: 70%;
 		width: 1920px;
 		height: 1080px;
+		background-color: #000000;
 	}
 
-	#img-panel-marque {
-		content: url(https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Marque.png);
-		position: absolute;
-		top: 90px;
-		left: 600px;
-		width: 580px;
-		border-radius: 0px;
-		background-size: cover;
-	}
-
-	#btn-luster-noun {
-		content: url(https://intelchatstorage.blob.core.windows.net/buttonscontainer/Btn_Luster_Noun.png);
+	#btn-luster-crud {
+		content: url("https://agineuralnet.blob.core.windows.net/buttons/btn_Question.png");
 		position: absolute;
 		top: 85px;
 		left: 820px;
@@ -42,92 +32,22 @@
 		background-size: cover;
 	}
 
-	#img-panel-fluer {
-		content: url(https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Fluer.png);
-		position: absolute;
-		top: 80px;
-		left: 1250px;
-		width: 188px;
-		border-radius: 8px;
-		background-size: cover;
-	}
-
-	#btn-panel-list {
-		left: 10px;
-		opacity: 90%;
-		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_L.png");
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-	}
-
-		#btn-panel-list:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-		}
-
-	#btn-panel-add {
-		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_A.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		left: 202px;
-	}
-
-		#btn-panel-add:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-		}
-
-	#btn-panel-change {
-		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_C.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		left: 394px;
-	}
-
-		#btn-panel-change:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-		}
-
-	#btn-panel-delete {
-		background-image: url("https://intelchatstorage.blob.core.windows.net/buttonscontainer/Button_D.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		top: 110px;
-		left: 1000px;
-		opacity: 100%;
-	}
-
-		#btn-panel-delete:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-		}
-
-	#img-panel-shadow-black {
-		border-radius: 12px;
-		background-size: cover;
-		height: 700px;
-		width: 600px;
-	}
 </style>
 
 <div class="crud-page">
+
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* METADATA ************************************* -->
+	<!-- *************************** Lock onto a Person and a POD *************************** -->
 	<!-- ************************************************************************************ -->
-	<h3>
-		<br><br><br><br><br>
-		<p>Pod#: @pod</p>
-		<p>Person#: @pid</p>
-	</h3>
+	<p style="color:#333333;font-size:24px">Pod: @pod</p><br>
+	<p style="color:#333333;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
 
 	<!-- ************************************************************************************ -->
 	<!-- ********************************** DISPLAY PANELS ********************************** -->
 	<!-- ************************************************************************************ -->
 	<div><img id="img-panel-marque"></div>
-	<div><img id="btn-luster-noun"></div>
+	<div><img id="btn-luster-crud"></div>
 	<div><img id="img-panel-fluer"></div>
-	<div style="position:absolute;left:820px;top:85px;width:140px;height:60px;background-color:#000000;color:#FFFFFF;text-align:center;padding:5px;font-weight:bolder;">QUESTION</div>
-	<div style="position:absolute;left:1570px;top:385px;width:140px;height:60px;background-color:#000000;color:#FFFFFF;text-align:center;padding:5px;font-weight:bolder;">Question</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- **************************** DISPLAY PANEL CRUD BUTTONS **************************** -->
@@ -155,8 +75,13 @@
 	@if (show == "list")
 	{
 		<div class="ShadowText">
-			<img id="img-panel-shadow-black" src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/shadow_black.png">
+			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 		</div>
+
+		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid+"&type=QUESTION"))" title="Create TEMP file from DD list - Page_Lascaux"
+				style="z-index:2;position:absolute;left:340px;top:240px;height:60px;border:0px;width:140px;color:darkred">
+			Lascaux
+		</button>
 
 		<div class="exhibitPanel">
 			<div class="ListFilter">
@@ -212,16 +137,39 @@
 			<form @onsubmit="OnCreate">
 
 				<div class="ShadowText">
-					<img id="img-panel-shadow-black" src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/shadow_black.png">
+					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
 
 				<div class="boxFilter">
-					<img src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit_add.png"
+					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
 						 style="border-radius: 12px;background-size: cover;">
 					<button class="commitCreate" type="submit"></button>
 				</div>
 
+
+
+
+
 				<div class="exhibitInfo" style="overflow-y:scroll;">
+
+                    <label>
+                        Status:
+                        <input class="form-control" @bind="@entity["add"].QuestionStatus" maxlength="1" required />
+                    </label><br><br>
+
+                    <label>
+                        Text:
+                        <input class="form-control" @bind="@entity["add"].QuestionText" maxlength="255" required />
+                    </label><br><br>
+
+                    <label>
+                        NOVA ID FK:
+                        <input class="form-control" @bind="@entity["add"].NovaIdFk" required />
+                    </label><br><br>
+				</div>
+
+				<div class="exhibitInfo2">
+
 					<label>
 						Type:
 						<select @bind="@entity["add"].QuestionType">
@@ -236,34 +184,22 @@
 						</select>
 					</label><br><br>
 
-					<label>
-						Status:
-						<input class="form-control" @bind="@entity["add"].QuestionStatus" maxlength="1" required />
-					</label><br><br>
 
-					<label>
-						Text:
-						<input class="form-control" @bind="@entity["add"].QuestionText" maxlength="255" required />
-					</label><br><br>
-
-					<label>
-						NOVA ID FK:
-						<input class="form-control" @bind="@entity["add"].NovaIdFk" required />
-					</label><br><br>
 				</div>
 			</form>
 		</div>
 	}
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* QUESTION CHANGE ********************************** -->
+	<!-- ************************************* QUESTION CHANGE ****************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show.Equals("change"))
 	{
 		<div style="font-size:x-large; display: inline-block;">
 			<form @onsubmit="OnChange">
+
 				<div class="ShadowText">
-					<img id="img-panel-shadow-black" src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/shadow_black.png">
+					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
 
 				<div class="boxFilter">
@@ -293,12 +229,35 @@
 						</label>
 					</div>
 
-					<img src="https://intelchatstorage.blob.core.windows.net/uipanelscontainer/Panel_Commit.png"
+
+
+					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
 						 style="border-radius: 12px;background-size: cover;">
 					<button class="commitChange" type="submit"></button>
+
+
+
+
 				</div>
 
 				<div class="exhibitInfo" style="overflow-y:scroll;">
+                    <label>
+                        Status:
+                        <input class="form-control" @bind="@entity["change"].QuestionStatus" maxlength="1" required />
+                    </label><br><br>
+
+                    <label>
+                        Text:
+                        <input class="form-control" @bind="@entity["change"].QuestionText" maxlength="255" required />
+                    </label><br><br>
+
+                    <label>
+                        NOVA ID FK:
+                        <input class="form-control" @bind="@entity["change"].NovaIdFk" required />
+                    </label><br><br>
+				</div>
+
+				<div class="exhibitInfo2">
 					<label>
 						Type:
 						<select @bind="@entity["change"].QuestionType">
@@ -311,21 +270,6 @@
 								}
 							}
 						</select>
-					</label><br><br>
-
-					<label>
-						Status:
-						<input class="form-control" @bind="@entity["change"].QuestionStatus" maxlength="1" required />
-					</label><br><br>
-
-					<label>
-						Text:
-						<input class="form-control" @bind="@entity["change"].QuestionText" maxlength="255" required />
-					</label><br><br>
-
-					<label>
-						NOVA ID FK:
-						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />
 					</label><br><br>
 				</div>
 			</form>

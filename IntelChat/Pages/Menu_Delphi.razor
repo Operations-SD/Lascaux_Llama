@@ -126,7 +126,7 @@
 
 		<!-- ****** BUTTON and projector video ******-->
 		<button class="general-menu-button"
-				@onclick="@(() => _nav.NavigateTo("/Interview?pod=" + 4 + "&pid=" + 11))"
+				@onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+4))"
 				style="position:absolute; top:980px; left:440px; height:60px; width:300px; opacity:90%; color:dimgray;z-index:2;">
 			Socrates Interview
 		</button>
@@ -174,7 +174,7 @@ else
 
 		<!-- ****** BUTTON and projector video ******-->
 		<button class="general-menu-button"
-				@onclick="@(() => _nav.NavigateTo("/Interview?pod=" + 5 + "&pid=" + 11))"
+				@onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+5))"
 				style="position:absolute; top:980px; left:440px; height:60px; width:300px; opacity:90%; color:dimgray;z-index:2;">
 			Plato Interview
 		</button>
@@ -222,7 +222,7 @@ else
 
 		<!-- ****** BUTTON and projector video ******-->
 		<button class="general-menu-button"
-				@onclick="@(() => _nav.NavigateTo("/Interview?pod=" + 6 + "&pid=" + 11))"
+				@onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+6))"
 				style="position:absolute; top:980px; left:440px; height:60px; width:300px; opacity:90%; color:dimgray;z-index:2;">
 			Aristotle Interview
 		</button>
@@ -267,7 +267,7 @@ else
 
         <!-- ****** BUTTON and projector video ******-->
         <button class="general-menu-button"
-                @onclick="@(() => _nav.NavigateTo("/Interview?pod=" + 7 + "&pid=" + 11))"
+				@onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+7))"
                 style="position:absolute; top:980px; left:440px; height:60px; width:300px; opacity:90%; color:dimgray;z-index:2;">
             Interview Maxims
         </button>
