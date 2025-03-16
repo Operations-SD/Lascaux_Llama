@@ -220,6 +220,17 @@ namespace IntelChat.Pages
             LoadReadResults(); // Reload data with the new tag filter
         }
 
+        private void ResetFilters()
+        {
+            priorityFilter = null;     // Reset priority filter
+            selectedUrlType = null;    // Reset URL type filter
+            tagFilter = null;          // Reset tag filter
+            isChainedView = false;     // Exit chained view if active
+            originalIndexBeforeChain = -1; // Reset index tracking for chaining
+
+            LoadReadResults(); // Reload results with cleared filters
+        }
+
         private int _selectedIndex = 0;
         public int SelectedIndex
         {
