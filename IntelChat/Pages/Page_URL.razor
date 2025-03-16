@@ -225,6 +225,10 @@
 			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 		</div>
 
+		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid+"&type=URL"))" title="Create TEMP file from DD list - Page_Lascaux"
+				style="z-index:2;position:absolute;left:340px;top:240px;height:60px;border:0px;width:140px;color:darkred">
+			Lascaux
+		</button>
 
 		<!-- *** this is the data that goes onto the shadow panel *** -->
 		<div class="exhibitPanel" style="overflow-y:scroll;height:630px;text-overflow:ellipsis;overflow-x:scroll;">
@@ -262,7 +266,9 @@
 								<td>@entity.UrlId &nbsp;&nbsp;&nbsp;&nbsp;</td>
 								<td>@entity.UrlStatus &nbsp;&nbsp;&nbsp;&nbsp;</td>
 								<td>@entity.UrlType &nbsp;&nbsp;&nbsp;&nbsp;</td>
-								<td>
+								<td>@entity.UrlLabel &nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+@* 								<td>
 									@if (entity.UrlType.Trim().ToLower() == "png")
 									{
 										<a href="javascript:void(0);" @onclick="@(() => ShowImagePopup(entity.UrlCloud))">
@@ -273,7 +279,8 @@
 									{
 										@entity.UrlLabel
 									}
-								</td>
+								</td> *@
+
 								<td>@entity.UrlDescription</td>
 							</tr>
 						}
@@ -490,6 +497,15 @@
 			</form>
 		</div>
 	}
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Spin_URL?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:1160px;top:360px;height:60px;border:0px;width:170px;color:#777777;">
+		URL spin
+	</button>
+
+
+
+
 </div>
 
 

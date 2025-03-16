@@ -112,6 +112,7 @@
     }
 </style>
 
+
 @if (SelectedUrl != null)
  {
     <div class="container">
@@ -153,14 +154,40 @@
             {
                 <embed class="scaled-content" src="@SelectedUrl.UrlCloud" type="application/pdf">
             }
-        </div> 
+        </div>
+
+        <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/URL?pod="+pod+"&pid="+pid))"
+                style="position:absolute;left:00px;top:10px;height:60px;border:0px;width:140px;opacity:100%;color:darkred;">
+            URL
+        </button>
+
+        <button class="general-menu-button" @onclick="GoToPreviousUrl"
+                style="position:absolute;left:40px;top:650px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+            Previous
+        </button>
+
+        <button class="general-menu-button" @onclick="GoToNextUrl"
+                style="position:absolute;left:200px;top:650px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+            Next
+        </button>
+
+        <button class="general-menu-button" @onclick="GoToChainUrl"
+                style="position:absolute;left:400px;top:650px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+            Chain
+        </button>
+
     </div>
 
     <!-- Navigation Buttons -->
     <div class="navigation">
-        <button @onclick="GoToPreviousUrl">Previous</button>
-        <button @onclick="GoToNextUrl">Next</button>
-        <button @onclick="GoToChainUrl">Chain</button>
+        <button @onclick="GoToPreviousUrl"       >Previous</button>
+        <button @onclick="GoToNextUrl"           >Next</button>
+        <button @onclick="GoToChainUrl"          >Chain</button>
+
+
+
+
+
     </div>    
 }
 
