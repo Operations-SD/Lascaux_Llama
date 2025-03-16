@@ -229,6 +229,7 @@ namespace IntelChat.Pages
             originalIndexBeforeChain = -1; // Reset index tracking for chaining
 
             LoadReadResults(); // Reload results with cleared filters
+            NotificationService.Notify("Filters have been reset.", NotificationType.Success);
         }
 
         private int _selectedIndex = 0;
