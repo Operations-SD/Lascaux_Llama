@@ -164,7 +164,8 @@ namespace IntelChat.Pages
 					new SqlParameter("@program_fk", pod),
 					new SqlParameter("@person_fk_admn", entity["change"].PersonFkAdmn),
 					new SqlParameter("@person_fk_engr", entity["change"].PersonFkAdmn),
-					new SqlParameter("@person_fk_xprt", entity["change"].PersonFkXprt)
+					new SqlParameter("@person_fk_xprt", entity["change"].PersonFkXprt),
+					new SqlParameter("@location_tag", entity["change"].LocationTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Location]", parameters);
 		}
