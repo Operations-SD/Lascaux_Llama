@@ -13,13 +13,13 @@
 <style>
     /* Background Styling */
     body {
-        background: url("https://agineuralnet.blob.core.windows.net/background/BG_Language.png") no-repeat;
-        background-size: 1920px 1080px;
+        background: url("https://agineuralnet.blob.core.windows.net/background/BG_SpinURL.png") no-repeat;
+        background-size: 1200px 1000px;
         background-position: left 0px top 0px;
         color: antiquewhite;
         opacity: 70%;
-        width: 1920px;
-        height: 1080px;
+        width: 1200px;
+        height: 1000px;
         background-color: #000000;
     }
 
@@ -255,27 +255,38 @@
         <button class="reset-filters-button" @onclick="ResetFilters">Reset Filters</button>
     </div>
 
-    <!-- Navigation Buttons -->
-    <div class="navigation-buttons">
-        <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/URL?pod="+pod+"&pid="+pid))"
-                style="left:-260px;top:7px;height:60px;border:0px;width:140px;opacity:100%;color:darkred;">
-            URL
-        </button>
+    <!-- ************************************************************************************ -->
+    <!-- ************************** DISPLAY SPIN-BUTTON PANEL ******************************* -->
+    <!-- ************************************************************************************ -->
 
-        <button class="general-menu-button" @onclick="GoToPreviousUrl"
-                style="left:-100px;top:715px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+    <button class="general-menu-button" @onclick="GoToPreviousUrl" title="Go back to previous URL"
+            style="position:absolute;left:300px;top:865px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
             Previous
-        </button>
+    </button>
 
-        <button class="general-menu-button" @onclick="GoToNextUrl"
-                style="left:100px;top:715px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+    <button class="general-menu-button" @onclick="GoToNextUrl" title="Go to next sequential URL"
+            style="position:absolute;left:800px;top:865px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
             Next
-        </button>
+    </button>
 
-        <button class="general-menu-button" @onclick="GoToChainUrl"
-                style="left:-240px;top:760px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
-            Chain
-        </button>
-    </div>
+    <button class="general-menu-button" @onclick="GoToChainUrl" title="Continue using Chain Links"
+            style="position:absolute;left:550px;top:900px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+        Chain
+    </button>
+
+    <!-- ************************************************************************************ -->
+    <!-- ************************** DISPLAY NAV-BUTTON PANEL *8****************************** -->
+    <!-- ************************************************************************************ -->
+
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/URL?pod="+pod+"&pid="+pid))" title="Change this URL entry"
+            style="position:absolute;left:10px;top:150px;height:60px;border:0px;width:140px;opacity:100%;color:darkred;">
+        URL
+    </button>
+
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Engineer?pod="+pod+"&pid="+pid))" title="Return to Engineering Menu"
+            style="position:absolute;left:10px;top:780px;height:60px;border:0px;width:140px;">
+        Return
+    </button>
+
 </div>
 
