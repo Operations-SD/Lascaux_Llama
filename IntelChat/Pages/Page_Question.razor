@@ -70,6 +70,13 @@
 	</div>
 
 	<!-- ************************************************************************************ -->
+	<!-- *********************************** TAG FILTERING ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="TagFilter">
+		<input id="tagFilter" class="FilterInput" @bind="tagFilter" @oninput="ApplyTagFilter" placeholder="Enter Tag" />
+	</div>
+
+	<!-- ************************************************************************************ -->
 	<!-- *********************************** ENTITY LIST  *********************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show == "list")
@@ -101,24 +108,34 @@
 
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				<tr>
-					<th>ID# Status Type Text NOVAIDFK</th>
-				</tr>
+				
+				<thead>
+					<tr>
+						<th>ID#</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Text</th>
+						<th>Nova Id</th>
+					</tr>
+				</thead>
 				@foreach (var entity in entities)
 				{   // Loop through each label of the currently selected table
 					@if (filter["list"] == "****" || entity.QuestionType == filter["list"])
 					{
-						<tr>
+						<tr @onclick="@(() => OnItemSelected(entity.QuestionId))"
+							onmouseover="this.style.color='#AAAAAA'"
+							onMouseOut="this.style.color='#FFFFFF'">
 							@*
 				<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
 				@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 				</td>
 				*@
-							<td @onclick="@(() => OnItemSelected(entity.QuestionId))"
-								onmouseover="this.style.color='#AAAAAA'"
-								onMouseOut="this.style.color='#FFFFFF'">
-								@entity.QuestionId   @entity.QuestionStatus   @entity.QuestionType   @entity.QuestionText   @entity.NovaIdFk
-							</td>
+							<td>@entity.QuestionId</td>
+							<td>@entity.QuestionStatus</td>
+							<td>@entity.QuestionType</td>
+							<td>@entity.QuestionText</td>
+							<td>@entity.NovaIdFk</td>
+							
 						</tr>
 					}
 					// Display only the goal's description

@@ -223,24 +223,35 @@
 
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				<tr>
-					<th>ID# Status Type Label Description</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>ID#</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Label</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+
 				@foreach (var pod in entities)
 				{   // Loop through each label of the currently selected table
 					@if (filter["list"] == "****" || pod.PodType == filter["list"])
 					{
-						<tr>
+						<tr @onclick="@(() => OnItemSelected(pod.PodId))"
+							onmouseover="this.style.color='#AAAAAA'"
+							onMouseOut="this.style.color='#FFFFFF'">
 							@*
 							<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
 								@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 							</td>
 							*@
-							<td @onclick="@(() => OnItemSelected(pod.PodId))"
-								onmouseover="this.style.color='#AAAAAA'"
-								onMouseOut="this.style.color='#FFFFFF'">
-								@pod.PodId   @pod.PodStatus   @pod.PodType   @pod.PodLabel   @pod.PodDescription
-							</td>
+							
+							<td>@pod.PodId</td>
+							<td>@pod.PodStatus</td>
+							<td>@pod.PodType</td>
+							<td>@pod.PodLabel</td>
+							<td>@pod.PodDescription</td>
+							
 						</tr>
 					}
 					// Display only the goal's description

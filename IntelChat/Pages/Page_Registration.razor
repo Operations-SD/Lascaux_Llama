@@ -150,6 +150,16 @@
 	</div>
 
 	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" class="FilterInput" type="text"
+			   @oninput="UpdateDirectSelectId"
+			   @onkeydown="HandleDirectSelectKeyPress"
+			   placeholder="Enter ID" />
+	</div>
+
+	<!-- ************************************************************************************ -->
 	<!-- *********************************** ENTITY LIST  *********************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show == "list")
@@ -176,24 +186,34 @@
 
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				<tr>
-					<th>ID# Status Username Email Status PersonIdFk</th>
-				</tr>
+				
+				<thead>
+					<tr>
+						<th>ID#</th>
+						<th>Status</th>
+						<th>Username</th>
+						<th>Email</th>
+						<th>Person Id</th>
+					</tr>
+				</thead>
 				@foreach (var entity in entities)
 				{   // Loop through each label of the currently selected table
 					@if (filter["list"] == "****" || entity.RegistrationStatus == filter["list"])
 					{
-						<tr>
+						<tr @onclick="@(() => OnItemSelected(entity.RegistrationId))"
+							onmouseover="this.style.color='#AAAAAA'"
+							onMouseOut="this.style.color='#FFFFFF'">
 							@*
 							<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
 								@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 							</td>
 							*@
-							<td @onclick="@(() => OnItemSelected(entity.RegistrationId))"
-								onmouseover="this.style.color='#AAAAAA'"
-								onMouseOut="this.style.color='#FFFFFF'">
-								@entity.RegistrationId   @entity.RegistrationStatus   @entity.RegistrationUsername   @entity.RegistrationEmail   @entity.PersonIdFk
-							</td>
+							
+							<td>@entity.RegistrationId</td>
+							<td>@entity.RegistrationStatus</td>
+							<td>@entity.RegistrationUsername</td>
+							<td>@entity.RegistrationEmail</td>
+							<td>@entity.PersonIdFk</td>
 						</tr>
 					}
 					// Display only the goal's description

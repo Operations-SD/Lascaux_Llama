@@ -18,6 +18,14 @@
     overflow-x: auto;
 }
 
+.crud-page td,
+.crud-page th {
+    padding: 0 10px; /* No top/bottom padding, only horizontal */
+    text-align: left;
+    /*white-space: nowrap; Prevents text wrapping */
+}
+
+
 
 
 /* ************************************************************* exhibit main CRUD text ********* */

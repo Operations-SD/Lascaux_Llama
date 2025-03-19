@@ -311,5 +311,5 @@ namespace IntelChat.Pages
 				}
 			}
 		}
-	}
+    }
 }

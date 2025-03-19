@@ -214,6 +214,22 @@
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
 
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" class="FilterInput" type="text"
+			   @oninput="UpdateDirectSelectId"
+			   @onkeydown="HandleDirectSelectKeyPress"
+			   placeholder="Enter ID" />
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** TAG FILTERING ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="TagFilter">
+		<input id="tagFilter" class="FilterInput" @bind="tagFilter" @oninput="ApplyTagFilter" placeholder="Enter Tag" />
+	</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** URL LIST  ************************************** -->
@@ -262,11 +278,15 @@
 					{
 						@if (filter["list"] == "****" || entity.UrlType == filter["list"])
 						{
-							<tr>
-								<td>@entity.UrlId &nbsp;&nbsp;&nbsp;&nbsp;</td>
-								<td>@entity.UrlStatus &nbsp;&nbsp;&nbsp;&nbsp;</td>
-								<td>@entity.UrlType &nbsp;&nbsp;&nbsp;&nbsp;</td>
-								<td>@entity.UrlLabel &nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<tr @onclick="@(() => OnItemSelected(entity.UrlId))"
+								onmouseover="this.style.color='#AAAAAA'"
+								onMouseOut="this.style.color='#FFFFFF'">
+
+								<td>@entity.UrlId</td>
+								<td>@entity.UrlStatus</td>
+								<td>@entity.UrlType</td>
+								<td>@entity.UrlLabel</td>
+								<td>@entity.UrlDescription</td>
 
 @* 								<td>
 									@if (entity.UrlType.Trim().ToLower() == "png")
@@ -281,23 +301,13 @@
 									}
 								</td> *@
 
-								<td>@entity.UrlDescription</td>
+								
 							</tr>
 						}
 					}
 				</tbody>
 			</table>
 
-		</div>
-	}
-
-	@if (showPopup)
-	{
-		<div class="popup-overlay" @onclick="CloseImagePopup">
-			<div class="popup-content">
-				<iframe src="@selectedImageUrl" frameborder="0" width="500" height="500"></iframe>
-				<button class="popup-close" @onclick="CloseImagePopup">Close</button>
-			</div>
 		</div>
 	}
 

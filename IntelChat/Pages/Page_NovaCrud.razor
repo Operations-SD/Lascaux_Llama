@@ -144,6 +144,34 @@
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
 
+	<!-- ************************************************************************************ -->
+	<!-- **************************** DISPLAY PANEL CRUD BUTTONS ********** EXIT ************ -->
+	<!-- ************************************************************************************ -->
+	<div class="boxButton">
+		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
+		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" class="FilterInput" type="text"
+			   @oninput="UpdateDirectSelectId"
+			   @onkeydown="HandleDirectSelectKeyPress"
+			   placeholder="Enter ID" />
+	</div>
+
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** TAG FILTERING ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="TagFilter">
+		<input id="tagFilter" class="FilterInput" @bind="tagFilter" @oninput="ApplyTagFilter" placeholder="Enter Tag" />
+	</div>
+
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 			style="position:absolute;top:30px;left:1830px;height:80px;border:0px;width:200px;">
 		EXIT
@@ -178,24 +206,35 @@
 
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				<tr>
-					<th>POD ID# Status Type Label Description</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>POD</th>
+						<th>ID#</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Label</th>
+						<th>Description</th>
+					</tr>
+				</thead>
 				@foreach (var entity in entities)
 				{   // Loop through each label of the currently selected table
 					@if (filter["list"] == "****" || entity.NovaType == filter["list"])
 					{
-						<tr>
+						<tr @onclick="@(() => OnItemSelected(entity.NovaId))"
+							onmouseover="this.style.color='#AAAAAA'"
+							onMouseOut="this.style.color='#FFFFFF'">
 							@*
 							<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
 								@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 							</td>
 							*@
-							<td @onclick="@(() => OnItemSelected(entity.NovaId))"
-								onmouseover="this.style.color='#AAAAAA'"
-								onMouseOut="this.style.color='#FFFFFF'">
-								@entity.PodIdFk   @entity.NovaId   @entity.NovaStatus   @entity.NovaType   @entity.NovaLabel   @entity.NovaDescription
-							</td>
+							
+							<td>@entity.PodIdFk</td>
+							<td>@entity.NovaId</td>
+							<td>@entity.NovaStatus</td>
+							<td>@entity.NovaType</td>
+							<td>@entity.NovaLabel</td>
+							<td>@entity.NovaDescription</td>
 						</tr>
 					}
 					// Display only the goal's description

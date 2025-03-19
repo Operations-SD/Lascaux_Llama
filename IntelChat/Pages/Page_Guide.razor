@@ -59,6 +59,33 @@
 	</div>
 
 	<!-- ************************************************************************************ -->
+	<!-- **************************** DISPLAY PANEL CRUD BUTTONS ********** EXIT ************ -->
+	<!-- ************************************************************************************ -->
+	<div class="boxButton">
+		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
+		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DIRECT SELECT ID ******************************* -->
+	<!-- ************************************************************************************ -->
+	<div class="DirectSelect">
+		<input id="directSelectId" class="FilterInput" type="text"
+			   @oninput="UpdateDirectSelectId"
+			   @onkeydown="HandleDirectSelectKeyPress"
+			   placeholder="Enter ID" />
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** TAG FILTERING ********************************** -->
+	<!-- ************************************************************************************ -->
+	<div class="TagFilter">
+		<input id="tagFilter" class="FilterInput" @bind="tagFilter" @oninput="ApplyTagFilter" placeholder="Enter Tag" />
+	</div>
+
+	<!-- ************************************************************************************ -->
 	<!-- *********************************** ENTITY LIST  *********************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show == "list")
@@ -90,24 +117,33 @@
 
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				<tr>
-					<th>ID# Status Type Label Purpose</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>ID#</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Label</th>
+						<th>Purpose</th>
+					</tr>
+				</thead>
 				@foreach (var entity in entities)
 				{   // Loop through each label of the currently selected table
 					@if (filter["list"] == "****" || entity.GuideType == filter["list"])
 					{
-						<tr>
+						<tr @onclick="@(() => OnItemSelected(entity.GuideId))"
+							onmouseover="this.style.color='#AAAAAA'"
+							onMouseOut="this.style.color='#FFFFFF'">
 							@*
 							<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
 								@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
 							</td>
 							*@
-							<td @onclick="@(() => OnItemSelected(entity.GuideId))"
-								onmouseover="this.style.color='#AAAAAA'"
-								onMouseOut="this.style.color='#FFFFFF'">
-								@entity.GuideId   @entity.GuideStatus   @entity.GuideType   @entity.GuideLabel   @entity.GuidePurpose
-							</td>
+
+							<td>@entity.GuideId</td>
+							<td>@entity.GuideStatus</td>
+							<td>@entity.GuideType</td>
+							<td>@entity.GuideLabel</td>
+							<td>@entity.GuidePurpose</td>
 						</tr>
 					}
 					// Display only the goal's description

@@ -1,6 +1,7 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,12 @@ namespace IntelChat.Pages
         private string? selectedUrlType = null; // Stores selected URL type
         private string? tagFilter { get; set; } = null; //used to filter by tag
         private bool isChainedView = false; // Track if user is viewing a chained URL
-        private int originalIndexBeforeChain = -1; // Stores the index before chaining
+        private int rootIndexBeforeChain = -1; // Stores the index before chaining
+        private int rootUrlId = -1;
+
+        private List<Url> originalUrls = new List<Url>(); //Store original unchained list
+        
+
 
 
         /// <summary>Executes a stored procedure and (optionally) returns a reader for its results</summary>
@@ -92,7 +98,7 @@ namespace IntelChat.Pages
             // If viewing a chained URL, store the original index
             if (isChained && SelectedUrl != null)
             {
-                originalIndexBeforeChain = entities.FindIndex(e => e.UrlId == SelectedUrl.UrlId);
+                rootIndexBeforeChain = entities.FindIndex(e => e.UrlId == SelectedUrl.UrlId);
             }
 
             using var reader = isChained && SelectedUrl != null && SelectedUrl.UrlChain != 0
@@ -172,10 +178,9 @@ namespace IntelChat.Pages
             }
             reader.Close();
 
-            InvokeAsync(StateHasChanged); // Force UI refresh after loading
+            //InvokeAsync(StateHasChanged); // Force UI refresh after loading
         }
 
-        /// <summary>Reads distinct URL types from the database</summary>
         /// <summary>Reads distinct URL types from the database</summary>
         private void LoadUrlTypes()
         {
@@ -203,6 +208,7 @@ namespace IntelChat.Pages
             else
                 priorityFilter = null;
 
+            
             LoadReadResults(); // Reload data with filters
         }
                 
@@ -211,13 +217,23 @@ namespace IntelChat.Pages
         {
             selectedUrlType = e.Value?.ToString();
             if (selectedUrlType == "All") selectedUrlType = null; // Reset if "All" is selected
+
+            
             LoadReadResults(); // Reload data with filters
         }
 
         private void OnTagFilterChanged(ChangeEventArgs e)
         {
             tagFilter = e.Value?.ToString();
-            LoadReadResults(); // Reload data with the new tag filter
+
+            _ = ApplyFilters();
+            //LoadReadResults(); // Reload data with the new tag filter
+        }
+
+        private async ThreadingTask ApplyFilters()
+        {
+            await ThreadingTask.Delay(300);
+            LoadReadResults();
         }
 
         private void ResetFilters()
@@ -226,7 +242,7 @@ namespace IntelChat.Pages
             selectedUrlType = null;    // Reset URL type filter
             tagFilter = null;          // Reset tag filter
             isChainedView = false;     // Exit chained view if active
-            originalIndexBeforeChain = -1; // Reset index tracking for chaining
+            rootIndexBeforeChain = -1; // Reset index tracking for chaining
 
             LoadReadResults(); // Reload results with cleared filters
             NotificationService.Notify("Filters have been reset.", NotificationType.Success);
@@ -261,10 +277,12 @@ namespace IntelChat.Pages
                 // Reload the filtered list
                 LoadReadResults();
 
+                int restoredIndex = entities.FindIndex(e => e.UrlId == rootUrlId);
+
                 // Move forward from the original index (before chaining)
-                if (originalIndexBeforeChain >= 0 && originalIndexBeforeChain < entities.Count - 1)
+                if (restoredIndex >= 0 && restoredIndex < entities.Count - 1)
                 {
-                    _selectedIndex = originalIndexBeforeChain + 1; // Move to the next item
+                    _selectedIndex = restoredIndex + 1; // Move to the next item
                 }
                 else
                 {
@@ -273,6 +291,8 @@ namespace IntelChat.Pages
 
                 SelectedUrl = entities[_selectedIndex];
                 isChainedView = false;
+                rootIndexBeforeChain = -1;
+                rootUrlId = -1;
                 NotificationService.Notify("Returning to filtered list.", NotificationType.Info);
             }
             else if (_selectedIndex < entities.Count - 1)
@@ -281,7 +301,7 @@ namespace IntelChat.Pages
                 SelectedUrl = entities[_selectedIndex];
             }
 
-            InvokeAsync(StateHasChanged);
+            //InvokeAsync(StateHasChanged);
         }
 
         private void GoToPreviousUrl()
@@ -291,10 +311,13 @@ namespace IntelChat.Pages
                 // Reload the filtered list
                 LoadReadResults();
 
+                // Find the index of the originally selected URL in the restored list
+                int restoredIndex = entities.FindIndex(e => e.UrlId == SelectedUrl?.UrlId);
+
                 // Move backward from the original index (before chaining)
-                if (originalIndexBeforeChain > 0) // Ensure there's a previous item
+                if (rootIndexBeforeChain > 0) // Ensure there's a previous item
                 {
-                    _selectedIndex = originalIndexBeforeChain - 1; // Move to the previous item
+                    _selectedIndex = rootIndexBeforeChain - 1; // Move to the previous item
                 }
                 else
                 {
@@ -311,13 +334,18 @@ namespace IntelChat.Pages
                 SelectedUrl = entities[_selectedIndex];
             }
 
-            InvokeAsync(StateHasChanged);
+            //InvokeAsync(StateHasChanged);
         }
 
         private void GoToChainUrl()
         {
             if (SelectedUrl != null && SelectedUrl.UrlChain != 0)
             {
+                if (rootIndexBeforeChain == -1)
+                {
+                    rootIndexBeforeChain = entities.FindIndex(e => e.UrlId == SelectedUrl.UrlId);
+                    rootUrlId = SelectedUrl.UrlId; // Track the actual ID as well
+                }
                 LoadReadResults(isChained: true);
             }
         }

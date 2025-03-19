@@ -77,9 +77,9 @@ namespace IntelChat.Pages
 
 		/// <summary>Load entities from the database into a list </summary>
 		/// <param name="status">Status of the entities that will be loaded</param>
-		private void LoadReadResults(string status = "*")
+		private void LoadReadResults(string status = "*", string filter = "****")
 		{
-			var reader = Read(status);
+			var reader = Read(status, filter);
 			if (reader == null) return;
 
 			entities.Clear();
@@ -263,6 +263,25 @@ namespace IntelChat.Pages
                     NotificationService.Notify("Invalid ID entered!", NotificationType.Error);
                 }
             }
+        }
+
+        private string tagFilter { get; set; } = string.Empty;
+        private SqlDataReader? Read(string status = "*", string filter = "****")
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@PROC_action", "Read"),
+                new SqlParameter("@PROC_filter", filter),
+                new SqlParameter("@question_status", status)
+            };
+
+            return ExecuteStoredProcedure("dbo.[CRUD_Question]", parameters, true);
+        }
+
+        private void ApplyTagFilter(ChangeEventArgs e)
+        {
+            tagFilter = e.Value?.ToString() ?? string.Empty;
+            LoadReadResults("*", tagFilter);
         }
     }
 }

@@ -204,23 +204,35 @@
 		<div class="exhibitPanel">
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				<tr>
-					<th>ID#   Label   Code   Role   Status   Count Reg/Max</th>
-				</tr>
+				
+				<thead>
+					<tr>
+						<th>ID#</th>
+						<th>Label</th>
+						<th>Code</th>
+						<th>Role</th>
+						<th>Status</th>
+						<th>Count Reg / Max</th>
+					</tr>
+				</thead>
 				@foreach (var entity in entities)
 				{   // Loop through each label of the currently selected table
-						<tr>
+					<tr @onclick="@(() => OnItemSelected(entity.BrandId))"
+						onmouseover="this.style.color='#AAAAAA'"
+						onMouseOut="this.style.color='#FFFFFF'">
 							@*
 								<td @onclick="@(() => _nav.NavigateTo("/BrandDetails?pod="+pod+"&pid="+pid+"&id="+entity.BrandId+"&prevPage=/Brand"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
 				@entity.BrandId   @entity.BrandCode   @entity.BrandRole   @entity.BrandStatus   @entity.BrandCntReg   @entity.BrandCntMax
 								</td>
 							*@
-							<td @onclick="@(() => OnItemSelected(entity.BrandId))"
-								onmouseover="this.style.color='#AAAAAA'"
-								onMouseOut="this.style.color='#FFFFFF'">
-								@entity.BrandId   @entity.BrandLabel   @entity.BrandCode   @entity.BrandRole   @entity.BrandStatus   @entity.BrandCntReg   @entity.BrandCntMax
-							</td>
-						</tr>
+
+						<td>@entity.BrandId</td>
+						<td>@entity.BrandLabel</td>
+						<td>@entity.BrandCode</td>
+						<td>@entity.BrandRole</td>
+						<td>@entity.BrandStatus</td>
+						<td>@entity.BrandCntReg / @entity.BrandCntMax</td>
+					</tr>
 					// Display only the goal's description
 				}
 			</table>
