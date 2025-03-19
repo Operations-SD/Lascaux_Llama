@@ -354,7 +354,8 @@ namespace IntelChat.Pages
 						new SqlParameter("@PROC_action", "Read"),
 						new SqlParameter("@PROC_filter", filter),
 						new SqlParameter("@work_status", status),
-						new SqlParameter("@pod", pod)
+						new SqlParameter("@pod", pod),
+						new SqlParameter("@Task_ID_FK", Page_Task.novaT.tempTaskId)
 					};
 
 			return ExecuteStoredProcedure("dbo.[CRUD_Work]", parameters, true);

@@ -369,6 +369,9 @@
 						Sort Sequence:
 						<input class="form-control" @bind="@entity["change"].TaskSeq" />									</label><br>
 
+					@{
+						novaT.tempTaskId = entity["change"].TaskId;
+					}
 
 					<label>
 						Tag: (contains)					</label><br>

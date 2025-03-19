@@ -172,6 +172,7 @@ namespace IntelChat.Pages
 		public static class novaT
 		{
 			public static string novaParamValue = "";
+			public static int tempTaskId = 0;
 		}
 
 		private async ThreadingTask OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
