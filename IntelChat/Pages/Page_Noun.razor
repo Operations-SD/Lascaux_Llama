@@ -22,8 +22,6 @@
 		background-color: #000000;
 	}
 
-
-
 	#btn-luster-noun {
 		content: url("https://agineuralnet.blob.core.windows.net/buttons/btn_NOUN.png");
 		position: absolute;
@@ -33,8 +31,6 @@
 		border-radius: 8px;
 		background-size: cover;
 	}
-
-
 
 </style>
 
@@ -370,23 +366,22 @@
 	<!-- ******************************** NAV_ Buttons ************************************** -->
 	<!-- ************************************************************************************ -->
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:600px;height:60px;border:0px;width:140px;">
-		Chat
+		Exit
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Memo?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:680px;height:60px;border:0px;width:140px;">
 		Memo
 	</button>
-
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Grid?pod="+pod+"&pid="+pid+"&entity="+pageName))"
 			style="position:absolute;left:30px;top:760px;height:60px;border:0px;width:140px;">
 		Grid
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
 		Return
 	</button>

@@ -53,109 +53,64 @@
 	<!-- *************************** GOAL   TASK   NOVA ***************************** .dbo ** -->
 	<!-- ************************************************************************************ -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Noun?pod="+pod+"&pid="+pid))"
-			style="Z-index:1;top:300px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:300px;left:320px;height:60px;width:220px;">
 		Noun
 	</button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Verb?pod="+pod+"&pid="+pid))"
-			style="Z-index:1;top:380px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:380px;left:320px;height:60px;width:220px;">
         Verb
     </button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/NovaCrud?pod="+pod+"&pid="+pid))"
-			style="Z-index:1;top:460px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:460px;left:320px;height:60px;width:220px;">
 		NOVA
 	</button>
 
-    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Element?pod="+pod+"&pid="+pid))"
-			style="top:540px;color:#FFFFFF;left:320px;height:60px;width:200px;">
-        Element
-    </button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Task?pod="+pod+"&pid="+pid))"
-			style="Z-index:1;top:620px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:540px;left:320px;height:60px;width:220px;">
         Task
     </button>
 
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Work?pod="+pod+"&pid="+pid))"
-			style="Z-index:1;top:700px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:620px;left:320px;height:60px;width:220px;">
         Work
     </button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Program?pod="+pod+"&pid="+pid))"
-			style="top:780px;color:#FFFFFF;left:320px;height:60px;width:200px;">
-		Program
-	</button>
-
     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Guide?pod="+pod+"&pid="+pid))"
-			style="Z-index:1;top:860px;left:320px;height:60px;width:200px;">
+			style="Z-index:1;top:700px;left:320px;height:60px;width:220px;">
         Guide
     </button>
+
 
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** PROCESSES ******************************************** -->
 	<!-- ************************************************************************************ -->
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/addart?pod="+pod+"&pid="+pid))"
-			style="top:300px;color:#FFFFFF;left:825px;height:60px;">
-		Art
-	</button>
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/NOVA?pod="+pod+"&pid="+pid))"
-			style="Z-index:1;top:380px;left:825px;height:60px;">
+			style="Z-index:1;top:300px;left:825px;height:60px;width:220px;">
 		NOVA  s.v.o.
 	</button>
 
+
 	<!-- ************************************************************************************ -->
-	<!-- ***************************** External Cloud Links ********************************* -->
+	<!-- ***************************** Reports / Exports ************************************ -->
 	<!-- ************************************************************************************ -->
-	<a href="https://www.w3schools.com/tags/tag_iframe.ASP   ">
-		<button class="general-menu-button" style="z-index:1;top:300px;left:1450px;height:60px; color:red">
-			HTML
-		</button>
-	</a>
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/addart?pod="+pod+"&pid="+pid))"
+			style="top:300px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+        Art
+    </button>
 
-	<a href="https://docs.blazorbootstrap.com/components/modal#optional-sizes">
-		<button class="general-menu-button" style="z-index:1;top:380px;left:1450px;height:60px; color:red">
-			Bootstrap
-		</button>
-	</a>
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Program?pod="+pod+"&pid="+pid))"
+            style="top:380px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+        Program
+    </button>
 
-	<a href="https://www.youtube.com/watch?v=SrEjoJ_G6tc">
-		<button class="general-menu-button" style="z-index:1;top:460px;left:1450px;height:60px; color:red">
-			Scaffold
-		</button>
-	</a>
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Element?pod="+pod+"&pid="+pid))"
+            style="top:460px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+        Element
+    </button>
 
-	<a href="https://www.youtube.com/watch?v=_w6N_nplmAw">
-		<button class="general-menu-button" style="z-index:1;top:540px;left:1450px;height:60px; color:red">
-			Images
-		</button>
-	</a>
-
-	<a href="https://www.foxnews.com/">
-		<button class="general-menu-button" style="z-index:1;top:620px;left:1450px;height:60px; color:red">
-			Fox News
-		</button>
-	</a>
-
-	<a href="https://www.youtube.com/watch?v=bwUXXjkyqhE&t=565s">
-		<button class="general-menu-button" style="z-index:1;top:700px;left:1450px;height:60px; color:red">
-			Print Report
-		</button>
-	</a>
-
-	<a href="https://www.youtube.com/watch?v=djU2Knv30q0&t=498s">
-		<button class="general-menu-button" style="z-index:1;top:780px;left:1450px;height:60px; color:red">
-			Drag N Drop
-		</button>
-	</a>
-
-	<a href="https://www.youtube.com/watch?v=xtpPspNdX58">
-		<button class="general-menu-button" style="z-index:1;top:860px;left:1450px;height:60px; color:red">
-			Data Trans OBJ
-		</button>
-	</a>
 
 <div>
 	<!-- ************************************************************************************ -->
@@ -186,6 +141,58 @@
 				style="position:absolute; top:400px;left:30px; opacity:100%;height:60px;border:0px;brightness:100%;width:140px;color:red">
 			Close
 		</button>
+
+
+		<!-- ************************************************************************************ -->
+		<!-- ***************************** External Cloud Links ********************************* -->
+		<!-- ************************************************************************************ -->
+		<a href="https://www.w3schools.com/tags/tag_iframe.ASP   ">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:300px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				HTML
+			</button>
+		</a>
+
+		<a href="https://docs.blazorbootstrap.com/components/modal#optional-sizes">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:380px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				Bootstrap
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=SrEjoJ_G6tc">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:460px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				Scaffold
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=_w6N_nplmAw">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:540px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				Images
+			</button>
+		</a>
+
+		<a href="https://www.foxnews.com/">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:620px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				Fox News
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=bwUXXjkyqhE&t=565s">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:700px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				Print Report
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=djU2Knv30q0&t=498s">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:780px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				Drag N Drop
+			</button>
+		</a>
+
+		<a href="https://www.youtube.com/watch?v=xtpPspNdX58">
+			<button class="general-menu-button" style="z-index:1;position:absolute;top:860px;left:1570px;width:220px; height:50px; opacity:70%; color:red">
+				DTO Trans
+			</button>
+		</a>
 	</div>
 }
 else

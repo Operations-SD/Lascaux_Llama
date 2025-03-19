@@ -133,7 +133,8 @@
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** Internal Cloud Activity ****************************** -->
 	<!-- ************************************************************************************ -->
-	<div>
+
+@* 		<div>
 		<button class="general-menu-button"
 				@onclick="@(() => _nav.NavigateTo("/POD?pod=" + 3 + "&pid=" + 11))"
 				style="top:140px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
@@ -146,6 +147,24 @@
 				@onclick="@(() => _nav.NavigateTo("/Person?pod=" + 3 + "&pid=" + 11))"
 				style="top:220px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
 			Person
+		</button>
+	</div> *@
+
+
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Guide?pod=" + 3 + "&pid=" + 11))"
+				style="top:140px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
+			Guide
+		</button>
+	</div>
+
+	<div>
+		<button class="general-menu-button"
+				@onclick="@(() => _nav.NavigateTo("/Question?pod=" + 3 + "&pid=" + 11))"
+				style="top:220px;left:1500px;opacity:60%; color:dimgray;z-index:1;width:240px;height:60px;">
+			Question
 		</button>
 	</div>
 
