@@ -443,6 +443,125 @@ namespace IntelChat.Pages
 		}
 
 
+		private async ThreadingTask LoadLascaux(string sp, string filter = "****")
+		{
+			var reader = await Read(sp, filter);
+			if (reader == null) return;
+
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
+			while (await reader.ReadAsync())
+			{
+				entities.Add(new LascauxFromNova
+				{
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
+					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+					S = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
+					Subject = !reader.IsDBNull(5) ? reader.GetString(5) : "",
+					SubjectDescription = !reader.IsDBNull(6) ? reader.GetString(6) : "",
+					SubjectUrl = !reader.IsDBNull(7) ? reader.GetString(7) : "",
+					A = !reader.IsDBNull(8) ? reader.GetInt32(8) : 0,
+					Action = !reader.IsDBNull(9) ? reader.GetString(9) : "",
+					ActionDescription = !reader.IsDBNull(10) ? reader.GetString(10) : "",
+					ActionUrl = !reader.IsDBNull(11) ? reader.GetString(11) : "",
+					O = !reader.IsDBNull(12) ? reader.GetInt32(12) : 0,
+					Object = !reader.IsDBNull(13) ? reader.GetString(13) : "",
+					ObjectDescription = !reader.IsDBNull(14) ? reader.GetString(14) : "",
+					ObjectUrl = !reader.IsDBNull(15) ? reader.GetString(15) : "",
+					Pid = !reader.IsDBNull(16) ? reader.GetInt32(16) : 0
+				});
+			}
+			reader.Close();
+			/// **********************************************************************   ??????????????????????????????????????????
+			/// entities = entities.FindAll(entity => (subid == 0 || entity.S == subid)
+			///					&& (actid == 0 || entity.A == actid)
+			///					&& (objid == 0 || entity.O == objid)
+			///					&& pid == entity.Pid);
+			novas.Clear();
+			foreach (LascauxFromNova entity in entities)
+			{
+				novas.Add(new Lascaux
+				{
+					NovaId = entity.N,
+					NovaDescription = entity.NovaDescription ?? "",
+					NovaSubjectLabel = entity.Subject ?? "",
+					NovaActionLabel = entity.Action ?? "",
+					NovaObjectLabel = entity.Object ?? "",
+					NovaSubjectDescription = entity.SubjectDescription ?? "",
+					NovaActionDescription = entity.ActionDescription ?? "",
+					NovaObjectDescription = entity.ObjectDescription ?? "",
+					SubjectURL = entity.SubjectUrl ?? "",
+					ActionURL = entity.ActionUrl ?? "",
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
+				});
+			}
+
+			reader.Close();
+		}
+		
+		private async ThreadingTask LoadUrl(string sp, string filter = "URL")
+		{
+			var reader = await Read(sp, filter);
+			if (reader == null) return;
+
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
+			while (await reader.ReadAsync())
+			{
+				entities.Add(new LascauxFromNova
+				{
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
+					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+					S = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
+					Subject = !reader.IsDBNull(5) ? reader.GetString(5) : "",
+					SubjectDescription = !reader.IsDBNull(6) ? reader.GetString(6) : "",
+					SubjectUrl = !reader.IsDBNull(7) ? reader.GetString(7) : "",
+					A = !reader.IsDBNull(8) ? reader.GetInt32(8) : 0,
+					Action = !reader.IsDBNull(9) ? reader.GetString(9) : "",
+					ActionDescription = !reader.IsDBNull(10) ? reader.GetString(10) : "",
+					ActionUrl = !reader.IsDBNull(11) ? reader.GetString(11) : "",
+					O = !reader.IsDBNull(12) ? reader.GetInt32(12) : 0,
+					Object = !reader.IsDBNull(13) ? reader.GetString(13) : "",
+					ObjectDescription = !reader.IsDBNull(14) ? reader.GetString(14) : "",
+					ObjectUrl = !reader.IsDBNull(15) ? reader.GetString(15) : "",
+					Pid = !reader.IsDBNull(16) ? reader.GetInt32(16) : 0
+				});
+			}
+			reader.Close();
+			/// **********************************************************************   ??????????????????????????????????????????
+			/// entities = entities.FindAll(entity => (subid == 0 || entity.S == subid)
+			///					&& (actid == 0 || entity.A == actid)
+			///					&& (objid == 0 || entity.O == objid)
+			///					&& pid == entity.Pid);
+			novas.Clear();
+			foreach (LascauxFromNova entity in entities)
+			{
+				novas.Add(new Lascaux
+				{
+					NovaId = entity.N,
+					NovaDescription = entity.NovaDescription ?? "",
+					NovaSubjectLabel = entity.Subject ?? "",
+					NovaActionLabel = entity.Action ?? "",
+					NovaObjectLabel = entity.Object ?? "",
+					NovaSubjectDescription = entity.SubjectDescription ?? "",
+					NovaActionDescription = entity.ActionDescription ?? "",
+					NovaObjectDescription = entity.ObjectDescription ?? "",
+					SubjectURL = entity.SubjectUrl ?? "",
+					ActionURL = entity.ActionUrl ?? "",
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
+				});
+			}
+
+			reader.Close();
+		}
 
 
 		/// ************************ LOAD POD **********************************************
@@ -500,23 +619,19 @@ namespace IntelChat.Pages
 
 			reader.Close();
 		}
-
-
-
-		/// ************************ LOAD Question **********************************************
-		/// ************************ LOAD Question **********************************************
-		/// ************************ LOAD Question **********************************************
-		private async ThreadingTask LoadQuestion(string sp, string filter = "****")
+		
+		
+		private async ThreadingTask LoadGuide(string sp, string filter = "GUIDE")
 		{
-			var reader = await Read(sp);
+			var reader = await Read(sp, filter);
 			if (reader == null) return;
 
-			List<XnovaDictionaryQuestion> entities = new List<XnovaDictionaryQuestion>();
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
 			while (await reader.ReadAsync())
 			{
-				entities.Add(new XnovaDictionaryQuestion
+				entities.Add(new LascauxFromNova
 				{
-					About = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
 					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
 					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
 					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
@@ -536,9 +651,13 @@ namespace IntelChat.Pages
 				});
 			}
 			reader.Close();
-
+			/// **********************************************************************   ??????????????????????????????????????????
+			/// entities = entities.FindAll(entity => (subid == 0 || entity.S == subid)
+			///					&& (actid == 0 || entity.A == actid)
+			///					&& (objid == 0 || entity.O == objid)
+			///					&& pid == entity.Pid);
 			novas.Clear();
-			foreach (XnovaDictionaryQuestion entity in entities)
+			foreach (LascauxFromNova entity in entities)
 			{
 				novas.Add(new Lascaux
 				{
@@ -552,7 +671,135 @@ namespace IntelChat.Pages
 					NovaObjectDescription = entity.ObjectDescription ?? "",
 					SubjectURL = entity.SubjectUrl ?? "",
 					ActionURL = entity.ActionUrl ?? "",
-					ObjectURL = entity.ObjectUrl ?? ""
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
+				});
+			}
+
+			reader.Close();
+		}
+
+
+
+		/// ************************ LOAD Question **********************************************
+		/// ************************ LOAD Question **********************************************
+		/// ************************ LOAD Question **********************************************
+		private async ThreadingTask LoadQuestion(string sp, string filter = "QUESTION")
+		{
+			var reader = await Read(sp, filter);
+			if (reader == null) return;
+
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
+			while (await reader.ReadAsync())
+			{
+				entities.Add(new LascauxFromNova
+				{
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
+					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+					S = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
+					Subject = !reader.IsDBNull(5) ? reader.GetString(5) : "",
+					SubjectDescription = !reader.IsDBNull(6) ? reader.GetString(6) : "",
+					SubjectUrl = !reader.IsDBNull(7) ? reader.GetString(7) : "",
+					A = !reader.IsDBNull(8) ? reader.GetInt32(8) : 0,
+					Action = !reader.IsDBNull(9) ? reader.GetString(9) : "",
+					ActionDescription = !reader.IsDBNull(10) ? reader.GetString(10) : "",
+					ActionUrl = !reader.IsDBNull(11) ? reader.GetString(11) : "",
+					O = !reader.IsDBNull(12) ? reader.GetInt32(12) : 0,
+					Object = !reader.IsDBNull(13) ? reader.GetString(13) : "",
+					ObjectDescription = !reader.IsDBNull(14) ? reader.GetString(14) : "",
+					ObjectUrl = !reader.IsDBNull(15) ? reader.GetString(15) : "",
+					Pid = !reader.IsDBNull(16) ? reader.GetInt32(16) : 0
+				});
+			}
+			reader.Close();
+			/// **********************************************************************   ??????????????????????????????????????????
+			/// entities = entities.FindAll(entity => (subid == 0 || entity.S == subid)
+			///					&& (actid == 0 || entity.A == actid)
+			///					&& (objid == 0 || entity.O == objid)
+			///					&& pid == entity.Pid);
+			novas.Clear();
+			foreach (LascauxFromNova entity in entities)
+			{
+				novas.Add(new Lascaux
+				{
+					NovaId = entity.N,
+					NovaDescription = entity.NovaDescription ?? "",
+					NovaSubjectLabel = entity.Subject ?? "",
+					NovaActionLabel = entity.Action ?? "",
+					NovaObjectLabel = entity.Object ?? "",
+					NovaSubjectDescription = entity.SubjectDescription ?? "",
+					NovaActionDescription = entity.ActionDescription ?? "",
+					NovaObjectDescription = entity.ObjectDescription ?? "",
+					SubjectURL = entity.SubjectUrl ?? "",
+					ActionURL = entity.ActionUrl ?? "",
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
+				});
+			}
+
+			reader.Close();
+		}
+		
+		private async ThreadingTask LoadLocation(string sp, string filter = "LOCATION")
+		{
+			var reader = await Read(sp, filter);
+			if (reader == null) return;
+
+			List<LascauxFromNova> entities = new List<LascauxFromNova>();
+			while (await reader.ReadAsync())
+			{
+				entities.Add(new LascauxFromNova
+				{
+					NovaIn = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+					P = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
+					N = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+					NovaDescription = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+					S = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
+					Subject = !reader.IsDBNull(5) ? reader.GetString(5) : "",
+					SubjectDescription = !reader.IsDBNull(6) ? reader.GetString(6) : "",
+					SubjectUrl = !reader.IsDBNull(7) ? reader.GetString(7) : "",
+					A = !reader.IsDBNull(8) ? reader.GetInt32(8) : 0,
+					Action = !reader.IsDBNull(9) ? reader.GetString(9) : "",
+					ActionDescription = !reader.IsDBNull(10) ? reader.GetString(10) : "",
+					ActionUrl = !reader.IsDBNull(11) ? reader.GetString(11) : "",
+					O = !reader.IsDBNull(12) ? reader.GetInt32(12) : 0,
+					Object = !reader.IsDBNull(13) ? reader.GetString(13) : "",
+					ObjectDescription = !reader.IsDBNull(14) ? reader.GetString(14) : "",
+					ObjectUrl = !reader.IsDBNull(15) ? reader.GetString(15) : "",
+					Pid = !reader.IsDBNull(16) ? reader.GetInt32(16) : 0
+				});
+			}
+			reader.Close();
+			/// **********************************************************************   ??????????????????????????????????????????
+			/// entities = entities.FindAll(entity => (subid == 0 || entity.S == subid)
+			///					&& (actid == 0 || entity.A == actid)
+			///					&& (objid == 0 || entity.O == objid)
+			///					&& pid == entity.Pid);
+			novas.Clear();
+			foreach (LascauxFromNova entity in entities)
+			{
+				novas.Add(new Lascaux
+				{
+					NovaId = entity.N,
+					NovaDescription = entity.NovaDescription ?? "",
+					NovaSubjectLabel = entity.Subject ?? "",
+					NovaActionLabel = entity.Action ?? "",
+					NovaObjectLabel = entity.Object ?? "",
+					NovaSubjectDescription = entity.SubjectDescription ?? "",
+					NovaActionDescription = entity.ActionDescription ?? "",
+					NovaObjectDescription = entity.ObjectDescription ?? "",
+					SubjectURL = entity.SubjectUrl ?? "",
+					ActionURL = entity.ActionUrl ?? "",
+					ObjectURL = entity.ObjectUrl ?? "",
+					SubId = entity.S, // Populate Subject NounId
+					ActId = entity.A,
+					ObjId = entity.O
 				});
 			}
 
@@ -727,11 +974,6 @@ namespace IntelChat.Pages
 					sp = "sp_nova_Dictionary_Interview";
 					await LoadInterview(sp);
 					break;
-				case "Question":
-					sp = "sp_nova_Dictionary_Question";
-					await LoadQuestion(sp);
-					break;
-
 				case "TASK":
 					sp = "sp_Lascaux_#temp";
 					await LoadTask(sp);
@@ -739,6 +981,26 @@ namespace IntelChat.Pages
 				case "Work":
 					sp = "sp_Lascaux_#temp";
 					await LoadWork(sp);
+					break;
+				case "GUIDE":
+					sp = "sp_Lascaux_#temp";
+					await LoadGuide(sp);
+					break;
+				case "QUESTION":
+					sp = "sp_Lascaux_#temp";
+					await LoadQuestion(sp);
+					break;
+				case "URL":
+					sp = "sp_Lascaux_#temp";
+					await LoadUrl(sp);
+					break;
+				case "LOCATION":
+					sp = "sp_Lascaux_#temp";
+					await LoadLocation(sp);
+					break;
+				default:
+					sp = "sp_Lascaux_#temp";
+					await LoadLascaux(sp);
 					break;
 
 			}

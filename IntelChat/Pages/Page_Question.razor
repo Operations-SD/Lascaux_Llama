@@ -99,12 +99,22 @@
 						{
 							if (pype.PypeId == "QSTN")
 							{
-								<option value="@pype.PypeType">@pype.PypeType</option>
+								<option value="@pype.PypeType">@pype.PypeLabel</option>
 							}
 						}
 					</select>
 				</label>
 			</div>
+
+			@{
+				// Filter the entities based on the selected value
+				var filteredEntities = (filter["list"] == "****")
+					? entities
+					: entities.Where(entity => entity.QuestionType == filter["list"]);
+
+				Page_Task.novaT.novaParamValue = string.Join(",", filteredEntities.Select(entity => entity.NovaIdFk));
+				//Console.WriteLine($"Filtered NovaIdFk values Work: {Page_Task.novaT.novaParamValue}");
+			}
 
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
