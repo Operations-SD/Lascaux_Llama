@@ -123,7 +123,8 @@ namespace IntelChat.Pages
 					ProgramIdFk = reader.GetInt32(14),
 					PersonFkAdmn = reader.GetInt32(15),
 					PersonFkEngr = reader.GetInt32(16),
-					PersonFkXprt = reader.GetInt32(17)
+					PersonFkXprt = reader.GetInt32(17),
+					NovaIdFk = reader.GetInt32(19),
 				});
 			}
 			reader.Close();

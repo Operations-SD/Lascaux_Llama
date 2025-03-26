@@ -270,7 +270,7 @@
 					: entities.Where(entity => entity.UrlType == filter["list"]);
 
 				Page_Task.novaT.novaParamValue = string.Join(",", filteredEntities.Select(entity => entity.NovaIdFk));
-				//Console.WriteLine($"Filtered NovaIdFk values Work: {Page_Task.novaT.novaParamValue}");
+				//Console.WriteLine($"Filtered NovaIdFk values URL: {Page_Task.novaT.novaParamValue}");
 			}
 
 			<table id="listTable">

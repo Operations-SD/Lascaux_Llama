@@ -98,7 +98,9 @@ namespace IntelChat.Pages
 					UrlDescription = reader.GetString(2),
 					UrlType = reader.GetString(3),
 					UrlStatus = reader.GetString(4),
-					UrlCloud = reader.GetString(5)
+					UrlCloud = reader.GetString(5),
+					NovaIdFk = reader.GetInt32(7),
+					
 				});
 			}
 			reader.Close();
