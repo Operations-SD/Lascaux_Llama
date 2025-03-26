@@ -400,15 +400,31 @@ namespace IntelChat.Pages
         /// Convert YouTube URL to embed format
         private string GetYouTubeEmbedUrl(string url)
         {
-            if (url.Contains("youtu.be/"))
+            try
             {
-                return "https://www.youtube.com/embed/" + url.Split('/').Last();
+                if (string.IsNullOrWhiteSpace(url)) return url;
+
+                string videoId = "";
+
+                if (url.Contains("youtu.be/"))
+                {
+                    videoId = url.Split("youtu.be/")[1].Split('?')[0];
+                }
+                else if (url.Contains("watch?v="))
+                {
+                    videoId = url.Split("watch?v=")[1].Split('&')[0];
+                }
+                else if (url.Contains("youtube.com/embed/"))
+                {
+                    videoId = url.Split("embed/")[1].Split('?')[0];
+                }
+
+                return $"https://www.youtube.com/embed/{videoId}"; //Strech Goal
             }
-            else if (url.Contains("watch?v="))
+            catch
             {
-                return "https://www.youtube.com/embed/" + url.Split("watch?v=").Last().Split('&').First();
+                return url;
             }
-            return url;
         }
     }
 }

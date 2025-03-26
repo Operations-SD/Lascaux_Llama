@@ -200,12 +200,13 @@
 
             <!-- Media Display -->
             <div class="media-section">
+                @*
                 @if (GetUrlCategory(SelectedUrl.UrlCloud) == "Image")
                 {
                     <img src="@SelectedUrl.UrlCloud" alt="Embedded Image"
                          style="max-width: 300px; max-height: 500px; width: auto; height: auto;">
                 }
-                else if (GetUrlCategory(SelectedUrl.UrlCloud) == "YouTube Video" || GetUrlCategory(SelectedUrl.UrlCloud) == "Vimeo Video")
+                else if (GetUrlCategory(SelectedUrl.UrlCloud) == "YouTube Video")
                 {
                     <iframe width="560" height="315" src="@GetEmbeddedUrl(SelectedUrl.UrlCloud)" frameborder="0" allowfullscreen></iframe>
                 }
@@ -231,6 +232,46 @@
                 {
                     <a href="@SelectedUrl.UrlCloud" target="_blank">Open Link</a>
                 }
+                *@
+
+                @{
+                    var category = GetUrlCategory(SelectedUrl?.UrlCloud ?? "");
+                    var embedUrl = GetEmbeddedUrl(SelectedUrl?.UrlCloud ?? "");
+                }
+
+                @if (category == "YouTube Video" || category == "Webpage" || category == "Document") //Strech Goal with Webpage
+                {
+                    <iframe src="@embedUrl"
+                            width="100%"
+                            height="450px"
+                            frameborder="0"
+                            allowfullscreen
+                            style="border: 1px solid #ccc; border-radius: 8px">
+                    </iframe>
+                }
+                else if (category == "Image")
+                {
+                    <img src="@embedUrl" alt="Image" style="max-width: 300px; height 600px: auto;" />
+                }
+                else if (category == "Video File")
+                {
+                    <video controls width="100%">
+                        <source src="@embedUrl" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                }
+                else if (category == "Audio File")
+                {
+                    <audio controls>
+                        <source src="@embedUrl" type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
+                }
+                else
+                {
+                    <a href="@embedUrl" target="_blank">Open link</a>
+                }
+
             </div>
         </div>
     }
