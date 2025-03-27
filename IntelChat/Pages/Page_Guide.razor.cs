@@ -162,6 +162,8 @@ namespace IntelChat.Pages
 			Create();
 			LoadReadResults();
 			NotificationService.Notify("Guide created successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity changes</summary>

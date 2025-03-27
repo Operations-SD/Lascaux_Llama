@@ -214,7 +214,7 @@
 				<div class="exhibitInfo2">
 					<label>
 						Type:
-						<select @bind="@entity["add"].GuideType">
+						<select @bind="@entity["add"].GuideType" required>
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{

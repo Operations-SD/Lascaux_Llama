@@ -182,7 +182,7 @@
 					</label><br><br>
 					<label>
 						Type
-						<select @bind="@entity["add"].VerbType">
+						<select @bind="@entity["add"].VerbType" required>
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{

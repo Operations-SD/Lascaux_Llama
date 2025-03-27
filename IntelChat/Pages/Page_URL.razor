@@ -351,7 +351,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["add"].UrlType">
+						<select @bind="@entity["add"].UrlType" required>
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{

@@ -222,7 +222,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["add"].LocationType">
+						<select @bind="@entity["add"].LocationType" required>
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{

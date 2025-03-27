@@ -141,6 +141,8 @@ namespace IntelChat.Pages
 			Create();
 			LoadReadResults();
 			NotificationService.Notify("Question created successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity changes</summary>

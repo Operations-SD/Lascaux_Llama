@@ -233,6 +233,8 @@ namespace IntelChat.Pages
 			Create();
 			entities.Add(entity["add"]);
 			NotificationService.Notify("Task created successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity changes</summary>

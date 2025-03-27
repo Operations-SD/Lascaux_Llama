@@ -205,7 +205,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["add"].QuestionType">
+						<select @bind="@entity["add"].QuestionType" required>
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{

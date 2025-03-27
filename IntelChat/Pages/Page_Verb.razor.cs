@@ -179,6 +179,8 @@ namespace IntelChat.Pages
 			entities.Add(entity["add"]);
 			//	SyncAndLoadReadResults();
 			NotificationService.Notify("Verb created successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity changes</summary>
