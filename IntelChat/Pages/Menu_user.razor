@@ -41,93 +41,6 @@
 	}
 
 
-    .box_push_btn {
-        position: absolute;
-        filter: brightness(90%);
-        opacity: 95%;
-		width:573px;
-		height:125px;
-		top:20px;
-		left:400px;
-		color:coral;
-    }
-
-    /* background-size: cover; if you want to stretch the image */
-	.btn_push_1 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_1_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-		.btn_push_1:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);			transform: scale(.8);
-		}
-
-	.btn_push_2 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_2_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-		.btn_push_2:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5); 	transform: scale(.8);
-		}
-
-	.btn_push_3 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_3_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-		.btn_push_3:hover {	box-shadow: 0 5px 10px rgba(0,0,0,.5); 	transform: scale(.8);		
-		}
-
-	.btn_push_4 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_4_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-		.btn_push_4:hover {	box-shadow: 0 5px 10px rgba(0,0,0,.5);		transform: scale(.8);	
-		}
-
-	.btn_push_5 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_5_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-
-		.btn_push_5:hover {	box-shadow: 0 5px 10px rgba(0,0,0,.5);		transform: scale(.8);	
-		}
-
-	.btn_push_6 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_6_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-		.btn_push_6:hover {	box-shadow: 0 5px 10px rgba(0,0,0,.5);		transform: scale(.8);	}
-
-	.btn_push_7 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_7_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-		.btn_push_7:hover {			box-shadow: 0 5px 10px rgba(0,0,0,.5);			transform: scale(.8);		
-		}
-
-	.btn_push_8 {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_8_8.png") no-repeat;
-		background-size: contain;
-		border-radius: 8%;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		}
-		.btn_push_8:hover {		box-shadow: 0 5px 10px rgba(0,0,0,.5);		transform: scale(.8);	
-		}
-
-
 
 
 	.video-background {
@@ -170,8 +83,8 @@
 	<!-- ************************************************************************************ -->
 	<!-- *************************** Lock onto a Person and a POD *************************** -->
 	<!-- ************************************************************************************ -->
-	<p style="color:#444444;font-size:24px;top:500px;position:absolute">Pod: @pod</p>
-	<p style="color:#444444;font-size:24px;top:530px;position:absolute">Pid: @pid</p>
+	<p style="color:#444444;font-size:24px;top:500px;position:absolute;opacity:50%;">Pod: @pod</p>
+	<p style="color:#444444;font-size:24px;top:530px;position:absolute;opacity:50%;">Pid: @pid</p>
 
 
 	<!-- ************************************************************************************ -->
@@ -185,56 +98,11 @@
 		<img src="https://agineuralnet.blob.core.windows.net/panels/Mindset.png" />
 	</div>
 
-	<div class="user_banner" style="top:700px; left:580px; opacity:60%">
+	<div class="user_banner" style="top:700px; left:480px; opacity:60%">
 		<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Mindset_Q.png" />
 	</div>
 
 
-
-	<!-- ************************************************************************************ -->
-	<!-- ************************** DISPLAY PUSH-BUTTON PANEL ******************************* -->
-	<!-- ************************************************************************************ -->
-	<div class="box_push_btn" style="position:absolute; top:560px; left:50px; opacity:60%;">
-		<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_radio.png">
-
-        <div>
-			<button class="btn_push_1" @onclick="@(()=>_nav.NavigateTo("/Inbox?pod="+pod+"&pid="+pid))"
-				style="top:35px;left:010px;width:64px;height:48px; opacity:70%">
-            </button>        </div>
-        <div>
-			<button class="btn_push_2" @onclick="@(()=>_nav.NavigateTo("/showpage?pod="+pod+"&pid="+pid))"
-				style="top:35px;left:080px;width:64px;height:48px; opacity:70%">
-            </button>        </div>
-        <div>
-			<button class="btn_push_3" @onclick="@(()=>_nav.NavigateTo("/Chatbox?pod="+pod+"&pid="+pid))"
-				style="top:35px;left:150px;width:64px;height:48px; opacity:70%">
-            </button>        </div>
-        <div>
-			<button class="btn_push_4" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))"
-				style="top:35px;left:220px;width:64px;height:48px; opacity:70%">
-            </button>        </div>
-        <div>
-			<button class="btn_push_5" @onclick="@(()=>_nav.NavigateTo("/DelphiMaxims?pod="+pod+"&pid="+pid))"
-				style="top:35px;left:290px;width:64px;height:48px; opacity:70%">
-            </button>        </div>
-        <div>
-			<button class="btn_push_6" 
-				style="top:35px;left:360px;width:64px;height:48px; opacity:70%">
-            </button>        </div>
-        <div>
-			<button class="btn_push_7" 
-				style="top:35px;left:430px;width:64px;height:48px; opacity:70%">
-            </button>        </div>
-		<div>
-			<button class="btn_push_7" @onclick="@(()=>_nav.NavigateTo("/Pyramid?pod="+pod+"&pid="+pid))"
-					style="top:35px;left:430px;width:64px;height:48px; opacity:70%">
-			</button>		</div>
-		<div>
-			<button class="btn_push_8" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))"
-					style="top:35px;left:500px;width:64px;height:48px; opacity:70%">
-			</button>		</div>
-
-	</div>
 
 
 	<!-- ************************************************************************************ -->
@@ -253,19 +121,6 @@
 		Delphi
 	</button>
 
-	<!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
-    <button     class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"
-            style="top:990px;left:660px;width:220px;height:50px; opacity:70%;color:#222222">
-        Life Action
-    </button>
-
-
-
-
-
-
-
-
 
 	<!-- *** continue from the last MY-Guide that you selected **** -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+guideIdSelection))"
@@ -273,14 +128,10 @@
 		MY Interview
 	</button>
 
-    <!-- *** understand MY-Mind to develop MY dicipline and a "sense of purpose", leading to a meaningful life **** -->
-    <button   class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid))"   
-            style="top:990px;left:1200px;width:220px;height:50px; opacity:70%;color:#222222">
-        Contemplation
-    </button>
+
 
 	<!-- ************************************************************************************ -->
-	<!-- ***************************** Mind Action MENUS ************************************ -->
+	<!-- ********************************** MEDIA Action ************************************ -->
 	<!-- ************************************************************************************ -->
 	
 	<div>
@@ -293,41 +144,51 @@
 		style="top:360px;left:1720px;width:160px;height:50px; opacity:70%;color:#222222">
 			Video
 		</button>
-	
-@* 		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Pyramid?pod="+pod+"&pid="+pid))"
-		style="top:500px;left:1720px;width:160px;height:50px; opacity:70%;color:#222222">
-			Pyramid
-		</button>
-	
-		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))"
-		style="top:570px;left:1720px;width:160px;height:50px; opacity:70%;color:#222222">
-			Delphi
-		</button> *@
     </div>
 
-	<div class="user_banner" style="top:180px; left:1400px; filter: brightness(40%);opacity:60% ">
+
+
+
+
+
+    <!-- ************************************ Navigate to the World Connect Page ****************** -->
+
+	<div class="user_banner" style="top:150px; left:1435px; filter: brightness(40%);opacity:60% ">
 		<img src="images/Earth.gif" alt="earth planet" >
 	</div>
 
-	<a href="https://radio.garden/listen/heavy1/rH122vcl">
-		<button class="world-radio-button" style="top:180px;left:1400px;width:200px; height:200px; opacity:20%; color:#222222">World Radio></button>
-	</a>
-
-	<!-- ********************* https://radio.garden/listen/heavy1/rH122vcl ****************** -->
-	<!-- ****************************** AUDIO RADIO Buttons ****** Swiss Jazz *************** -->
-	<!-- ************************************************************************************ -->
-	<div>
-		<audio controls="controls"	style="position:absolute; top:140px;left:1700px;width:200px; height:50px; opacity:40%; color:#222222">
-			<source src="/Blobs/Audio/Ripingtons.mp3" />
-		</audio>
+	<div class="user_banner" style="top:102px; left:1390px; filter: brightness(50%);opacity:100%;border-radius:initial ">
+		<img src="images/orbit.png" alt="earth orbit">
 	</div>
 
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/World?pod="+pod+"&pid="+pid))"
+            style="top:150px;left:1435px;width:200px;height:200px; opacity:10%;color:#222222">
+        World
+	</button>
+
+
+
+
+
+
+
+
+
+
+	<!-- ************************************************************************************ -->
+	<!-- ****************************** AUDIO RADIO Buttons ****** Swiss Jazz *************** -->
+	<!-- ************************************************************************************ -->
 	<div>
 		<audio controls="controls" style="position:absolute; top:220px;left:1700px;width:200px; height:50px; opacity:40%; color:#222222">
 			<source src="https://stream.srg-ssr.ch/m/rsj/aacp_96" />
 		</audio>
 	</div>
 
+    <div>
+        <audio controls="controls" style="position:absolute; top:140px;left:1700px;width:200px; height:50px; opacity:40%; color:#222222">
+            <source src="/Blobs/Audio/Ripingtons.mp3" />
+        </audio>
+    </div>
 
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* Youtube Video ******************************** -->
@@ -353,7 +214,7 @@
 
 	<button class="general-menu-button"
 			@onclick="@(() => _nav.NavigateTo("/Nnet?pod=" + 3 + "&pid=" + 11))"
-			style="position:absolute; top:60px; left:1560px; height:60px; width:260px; opacity:60%; color:darkred;z-index:1;">
+			style="position:absolute; top:50px; left:1600px; height:60px; width:260px; opacity:60%; color:darkred;z-index:1;">
 		Neural Net
 	</button>
 </div>
@@ -434,11 +295,11 @@
 {
 	<div>
 		<iframe src="@imagePath" width="1920" height="1080" frameborder="0"
-				style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:90%;">
+				style="position:absolute; top:0px;left:0px;width:1920px; height:1080px; opacity:70%;">
 		</iframe>
 		<br />
 		<button class="btn btn-danger" @onclick="CloseIframe"
-				style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+				style="position:absolute; top:430px;left:60px; opacity:40%; color:black">
 			Close HELP
 		</button>
 	</div>
@@ -446,7 +307,7 @@
 else
 {
 	<button class="btn btn-primary" @onclick="OpenIframe"
-			style="position:absolute; top:400px;left:40px; opacity:70%; color:black">
+			style="position:absolute; top:430px;left:60px; opacity:40%; color:black">
 		Show HELP
 	</button>
 }
@@ -464,7 +325,15 @@ else
 <!-- ************************************************************************************ -->
 <!-- ************************************* Buttons ************************************** -->
 <!-- ************************************************************************************ -->
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:710px;height:60px;border:0px;width:140px;color:#777777;">
+	Chat
+</button>
 
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:790px;height:60px;border:0px;width:140px;color:#777777;">
+	Memo
+</button>
 
 <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 		style="position:absolute;left:30px;top:870px;height:60px;border:0px;width:140px;color:#777777;">
@@ -476,230 +345,4 @@ else
     Exit
 </button>
 
-<button class="general-menu-button" @onclick=ShowMemo style="position:absolute;top:1030px;left:30px;height:60px;border:0px;width:140px;color:#777777;">Memo</button>
-<button class="general-menu-button" @onclick=ShowChat style="position:absolute;top:1100px;left:30px;height:60px;border:0px;width:140px;color:#777777;">Chat</button>
-
-
-
-
-@* *********************************************************************************
-   ************************ Draggable IFrames *************************************
-   ********************************************************************************* *@
-
-@if (isChatIframeVisible)
-{
-	<!-- Chat Container ******************* this is the Outer Box ***************** -->
-	<!-- Chat Container ******************* this is the Outer Box ***************** -->
-	<!-- Chat Container ******************* this is the Outer Box ***************** -->
-
-	<div style="position: absolute;
-                top: @(chatIframePosition.Y)px;
-                left: @(chatIframePosition.X)px;
-                z-index: 1000;
-				height: 1000px;
-                width: 520px;
-                border: 1px solid #ccc;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                background:white;">
-
-		<!-- Draggable Crossbar for Chat -->
-		<div style="display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    height: 30px;
-                    background-color: #f0f0f0;
-                    padding: 5px;
-                    border-bottom: 1px solid #ddd;
-                    cursor: grab;"
-			 @onmousedown="StartDraggingChat">
-			<!-- Crossbar Label -->
-			<span>"INBOX"</span>
-			<!-- Close Button for Chat -->
-			<button style="background: none;
-                           border: none;
-                           color: #888;
-                           cursor: pointer;
-                           font-size: 16px;
-                           padding: 0 5px;"
-			@onmousedown:stopPropagation
-					@onclick="HideChat">
-				✖
-			</button>
-		</div>
-
-		<!-- Chat Iframe -->
-		<iframe src="@ChatiframeSource"
-				style="width: 100%; height: 1000px; border: none;">
-		</iframe>
-	</div>
-}
-
-
-
-@if (isNewMemoIframeVisible)
-{
-	<!-- new memo Container ******************* this is the Outer Box ***************** -->
-	<!-- new memo Container ******************* this is the Outer Box ***************** -->
-	<!-- new memo Container ******************* this is the Outer Box ***************** -->
-
-	<div style="position: absolute;
-                top: @(newMemoIframePosition.Y)px;
-                left: @(newMemoIframePosition.X)px;
-                z-index: 1000;
-				height: 510px;
-                width: 600px;
-                border: 1px solid #ccc;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                background:white;">
-
-		<!-- Draggable Crossbar for New Memo -->
-		<div style="display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    height: 30px;
-                    background-color: #f0f0f0;
-                    padding: 5px;
-                    border-bottom: 1px solid #ddd;
-                    cursor: grab;"
-			 @onmousedown="StartDraggingNewMemo">
-			<!-- Crossbar Label -->
-			<span></span>
-			<!-- Close Button for New Memo -->
-			<button style="background: none;
-                           border: none;
-                           color: #888;
-                           cursor: pointer;
-                           font-size: 16px;
-                           padding: 0 5px;"
-			@onmousedown:stopPropagation
-					@onclick="HideNewMemo">
-				✖
-			</button>
-		</div>
-
-		<!-- Response Iframe -->
-		<div src="@NewMemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
-			<div style="width: 600px; height: 480px; display: block; position: relative;">
-				<DynamicComponent Type="typeof(NewMemo)" />
-			</div>
-		</div>
-	</div>
-}
-@if (isResponseIframeVisible)
-{
-	<!-- Response Container ******************* this is the Outer Box ***************** -->
-	<!-- Response Container ******************* this is the Outer Box ***************** -->
-	<!-- Response Container ******************* this is the Outer Box ***************** -->
-
-	<div style="position: absolute;
-                top: @(responseIframePosition.Y)px;
-                left: @(responseIframePosition.X)px;
-                z-index: 1000;
-				height: 510px;
-                width: 600px;
-                border: 1px solid #ccc;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                background:white;">
-
-		<!-- Draggable Crossbar for Chat -->
-		<div style="display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    height: 30px;
-                    background-color: #f0f0f0;
-                    padding: 5px;
-                    border-bottom: 1px solid #ddd;
-                    cursor: grab;"
-			 @onmousedown="StartDraggingResponse">
-			<!-- Crossbar Label -->
-			<span></span>
-			<!-- Close Button for Response -->
-			<button style="background: none;
-                           border: none;
-                           color: #888;
-                           cursor: pointer;
-                           font-size: 16px;
-                           padding: 0 5px;"
-			@onmousedown:stopPropagation
-					@onclick="HideResponse">
-				✖
-			</button>
-		</div>
-
-		<!-- Response Iframe -->
-		<div src="@MemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
-			<div style="width: 600px; height: 480px; display: block; position: relative;">
-				<DynamicComponent Type="typeof(Response)" />
-			</div>
-		</div>
-	</div>
-}
-
-@if (isMemoIframeVisible)
-{
-	<!-- Memo Container ******************* this is the Outer Box ***************** -->
-	<!-- Memo Container ******************* this is the Outer Box ***************** -->
-	<!-- Memo Container ******************* this is the Outer Box ***************** -->
-
-	<div style="position: absolute;
-            top: @(memoIframePosition.Y)px;
-            left: @(memoIframePosition.X)px;
-            z-index: 1000;
-			height: 510px;
-            width: 600px;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background: white;">
-
-		<!-- Draggable Crossbar for Memo -->
-		<div style="display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 30px;
-            background-color: tranparent;
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
-            cursor: grab;"
-			 @onmousedown="StartDraggingMemo">
-
-			<span></span>
-			<!-- Close Button (Now Properly Positioned to the Right) -->
-			<button style="background: none;
-				border: none;
-				color: #888;
-				cursor: pointer;
-				font-size: 16px;
-				padding: 0 5px;"
-			@onmousedown:stopPropagation
-					@onclick="HideMemo">
-				✖
-			</button>
-		</div>
-
-		<!-- Memo Iframe -->
-		<div src="@MemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
-			<div style="width: 600px; height: 480px; display: block; position: relative;">
-				<DynamicComponent Type="typeof(Inbox)" />
-			</div>
-		</div>
-	</div>
-}
-
-@if (isDraggingMemo || isDraggingChat || isDraggingResponse || isDraggingNewMemo)
-{
-	<!-- Transparent Overlay for Global Drag Handling -->
-	<div style="position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                z-index: 9999;
-                background: transparent;"
-		 @onmousemove="OnMouseMoveGlobal"
-		 @onmouseup="OnMouseUpGlobal">
-	</div>
-}
-
-
-
-
+<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->

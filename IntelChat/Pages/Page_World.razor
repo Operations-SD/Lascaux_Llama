@@ -1,0 +1,372 @@
+﻿@page "/World"
+@inject NnetDbContext db            // Inject the ServerDbContext service for database access
+@inject NavigationManager _nav
+@inject IConfiguration _configuration
+@using IntelChat.Models
+@using System.Data.SqlClient;
+@using System.Data;
+@using Microsoft.AspNetCore.Components;
+@layout CustomLayout
+
+<style>
+
+    body {
+        background: url("https://agineuralnet.blob.core.windows.net/background/BG_Page_World.png")no-repeat; /*Background to blob*/
+        background-size: 1920px 1080px;
+        background-position: left 0px top 0px;
+        background-color: #000000;
+        color: white;
+        opacity: 100%;
+        width: 1920px;
+        height: 1080px;
+    }
+
+
+    .bluray-page {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        margin:0px;
+        border:0PX;
+        padding:0px;
+    }
+
+    .video-block {
+        position: absolute;
+        width: 800px;
+        top:300px;
+        left:600px;
+        align-items: center;
+        margin: 0px;
+        border: 0PX;
+        padding: 0px;
+    }
+
+    .toggle-button {
+        position: absolute;
+        top:20px;
+        left:20px;
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .engineer-page {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    .engineer-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+
+    .box_push_btn {
+        position: absolute;
+        filter: brightness(90%);
+        opacity: 95%;
+        width: 573px;
+        height: 125px;
+        top: 800px;
+        left: 550px;
+        color: coral;
+    }
+
+    .btn_push_1 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_1_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_1:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+    .btn_push_2 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_2_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_2:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+    .btn_push_3 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_3_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_3:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+    .btn_push_4 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_4_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_4:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+    .btn_push_5 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_5_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_5:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+    .btn_push_6 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_6_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_6:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+    .btn_push_7 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_7_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_7:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+    .btn_push_8 {
+        background: url("https://agineuralnet.blob.core.windows.net/buttons/btn_push_8_8.png") no-repeat;
+        background-size: contain;
+        border-radius: 8%;
+        box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    }
+
+        .btn_push_8:hover {
+            box-shadow: 0 5px 10px rgba(0,0,0,.5);
+            transform: scale(.8);
+        }
+
+
+
+
+</style>
+
+<PageTitle>World Page</PageTitle>
+
+<div class="bluray-page">
+    <button @onclick="ToggleEngineerPage" class="toggle-button"
+        style="z-index:2;position: absolute; top:0px;left:0px;width:180px;height:40px; color:grey; opacity:100%">
+        Toggle Engineer
+    </button>
+
+    @if (isEngineerPageOpen)
+    {
+        <div class="bluray-page"
+             style="z-index:0;position: absolute; top:00px;left:00px;width:1920px;height:10800px; color:grey; opacity:100%">
+            <iframe src="Engineer" class="engineer-iframe"></iframe>
+        </div>
+    }
+</div>
+
+@code {
+    private bool isEngineerPageOpen = false;
+
+    private void ToggleEngineerPage()
+    {
+        isEngineerPageOpen = !isEngineerPageOpen;
+    }
+}
+
+<!-- ************************************************************************************ -->
+<!-- ********************************* TOGGLE MEMO Panel ******************************** -->
+<!-- ************************************************************************************ -->
+
+
+<div class="bluray-page">
+    <button @onclick="ToggleMemoPage" class="toggle-button"
+            style="position:absolute;top:400px;left:10px;width:148px;height:48px; color:grey; opacity:100%">
+        toggle MEMO
+    </button>
+
+    @if (isMemoPageOpen)
+    {
+        <div class="chat-page" style="z-index:1;position:absolute;top:110px;right:110px;width:520px;height:1060px; opacity:70%">
+            <Inbox />
+        </div>
+    }
+</div>
+<!-- ********************************* TOGGLE MEMO Panel ******************************* -->
+@code {
+    private bool isMemoPageOpen = false;
+
+    private void ToggleMemoPage()
+    {
+        isMemoPageOpen = !isMemoPageOpen;
+    }
+}
+
+	<!-- ************************************************************************************ -->
+	<!-- ********************************* Display CHAT Panel ******************************* -->
+	<!-- ************************************************** (css) .engineer-page ************ -->
+	<div class="bluray-page">
+		<button @onclick="ToggleChatPage" class="toggle-button"
+				style="top:480px;left:10px;width:148px;height:48px; opacity:100%">
+			toggle CHAT
+		</button>
+
+
+		@if (isChatPageOpen)
+		{
+			<div class="chat-page" style="z-index:1;position:absolute;top:110px;right:110px;width:520px;height:1060px; opacity:70%">
+                <Chat />
+			</div>
+		}
+	</div>
+
+	<!-- ********************************* Display CHAT Panel ******************************* -->
+	@code {
+		private bool isChatPageOpen = false;
+
+		private void ToggleChatPage()
+		{
+			isChatPageOpen = !isChatPageOpen;
+		}
+	}
+
+
+<!-- ************************************************************************************ -->
+<!-- ************************** DISPLAY PUSH-BUTTON PANEL ******************************* -->
+<!-- ************************************************************************************ -->
+<div class="box_push_btn" style="position:absolute; opacity:60%;">
+    <img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_radio.png">
+
+    <div>
+        <button class="btn_push_1" @onclick="@(()=>_nav.NavigateTo("/Inbox?pod="+pod+"&pid="+pid))"
+                style="position:absolute;top:35px;left:010px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+    <div>
+        <button class="btn_push_2" @onclick="@(()=>_nav.NavigateTo("/World?pod="+pod+"&pid="+pid))"
+                style="position:absolute;top:35px;left:080px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+    <div>
+        <button class="btn_push_3" @onclick="@(()=>_nav.NavigateTo("/Chatbox?pod="+pod+"&pid="+pid))"
+                style="position:absolute;top:35px;left:150px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+    <div>
+        <button class="btn_push_4" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))"
+                style="position:absolute;top:35px;left:220px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+    <div>
+        <button class="btn_push_5" @onclick="@(()=>_nav.NavigateTo("/DelphiMaxims?pod="+pod+"&pid="+pid))"
+                style="position:absolute;top:35px;left:290px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+    <div>
+        <button class="btn_push_6"
+                style="position:absolute;top:35px;left:360px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+    <div>
+        <button class="btn_push_7" @onclick="@(()=>_nav.NavigateTo("/Pyramid?pod="+pod+"&pid="+pid))"
+                style="position:absolute;top:35px;left:430px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+    <div>
+        <button class="btn_push_8" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))"
+                style="position:absolute;top:35px;left:500px;width:64px;height:48px; opacity:70%">
+        </button>
+    </div>
+
+</div>
+
+
+<div class="user_banner" style="top:180px; left:1400px; filter: brightness(40%);opacity:60% ">
+    <img src="images/Earth.gif" alt="earth planet">
+</div>
+
+<a href="https://radio.garden/listen/heavy1/rH122vcl">
+    <button class="world-radio-button" style="top:180px;left:1400px;width:200px; height:200px; opacity:20%; color:#222222">World Radio></button>
+</a>
+
+
+
+<!-- ************************************************************************************ -->
+<!-- ****************************** AUDIO RADIO Buttons ****** Swiss Jazz *************** -->
+<!-- ************************************************************************************ -->
+<div>
+    <audio controls="controls" style="position:absolute; top:220px;left:1620px;width:200px; height:50px; opacity:40%; color:#222222">
+        <source src="https://stream.srg-ssr.ch/m/rsj/aacp_96" />
+    </audio>
+</div>
+
+<div>
+    <audio controls="controls" style="position:absolute; top:140px;left:1620px;width:200px; height:50px; opacity:40%; color:#222222">
+        <source src="/Blobs/Audio/Ripingtons.mp3" />
+    </audio>
+</div>	
+
+<!-- ************************************************************************************ -->
+<!-- ********************************** Obsolete MEDIA Action *************************** -->
+<!-- ************************************************************************************ -->
+@* <div>
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Audio?pod="+pod+"&pid="+pid))"
+            style="top:300px;left:1620px;width:160px; height:50px; opacity:70%; color:#222222">
+        Audio
+    </button>
+
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Video?pod="+pod+"&pid="+pid))"
+            style="top:360px;left:1620px;width:160px;height:50px; opacity:70%;color:#222222">
+        Video
+    </button>
+</div> *@
+
+
+<div class="video-block" style="top:540px;left:1420px;width:160px;height:50px; opacity:70%;color:#222222">
+    <div class="video-page" >
+            <video controls="controls" width="400">
+                <source src="/Blobs/Video/Rain.mp4" />
+            </video>
+    </div>
+</div>
+
+<div class="video-block" style="top:800px;left:1420px;width:160px;height:50px; opacity:70%;color:#222222">
+    <div class="video-page">
+            <video controls="controls" width="400">
+                <source src="/Blobs/Video/Starry_Night.mp4" />
+            </video>
+    </div>
+</div>
