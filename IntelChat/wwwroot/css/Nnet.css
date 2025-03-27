@@ -141,6 +141,16 @@
     opacity: 100%;
 }
 
+.crud-page download-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: antiquewhite;
+    color: #d18c37;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
 .crud-page #img-panel-shadow-black {
     border-radius: 12px;
     background-size: cover;

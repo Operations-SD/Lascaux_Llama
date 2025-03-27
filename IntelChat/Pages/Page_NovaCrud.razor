@@ -155,6 +155,15 @@
 	</div>
 
 	<!-- ************************************************************************************ -->
+	<!-- *********************************** DOWNLOAD REPORT ******************************** -->
+	<!-- ************************************************************************************ -->
+	<div style="position:absolute; left: 1340px; top:300px;">
+		<download-button @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity="+pageName))">
+			Download PDF
+		</download-button>
+	</div>
+
+	<!-- ************************************************************************************ -->
 	<!-- *********************************** DIRECT SELECT ID ******************************* -->
 	<!-- ************************************************************************************ -->
 	<div class="DirectSelect">
@@ -163,7 +172,6 @@
 			   @onkeydown="HandleDirectSelectKeyPress"
 			   placeholder="Enter ID" />
 	</div>
-
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** TAG FILTERING ********************************** -->
@@ -175,11 +183,6 @@
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 			style="position:absolute;top:30px;left:1830px;height:80px;border:0px;width:200px;">
 		EXIT
-	</button>
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=NOVA"))"
-			style="position:absolute;left:30px;top:920px;height:60px;border:0px;width:140px;">
-		Download pdf
 	</button>
 
 	<!-- ************************************************************************************ -->

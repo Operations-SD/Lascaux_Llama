@@ -32,6 +32,8 @@
 		background-size: cover;
 	}
 
+
+
 </style>
 
 <div class="crud-page">
@@ -57,20 +59,17 @@
 		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
-
-
-
-
 	</div>
 
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DOWNLOAD REPORT ******************************** -->
+	<!-- ************************************************************************************ -->
 	<div style="position:absolute; left: 1340px; top:300px;">
-		<a href="@DownloadUrl" download="Filtered_Nouns.pdf" style="display: inline-block;  padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+		<download-button @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity="+pageName))" >
 			Download PDF
-		</a>
-
-
+		</download-button>
 	</div>
- 
+
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** DIRECT SELECT ID ******************************* -->
 	<!-- ************************************************************************************ -->
@@ -80,7 +79,6 @@
 			   @onkeydown="HandleDirectSelectKeyPress"
 			   placeholder="Enter ID" />
 	</div>
-
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** TAG FILTERING ********************************** -->
@@ -407,14 +405,6 @@
 			style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
 		Return
 	</button>
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity="+pageName))"
-			style="position:absolute;left:30px;top:920px;height:60px;border:0px;width:140px;">
-		Download pdf
-	</button>
-
-	
-
 </div>
 
 
