@@ -9,6 +9,13 @@ using System.Reflection;
 using ThreadingTask = System.Threading.Tasks.Task;
 using Task = IntelChat.Models.Task;
 using Microsoft.IdentityModel.Tokens;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+
 
 
 namespace IntelChat.Pages
@@ -632,7 +639,53 @@ namespace IntelChat.Pages
 			table = _table;
 			loading = false;
 		}
-		protected override void OnInitialized()
+
+        private string? DownloadUrl { get; set; }
+
+        private void OnTypeFilterChanged(ChangeEventArgs e)
+        {
+            typeFilter = e.Value?.ToString() ?? ""; // Update the variable
+            Console.WriteLine($"Filter changed to: {typeFilter}");
+
+			if(table == "Noun")
+			{
+                List<string> filteredNounLabels = nouns
+					.Where(noun => string.IsNullOrEmpty(typeFilter) || noun.NounType == typeFilter)
+					.Select(noun => noun.NounLabel)
+					.ToList();
+
+                // Generate the PDF with filtered data
+                byte[] pdfBytes = GeneratePDF(filteredNounLabels);
+
+                // Convert PDF to Base64 and set the download URL
+                DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+
+                StateHasChanged(); // Refresh UI
+            }
+        }
+
+        private byte[] GeneratePDF(List<string> nounLabels)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document();
+                PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                document.Add(new Paragraph("Filtered Nouns"));
+                document.Add(new Paragraph("-------------------------------"));
+
+                foreach (var label in nounLabels)
+                {
+                    document.Add(new Paragraph(label));
+                }
+
+                document.Close();
+                return ms.ToArray();
+            }
+        }
+
+        protected override void OnInitialized()
 		{
 		}
 	}

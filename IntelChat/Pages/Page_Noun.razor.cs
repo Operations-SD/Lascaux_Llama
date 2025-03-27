@@ -4,9 +4,16 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System.Data;
 using System.Data.SqlClient;
 using ThreadingTask = System.Threading.Tasks.Task;
+using System.Diagnostics;
 
 namespace IntelChat.Pages
 {
@@ -44,16 +51,18 @@ namespace IntelChat.Pages
 		private Dictionary<String, Noun> entity = new Dictionary<String, Noun>();
 		private Dictionary<String, String> filter = new Dictionary<String, String>();
 		private string pageName = "Noun";
+        private string? DownloadUrl { get; set; }
 
-		/// <summary>Executes a stored procedure and (optionally) returns a reader for its results</summary>
-		/// <param name="procedure">Name of the stored procedure</param>
-		/// <param name="parameters">List of arguments for the stored procedure</param>
-		/// <param name="reader">Whether a reader for the stored procedure results should be returned</param>
-		/// <returns>
-		/// Reader for the results of the stored procedure, if reader = true
-		/// null, if reader = false
-		/// </returns>
-		private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
+
+        /// <summary>Executes a stored procedure and (optionally) returns a reader for its results</summary>
+        /// <param name="procedure">Name of the stored procedure</param>
+        /// <param name="parameters">List of arguments for the stored procedure</param>
+        /// <param name="reader">Whether a reader for the stored procedure results should be returned</param>
+        /// <returns>
+        /// Reader for the results of the stored procedure, if reader = true
+        /// null, if reader = false
+        /// </returns>
+        private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
 		{
 			var connection = new SqlConnection(_configuration.GetValue<string>("ConnectionStrings:DefaultConnection"));
 			using var command = new SqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure };
@@ -121,20 +130,54 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
-		/// <summary>Handle events triggered by the change of the change filter select</summary>
-		/// <param name="args">Arguments from a filter change event</param>
-		private void OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
-		{
-			filter[type] = args.Value.ToString();
-			var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(noun => noun.NounType == filter[type]);
-			if (!entitiesFiltered.Any()) return;
-			if (status != "*") entitiesFiltered = entitiesFiltered.Where(entity => entity.NounStatus == status);
-			if (!entitiesFiltered.Any()) return;
-			entity[type] = (entitiesFiltered == null) ? entities.First() : entitiesFiltered.First();
-		}
+        /// <summary>Handle events triggered by the change of the change filter select</summary>
+        /// <param name="args">Arguments from a filter change event</param>
+        private void OnChangeFilterChanged(ChangeEventArgs args, String type, String status = "*")
+        {
+            Console.WriteLine("Hello, world! onchangefilterchange");
 
-		/// <summary>Change an entity in the database using a stored procedure</summary>
-		private void Change()
+            filter[type] = args.Value.ToString();
+            var entitiesFiltered = (filter[type] == "****") ? entities : entities.Where(noun => noun.NounType == filter[type]);
+            if (!entitiesFiltered.Any()) return;
+            if (status != "*") entitiesFiltered = entitiesFiltered.Where(entity => entity.NounStatus == status);
+            if (!entitiesFiltered.Any()) return;
+            entity[type] = (entitiesFiltered == null) ? entities.First() : entitiesFiltered.First();
+
+            // Generate PDF
+            byte[] pdfBytes = GeneratePDF(entitiesFiltered.Select(e => e.NounLabel).ToList());
+
+            // Store the PDF as a downloadable file link
+            DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+            StateHasChanged(); // Refresh UI
+        }
+
+        private byte[] GeneratePDF(List<string> nounLabels)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document();
+                PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                document.Add(new Paragraph("Filtered Nouns"));
+                document.Add(new Paragraph("-------------------------------"));
+
+                foreach (var label in nounLabels)
+                {
+                    document.Add(new Paragraph(label));
+                }
+
+                document.Close();
+                return ms.ToArray();
+            }
+        }
+
+
+
+
+
+        /// <summary>Change an entity in the database using a stored procedure</summary>
+        private void Change()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{

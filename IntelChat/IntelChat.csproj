@@ -7,11 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Page_Grid - Copy.razor.cs" />
+    <Compile Remove="Pages\Page_Guide - Copy.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Component.razor" />
+    <Content Remove="Pages\DownloadPdf.razor" />
+    <Content Remove="Pages\Page_Grid - Copy.razor" />
+    <Content Remove="Pages\Page_Guide - Copy.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.7" />

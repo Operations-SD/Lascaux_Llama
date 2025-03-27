@@ -464,15 +464,7 @@ else
 <!-- ************************************************************************************ -->
 <!-- ************************************* Buttons ************************************** -->
 <!-- ************************************************************************************ -->
-<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
-		style="position:absolute;left:30px;top:710px;height:60px;border:0px;width:140px;color:#777777;">
-	Chat
-</button>
 
-<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
-		style="position:absolute;left:30px;top:790px;height:60px;border:0px;width:140px;color:#777777;">
-	Memo
-</button>
 
 <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
 		style="position:absolute;left:30px;top:870px;height:60px;border:0px;width:140px;color:#777777;">
@@ -484,4 +476,230 @@ else
     Exit
 </button>
 
-<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->
+<button class="general-menu-button" @onclick=ShowMemo style="position:absolute;top:1030px;left:30px;height:60px;border:0px;width:140px;color:#777777;">Memo</button>
+<button class="general-menu-button" @onclick=ShowChat style="position:absolute;top:1100px;left:30px;height:60px;border:0px;width:140px;color:#777777;">Chat</button>
+
+
+
+
+@* *********************************************************************************
+   ************************ Draggable IFrames *************************************
+   ********************************************************************************* *@
+
+@if (isChatIframeVisible)
+{
+	<!-- Chat Container ******************* this is the Outer Box ***************** -->
+	<!-- Chat Container ******************* this is the Outer Box ***************** -->
+	<!-- Chat Container ******************* this is the Outer Box ***************** -->
+
+	<div style="position: absolute;
+                top: @(chatIframePosition.Y)px;
+                left: @(chatIframePosition.X)px;
+                z-index: 1000;
+				height: 1000px;
+                width: 520px;
+                border: 1px solid #ccc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                background:white;">
+
+		<!-- Draggable Crossbar for Chat -->
+		<div style="display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 30px;
+                    background-color: #f0f0f0;
+                    padding: 5px;
+                    border-bottom: 1px solid #ddd;
+                    cursor: grab;"
+			 @onmousedown="StartDraggingChat">
+			<!-- Crossbar Label -->
+			<span>"INBOX"</span>
+			<!-- Close Button for Chat -->
+			<button style="background: none;
+                           border: none;
+                           color: #888;
+                           cursor: pointer;
+                           font-size: 16px;
+                           padding: 0 5px;"
+			@onmousedown:stopPropagation
+					@onclick="HideChat">
+				✖
+			</button>
+		</div>
+
+		<!-- Chat Iframe -->
+		<iframe src="@ChatiframeSource"
+				style="width: 100%; height: 1000px; border: none;">
+		</iframe>
+	</div>
+}
+
+
+
+@if (isNewMemoIframeVisible)
+{
+	<!-- new memo Container ******************* this is the Outer Box ***************** -->
+	<!-- new memo Container ******************* this is the Outer Box ***************** -->
+	<!-- new memo Container ******************* this is the Outer Box ***************** -->
+
+	<div style="position: absolute;
+                top: @(newMemoIframePosition.Y)px;
+                left: @(newMemoIframePosition.X)px;
+                z-index: 1000;
+				height: 510px;
+                width: 600px;
+                border: 1px solid #ccc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                background:white;">
+
+		<!-- Draggable Crossbar for New Memo -->
+		<div style="display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 30px;
+                    background-color: #f0f0f0;
+                    padding: 5px;
+                    border-bottom: 1px solid #ddd;
+                    cursor: grab;"
+			 @onmousedown="StartDraggingNewMemo">
+			<!-- Crossbar Label -->
+			<span></span>
+			<!-- Close Button for New Memo -->
+			<button style="background: none;
+                           border: none;
+                           color: #888;
+                           cursor: pointer;
+                           font-size: 16px;
+                           padding: 0 5px;"
+			@onmousedown:stopPropagation
+					@onclick="HideNewMemo">
+				✖
+			</button>
+		</div>
+
+		<!-- Response Iframe -->
+		<div src="@NewMemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
+			<div style="width: 600px; height: 480px; display: block; position: relative;">
+				<DynamicComponent Type="typeof(NewMemo)" />
+			</div>
+		</div>
+	</div>
+}
+@if (isResponseIframeVisible)
+{
+	<!-- Response Container ******************* this is the Outer Box ***************** -->
+	<!-- Response Container ******************* this is the Outer Box ***************** -->
+	<!-- Response Container ******************* this is the Outer Box ***************** -->
+
+	<div style="position: absolute;
+                top: @(responseIframePosition.Y)px;
+                left: @(responseIframePosition.X)px;
+                z-index: 1000;
+				height: 510px;
+                width: 600px;
+                border: 1px solid #ccc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                background:white;">
+
+		<!-- Draggable Crossbar for Chat -->
+		<div style="display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 30px;
+                    background-color: #f0f0f0;
+                    padding: 5px;
+                    border-bottom: 1px solid #ddd;
+                    cursor: grab;"
+			 @onmousedown="StartDraggingResponse">
+			<!-- Crossbar Label -->
+			<span></span>
+			<!-- Close Button for Response -->
+			<button style="background: none;
+                           border: none;
+                           color: #888;
+                           cursor: pointer;
+                           font-size: 16px;
+                           padding: 0 5px;"
+			@onmousedown:stopPropagation
+					@onclick="HideResponse">
+				✖
+			</button>
+		</div>
+
+		<!-- Response Iframe -->
+		<div src="@MemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
+			<div style="width: 600px; height: 480px; display: block; position: relative;">
+				<DynamicComponent Type="typeof(Response)" />
+			</div>
+		</div>
+	</div>
+}
+
+@if (isMemoIframeVisible)
+{
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+
+	<div style="position: absolute;
+            top: @(memoIframePosition.Y)px;
+            left: @(memoIframePosition.X)px;
+            z-index: 1000;
+			height: 510px;
+            width: 600px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: white;">
+
+		<!-- Draggable Crossbar for Memo -->
+		<div style="display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 30px;
+            background-color: tranparent;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            cursor: grab;"
+			 @onmousedown="StartDraggingMemo">
+
+			<span></span>
+			<!-- Close Button (Now Properly Positioned to the Right) -->
+			<button style="background: none;
+				border: none;
+				color: #888;
+				cursor: pointer;
+				font-size: 16px;
+				padding: 0 5px;"
+			@onmousedown:stopPropagation
+					@onclick="HideMemo">
+				✖
+			</button>
+		</div>
+
+		<!-- Memo Iframe -->
+		<div src="@MemoiframeSource" style="width: 600px; height: 480px; overflow-y: auto; padding: 0px; position: relative; display: block;">
+			<div style="width: 600px; height: 480px; display: block; position: relative;">
+				<DynamicComponent Type="typeof(Inbox)" />
+			</div>
+		</div>
+	</div>
+}
+
+@if (isDraggingMemo || isDraggingChat || isDraggingResponse || isDraggingNewMemo)
+{
+	<!-- Transparent Overlay for Global Drag Handling -->
+	<div style="position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 9999;
+                background: transparent;"
+		 @onmousemove="OnMouseMoveGlobal"
+		 @onmouseup="OnMouseUpGlobal">
+	</div>
+}
+
+
+
+

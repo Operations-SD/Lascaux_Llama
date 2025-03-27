@@ -59,6 +59,10 @@
 </button>
 
 <div id="grid-container">
+
+
+		
+	
 <select @onchange="DisplayTable">
 	<option value="-">-</option>
 	@foreach (var filter in filters)
@@ -75,12 +79,13 @@
 	}
 </select>
 
+
 	<!-- ************************************************************************************ -->
 	<!-- ************************** Prompt for PYPE-TYPE Filter ***************************** -->
 	<!-- ************************************************************************************ -->
 @if(hasType)
 {
-	<input @bind=typeFilter type="text" maxlength="4" placeholder="TYPE filter using" />
+		<input @bind=typeFilter @oninput=OnTypeFilterChanged type="text" maxlength="4" placeholder="TYPE filter using" />
 }
 @if(loading)
 {
