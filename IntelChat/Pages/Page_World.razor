@@ -19,6 +19,8 @@
         opacity: 100%;
         width: 1920px;
         height: 1080px;
+        margin:0px;
+        padding:0px;
     }
 
 
@@ -183,20 +185,20 @@
 
 <PageTitle>World Page</PageTitle>
 
-<div class="bluray-page">
+
     <button @onclick="ToggleEngineerPage" class="toggle-button"
-        style="z-index:2;position: absolute; top:0px;left:0px;width:180px;height:40px; color:grey; opacity:100%">
+        style="margin:0px;padding:0px;z-index:3;position: absolute; top:00px;left:00px;width:180px;height:40px; color:grey; opacity:700%">
         Toggle Engineer
     </button>
 
     @if (isEngineerPageOpen)
     {
         <div class="bluray-page"
-             style="z-index:0;position: absolute; top:00px;left:00px;width:1920px;height:10800px; color:grey; opacity:100%">
+             style="z-index:2;position: absolute; top:00px;left:00px;width:1920px;height:1080px; color:grey; opacity:100%">
             <iframe src="Engineer" class="engineer-iframe"></iframe>
         </div>
     }
-</div>
+
 
 @code {
     private bool isEngineerPageOpen = false;
@@ -211,10 +213,9 @@
 <!-- ********************************* TOGGLE MEMO Panel ******************************** -->
 <!-- ************************************************************************************ -->
 
-
 <div class="bluray-page">
     <button @onclick="ToggleMemoPage" class="toggle-button"
-            style="position:absolute;top:400px;left:10px;width:148px;height:48px; color:grey; opacity:100%">
+            style="position:absolute;top:550px;left:20px;width:148px;height:48px; color:grey; opacity:90%">
         toggle MEMO
     </button>
 
@@ -240,7 +241,7 @@
 	<!-- ************************************************** (css) .engineer-page ************ -->
 	<div class="bluray-page">
 		<button @onclick="ToggleChatPage" class="toggle-button"
-				style="top:480px;left:10px;width:148px;height:48px; opacity:100%">
+				style="top:620px;left:20px;width:148px;height:48px; opacity:90%">
 			toggle CHAT
 		</button>
 
@@ -314,19 +315,27 @@
 </div>
 
 
-<div class="user_banner" style="top:180px; left:1400px; filter: brightness(40%);opacity:60% ">
+<div class="user_banner" style="position:absolute;top:100px; left:1320px; filter: brightness(40%);opacity:60% ">
     <img src="images/Earth.gif" alt="earth planet">
 </div>
 
 <a href="https://radio.garden/listen/heavy1/rH122vcl">
-    <button class="world-radio-button" style="top:180px;left:1400px;width:200px; height:200px; opacity:20%; color:#222222">World Radio></button>
+    <button class="world-radio-button" style="position:absolute;top:104px;left:1324px;width:200px; height:200px; opacity:20%; color:#222222">World Radio></button>
 </a>
 
 
 
-<!-- ************************************************************************************ -->
+<!-- ***************************https://www.france24.com/en/********************************************************* -->
 <!-- ****************************** AUDIO RADIO Buttons ****** Swiss Jazz *************** -->
 <!-- ************************************************************************************ -->
+
+<a href="https://www.france24.com/en/">
+    <button class="radio-button" style="position:absolute;top:400px;left:920px;width:160px; height:80px; opacity:20%; color:#222222">France24></button>
+</a>
+
+
+
+
 <div>
     <audio controls="controls" style="position:absolute; top:220px;left:1620px;width:200px; height:50px; opacity:40%; color:#222222">
         <source src="https://stream.srg-ssr.ch/m/rsj/aacp_96" />
@@ -370,3 +379,10 @@
             </video>
     </div>
 </div>
+
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("User?pod="+pod+"&pid="+pid))"
+        style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
+    Exit
+</button>
+
+<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->

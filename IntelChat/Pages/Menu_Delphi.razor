@@ -23,8 +23,8 @@
 <!-- ************************************************************************************ -->
 <!-- *************************** Lock onto a Person and a POD *************************** -->
 <!-- ************************************************************************************ -->
-<p style="color:#444444;font-size:24px;top:500px;position:absolute">Pod: @pod</p>
-<p style="color:#444444;font-size:24px;top:530px;position:absolute">Pid: @pid</p>
+<p style="color:#444444;font-size:24px;top:390px;position:absolute">Pod: @pod</p>
+<p style="color:#444444;font-size:24px;top:420px;position:absolute">Pid: @pid</p>
 
 <div class="role-menu"
 <!-- ************************************************************************************ -->
@@ -317,7 +317,7 @@ else
 <!-- ************************************************************************************ -->
 <div class="role-menu">
 	<button @onclick="ToggleMemoPage" class="toggle-button"
-			style="top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+			style="top:1020px;left:200px;width:128px;height:48px; color:grey; opacity:70%">
 		toggle MEMO
 	</button>
 
@@ -344,7 +344,7 @@ else
 <!-- ************************************************************************************ -->
 <div class="role-menu">
 	<button @onclick="ToggleChatPage" class="toggle-button"
-			style="top:960px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+			style="top:960px;left:200px;width:128px;height:48px; color:grey; opacity:70%">
 		toggle CHAT
 	</button>
 
@@ -369,4 +369,9 @@ else
 	<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_CFG_copyright.png" />
 </div>
 
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("User?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
+	Return
+</button>
 
+<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->

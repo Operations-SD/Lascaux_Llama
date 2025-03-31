@@ -258,13 +258,31 @@
 						<input class="form-control" @bind="@entity["change"].VerbLabel" maxlength="16" required />
 					</label><br><br>
 
-					<label>
-						description:
-						<input class="form-control" @bind="@entity["change"].VerbDescription" maxlength="255" required />
+                    <label>
+                        status:
+                        <input class="form-control" @bind="@entity["change"].VerbStatus" maxlength="1" required />
+                    </label><br><br>
+
+@*                     <label>
+                        common verb:
+						<input class="form-control" @bind="@entity["change"].VerbIdFkCommon" type="number" required />
+                    </label><br><br> *@
+
+					<label style="position:absolute; top:400px;left:0px;width:700px; ">
+						description 255:
+						<textarea class="form-control" @bind="@entity["change"].VerbDescription" maxlength="255" required />
+					</label>
+
+					<label style="position:absolute; top:500px;left:0px;width:700px; ">
+						tag (contains):
+						<textarea class="form-control" @bind="@entity["change"].VerbTag" maxlength="1024" required />
 					</label><br><br>
 
-					<label>
+				</div>
 
+				<div class="exhibitInfo2">
+
+					<label>
 						type:
 						<select @bind="@entity["change"].VerbType" required>
 							@foreach (var pype in pypes)
@@ -278,8 +296,8 @@
 					</label><br><br>
 
 					<label>
-						status:
-						<input class="form-control" @bind="@entity["change"].VerbStatus" maxlength="1" required />
+						P.O.D.
+						<input class="form-control" @bind="@entity["change"].PodIdFk" type="number" required />
 					</label><br><br>
 
 					<label>
@@ -349,34 +367,31 @@
 	}
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* Buttons ************************************** -->
+	<!-- ******************************** NAVIGATION Buttons ******************************** -->
 	<!-- ************************************************************************************ -->
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("Expert?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:600px;height:60px;border:0px;width:140px;">
-		Exit
+		Menu
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Memo?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:680px;height:60px;border:0px;width:140px;">
-		Memo
-	</button>
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+            style="position:absolute;left:30px;top:680px;height:60px;border:0px;width:140px;">
+        Lascaux
+    </button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Grid?pod="+pod+"&pid="+pid+"&entity="+pageName))"
 			style="position:absolute;left:30px;top:760px;height:60px;border:0px;width:140px;">
 		Grid
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
-			style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
-		Return
-	</button>
-
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity="+pageName))"
-			style="position:absolute;left:30px;top:920px;height:60px;border:0px;width:140px;">
-		Download pdf
-	</button>
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Memo?pod="+pod+"&pid="+pid))"
+            style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
+        Memo
+    </button>
 
 </div>
 
+<!-- *************************** End of Program ************* CFG Copyright 2025 ************************** -->
 
 

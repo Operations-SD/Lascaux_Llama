@@ -12,14 +12,14 @@
 
 <style>
 	body {
-		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Language.png")no-repeat; /*Background to blob*/
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_charcoal.png")no-repeat; /*Background to blob*/
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
 		background-color: #000000;
 		color: antiquewhite;
 		opacity: 70%;
-		width: 1920px;
-		height: 1080px;
+		width: 1200px;
+		height: 1000px;
 	}
 
 	.box-abso {
@@ -322,8 +322,9 @@
 	}
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* URL CREATE ****************************** -->
+	<!-- ****************************************** URL CREATE ****************************** -->
 	<!-- ************************************************************************************ -->
+
 	@if (show == "add")
 	{
 		<br>
@@ -337,20 +338,39 @@
 				<div class="boxFilter">
 					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
 						 style="border-radius: 12px;background-size: cover;">
-
-					
 					<button class="commitCreate" type="submit"></button>
 				</div>
 
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 
 					<label>
-						Label:
+						label:
 						<input class="form-control" @bind="@entity["add"].UrlLabel" maxlength="16" required />
 					</label><br><br>
 
+                    <label>
+                        description:
+                        <input class="form-control" @bind="@entity["add"].UrlDescription" maxlength="128" required />
+                    </label><br>
+
+                    <label>
+                        chain:
+                        <input class="form-control" @bind="@entity["add"].UrlChain" type="number" required />
+                    </label><br>
+
+                    <label>
+                        stars:
+                        <input class="form-control" @bind="@entity["add"].UrlStars" type="number" required />
+                    </label><br>
+
+					<label style="position:absolute; top:500px;left:0px;width:700px; ">
+						tag (contains) 1024:
+						<textarea class="form-control" @bind="@entity["add"].UrlTag" maxlength="1024" required />
+					</label>
+				</div>
+
+				<div class="exhibitInfo2">
 					<label>
-						Type:
 						<select @bind="@entity["add"].UrlType" required>
 							<option value="">****</option>
 							@foreach (var pype in pypes)
@@ -364,26 +384,32 @@
 					</label><br><br>
 
 					<label>
-						Status:
+						status:
 						<input class="form-control" @bind="@entity["add"].UrlStatus" maxlength="1" required />
-					</label><br><br>
+					</label><br>
 
 					<label>
-						Description:
-						<input class="form-control" @bind="@entity["add"].UrlDescription" maxlength="128" required />
-					</label><br><br>
-
-					<label>
-						Cloud:
+						cloud:
 						<input class="form-control" @bind="@entity["add"].UrlCloud" maxlength="128" required />
-					</label><br><br>
+					</label><br>
+
+					<label>
+						level:
+						<input class="form-control" @bind="@entity["add"].UrlAdvanceLevel" type="number" required />
+					</label><br>
+
+					<label>
+						NOVA:
+						<input class="form-control" @bind="@entity["add"].NovaIdFk" type="number" required />
+					</label><br>
+
 				</div>
 			</form>
 		</div>
 	}
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* URL CHANGE ********************************** -->
+	<!-- ************************************** URL CHANGE ********************************** -->
 	<!-- ************************************************************************************ -->
 	@if (show.Equals("change"))
 	{
@@ -427,12 +453,33 @@
 
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 					<label>
-						Label:
+						label:
 						<input class="form-control" @bind="@entity["change"].UrlLabel" maxlength="16" required />
 					</label><br><br>
 
+                    <label>
+                        description:
+                        <input class="form-control" @bind="@entity["change"].UrlDescription" maxlength="128" required />
+                    </label><br>
+                    <label>
+                        chain:
+                        <input class="form-control" @bind="@entity["change"].UrlChain" type="number" required />
+                    </label><br>
+                    <label>
+                        stars:
+                        <input class="form-control" @bind="@entity["change"].UrlStars" type="number" required />
+                    </label><br>
+					<label style="position:absolute; top:500px;left:0px;width:700px; ">
+						tag (contains) 1024:
+						<textarea class="form-control" @bind="@entity["change"].UrlTag" maxlength="1024" required />
+					</label>
+
+				</div>
+
+
+
+				<div class="exhibitInfo2">
 					<label>
-						Type:
 						<select @bind="@entity["change"].UrlType">
 							<option value="">****</option>
 							@foreach (var pype in pypes)
@@ -446,19 +493,23 @@
 					</label><br><br>
 
 					<label>
-						Status:
+						status:
 						<input class="form-control" @bind="@entity["change"].UrlStatus" maxlength="1" required />
-					</label><br><br>
-
+					</label><br>
 					<label>
-						Description:
-						<input class="form-control" @bind="@entity["change"].UrlDescription" maxlength="128" required />
-					</label><br><br>
-
-					<label>
-						Cloud:
+						cloud:
 						<input class="form-control" @bind="@entity["change"].UrlCloud" maxlength="128" required />
-					</label><br><br>
+					</label><br>
+
+					<label>
+						level:
+						<input class="form-control" @bind="@entity["change"].UrlAdvanceLevel" type="number" required />
+					</label><br>
+					<label>
+						NOVA:
+						<input class="form-control" @bind="@entity["change"].NovaIdFk" type="number" required />
+					</label><br>
+
 				</div>
 			</form>
 		</div>

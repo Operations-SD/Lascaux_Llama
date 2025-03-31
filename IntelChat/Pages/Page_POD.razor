@@ -164,15 +164,12 @@
 	<div><img id="img-panel-fluer"></div>
 	<div><img id="img-table"></div>
 
-	<div style="position:absolute;left:1670px;top:385px;width:140px;height:60px;background-color:red;color:bisque;text-align:center;padding:5px;font-weight:bolder;">Post Notes</div>
-
-
 	<!-- ************************************************************************************ -->
 	<!-- **************************** DISPLAY PANEL CRUD BUTTONS **************************** -->
 	<!-- ************************************************************************************ -->
 	<div class="boxButton">
-		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
-		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
+		<button id="btn-panel-list"   @onclick="@(() => show = "list")"></button>
+		<button id="btn-panel-add"    @onclick="@(() => show = "add")"></button>
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 	</div>
@@ -258,6 +255,10 @@
 				}
 			</table>
 		</div>
+		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+				style="top:240px;left:400px;height:60px;">
+			Lascaux
+		</button>
 	}
 
 	<!-- ************************************************************************************ -->
@@ -288,7 +289,7 @@
 
 					<label>
 						Type:
-						<select @bind="@entity["add"].PodType">
+						<select @bind="@entity["add"].PodType" required>
 							<option value="">****</option>
 							@foreach (var pype in pypes)
 							{
@@ -384,9 +385,43 @@
 
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 					<label>
-						Label:
+						label:
 						<input class="form-control" @bind="@entity["change"].PodLabel" maxlength="16" required />
 					</label><br><br>
+
+					<label>
+						person:
+						<input class="form-control" @bind="@entity["change"].PersonIdFk" required />
+					</label><br>
+
+					<label>
+						location:
+						<input class="form-control" @bind="@entity["change"].LocationIdFk" required />
+					</label><br>
+
+					<label>
+						NOVA:
+						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />
+					</label><br>
+
+					<label style="position:absolute; top:400px;left:0px;width:700px; ">
+						description 255:
+						<textarea class="form-control" @bind="@entity["change"].PodDescription" maxlength="255" required />
+					</label>
+
+					<label style="position:absolute; top:500px;left:0px;width:700px; ">
+						tag (contains) 1024:
+						<textarea class="form-control" @bind="@entity["change"].PodTag" maxlength="1024" required />
+					</label>
+
+
+				</div>
+
+
+
+
+
+				<div class="exhibitInfo2">
 
 					<label>
 						Type:
@@ -422,22 +457,13 @@
 						<input class="form-control" @bind="@entity["change"].PodImage" maxlength="128" required />
 					</label><br>
 
-					<label>
-						Person ID FK:
-						<input class="form-control" @bind="@entity["change"].PersonIdFk" required />
-					</label><br>
 
-					<label>
-						Location ID FK:
-						<input class="form-control" @bind="@entity["change"].LocationIdFk" required />
-					</label><br>
-
-					<label>
-						NOVA ID FK:
-						<input class="form-control" @bind="@entity["change"].NovaIdFk" required />
-					</label><br>
 				</div>
 			</form>
+			<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Brand?pod="+pod+"&pid="+pid))"
+					style="top:240px;left:400px;height:60px;">
+				BRAND
+			</button>
 		</div>
 	}
 
@@ -496,14 +522,32 @@
 		</div>
 	}
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("//Lascaux?pod="+pod+"&pid="+pid))"
-			style="top:840px;left:20px;height:60px;">
-		Lascaux
+
+
+	<!-- ************************************************************************************ -->
+	<!-- ******************************** NAVIGATION Buttons ******************************** -->
+	<!-- ************************************************************************************ -->
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("Administration?pod="+pod+"&pid="+pid))"
+			style="position:absolute;left:30px;top:600px;height:60px;border:0px;width:140px;">
+		Menu
 	</button>
 
+@*     <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid))"
+            style="position:absolute;left:30px;top:680px;height:60px;border:0px;width:140px;">
+        Lascaux
+    </button> *@
 
+@* 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Grid?pod="+pod+"&pid="+pid+"&entity="+pageName))"
+			style="position:absolute;left:30px;top:760px;height:60px;border:0px;width:140px;">
+		Grid
+	</button> *@
+
+    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Memo?pod="+pod+"&pid="+pid))"
+            style="position:absolute;left:30px;top:840px;height:60px;border:0px;width:140px;">
+        Memo
+    </button>
 
 </div>
 
-
-
+<!-- *************************** End of Program ************* CFG Copyright 2025 ************************** -->

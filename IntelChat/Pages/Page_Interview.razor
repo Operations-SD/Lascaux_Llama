@@ -296,11 +296,14 @@
 		private void CloseIframe()
 		{ showIframe = false; }
 	}
+
+<!-- *************************** End of HELP Overlay ******************************** -->
+
 	@if (isMemoIframeVisible)
 {
-	<!-- Memo Container ******************* this is the Outer Box ***************** -->
-	<!-- Memo Container ******************* this is the Outer Box ***************** -->
-	<!-- Memo Container ******************* this is the Outer Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer MEMO Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer MEMO Box ***************** -->
+	<!-- Memo Container ******************* this is the Outer MEMO Box ***************** -->
 
 	<div style="position: absolute;
             top: @(memoIframePosition.Y)px;
@@ -361,9 +364,6 @@
 	</div>
 }
 
-	<!-- *************************** End of HELP Overlay ******************************** -->
-
-
 <!-- ************************************************************************************ -->
 <!-- ************************************* Buttons ************************************** -->
 <!-- ************************************************************************************ -->
@@ -377,7 +377,7 @@
 	Memo
 </button>
 
-<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/?pod="+pod+"&pid="+pid))"
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("User?pod="+pod+"&pid="+pid))"
 		style="position:absolute;left:30px;top:900px;height:60px;border:0px;width:140px;color:#777777;">
 	Return
 </button>
@@ -386,4 +386,3 @@
 
 
 <!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->
-

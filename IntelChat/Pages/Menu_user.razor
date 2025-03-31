@@ -83,8 +83,8 @@
 	<!-- ************************************************************************************ -->
 	<!-- *************************** Lock onto a Person and a POD *************************** -->
 	<!-- ************************************************************************************ -->
-	<p style="color:#444444;font-size:24px;top:500px;position:absolute;opacity:50%;">Pod: @pod</p>
-	<p style="color:#444444;font-size:24px;top:530px;position:absolute;opacity:50%;">Pid: @pid</p>
+	<p style="color:#444444;font-size:24px;top:540px;position:absolute;opacity:50%;">Pod: @pod</p>
+	<p style="color:#444444;font-size:24px;top:570px;position:absolute;opacity:50%;">Pid: @pid</p>
 
 
 	<!-- ************************************************************************************ -->
@@ -111,20 +111,20 @@
 
 	<!-- *** Pyramid ( Learning and applying MY-skills to improve society ) **** -->
 	<button    class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Pyramid?pod="+pod+"&pid="+pid))" 
-			style="top:490px;left:480px;height:60px;width:240px;">
+			style="z-index:5;top:490px;left:480px;height:60px;width:240px;">
 		Pyramid
 	</button>
 
 	<!-- *** Delphi ( build MY-sense of purpose and MY-commitment to discipine ) **** -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Delphi?pod="+pod+"&pid="+pid))" 
-			style="top:490px;left:1300px;height:60px;width:240px;">
+			style="z-index:5;top:490px;left:1300px;height:60px;width:240px;">
 		Delphi
 	</button>
 
 
 	<!-- *** continue from the last MY-Guide that you selected **** -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+guideIdSelection))"
-			style="z-index:5;top:610px;left:920px;height:60px;width:240px;">
+			style="z-index:5;top:610px;left:920px;height:60px;width:240px;" title="Active Guide Interview">
 		MY Interview
 	</button>
 
@@ -153,11 +153,11 @@
 
     <!-- ************************************ Navigate to the World Connect Page ****************** -->
 
-	<div class="user_banner" style="top:150px; left:1435px; filter: brightness(40%);opacity:60% ">
+	<div class="user_banner" style="top:154px; left:1442px; filter: brightness(40%);opacity:60% ">
 		<img src="images/Earth.gif" alt="earth planet" >
 	</div>
 
-	<div class="user_banner" style="top:102px; left:1390px; filter: brightness(50%);opacity:100%;border-radius:initial ">
+	<div class="user_banner" style="top:110px; left:1398px; filter: brightness(50%);opacity:100%;border-radius:initial ">
 		<img src="images/orbit.png" alt="earth orbit">
 	</div>
 
@@ -200,8 +200,8 @@
 		</iframe>
 	</div>
 
-    <div style="top:690px; left:1420px; position:absolute; overflow:hidden; filter: brightness(80%);opacity:80% ">
-        <iframe width="480" height="280" src='https://www.youtube.com/embed/dNN7KO2C-Ak'
+    <div style="top:694px; left:1350px; position:absolute; overflow:hidden; filter: brightness(80%);opacity:80% ">
+        <iframe width="540" height="330" src='https://www.youtube.com/embed/dNN7KO2C-Ak'
                 frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen>
         </iframe>
     </div>
@@ -231,7 +231,7 @@
 <!-- ***************************************************************************** Interview dropdown M ******** -->
 <!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
 <!-- interview selection -->
-<div style="position:absolute; top:590px; left:650px;">
+<div style="position:absolute; top:590px; left:650px;" title="Activate Life Action Guide">
 	<select class="general-menu-button" style="height:50px; opacity:70%; width:240px; text-align:center;" @bind="@guideIdSelection" required>
 		<!-- default value (no interview selected) -->
 		<option value="">Life Action</option>
@@ -261,7 +261,7 @@
 <!-- ***************************************************************************** Interview dropdown B ******** -->
 <!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
 <!-- interview selection -->
-<div style="position:absolute; top:590px; left:1190px;">
+<div style="position:absolute; top:590px; left:1190px;" title="Activate Contemplation Guide">
 	<select class="general-menu-button" style="height:50px; opacity:70%; width:240px;text-align:center;" @bind="@guideIdSelection" required>
 		<!-- default value (no interview selected) -->
 		<option value="">Contemplation</option>

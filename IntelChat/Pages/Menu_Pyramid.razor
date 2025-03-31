@@ -115,19 +115,19 @@
 	<!-- ***************************** Pyramid 5 points ************************************* -->
 	<!-- ************************************************************************************ -->
 
-		<button id="btn-pyramid_Red"    @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: Set Your Goals"
+		<button id="btn-pyramid_Red"    @onclick="@(() => _nav.NavigateTo("/Schedule?pod=" + 3 + "&pid=" + 11))" title="MY Weekly Activity"
 				style="z-index:111;left:785px;top:120px;"		>	</button>
 
-		<button id="btn-pyramid_Yellow" @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: How does Reasoning Work"
+		<button id="btn-pyramid_Yellow" @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="PDF: How does Reasoning Work"
 				style="z-index:111;left:420px;top:670px;"		>	</button>
 
-		<button id="btn-pyramid_Orange" @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: My Weekly Discipline"
+		<button id="btn-pyramid_Orange" @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="PDF: My Weekly Discipline"
 				style="z-index:111;left:1320px;top:670px;"		>	</button>
 
-		<button id="btn-pyramid_Blue"   @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: AGI Communication"
+		<button id="btn-pyramid_Blue"   @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="PDF: AGI Communication"
 				style="z-index:111;left:1270px;top:840px;"		>	</button>
 
-		<button id="btn-pyramid_Green"  @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="Task: POD Construction & Use"
+		<button id="btn-pyramid_Green"  @onclick="@(() => _nav.NavigateTo("/Task?pod=" + 3 + "&pid=" + 11))" title="PDF: POD Construction & Use"
 				style="z-index:111;left:240px;top:790px;"		>	</button>
 
 	<!-- ************************************************************************************ -->
@@ -355,7 +355,7 @@ else
 <!-- ************************************************************************************ -->
 <div class="role-menu">
 	<button @onclick="ToggleMemoPage" class="toggle-button"
-			style="position:absolute;top:1020px;left:20px;width:128px;height:48px; color:grey; opacity:60%">
+			style="position:absolute;top:1020px;left:200px;width:128px;height:48px; color:grey; opacity:60%">
 		toggle MEMO
 	</button>
 
@@ -382,7 +382,7 @@ else
 <!-- ************************************************************************************ -->
 <div class="role-menu">
 	<button @onclick="ToggleChatPage" class="toggle-button"
-			style="position:absolute;top:960px;left:20px;width:128px;height:48px; color:grey; opacity:70%">
+			style="position:absolute;top:960px;left:200px;width:128px;height:48px; color:grey; opacity:70%">
 		toggle CHAT
 	</button>
 
@@ -407,6 +407,11 @@ else
 	<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_CFG_copyright.png" />
 </div>
 
+<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("User?pod="+pod+"&pid="+pid))"
+		style="position:absolute;left:30px;top:950px;height:60px;border:0px;width:140px;color:#777777;">
+	Return
+</button>
 
+<!-- ********* End of PAGE ********************* CFG COPYRIGHT 2024 ********************************** -->
 
 
