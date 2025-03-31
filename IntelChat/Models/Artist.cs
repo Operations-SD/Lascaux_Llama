@@ -7,21 +7,21 @@ public partial class Artist
 {
     public int ArtistId { get; set; }
 
-    public string Artist1 { get; set; } = null!;
+    public string? Artist1 { get; set; }
 
-    public string Life { get; set; } = null!;
+    public string? Life { get; set; }
 
-    public int Phase { get; set; }
+    public int? Phase { get; set; }
 
-    public int Location { get; set; }
+    public int? Location { get; set; }
 
-    public string Status { get; set; } = null!;
+    public string? Status { get; set; }
 
-    public string Type { get; set; } = null!;
+    public string? Type { get; set; }
 
-    public string Finder { get; set; } = null!;
+    public string? Finder { get; set; }
 
-    public string Narative { get; set; } = null!;
+    public string? Narative { get; set; }
 
-    public string ArtistCommon { get; set; } = null!;
+    public string? ArtistCommon { get; set; }
 }

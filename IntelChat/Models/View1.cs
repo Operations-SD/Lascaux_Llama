@@ -19,7 +19,5 @@ public partial class View1
 
     public int PodIdFk { get; set; }
 
-    public int Expr1 { get; set; }
-
-    public string Expr2 { get; set; } = null!;
+    public byte PypeSeq { get; set; }
 }

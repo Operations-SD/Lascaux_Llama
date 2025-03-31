@@ -16,4 +16,6 @@ public partial class MyGuide
     public DateTime MyGuideDtEvaluated { get; set; }
 
     public byte MyGuideStars { get; set; }
+
+    public string MyGuide1 { get; set; } = null!;
 }

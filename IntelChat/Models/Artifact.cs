@@ -21,11 +21,11 @@ public partial class Artifact
 
     public string Status { get; set; } = null!;
 
-    public string Finder { get; set; } = null!;
+    public string? Finder { get; set; }
 
-    public string Narative { get; set; } = null!;
+    public string? Narative { get; set; }
 
-    public DateTime HistoricalDate { get; set; }
+    public DateTime? HistoricalDate { get; set; }
 
-    public int Symbolic { get; set; }
+    public int? Symbolic { get; set; }
 }
