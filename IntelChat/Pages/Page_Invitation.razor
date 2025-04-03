@@ -2,12 +2,13 @@
 @inject NnetDbContext db
 @inject NavigationManager _nav
 @inject IConfiguration _configuration
+@* @inject NounService nounService *@
 @layout CustomLayout
 @using IntelChat.Models
 @using System.Data.SqlClient;
 @using System.Data;
 @using System.Data.Common;
-@using IntelChat.Services;
+@* @using IntelChat.Services; *@
 
 <style>
 	body {
@@ -21,19 +22,8 @@
 		height: 1080px;
 	}
 
-	#img-panel-marque {
-		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Marque.png);
-		position: absolute;
-		top: 90px;
-		left: 600px;
-		width: 580px;
-		border-radius: 0px;
-		background-size: cover;
-	}
-
-
 	#btn-luster-noun {
-		content: url("https://agineuralnet.blob.core.windows.net/banners/bnr_Registration.png");
+		content: url(https://agineuralnet.blob.core.windows.net/banners/bnr_Brand.png);
 		position: absolute;
 		top: 85px;
 		left: 820px;
@@ -42,191 +32,24 @@
 		background-size: cover;
 	}
 
-	#img-panel-fluer {
-		content: url(https://agineuralnet.blob.core.windows.net/panels/Panel_Fluer.png);
-		position: absolute;
-		top: 150px;
-		left: 1310px;
-		width: 188px;
-		border-radius: 8px;
-		background-size: cover;
-	}
-
-	#btn-panel-list {
-		left: 10px;
-		opacity: 90%;
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_L.png");
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		filter: brightness(80%);
-	}
-
-		#btn-panel-list:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-	#btn-panel-add {
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_A.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		left: 202px;
-		filter: brightness(80%);
-	}
-
-		#btn-panel-add:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-	#btn-panel-change {
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_C.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		left: 394px;
-		filter: brightness(80%);
-	}
-
-		#btn-panel-change:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-	#btn-panel-delete {
-		background-image: url("https://agineuralnet.blob.core.windows.net/buttons/Button_D.png");
-		background-size: cover;
-		box-shadow: 0 30px 60px rgba(0,0,0,.5);
-		top: 810px;
-		left: 650px;
-		opacity: 100%;
-		filter: brightness(80%);
-	}
-
-		#btn-panel-delete:hover {
-			box-shadow: 0 5px 10px rgba(0,0,0,.5);
-			transform: scale(.85);
-			filter: brightness(100%);
-		}
-
-	#img-panel-shadow-black {
-		border-radius: 12px;
-		background-size: cover;
-		height: 700px;
-		width: 850px;
-	}
 </style>
 
 <div class="crud-page">
 	<!-- ************************************************************************************ -->
 	<!-- ************************** DISPLAY POD & Person ************************************ -->
 	<!-- ************************************************************************************ -->
-
-	<h3>
-		<p style="color:#424242;font-size:24px">Pod: @pod</p>
-		<p style="color:#424242;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
-	</h3>
+	<p style="color:#424242;font-size:24px">Pod: @pod</p>
+	<p style="color:#424242;font-size:24px;top:48px;position:absolute">Pid: @pid</p>
 
 	<!-- ************************************************************************************ -->
 	<!-- ********************************** DISPLAY PANELS ********************************** -->
 	<!-- ************************************************************************************ -->
-	<div><img id="img-panel-marque"></div>
-	<div><img id="btn-luster-noun"></div>
+	
 	<div><img id="img-panel-fluer"></div>
-	<div><img id="img-table"></div>
-
-	<div style="position:absolute;left:1670px;top:385px;width:140px;height:60px;background-color:red;color:bisque;text-align:center;padding:5px;font-weight:bolder;">Post Notes</div>
-
-
-	<!-- ************************************************************************************ -->
-	<!-- **************************** DISPLAY PANEL CRUD BUTTONS **************************** -->
-	<!-- ************************************************************************************ -->
-	<div class="boxButton">
-		<button id="btn-panel-list" @onclick="@(() => show = "list")"></button>
-		<button id="btn-panel-add" @onclick="@(() => show = "add")"></button>
-		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
-		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
-	</div>
-
-	<!-- ************************************************************************************ -->
-	<!-- *********************************** DIRECT SELECT ID ******************************* -->
-	<!-- ************************************************************************************ -->
-	<div class="DirectSelect">
-		<input id="directSelectId" class="FilterInput" type="text"
-			   @oninput="UpdateDirectSelectId"
-			   @onkeydown="HandleDirectSelectKeyPress"
-			   placeholder="Enter ID" />
-	</div>
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** ENTITY LIST  *********************************** -->
 	<!-- ************************************************************************************ -->
-	@if (show == "list")
-	{
-		<div class="ShadowText">
-			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
-		</div>
-
-		<div class="exhibitPanel">
-			<div class="ListFilter">
-				<label>
-					<select value="@filter["list"]" @onchange="@(e => filter["list"] = e.Value.ToString())">
-						<option value="****">****</option>
-						@foreach (var pype in pypes)
-						{
-							if (pype.PypeId == "role")
-							{
-								<option value="@pype.PypeType">@pype.PypeLabel</option>
-							}
-						}
-					</select>
-				</label>
-			</div>
-
-			<table id="listTable">
-				@*A "table" (really a list) of all records of the same type as selected table crud value*@
-				
-				<thead>
-					<tr>
-						<th>ID#</th>
-						<th>Status</th>
-						<th>Username</th>
-						<th>Email</th>
-						<th>Person Id</th>
-					</tr>
-				</thead>
-				@foreach (var entity in entities)
-				{   // Loop through each label of the currently selected table
-					@if (filter["list"] == "****" || entity.RegistrationStatus == filter["list"])
-					{
-						<tr @onclick="@(() => OnItemSelected(entity.RegistrationId))"
-							onmouseover="this.style.color='#AAAAAA'"
-							onMouseOut="this.style.color='#FFFFFF'">
-							@*
-							<td @onclick="@(() => _nav.NavigateTo("/LocationDetails?pod="+pod+"&pid="+pid+"&id="+entity.LocationId+"&prevPage=/Location"))" onmouseover="this.style.color='#AAAAAA'" onMouseOut="this.style.color='#FFFFFF'">
-								@entity.PodFk   @entity.LocationId   @entity.LocationStatus   @entity.LocationType   @entity.LocationLabel16   @entity.LocationDesc
-							</td>
-							*@
-							
-							<td>@entity.RegistrationId</td>
-							<td>@entity.RegistrationStatus</td>
-							<td>@entity.RegistrationUsername</td>
-							<td>@entity.RegistrationEmail</td>
-							<td>@entity.PersonIdFk</td>
-						</tr>
-					}
-					// Display only the goal's description
-				}
-			</table>
-		</div>
-	}
-
-	<!-- ************************************************************************************ -->
-	<!-- ************************************* Registration CREATE ****************************** -->
-	<!-- ************************************************************************************ -->
-	@if (show == "add")
-	{
 		<br>
 		<div style="font-size:x-large; ">
 			<form @onsubmit="OnCreate">
@@ -235,169 +58,77 @@
 					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
 
-				<div class="boxFilter">
-					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
-						 style="border-radius: 12px;background-size: cover;">
-					<button class="commitCreate" type="submit"></button>
-				</div>
 
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 
 					<label>
-						Username:
-						<input class="form-control" @bind="@entity["add"].RegistrationUsername" maxlength="16" required />
+						Brand code:
+						<input class="form-control" @bind="@entity["add"].BrandCode" maxlength="42" required />
 					</label><br><br>
+					<label>
+						close date:
+						<input class="form-control" @bind="@entity["add"].BrandRegDateClosed" required />
+					</label><br><br>
+					<label>
+						maximum count:
+						<input class="form-control" @bind="@entity["add"].BrandCntMax" required />
+					</label><br><br>
+					<label>
+						role:
+						<input class="form-control" @bind="@entity["add"].BrandRole" maxlength="4" required />
+					</label><br><br>
+					<label>
+						eligibility:
+						<input class="form-control" @bind="@entity["add"].BrandEligibility" required />
+					</label><br>
+
+				</div>
+
+				<div class="exhibitInfo2">
+					<label>
+						brand label:
+						<input class="form-control" @bind="@entity["add"].BrandLabel" maxlength="16" required />
+					</label><br>
 
 					<label>
-						Password:
-						<input class="form-control" @bind="@entity["add"].RegistrationPassword" maxlength="85" required />
-					</label><br><br>
+						image:
+						<input class="form-control" @bind="@entity["add"].BrandImage" maxlength="128" required />
+					</label><br>
 
 					<label>
-						Email:
-						<input class="form-control" @bind="@entity["add"].RegistrationEmail" maxlength="320" required />
-					</label><br><br>
+						cost:
+						<input class="form-control" @bind="@entity["add"].BrandCost" required />
+					</label><br>
 
-					<label>
-						Status:
-						<input class="form-control" @bind="@entity["add"].RegistrationStatus" maxlength="1" required />
-					</label><br><br>
 
-					<label>
-						Person Id Fk:
-						<input class="form-control" @bind="@entity["add"].PersonIdFk" maxlength="32" required />
-					</label><br><br>
+
+					@* 					<label>
+				Channel Alpha:
+				<input class="form-control" @bind="@entity["add"].ChannelAlpha" maxlength="4" required />
+				</label><br>
+
+				<label>
+				Channel Beta:
+				<input class="form-control" @bind="@entity["add"].ChannelBeta" maxlength="4" required />
+				</label><br>
+
+				<label>
+				Channel Gamma:
+				<input class="form-control" @bind="@entity["add"].ChannelGamma" maxlength="4" required />
+				</label><br> *@
 				</div>
 			</form>
 		</div>
-	}
+
 
 	<!-- ************************************************************************************ -->
-	<!-- ************************************* Registration CHANGE ********************************** -->
+	<!-- ************************************* Buttons ************************************** -->
 	<!-- ************************************************************************************ -->
-	@if (show.Equals("change"))
-	{
-		<div style="font-size:x-large; display: inline-block;">
-			<form @onsubmit="OnChange">
-				<div class="ShadowText">
-					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
-				</div>
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Administration?pod="+pod+"&pid="+pid))"
+			style="top:840px;left:20px;height:60px;">
+		MENU
+	</button>
 
-				<div class="boxFilter">
-					<div class="PypeTypeFilter">
-						<label>
-							<select value="@filter["change"]" @onchange="@(e => OnChangeFilterChanged(e, "change"))">
-								<option value="****">****</option>
-								@foreach (var pype in pypes)
-								{
-									if (pype.PypeId == "role")
-									{
-										<option value="@pype.PypeType">@pype.PypeLabel</option>
-									}
-								}
-							</select>
-						</label>
-					</div>
-
-					<div class="PypeType">
-						<label>
-							<select class="form-control" value="@entity["change"].RegistrationId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
-								@foreach (var entity in entities)
-                                {
-                                    <option value="@entity.RegistrationId"> @entity.RegistrationUsername</option>
-                                }
-							</select>
-						</label>
-					</div>
-
-					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
-						 style="border-radius: 12px;background-size: cover;">
-					<button class="commitChange" type="submit"></button>
-				</div>
-
-				<div class="exhibitInfo" style="overflow-y:scroll;">
-					<label>
-						Username:
-						<input class="form-control" @bind="@entity["change"].RegistrationUsername" maxlength="16" required />
-					</label><br><br>
-
-					<label>
-						Password:
-						<input class="form-control" @bind="@entity["change"].RegistrationPassword" maxlength="85" required />
-					</label><br><br>
-
-					<label>
-						Email:
-						<input class="form-control" @bind="@entity["change"].RegistrationEmail" maxlength="320" required />
-					</label><br><br>
-
-					<label>
-						Status:
-						<input class="form-control" @bind="@entity["change"].RegistrationStatus" maxlength="1" required />
-					</label><br><br>
-
-					<label>
-						Person Id Fk:
-						<input class="form-control" @bind="@entity["change"].PersonIdFk" maxlength="32" required />
-					</label><br><br>
-				</div>
-			</form>
-		</div>
-	}
-
-	<!-- ************************************************************************************ -->
-	<!-- ************************************* REGISTRATION DELETE ****************************** -->
-	<!-- ************************************************************************************ -->
-	@if (show.Equals("delete"))
-	{
-		<div style="font-size:x-large; display: inline-block;">
-			<form @onsubmit="OnDelete">
-
-				<div class="ShadowText">
-					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
-						 style="border-radius: 12px;background-size: cover;">
-				</div>
-
-				<div class="boxFilter">
-
-					<div class="PypeTypeFilter">
-						<label>
-							<select value="@filter["delete"]" @onchange="@(e => OnChangeFilterChanged(e, "delete", "D"))">
-								<option value="****">****</option>
-								@foreach (var pype in pypes)
-								{
-									if (pype.PypeId == "role")
-									{
-										<option value="@pype.PypeType">@pype.PypeLabel</option>
-									}
-								}
-							</select>
-						</label>
-					</div>
-
-					<div class="PypeType">
-						<label>
-							<select class="form-control" value="@entity["delete"].RegistrationId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "delete"); })">
-								@foreach (var entity in entities)
-								{
-									if (entity.RegistrationStatus == "D")
-									{
-										<option value="@entity.RegistrationId"></option>
-									}
-								}
-							</select>
-						</label>
-					</div>
-					<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
-						 style="border-radius: 12px;background-size: cover;">
-					<button class="commitDelete" type="submit"></button>
-				</div>
-				<div class="exhibitInfo" style="overflow-y:scroll;">
-					Only if the Status = D
-				</div>
-			</form>
-		</div>
-	}
 </div>
 
 
