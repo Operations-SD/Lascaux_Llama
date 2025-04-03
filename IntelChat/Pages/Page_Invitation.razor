@@ -58,6 +58,12 @@
 					<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 				</div>
 
+			<div class="boxFilter">
+				<img src="https://agineuralnet.blob.core.windows.net/panels/Panel_Commit.png"
+					 style="border-radius: 12px;background-size: cover;">
+				<button class="commitCreate" type="submit"></button>
+			</div>
+
 
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 
@@ -98,7 +104,7 @@
 
 					<label>
 						image:
-						<input class="form-control" @bind="@entity["add"].BrandImage" maxlength="128" required />
+						<input class="form-control" @bind="@entity["add"].BrandImage" maxlength="128"/>
 					</label><br>
 
 					<label>
