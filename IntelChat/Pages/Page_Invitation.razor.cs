@@ -3,6 +3,7 @@ using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -250,12 +251,13 @@ namespace IntelChat.Pages
 		protected override void OnInitialized()
 		{
 			// Initialize default entities and filters
-			entity["add"] = new Brand();
-			entity["change"] = new Brand();
-			entity["delete"] = new Brand();
-			filter["list"] = "****";
-			filter["change"] = "****";
-			filter["delete"] = "****";
+			entity["add"] = new Brand()
+			{
+				BrandEligibility = 50,
+				BrandCntMax = 50,
+				BrandCost = 1,
+				BrandRegDateClosed = DateTime.Now.AddYears(1)
+			};
 
 			// Load data for Brand entities
 			LoadReadResults();
@@ -264,38 +266,16 @@ namespace IntelChat.Pages
 			// Handle screen change options
 			if (!string.IsNullOrEmpty(show))
 			{
-				switch (show)
-				{
-					case "change":
-						if (brandId.HasValue)
-						{
-							AutoFill(brandId.Value, "change"); // Populate fields for specific BrandId
-						}
-						else if (entities.Any())
-						{
-							entity["change"] = entities.First();
-							AutoFill(entity["change"].BrandId, "change"); // Default to first entity
-						}
-						break;
-
-					case "delete":
-						var deletedEntity = entities.FirstOrDefault(e => e.BrandStatus == "D");
-						if (deletedEntity != null)
-						{
-							entity["delete"] = deletedEntity;
-							AutoFill(deletedEntity.BrandId, "delete"); // Populate fields for the deleted entity
-						}
-						break;
-
-					case "list":
-						show = "list"; // Explicitly requested, so show the list
-						break;
-
-					default:
-						show = string.Empty; // Prevent default listing when navigating normally
-						break;
-				}
-			}
+                if (brandId.HasValue)
+                {
+                    AutoFill(brandId.Value, "change"); // Populate fields for specific BrandId
+                }
+                else if (entities.Any())
+                {
+                    entity["change"] = entities.First();
+                    AutoFill(entity["change"].BrandId, "change"); // Default to first entity
+                }
+            }
 			else
 			{
 				// Default behavior if `show` is not specified
