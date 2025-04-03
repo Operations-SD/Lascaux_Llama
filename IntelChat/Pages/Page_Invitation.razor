@@ -75,7 +75,13 @@
 					</label><br><br>
 					<label>
 						role:
-						<input class="form-control" @bind="@entity["add"].BrandRole" maxlength="4" required />
+						<select class="form-control" @bind="@entity["add"].BrandRole" required>
+							<option value="">-- Select a Role --</option>
+							@foreach (var pype in pypes)
+							{
+								<option value="@pype.PypeId">@pype.PypeLabel</option>
+							}
+						</select>
 					</label><br><br>
 					<label>
 						eligibility:
