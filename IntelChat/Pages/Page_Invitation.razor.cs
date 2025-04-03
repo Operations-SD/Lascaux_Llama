@@ -67,14 +67,15 @@ namespace IntelChat.Pages
 				new SqlParameter("@brand_eligibility", entity["add"].BrandEligibility),
 				new SqlParameter("@brand_reg_date_closed", entity["add"].BrandRegDateClosed),
 				new SqlParameter("@brand_cost", entity["add"].BrandCost),
-				new SqlParameter("@brand_guide", entity["add"].BrandGuide),
+				new SqlParameter("@guide_id_fk", entity["add"].BrandGuide),
 				new SqlParameter("@brand_role", entity["add"].BrandRole),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
 				new SqlParameter("@program_id_fk", pod),
 				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk),
-				new SqlParameter("@channel_alpha", entity["add"].ChannelAlpha),
-				new SqlParameter("@channel_beta", entity["add"].ChannelBeta),
-				new SqlParameter("@channel_gamma", entity["add"].ChannelGamma)
+				new SqlParameter("@person_id_fk", pid),
+				//new SqlParameter("@channel_alpha", entity["add"].ChannelAlpha),
+				//new SqlParameter("@channel_beta", entity["add"].ChannelBeta),
+				//new SqlParameter("@channel_gamma", entity["add"].ChannelGamma)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Brand]", parameters);
 		}
@@ -143,8 +144,6 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				new SqlParameter("@id", entity["change"].BrandId),
-				new SqlParameter("@pod", pod),
 				new SqlParameter("@brand_code", entity["change"].BrandCode),
 				new SqlParameter("@brand_label", entity["change"].BrandLabel),
 				new SqlParameter("@brand_image", entity["change"].BrandImage),
@@ -157,7 +156,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@brand_guide", entity["change"].BrandGuide),
 				new SqlParameter("@brand_role", entity["change"].BrandRole),
 				new SqlParameter("@nova_id_fk", entity["change"].NovaIdFk),
-				new SqlParameter("@program_id_fk", pod),
+				new SqlParameter("@program_id_fk", entity["change"].ProgramIdFk), //This is Placeholder until further information is obtained
 				new SqlParameter("@location_id_fk", entity["change"].LocationIdFk),
 				new SqlParameter("@channel_alpha", entity["change"].ChannelAlpha),
 				new SqlParameter("@channel_beta", entity["change"].ChannelBeta),
@@ -256,7 +255,8 @@ namespace IntelChat.Pages
 				BrandEligibility = 50,
 				BrandCntMax = 50,
 				BrandCost = 1,
-				BrandRegDateClosed = DateTime.Now.AddYears(1)
+				BrandRegDateClosed = DateTime.Now.AddYears(1),
+				BrandStatus = "A"
 			};
 
 			// Load data for Brand entities
