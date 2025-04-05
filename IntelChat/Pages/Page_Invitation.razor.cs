@@ -153,10 +153,21 @@ namespace IntelChat.Pages
 			ExecuteStoredProcedure("dbo.[CRUD_Brand]", parameters);
 		}
 
-		/// <summary>Handle events triggered by entity creation</summary>
-		private void OnCreate()
+        private bool BrandCodeExists(string code)
+        {
+            return entities.Any(b => b.BrandCode.Equals(code, StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>Handle events triggered by entity creation</summary>
+        private void OnCreate()
 		{
-			Create();
+            if (BrandCodeExists(entity["add"].BrandCode))
+            {
+                NotificationService.Notify("Brand code already exists. Please choose a unique code.", NotificationType.Error);
+                return;
+            }
+
+            Create();
 			LoadReadResults();
 			NotificationService.Notify("Brand created successfully!", NotificationType.Success);
 		}
