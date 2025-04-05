@@ -69,7 +69,7 @@ namespace IntelChat.Pages
 
 			// Create new person based on the given information
 			var type = Input.Type.IsNullOrEmpty() ? "NONE" : Input.Type;
-			CreatePerson(Input.Fname, Input.Lname, "NONE", type, "A", brand.BrandRole, DateTime.Now, Convert.ToInt32(Input.Pod), brand.LocationIdFk);
+			CreatePerson(Input.Fname, Input.Lname, "NONE", type, "A", brand.BrandRole, DateTime.Now, Convert.ToInt32(Input.Pod), brand.LocationIdFk, brand.ProgramIdFk);
 			Person? person = ReadPerson(Input.Fname, Input.Lname);
 			if (person == null) { ViewData["Error"] = "Person could not be created!"; return Page(); }
 
@@ -288,7 +288,7 @@ namespace IntelChat.Pages
 		}
 
 		private void CreatePerson(String first, String last, String label, String type,
-			String status, String role, DateTime dateTime, int podIdFk, int locationIdFk)
+			String status, String role, DateTime dateTime, int podIdFk, int locationIdFk, int programIdFk)
 		{
 			string spName = "dbo.[CRUD_Person]";
 			SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
@@ -305,7 +305,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@role", role),
 				new SqlParameter("@date_time", dateTime),
 				new SqlParameter("@pod", podIdFk),
-				new SqlParameter("@location_id_fk", locationIdFk)
+				new SqlParameter("@location_id_fk", locationIdFk),
+				new SqlParameter("@program_id_fk", programIdFk)
 			};
 			parameters.ForEach(parameter => cmd.Parameters.Add(parameter));
 

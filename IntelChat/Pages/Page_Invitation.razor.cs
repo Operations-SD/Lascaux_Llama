@@ -73,7 +73,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@guide_id_fk", entity["add"].BrandGuide),
 				new SqlParameter("@brand_role", entity["add"].BrandRole),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
-				new SqlParameter("@program_id_fk", pod),
+				new SqlParameter("@program_id_fk", entity["add"].ProgramIdFk),
 				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk),
 				new SqlParameter("@person_id_fk", pid),
 				//new SqlParameter("@channel_alpha", entity["add"].ChannelAlpha),
