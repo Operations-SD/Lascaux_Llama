@@ -1,4 +1,5 @@
 using IntelChat.Models;
+using ProgramModel = IntelChat.Models.Program;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -29,8 +30,10 @@ namespace IntelChat.Pages
 		private string? show { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Brand> entities = new List<Brand>();
-		private Dictionary<String, Brand> entity = new Dictionary<String, Brand>();
-		private Dictionary<String, String> filter = new Dictionary<String, String>();
+        
+        private Dictionary<String, Brand> entity = new Dictionary<String, Brand>();
+        private Dictionary<String, Program> p_entity = new Dictionary<String, Program>();
+        private Dictionary<String, String> filter = new Dictionary<String, String>();
 
 		/// <summary>Executes a stored procedure and (optionally) returns a reader for its results</summary>
 		/// <param name="procedure">Name of the stored procedure</param>
@@ -198,7 +201,32 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
-		public void NavigateToLascaux(bool isSubject)
+		private SqlDataReader? ReadPrograms()
+		{
+			var parameters = new List<SqlParameter>();
+			return ExecuteStoredProcedure("dbo.Read_Program", parameters, true);
+		}
+
+        private List <ProgramModel> programs = new List<ProgramModel>();
+
+        private void LoadReadProgramResults()
+        {
+            var reader = ReadPrograms();
+            if (reader == null) return;
+
+            programs.Clear();
+            while (reader.Read())
+            {
+				programs.Add(new ProgramModel
+				{
+					ProgramId = reader.GetInt32(0),
+					ProgramLabel = reader.GetString(1) // adjust index based on your SP result
+				});
+            }
+            reader.Close();
+        }
+
+        public void NavigateToLascaux(bool isSubject)
 		{
 			_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&type={3}", pod, pid, "Brand", "Brand"), true);
 		}
@@ -218,6 +246,7 @@ namespace IntelChat.Pages
 			// Load data for Brand entities
 			LoadReadResults();
 			LoadReadPypeResults();
+			LoadReadProgramResults();
 
 			// Handle screen change options
 			if (!string.IsNullOrEmpty(show))
