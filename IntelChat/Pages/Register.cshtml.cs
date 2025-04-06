@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 namespace IntelChat.Pages
 {
@@ -93,6 +94,8 @@ namespace IntelChat.Pages
 			claims.Add(new Claim(ClaimTypes.Role, $"{Convert.ToInt32(Input.Pod)}-{brand.BrandRole}"));
 			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 			var principal = new ClaimsPrincipal(claimsIdentity);
+
+			Execute_Table(person.PersonId);
 
 
 			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
@@ -350,7 +353,30 @@ namespace IntelChat.Pages
 			connection.Close();
 		}
 
-        private void Execute_Table(int pid)
+		private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
+		{
+			var connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
+			using var command = new SqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure };
+			parameters.ForEach(parameter => command.Parameters.Add(parameter));
+			connection.Open();
+			if (reader) return command.ExecuteReader(CommandBehavior.CloseConnection);
+			command.ExecuteNonQuery();
+			return null;
+		}
+		private void CreateMemo(int MemoPersonFrom, DateTime MemoDateTime, string MemoMessage, string MemoRole)
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Execute"),
+				new SqlParameter("@memo_person_from", MemoPersonFrom),
+				new SqlParameter("@memo_date_time", MemoDateTime),
+				new SqlParameter("@memo_message", MemoMessage),
+				new SqlParameter("@memo_role", MemoRole)
+			};
+			ExecuteStoredProcedure("dbo.[CRUD_Memo]", parameters);
+		}
+
+		private void Execute_Table(int pid)
         {
             string spName = "dbo.[Read_Execute]";
             using SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
@@ -374,6 +400,27 @@ namespace IntelChat.Pages
 				});     
             }
             connection.Close();
+
+			//while loop here
+			int execIndex = 0;
+			while (execIndex < execute.Count)
+			{
+				Execute currentExec = execute[execIndex];
+
+				switch (currentExec.WorkTypeStatusE)
+				{
+					case "MEMO":
+						CreateMemo(pid, DateTime.Now, currentExec.ExecuteText, currentExec.Role);
+						break;
+					case "Gadd":
+
+						break;
+					case "QARS":
+
+						break;
+				}
+
+			}
         }
 
     }
