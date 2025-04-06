@@ -30,6 +30,7 @@ namespace IntelChat.Pages
 		public List<SelectListItem> Types = new List<SelectListItem>();
 		private List<Pype> pypes = new List<Pype>();
 		private List<Execute> execute = new List<Execute>();
+		private List<MyGuide> myGuides = new List<MyGuide>();
 
 		public RegisterModel(IConfiguration config)
 		{
@@ -401,6 +402,16 @@ namespace IntelChat.Pages
 			return recipientId;
 		}
 
+		private void GuideAdd(int pid, int? gid)
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@person_id", pid),
+				new SqlParameter("@guide_id", gid)
+			};
+			ExecuteStoredProcedure("dbo.[Execute_Guide]", parameters);
+		}
+
 		private void Execute_Table(int pid, int pod)
         {
             string spName = "dbo.[Read_Execute]";
@@ -438,7 +449,7 @@ namespace IntelChat.Pages
 						CreateMemo(pid, pod, currentExec.Role, currentExec.ExecuteText);
 						break;
 					case "Gadd":
-
+						GuideAdd(pid, currentExec.GuideIdFk);
 						break;
 					case "QARS":
 
