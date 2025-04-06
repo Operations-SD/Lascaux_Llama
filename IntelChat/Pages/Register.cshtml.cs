@@ -27,6 +27,7 @@ namespace IntelChat.Pages
 		private readonly IConfiguration _config;
 		public List<SelectListItem> Types = new List<SelectListItem>();
 		private List<Pype> pypes = new List<Pype>();
+		private List<Execute> execute = new List<Execute>();
 
 		public RegisterModel(IConfiguration config)
 		{
@@ -92,6 +93,7 @@ namespace IntelChat.Pages
 			claims.Add(new Claim(ClaimTypes.Role, $"{Convert.ToInt32(Input.Pod)}-{brand.BrandRole}"));
 			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 			var principal = new ClaimsPrincipal(claimsIdentity);
+
 
 			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 			return LocalRedirect(ReturnUrl);
@@ -345,8 +347,34 @@ namespace IntelChat.Pages
 					PypeLink = reader.GetString(5),
 				});
 			}
-
 			connection.Close();
 		}
-	}
+
+        private void Execute_Table(int pid)
+        {
+            string spName = "dbo.[Read_Execute]";
+            using SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
+            using SqlCommand cmd = new SqlCommand(spName, connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            connection.Open();
+            using SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                execute.Add(new Execute
+				{
+					ExecId = reader.GetInt32(0),
+					WorkTypeStatusE = reader.GetString(1),
+					ExecuteText = reader.GetString(2),
+					GuideIdFk = reader.GetInt32(3),
+					ExecuteR = reader.GetByte(4),
+					ExecuteS = reader.GetByte(5),
+					Question = reader.GetInt32(6),
+					Role = reader.GetString(7)
+				});     
+            }
+            connection.Close();
+        }
+
+    }
 }
