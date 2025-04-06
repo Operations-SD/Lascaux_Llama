@@ -95,7 +95,7 @@ namespace IntelChat.Pages
 			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 			var principal = new ClaimsPrincipal(claimsIdentity);
 
-			Execute_Table(person.PersonId);
+			Execute_Table(person.PersonId, person.PodIdFk);
 
 
 			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
@@ -363,7 +363,7 @@ namespace IntelChat.Pages
 			command.ExecuteNonQuery();
 			return null;
 		}
-		private void CreateMemo(int MemoPersonFrom, DateTime MemoDateTime, string MemoMessage, string MemoRole)
+		private void CreateMemo(int MemoPersonFrom, DateTime MemoDateTime, string MemoMessage, string MemoRole, int MemoPod)
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
@@ -371,12 +371,13 @@ namespace IntelChat.Pages
 				new SqlParameter("@memo_person_from", MemoPersonFrom),
 				new SqlParameter("@memo_date_time", MemoDateTime),
 				new SqlParameter("@memo_message", MemoMessage),
-				new SqlParameter("@memo_role", MemoRole)
+				new SqlParameter("@memo_role", MemoRole),
+				new SqlParameter("@memo_pod", MemoPod)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Memo]", parameters);
 		}
 
-		private void Execute_Table(int pid)
+		private void Execute_Table(int pid, int pod)
         {
             string spName = "dbo.[Read_Execute]";
             using SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
@@ -410,7 +411,7 @@ namespace IntelChat.Pages
 				switch (currentExec.WorkTypeStatusE)
 				{
 					case "MEMO":
-						CreateMemo(pid, DateTime.Now, currentExec.ExecuteText, currentExec.Role);
+						CreateMemo(pid, DateTime.Now, currentExec.ExecuteText, currentExec.Role, pod);
 						break;
 					case "Gadd":
 
