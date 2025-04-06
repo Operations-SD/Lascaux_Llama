@@ -16,6 +16,7 @@ using IntelChat.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography;
 
 namespace IntelChat.Pages
 {
@@ -363,18 +364,41 @@ namespace IntelChat.Pages
 			command.ExecuteNonQuery();
 			return null;
 		}
-		private void CreateMemo(int MemoPersonFrom, DateTime MemoDateTime, string MemoMessage, string MemoRole, int MemoPod)
+		private void CreateMemo(int pid, int pod, string role, string message)
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-				new SqlParameter("@PROC_action", "Execute"),
-				new SqlParameter("@memo_person_from", MemoPersonFrom),
-				new SqlParameter("@memo_date_time", MemoDateTime),
-				new SqlParameter("@memo_message", MemoMessage),
-				new SqlParameter("@memo_role", MemoRole),
-				new SqlParameter("@memo_pod", MemoPod)
+				new SqlParameter("@PROC_action", "Create"),
+				new SqlParameter("@memo_person_to",  ReadPodRolePerson(pid, pod, role)),
+				new SqlParameter("@memo_person_from", pid),
+				new SqlParameter("@memo_date_time", DateTime.Now),
+				new SqlParameter("@memo_priority", 0),
+				new SqlParameter("@memo_pod", pod),
+				new SqlParameter("@memo_nova", 0),
+				new SqlParameter("@memo_channel", 0),
+				new SqlParameter("@memo_type", "COMM"),
+				new SqlParameter("@memo_status", "A"),
+				new SqlParameter("@memo_message", message)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Memo]", parameters);
+		}
+
+		private int ReadPodRolePerson(int? pid, int pod, string role)
+		{
+			if (role == "") return pid ?? 0;
+			if (role == "self") return pid ?? 0;
+
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@pod", pod),
+				new SqlParameter("@role", role)
+			};
+			var reader = ExecuteStoredProcedure("dbo.[Read_POD_Role_Person]", parameters, true);
+			if (reader == null) return 0;
+			reader.Read();
+			int recipientId = reader.GetInt32(0);
+			reader.Close();
+			return recipientId;
 		}
 
 		private void Execute_Table(int pid, int pod)
@@ -411,7 +435,7 @@ namespace IntelChat.Pages
 				switch (currentExec.WorkTypeStatusE)
 				{
 					case "MEMO":
-						CreateMemo(pid, DateTime.Now, currentExec.ExecuteText, currentExec.Role, pod);
+						CreateMemo(pid, pod, currentExec.Role, currentExec.ExecuteText);
 						break;
 					case "Gadd":
 
@@ -420,7 +444,7 @@ namespace IntelChat.Pages
 
 						break;
 				}
-
+				execIndex++;
 			}
         }
 
