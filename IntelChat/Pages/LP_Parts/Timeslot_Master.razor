@@ -1,0 +1,376 @@
+﻿@using IntelChat.Models
+@using IntelChat.Data
+
+@using IntelChat.Services
+@using Task = System.Threading.Tasks.Task
+@inject DbController DbController
+@inject NavigationManager NavManager
+
+<head>
+     <link rel="stylesheet" type="text/css" href="Timeslot_Master.css">
+</head>
+<div id="timeSlotOutermostContainer">
+    @if (ShowControls)
+    {
+         <!--Controls-->
+         <boxtimeslot />
+        @if (Updatetl)
+        {
+            UpdateViewSlotInterface();
+        }
+
+        @if (!FindExistingMode)
+        {
+             <boxtimeslot_FindModeOff />
+        }
+         <button class="dayButtons" style="left:69px;" onclick="@PreviousDay" type="button" />
+         <button class="dayButtons" style="left:364px;" onclick="@NextDay" type="button" />
+         <button class="find_button" onclick="@SetFindMode" type="button" />
+         <button class="scrollButtons" style="top:262px;" onclick="@PreviousTimeBox" type="button" />
+         <button class="scrollButtons" style="top:870px;" onclick="@NextTimeBox" type="button" />
+
+         <!--Timeline-->
+         <boxWeekDay>
+              <img class="dayBox" src="@GetDayDisplayImage(DaySelection)" />
+         </boxWeekDay>
+         <timelineImage style="@GetTimelineStyle(1)">
+              <Timeslot_Chart PriorityLowerBound="PriorityLowerBound" vsi="vsi[DaySelection]" />
+         </timelineImage>
+
+         <!--Pointer-->
+         <boxPointer>
+              <div id=timeSlotPointer style="@UpdateTimeSlotPointerStyle(SlotSelection)">
+                   <p id=timeSlotPointerText>@PointerTimeDisplay</p>
+                   <img src="Images/GUI/TimeSlotPointer.png" />
+              </div>
+         </boxPointer>
+    }
+    else //DONE - 7d page based off Moe starting point
+    {
+        @for (int i = 1; i <= NumberOfCharts; i++)
+        {
+             <timelineImage style="@GetTimelineStyle(i)">
+                  <a href="@scheduleAtag(i)">
+                       <boxWeekDay style="left:52px;top:-30px;">
+                            <img class="dayBox" src="@GetDayDisplayImage(i)" />
+                       </boxWeekDay>
+                  </a>
+                  <Timeslot_Chart PriorityLowerBound="PriorityLowerBound" vsi="vsi[i]" ClickableTimeslots="true" ClickedTimeSlot="countActvities" />
+             </timelineImage>
+        }
+
+        @if (TimeSlotWasClicked)
+        {
+             <div class="actvitityInfoBox" style="display:inline-block;">  <!--nexxyy-->
+                  <button class="closebutton" @onclick="hideInfoBox">X</button>
+                  <table style="color:black;margin:8px;font-size:17px;">
+                       <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Time</th>
+                            <th>AlarmTime</th>
+                            <th>AlarmDuration</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                       </tr>
+                    @foreach (var Model in vsi[DayClicked].SlotList)
+                    {
+                        if (Model.WeekTimeslot == SlotClicked)
+                        {
+                               <tr>
+                                    <td>@Model.LpMinorLabel</td>
+                                    <td>@Model.LpMajorLabel</td>
+                                    <td>@SlotConvert.ToTimeStr(Model.WeekTimeslot)</td>
+                                    <td>@Model.WeekAlarmOffset</td>
+                                    <td>@Model.WeekDuration</td>
+                                    <td>@Model.WeekPriority</td>
+
+                               </tr>
+                        }
+                    }
+                  </table>
+             </div>
+        }
+    }
+</div>
+
+<!--
+     IMPORTANT ASSUMPTION:
+          The list of time slots will first be sorted by week (Sunday -> Saturday)
+          and then sorted by time (0:00 -> 23:30)
+          This has been implemented by DbController.LPViewSlot.Index()
+-->
+@code {
+    //DONE - Parameter for DaySelection w default (7d button)
+    //DONE - Parameter for SlotSelection w default (7d button)
+    [Parameter]
+    public EventCallback<(int Day, int Slot, int Offset)> OnSelectEmptySlot { get; set; }
+    [Parameter]
+    public EventCallback<ViewSlot> OnSelectSlotEntry { get; set; }
+    [Parameter]
+    public int PriorityLowerBound { get; set; } = 1;
+    [Parameter]
+    public int NumberOfCharts { get; set; } = 0;  //0 is a reserved input value which will also display the time slot controls (for a single day)
+    [Parameter]
+    public int InitialDaySelection { get; set; } = 1;
+    [Parameter]
+    public int InitialWeekSelection { get; set; } = 1;
+
+    [Parameter]
+    public bool Updatetl { get; set; } = false;
+
+    static ViewSlotInterface[] vsi;
+    const int SlotMaxValue = 48;
+
+    int SlotSelection = 1;    //1-48
+    int DaySelection = 1;     //1-8
+    int WeekSelection = 1;    //>=0
+    int OffsetSelection = 0;  //0-29 min
+    bool FindExistingMode = false;
+    bool ShowControls = false;
+
+    string PointerTimeDisplay = "0:00";
+    string[] DayDisplayList = { "", "Images/GUI/doWsunday.png", "Images/GUI/doWmonday.png", "Images/GUI/doWtuesday.png", "Images/GUI/doWwednesday.png", "Images/GUI/doWthursday.png", "Images/GUI/doWfriday.png", "Images/GUI/doWsaturday.png" };
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        DaySelection = InitialDaySelection;
+        WeekSelection = InitialWeekSelection;
+        /// if (ViewSlotIterator == null)
+        if (NumberOfCharts == 0)
+        {
+            ShowControls = true;
+            NumberOfCharts = 1;
+        }
+        SetViewSlotInterface();
+
+    }
+
+    public void SetViewSlotInterface()
+    {
+        int arrSize = (ShowControls ? 8 : NumberOfCharts + 1);
+        List<ViewSlot> vstemp = DbController.LPSlot.Index(WeekSelection);
+        vsi = new ViewSlotInterface[arrSize];
+        for (int i = 1; i < arrSize; i++)
+        {
+            ///vsi[i] = new ViewSlotInterface(DbController.LPSlot.Index(WeekSelection), i);
+            vsi[i] = new ViewSlotInterface(vstemp, i);
+        }
+    }
+    //CHANGE - the parameter getting reset every update will probably break dbcontext concurrency
+    public void UpdateViewSlotInterface()
+    {
+        int OriginalPos = vsi[DaySelection].Pos;
+        vsi[DaySelection] = new ViewSlotInterface(DbController.LPSlot.Index(WeekSelection), DaySelection);
+        vsi[DaySelection].Pos = OriginalPos;
+        Updatetl = false;
+    }
+
+    string GetDayDisplayImage(int loopPos)
+    {
+        if (ShowControls)
+        {//case = Image changes based on left and right arrows at top
+            return DayDisplayList[DaySelection];
+        }
+        else
+        {//case = Images changes based on going through
+            return DayDisplayList[loopPos];
+        }
+    }
+
+    public string UpdateTimeSlotPointerStyle(int slot)
+    {
+        if (slot % 2 == 0)
+            slot--;
+        slot /= 2;
+        string s = $"top:{36 * slot}px;";
+        ///Console.WriteLine(s + slot);
+        return s;
+    }
+
+    public string GetTimelineStyle(int itr)
+    {
+        return $"left:{(295 + 4) * (itr - 1) + (ShowControls == true ? 102 : 0)}px;top:{(ShowControls == true ? 77 : 0)}px;";
+    }
+
+    public void GoToSchedule(int daySelection)
+    {
+        NavManager.NavigateTo($"schedule/{WeekSelection}/{daySelection}");
+    }
+    public string scheduleAtag(int daySelection)
+    {
+        return $"schedule/{WeekSelection}/{daySelection}";
+    }
+
+    /* TIMELINE UP & DOWN NAVIGATION */
+    public void UpdateSlotSelection(int input, bool alterValue = false)
+    {
+        if (alterValue)
+        {
+            SlotSelection = IncrementTimeSlot(input);
+        }
+        else
+        {
+            SlotSelection = input;
+        }
+        if (vsi[DaySelection].Current() != null && vsi[DaySelection].Current().WeekTimeslot == SlotSelection)
+        {//case = User has selected a slot with an existing entry
+            OnSelectSlotEntry.InvokeAsync(vsi[DaySelection].Current());
+        }
+        else
+        {//case = User has selected an empty slot
+            OnSelectEmptySlot.InvokeAsync((DaySelection, SlotSelection, OffsetSelection));
+        }
+        PointerTimeDisplay = SlotConvert.ToTimeStr(SlotSelection);
+    }
+
+
+    //NEXX - Filter top selection based on priority
+    public void SelectTopmostSlotEntry()
+    {
+        if (vsi[DaySelection].Current() != null)
+        { //Default - there are time slots on given day
+            UpdateSlotSelection(vsi[DaySelection].Current().WeekTimeslot);
+        }
+        else
+        { //Fallback - no time slots exist on given day
+            UpdateSlotSelection(1);
+        }
+    }
+
+    public void SetFindMode()
+    {
+        FindExistingMode = !FindExistingMode;
+        if (FindExistingMode)
+        {
+            SelectTopmostSlotEntry();
+        }
+    }
+    //DONE - Next button in NOT find-mode sets should select too, OR efficiently print blank
+    //do something better than create a null obj every time
+    //FIX - var in UserWeek "bool blank = true" check for that in the User_Week string functions
+
+
+    public void NextTimeBox()
+    {
+        ViewSlot SlotCandidate = vsi[DaySelection].Next(true);
+        if (SlotCandidate != null)
+        {
+            if (FindExistingMode)
+            {
+                UpdateSlotSelection(vsi[DaySelection].Next().WeekTimeslot);
+
+                //NEXX - Filter up/down based on priority, only show those on da list, for FIND modes
+            }
+            else
+            {
+                if (vsi[DaySelection].Next(true).WeekTimeslot == (SlotSelection != SlotMaxValue ? SlotSelection + 1 : 1))    //DONE - Ternary statement to catch under/overflow
+                {
+                    vsi[DaySelection].Next();
+                }
+                UpdateSlotSelection(1, true);
+            }
+        }
+        else
+        {//Case - empty timeline
+            UpdateSlotSelection(1, true);
+        }
+    }
+
+    public void PreviousTimeBox()
+    {
+        ViewSlot SlotCandidate = vsi[DaySelection].Prior(true);
+        if (SlotCandidate != null)
+        {
+            if (FindExistingMode && SlotCandidate != null)
+            {
+                UpdateSlotSelection(vsi[DaySelection].Prior().WeekTimeslot);
+            }
+            else
+            {
+                if (vsi[DaySelection].Prior(true).WeekTimeslot == (SlotSelection != 1 ? SlotSelection - 1 : SlotMaxValue))
+                {
+                    vsi[DaySelection].Prior();
+                }
+                UpdateSlotSelection(-1, true);
+            }
+        }
+        else
+        {//Case - empty timeline
+            UpdateSlotSelection(-1, true);
+        }
+
+    }
+
+    private int IncrementTimeSlot(int qty)   //Design - Return int, rather than set SlotSelection, so that it can 'peek' at
+    {                                        //-> entry consistently, even at slot# 1 or 48
+        int Slot = SlotSelection;
+
+        Slot += qty;
+        if (Slot > SlotMaxValue) { Slot = 1; }
+        else if (Slot < 1) { Slot = SlotMaxValue; }
+
+        return Slot;
+    }
+    /* DAY SELECTION BUTTONS */
+    //NEXX - Figure out what the Thursday bug is, by adding more db entries that are similar
+    public void NextDay()
+    {
+        ///vsi[DaySelection].pos = 0; //comment this out to have persistent selection between days
+        if (DaySelection == 7)
+        {
+            DaySelection = 1;
+        }
+        else
+        {
+            DaySelection++;
+        }
+        ChangeDay();
+    }
+
+    public void PreviousDay()
+    {
+        if (DaySelection == 1)
+        {
+            DaySelection = 7;
+        }
+        else
+        {
+            DaySelection--;
+        }
+        ChangeDay();
+    }
+
+    private void ChangeDay()
+    {
+        ///DayDisplaySelection = DayDisplayList[DaySelection - 1];     //depr by function doing the same thing
+
+        if (FindExistingMode)
+            SelectTopmostSlotEntry();
+        else
+            UpdateSlotSelection(1);    //Implmenting the feature of slot-selection persistence between days requires changing this code
+    }
+    /* STATUS POPUP (integrated from View.razor) */
+    int SlotClicked = 0;
+    int DayClicked = 0;
+    ///string ShowTimeslotPopup = "none";
+    bool TimeSlotWasClicked = false;
+
+    void countActvities((int Slot, int Day) Clicked)
+    {
+        SlotClicked = Clicked.Slot;
+        DayClicked = Clicked.Day;
+        ///ShowTimeslotPopup = "inline-block";
+        TimeSlotWasClicked = true;
+    }
+
+    void hideInfoBox()
+    {
+        /// ShowTimeslotPopup = "none";
+        SlotClicked = 0;
+        DayClicked = 0;
+        TimeSlotWasClicked = false;
+    }
+
+}

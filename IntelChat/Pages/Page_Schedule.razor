@@ -1,0 +1,471 @@
+﻿@page "/schedule/{WeekSelection:int}/{InitialDay:int}"
+@page "/Testing/5/6"
+
+@layout CustomLayout
+@using Microsoft.AspNetCore.Components.Web
+@using IntelChat.Models
+@using IntelChat.Services
+@using Task = System.Threading.Tasks.Task
+@inject DbController DbController
+
+
+<!--******************************* Cascading Style Sheet ************************ Schedule.css ******-->
+<head>
+     <link rel="stylesheet" type="text/css" href="Schedule.css">
+</head>
+
+
+<!--*** GUI mid top ***************************************************** css ************** panel_Banner ***********-->
+<!--*** GUI mid top ***************************************************** css ************** panel_Banner ***********-->
+<!--*** GUI mid top ***************************************************** css ************** panel_Banner ***********-->
+<panel_Banner>
+     <h1 style="margin-left:3px;margin-top:2px;left:50px;position:absolute;"></h1>
+</panel_Banner>
+
+<panel_PODs></panel_PODs>
+
+
+
+<!--*** GUI upper right ************************************************* css ************** panel_Control ***********-->
+<!--*** GUI upper right ************************************************* css ************** panel_Control ***********-->
+<!--*** GUI upper right ************************************************* css ************** panel_Control ***********-->
+<panel_Control>
+
+     <button class="menu_buttons" type="button" />
+     <a href="exit" <button class="menu_buttons" style="left:200px; top:110px;width:115px; height:40px;color:#FF0000; opacity:70%" type="button" /> </a>
+     <a href="temp" <button class="menu_buttons" style="left:200px; top:170px;width:115px; height:40px;color:#00FF00; opacity:70%" type="button" /> </a>
+
+    <button class="menu_priority" style="top:010px;" @onclick="@addShowPriority"      type="button"/>
+    <button class="menu_priority" style="top:135px;" @onclick="@subtractShowPriority" type="button" />
+
+     <div    class="menu_PriorityBox">
+          <p style="text-align:center; font-size:42px;margin-top:0px;">@priorityShow</p>
+     </div>
+</panel_Control>
+
+
+
+
+<!-- ************************************ YouTube ************************************** VIDEO ****************-->
+<div style="top:415px; left:570px; position:absolute; overflow:hidden; filter: brightness(60%);z-index:1;opacity:70%;">
+    <iframe width="525" height="270" src="https://www.youtube.com/embed/WIVv0n7EmIs" title="Enigma - Mea Culpa Part II - NG Remix"
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+    </iframe>
+</div>
+
+
+
+
+<!-- ************************************ SWAP MAJOR *************** Table_Major ****************-->
+<Table_Major OnClick="SwapCatMajor" CatInput=@CatMajorSet />
+<!--************************************* Minor cat (TASK) ********** css panel_Entry ***********-->
+<!--SMD - Make Table_Minor component (practically a slave of Table_Major) for this and AddMinor page-->
+
+
+
+
+<!--*** GUI far right ************************************************************ css ************** panel_Entry ***********-->
+<!--*** GUI far right ************************************************************ css ************** panel_Entry ***********-->
+<!--*** GUI far right ************************************************************ css ************** panel_Entry ***********-->
+<panel_Entry>
+     <table class="minor_table" style="color:crimson;" >
+        @if (UnlockCategory[0])
+        {
+            @for (int i = 0; i < minors.Count; i++)
+            {
+                var min = minors[i];
+                  <tr>
+                       <td>
+                        <button type="button" class="m_table_button" style="color: #333333;" @onclick="()=>ClickedMinorInList(min)">@min.LpMinorLabel</button>
+                       </td>
+                  </tr>
+            }
+        }
+     </table>
+     <button class="load_Minor_Button" type="button" @onclick="LoadMinor">entry</button>
+</panel_Entry>
+
+
+
+
+
+
+
+
+
+
+<!--*** ENTRY BUFFER ********************* from TimeSlot  (or)  POD/Proper NOUN *************** css panel_Buffer ***********-->
+<!--*** ENTRY BUFFER ********************* from TimeSlot  (or)  POD/Proper NOUN *************** css panel_Buffer ***********-->
+<!--*** ENTRY BUFFER ********************* from TimeSlot  (or)  POD/Proper NOUN *************** css panel_Buffer ***********-->
+<panel_Buffer>
+     <button class="priorityButtons" style="top:004px;" onclick="@addPriority"      type="button"/>
+     <button class="priorityButtons" style="top:153px;" onclick="@subtractPriority" type="button"/>
+	 <!-- NEXT - Label is a separate class, using the button font ■ Use the DESC of Cat Major here-->
+<!--******************************************** Selected Guide on Buffer title ******************************************-->
+     <div class="buffer_Entry">
+          <h3 style="color:darkred;  font-weight:bold; font-size:40px;margin:15px;">@GetDisplayedLabel(0)</h3>
+          <h5 style="color:darkgreen;font-weight:bold; font-size:25px;margin:15px;">@GetDisplayedDescription(0)</h5>
+
+     </div>
+	 <!-- DONE - Minor ID at the top (red font maybe) ■ Minor desc below ■ Remove the word "Description" ever appearing-->
+
+     <div class="minorContainer">
+          <!-- Removed just for today
+          <div class="minorElementBox">
+               Elements should be here!
+          </div>
+          -->
+          <div class="descriptionBox">
+               <!--<h4 style="font-size:20px; font-weight:bold;">@description</h4>-->
+               <h5 style="color:#311e10;font-size:25px;font-weight:bold;">@GetDisplayedLabel(1)</h5>
+               <p>@GetDisplayedDescription(1)</p>
+          </div>
+     </div>
+
+    <!-- *********** DISPLAY BUFFER *** DATA AND BUTTONS ********************************-->
+     <div class="buffer_Priority">
+          <p style="text-align:center;color:crimson; font-size:30px;margin-top:7px;">@priorityCreate</p>
+     </div>
+     <p style="float:right; position:absolute;top:672px;right:447px;font-size:25px;"><b>MEMO</b></p>
+     <p style="float:right; position:absolute;top:705px;right:110px;font-size:25px;"><b>WEB LOCATION</b></p>
+     <p style="float:right; position:absolute;top:640px;right:045px;font-size:25px;"><b>Alarm</b></p>
+
+     <div class="alarm_box">
+          <input @bind="offset"   class="input" type="number" min="1" max="29" />
+          <input @bind="duration" class="input" type="number" min="1" max="255" style="margin-left:20px;" />
+          <button class="input" style="margin-left:20px;opacity:0;" type="button" @onclick="()=>SetAlarm()"/>
+     </div>
+
+    <button class="commButton" style="font-size:24px;" type="button">MEMO</button>
+    <button class="htmlButton" style="font-size:24px;" type="button">Iview</button>
+
+     <button class="submitButton" style="right:024px;" type="button" @onclick="TimeSlotErase">Erase</button>
+     <button class="submitButton" style="right:295px;" type="button" @onclick="TimeSlotCreate">Submit</button>
+</panel_Buffer>
+
+
+
+
+<!--******************************* Cascading Style Sheet ************************ Timeslot.css ******-->
+<!--******************************* Cascading Style Sheet ************************ Timeslot.css ******-->
+<!--******************************* Cascading Style Sheet ************************ Timeslot.css ******-->
+
+<Timeslot_Master PriorityLowerBound="priorityShow" NumberOfCharts="0" OnSelectSlotEntry="NewTimeSlotSelection" OnSelectEmptySlot="NewTimeSlotSelection" InitialDaySelection="InitialDay" InitialWeekSelection="WeekSelection" Updatetl="Updatetl" />
+
+
+
+
+
+<!--*** Integrate Moe code for cool help button ******************* HELP *********-->
+<div class="help" style="display:@help">
+    <button class="closebutton" @onclick="()=>exit(3)">X</button>
+    <h4>How add an activity to the schedule</h4>
+    <p class="help-text"><b>1.</b> Choose a major category from the list. </p>
+    <p class="help-text"><b>2.</b> Choose a minor category from the list and click on the Load Entry button. </p>
+    <p class="help-text"><b>3.</b> Set a priority for the activity using the arrows and set an alarm if you wish to make one. </p>
+    <p class="help-text"><b>4.</b> Choose a time from time slot and a day using the arrows. </p>
+    <p class="help-text">
+        <b>5.</b> you can navigate to the website related to the category as well as chat
+        with a profesional who has information about the chosen category.
+    </p>
+    <h4> How to navigate to or edit the activites </h4>
+    <p class="help-text"> <b>1.</b> click on the find button </p>
+    <p class="help-text"> <b>2.</b> you can navigate through activites using the time arrows. </p>
+    <p class="help-text">
+        <b>3.</b> The information of each activty will be displayed on the
+        screen which you can edit and click on Enter after editing.
+    </p>
+    <p class="help-text"> <b>4.</b> To erase an activity, click on the Erase button. </p>
+</div>
+
+<!-- Error Msg box-->
+<div class="error_box" style="display:@ShowErrorPopup">
+    <button id="closebutton" @onclick="()=>exit(4)">X</button>
+    <p id="error_msg"> Invalid Input! </p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--******************************** CODE *********** CODE ******************** CODE ********************** CODE ******-->
+<!--******************************** CODE *********** CODE ******************** CODE ********************** CODE ******-->
+<!--******************************** CODE *********** CODE ******************** CODE ********************** CODE ******-->
+
+@code {
+    [Parameter]
+    public int WeekSelection { get; set; } = 1;
+    [Parameter]
+    public int InitialDay { get; set; } = 1;
+    int offset = 0;
+    int duration = 1;
+    bool alarm = false;
+    string alarmStart = "as";
+    string alarmFinish = "";
+    int priorityCreate = 1;
+    int priorityShow = 1;
+    int majorID = -1;
+    int minorID = -1;
+    string help = "none";
+    string ShowErrorPopup = "none";
+    void SetAlarm()
+    {
+        if (LoadMinorDetails[1])   //nexxyy code
+        {
+            if(offset >= 0 && offset <= 29 && duration >= 1 && duration <= 255)
+            {
+                ViewSlotToUpdate.WeekOffset = BitConverter.GetBytes(offset)[0];
+                ViewSlotToUpdate.WeekDuration = BitConverter.GetBytes(duration)[0];
+                DbController.LPSlot.UpdateRaw(ViewSlotToUpdate);
+                Updatetl = true;
+            }
+            else
+            {
+                ShowErrorPopup = "block";
+            }
+        }
+
+        return;
+
+        string ti = "0";//clock[count];
+        int l = 0;// clock[count].Length;
+        char firstPart = ti[0];
+        firstPart += ti[1];
+        firstPart += ti[2];
+
+        char min = ti[l - 1];
+        min += ti[l - 2];
+        int int_min = min - '0';
+        int_min += offset;
+        min = Convert.ToChar(int_min);
+        alarmStart = Convert.ToChar(firstPart) + min.ToString();
+    }
+
+
+
+    /************************************************ PRIORITY - UP/Down 1 to7 *************************************************/
+    /************************************************ PRIORITY - UP/Down 1 to7 *************************************************/
+    /************************************************ PRIORITY - UP/Down 1 to7 *************************************************/
+    void addShowPriority()
+    {
+        if   (priorityShow == 7) { priorityShow = 7;  }
+        else  priorityShow++;
+    }
+    void subtractShowPriority()
+    {
+        if    (priorityShow == 1) { priorityShow = 1;  }
+        else  {priorityShow--;  }
+    }
+    void addPriority()
+    {
+        if   (priorityCreate == 7)  {  priorityCreate = 7;  }
+        else  priorityCreate++;
+    }
+    void subtractPriority()
+    {
+        if   (priorityCreate == 1)  {  priorityCreate = 1;  }
+        else {priorityCreate--;  }
+    }
+
+
+    /**************************************************************** MAJOR BOX *************************************************/
+    /**************************************************************** MAJOR BOX *************************************************/
+    /**************************************************************** MAJOR BOX *************************************************/
+    //Major box (loc temp)
+
+    List<LpMinor>? minors;
+    LpMinor EmptyMin = new LpMinor() { LpMinorDesc = "", LpMinorLabel = "", LpMinorId = -1, }; //should be const
+    LpMajor EmptyMaj = new LpMajor() { LpMajorDesc = "", LpMajorLabel = "", LpMajorId = -1, }; //should be const
+    LpMinor? ChosenMin;
+    LpMajor? ChosenMaj;
+    (int Day, int Slot, int Offset) MinorPk = (1, 1, 0);
+    bool Updatetl = false;
+    bool[] LoadMinorDetails = new bool[2] { false, false };      //[0] Creation - Pressed "Load Minor"	[1] Read from timeline - Selected a slot with data
+    bool[] UnlockCategory = new bool[2] { false, false };
+    List<LpMajor> CatMajorSet;
+    string TimeSlotPointerStyleStr = "";
+    ViewSlot ViewSlotToUpdate;   
+    //Major box 
+    protected override async Task OnInitializedAsync()
+    {
+        //TODO - Decide on moving (some of) the lists to DbController ??????????????
+        CatMajorSet = DbController.LPMajor.Index();
+        DisplayNoDetails();
+        MinorPk.Day = InitialDay; //InitialDay is a parameter from the URL; creating a separate variable to modify may be unnecessary
+    }
+    //Major selection determines the display of new Minor box content
+    void SwapCatMajor(LpMajor catMajor)
+    {
+        if(ChosenMaj.LpMajorId != catMajor.LpMajorId)  //Rationale for if-statement: don't waste time running this code if the same button is clicked over and over
+        {
+            ChosenMaj = catMajor;
+            majorID = catMajor.LpMajorId;
+            minors = DbController.LPMinor.Index(majorID);
+            UnlockCategory[0] = true;   //Major is chosen (perhaps for the first time)
+            UnlockCategory[1] = false;  //Minor is un-chosen (perhaps de-selecting an already selected minor)
+            LoadMinorDetails[0] = false;
+            LoadMinorDetails[1] = false;
+        }
+        /* example update
+        minors[0].LpMinorStatus = "Q";
+        DbController.LPMinor.Update(minors[0]);
+    */
+    }
+
+
+    /**************************************************************** MINOR LIST *************************************************/
+    /**************************************************************** MINOR LIST *************************************************/
+    /**************************************************************** MINOR LIST *************************************************/
+    //MINOR LIST
+
+    void LoadMinor()
+    {
+        if(UnlockCategory[0] && UnlockCategory[1])     //Does nothing until a major then a minor button have been clicked
+        {
+            LoadMinorDetails[0] = true;
+        }
+    }
+    string GetDisplayedLabel(int majmin = 0)
+    {
+        if (LoadMinorDetails[0] || LoadMinorDetails[1])
+        {
+            if (majmin == 0 )
+                return ChosenMaj.LpMajorLabel;
+            if (majmin == 1)
+                return ChosenMin.LpMinorLabel;
+            else    //fallback, should not be reached
+                return "   ";
+        }
+        else
+        {
+            return "";
+        }
+    }
+    string GetDisplayedDescription(int majmin = 0)
+    {
+        if (LoadMinorDetails[0] || LoadMinorDetails[1])
+        {
+            if (majmin == 0)
+                return ChosenMaj.LpMajorDesc;
+            if (majmin == 1)
+                return ChosenMin.LpMinorDesc;
+            else    //fallback, should not be reached
+                return "   ";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+
+
+    /***********************************************************************************************/
+    /************************************* Minor selection to buffer *******************************/
+    /***********************************************************************************************/
+    void ClickedMinorInList(LpMinor mi)
+    {
+        UnlockCategory[1] = true;  //minor cat
+        LoadMinorDetails[0] = false;
+        ChosenMin = mi;
+    }
+    void DisplayNoDetails()
+    {
+        ChosenMin = EmptyMin;
+        ChosenMaj = EmptyMaj;
+    }
+    /* SELECTION DETAILS */
+    void NewTimeSlotSelection(ViewSlot? viewSlotSelection)  //Invoked by Timeslot_Master
+    {
+        LoadMinorDetails[1] = true;   //Selecting a minor category time slot is similar to selecting a minor category ->
+                                      //whichever one of those has been done more recently takes precedence, in this implementation
+        LoadMinorDetails[0] = false;
+        UnlockCategory[1] = false;      //minor cat
+
+
+        //temp implementation
+        if(viewSlotSelection != null)
+        {
+            //230404 might not work
+            MinorPk = (viewSlotSelection.WeekDay, viewSlotSelection.WeekTimeslot, viewSlotSelection.WeekOffset);
+            ChosenMaj = new LpMajor() { LpMajorDesc = viewSlotSelection.LpMajorDesc, LpMajorLabel = viewSlotSelection.LpMajorLabel, LpMajorId = -1, };
+            ChosenMin = new LpMinor() { LpMinorDesc = viewSlotSelection.LpMinorDesc, LpMinorLabel = viewSlotSelection.LpMinorLabel, LpMinorId = -1, };
+            ViewSlotToUpdate = viewSlotSelection;
+            offset =  ViewSlotToUpdate.WeekOffset;
+            duration = (Int16)ViewSlotToUpdate.WeekDuration; //nexxyy
+        }
+    }
+
+
+    /**************************************************************** TIME SLOT *************************************************/
+    /**************************************************************** TIME SLOT *************************************************/
+    /**************************************************************** TIME SLOT *************************************************/
+    void NewTimeSlotSelection((int emptySlotSelection, int daySelection, int offset) input)  //Invoked by Timeslot_Master
+    {
+        MinorPk = input;
+        //After selecting an empty slot force the minor details to be blank:
+        LoadMinorDetails[0] = false;    //[0] Creation - Pressed "Load Minor"
+        LoadMinorDetails[1] = false;    //[1] Read from timeline - Selected a slot with data
+
+    }
+    /* CREATE & DELETE*/
+    void TimeSlotCreate()
+    {
+        // if (UnlockCategory[0] && UnlockCategory[1] && LoadMinorDetails[0])
+        // {
+        //     ViewSlot NewViewSlot = new ViewSlot()
+        //         {
+        //             WeekTimeslot = BitConverter.GetBytes(MinorPk.Slot)[0],
+        //             WeekCalendarWeekId = (Int16)WeekSelection,
+        //             WeekDay = BitConverter.GetBytes(MinorPk.Day)[0],
+        //             WeekPriority = BitConverter.GetBytes(priorityCreate)[0],
+        //             WeekCatMinorId = ChosenMin.LpMinorId,
+        //         };
+        //     DbController.LPSlot.Create(NewViewSlot);
+        //     Updatetl = true;
+        //     LoadMinorDetails[0] = false;
+        // }
+        
+    }
+
+    void TimeSlotErase()
+    {
+        if (LoadMinorDetails[1])   //There has to be an existing time slot selected (but not a minor category, that would be a bug)
+        {
+            DbController.LPSlot.Delete(WeekSelection, MinorPk.Day, MinorPk.Slot, MinorPk.Offset);
+            Updatetl = true;
+            LoadMinorDetails[1] = false;
+        }        
+    }
+    void DisableUpdateTl()
+    {
+        Updatetl = false;
+    }
+    /* HELP */
+    void display(int i)
+    {
+        if (i == 3)
+        {
+            help = "block";
+        }
+    }
+    void exit(int i)
+    {
+        if (i == 3)
+        {
+            help = "none";
+        }
+        if (i == 4)
+        {
+            ShowErrorPopup = "none";
+        }
+    }
+}

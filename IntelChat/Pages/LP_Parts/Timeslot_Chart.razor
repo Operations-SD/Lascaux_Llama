@@ -1,0 +1,89 @@
+﻿@using IntelChat.Models
+@using IntelChat.Data
+
+@if (vsi.DayLowestIndex != -1)
+{
+    <activity_box>
+        @{
+            OriginalVSIPos = vsi.Pos;
+            vsi.Pos = 0;
+        }
+        @for (int i = 1; i <= 48; i++) //Incomplete compared to: && vsi.Current() != null
+        {
+
+             <div class="act_item">
+                @if (vsi.Current().WeekTimeslot == i)
+                {   //NEXXZZ - Improve printing of minor label: better CSS, more thorough truncation
+                    @if (vsi.Current().WeekPriority >= PriorityLowerBound)
+                    {
+                        @if (ClickableTimeslots)
+                        {
+                                var v = vsi.Current(); //NEXXYY
+                                <button class="activity_bar" style="@GetTimeSlotStyle(vsi.Current())" @onclick="()=>ClickedTimeSlotFunc(v.WeekTimeslot)">
+                                   @vsi.Current().LpMinorLabel.Substring(0,15)
+                              </button>
+
+                        }
+                        else
+                        {
+                              <div class="activity_bar" style="@GetTimeSlotStyle(vsi.Current())">@vsi.Current().LpMinorLabel.Substring(0,15)</div>
+                        }
+                    }
+                    vsi.Next();
+                }
+             </div>
+        }
+        @{
+            vsi.Pos = OriginalVSIPos;
+        }
+
+    </activity_box>
+}
+
+@code {
+    ///<td><button id="statusbutton" @onclick="()=>changeStatus(timeslot,day,minor)">@status</button></td>
+
+    [Parameter]
+    public int PriorityLowerBound { get; set; }
+    [Parameter]
+    public ViewSlotInterface vsi { get; set; }
+    [Parameter]
+    public EventCallback<(int Slot, int Day)> ClickedTimeSlot { get; set; }
+    [Parameter]
+    public bool ClickableTimeslots { get; set; } = false;
+    int OriginalVSIPos = 0;
+
+    public string GetTimeSlotStyle(ViewSlot viewSlot)    //DONE get color of major
+    {
+        return $"background-color: {viewSlot.LpMajorRgb};";
+    }
+
+    public void ClickedTimeSlotFunc(int i)
+    {
+         ///ClickedTimeSlot.InvokeAsync((vsi.Current().WeekTimeslot, vsi.Current().WeekDay));
+         ClickedTimeSlot.InvokeAsync((i, vsi.Current().WeekDay));
+    }
+
+    /*
+    void changeStatus(int time, int day, string min)
+        {
+        @for (int j = 0; j < Model.Count(); j++)
+            {
+            if (Model[j].WeekTimeslot == index1 && Model[j].WeekDay == weekDay && Model[j].LpMinorLabel == min)
+                {
+                if (Model[j].WeekStatus == "1")
+                    {
+                    StatusColor = "green";
+                status = "Done";
+                }
+                else
+                    {
+                    StatusColor = "red";
+                    status = "Ongoing";
+            }
+    }
+            }
+    }*/
+
+
+}

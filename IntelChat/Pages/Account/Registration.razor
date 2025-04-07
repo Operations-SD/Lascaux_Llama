@@ -1,0 +1,79 @@
+﻿@page "/register"
+<PageTitle>Registration</PageTitle>
+
+@using IntelChat.Models
+@using IntelChat.Services
+
+@inject NavigationManager NavManager
+@inject DbController DbController
+
+<head>
+     <link rel="stylesheet" type="text/css" href="style.razor.css">
+</head>
+
+<div class="form">
+     <h1>Sign up</h1>
+     <input type="email"    @bind="email"       placeholder="Email" required>
+     <input type="text"     @bind="username"    placeholder="Username" required>
+     <input type="password" @bind="psw"         placeholder="Password" required>
+     <input type="password" @bind="psw_confirm" placeholder="Confirm Password" required>
+    @if (!string.IsNullOrEmpty(psw) && !string.IsNullOrEmpty(psw_confirm))
+    {
+        @if (!PasswordMatch())
+        {
+            <div class="alert alert-danger" role="alert" style="color:red;">Passwords entered do not match</div>
+        }
+        else if (!string.IsNullOrEmpty(ErrorMsg))
+        {
+             <div class="alert alert-danger" role="alert" style="color:red;">@ErrorMsg</div>
+        }
+        else
+        {
+             <input type="submit" @onclick="SignupMethod" value="Sign up">
+        }
+    }
+     <hr>
+     <div class="exit">
+          <a href="login" class="create-account">Login</a>
+     </div>
+</div>
+
+@code {
+
+    string email = string.Empty;   //doesn't include an email string, but I'm leaving this here for now
+    string username = string.Empty;
+    string psw = string.Empty;
+    string psw_confirm = string.Empty;
+    string ErrorMsg = string.Empty;
+    ///if(!nullOrEmpty(ErrorMsg)) <div>
+
+    private async void SignupMethod()
+    {
+        ErrorMsg = "";
+        Person p = new Person()
+            {
+                PersonPw = psw,
+                Person1 = username,
+            };
+        if (DbController.LPPerson.CheckUsernameAlreadyExists(username))
+        {
+            ErrorMsg = "Username already taken.";
+            //NEXXZZ - Set an error message field equal to 'Username taken'
+             return;
+        }
+        DbController.LPPerson.Signup(p);
+        NavManager.NavigateTo(@"/");
+    }
+    private bool PasswordMatch()
+    {
+        if (!string.Equals(psw, psw_confirm))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+}

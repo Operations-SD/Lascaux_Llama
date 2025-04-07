@@ -1,0 +1,44 @@
+﻿@using IntelChat.Models
+
+
+
+
+
+<table class="primeMajorBox majorPlacement">
+    <!--<h3 style=" font-size:30px; font-size:25px; font-weight:bold; margin-top:10px;" class="task-headers">Major Cat.</h3>-->
+    @for (int i = 0; i < NumberOfMajors && i < CatInput.Count; i++) //i < CatInput.Count
+                                                      //TODO - Replace 8 with a constant
+    {
+        var Cat = CatInput[i];
+        ButtonStyleStr = UpdateButtonStyleStr(i, Cat);
+        <tr>
+            <td class="majorButtonsCell" style="@ButtonStyleStr">
+                <div class="name_maj_name"><p class="major_name">@Cat.LpMajorLabel</p></div>
+                <button class="major_buttons" type="button" @onclick="@(() => OnClick.InvokeAsync(Cat))">P.O.D.</button>
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+
+
+
+@code {
+    ///[] colors = { "red", "darkorange", "yellow", "lawngreen", "deepskyblue", "blue", "mediumpurple", "lightslategray" };    //DONE - replace with RGB code from db
+    [Parameter]
+    public EventCallback<LpMajor> OnClick { get; set; }
+    [Parameter]
+    public int NumberOfMajors { get; set; } = 8;
+    [Parameter]
+    public List<LpMajor> CatInput { get; set; }
+    string ButtonStyleStr = "";
+
+    string UpdateButtonStyleStr(int i, LpMajor Cat)
+    {
+        ///Console.WriteLine($"top:{i * 100 + 15}px");
+        return $"top:{i * 100 + 15}px; background-color:{Cat.LpMajorRgb};";
+    }
+
+}

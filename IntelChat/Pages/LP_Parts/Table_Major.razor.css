@@ -1,0 +1,61 @@
+﻿    /* Cat Major */
+.primeMajorBox {
+     padding: 0;
+     margin: 0;
+     width: 370px;
+     height: 820px;
+     text-align: left;
+     float: left;
+
+     color: #FF0000;
+     position: absolute;
+     top:222px;
+     left:800px;
+     opacity: 100%;
+     background-size: cover
+}
+
+.majorButtonsCell {
+     padding: 0;
+     margin: 0;
+     width: 319px;
+     height: 90px;
+     text-align: left;
+     float: left;
+     top: 15px;
+     left: 26px;
+     color: hotpink;
+     position: absolute;
+     opacity: 100%;
+     background-image: url("Images/buttons/LP_GUI_Major_btn.png");
+     background-size: cover;
+     border-radius: 14px;
+     background-color: red;
+}
+
+.major_name {
+     color: white;
+     text-align: center;
+     font-size: 24px;
+     margin-top: 26px;
+}
+
+.name_maj_name {
+     float: left;
+     position: absolute;
+     left: 115px;
+     margin-top: 4px;
+}
+
+.major_buttons {
+     position: absolute;
+     opacity: 0%;
+     width: 319px;
+     height: 90px;
+     float: left;
+}
+
+.maj_name_box {
+     display: inline-block;
+     background-color: pink;
+}

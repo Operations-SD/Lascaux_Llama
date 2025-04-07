@@ -1,0 +1,171 @@
+﻿#timeSlotOutermostContainer {
+     position: absolute;
+}
+
+/* *********************************************** PANEL: TIME SLOTS ******************* */
+/* *********************************************** PANEL: TIME SLOTS ******************* */
+/* *********************************************** PANEL: TIME SLOTS ******************* */
+boxtimeslot {
+     padding: 0;
+     margin: 0;
+     width: 440px;
+     height: 990px;
+     left:0px;
+     text-align: right;
+     color: #FF0000;
+     position: absolute;
+     opacity: 60%;
+     /*background-image: url("Images/GUI/LP_GUI_user_Timeslots.png");*/
+     background-image: url("Images/GUI/LP_GUI_user_Timeslots_JUSTBUTTONS.png");
+     background-size: cover;
+}
+boxtimeslot_FindModeOff {
+     padding: 0;
+     margin: 0;
+     width: 440px;
+     height: 990px;
+     text-align: right;
+     color: #FF0000;
+     position: absolute;
+     background-image: url("Images/GUI/LP_GUI_user_Timeslots_FINDDISABLED.png");
+     background-size: cover;
+}
+timelineImage {
+     background-image: url("Images/GUI/LPprimeBox48.png");
+     height: 886px;
+     width: 295px;
+     position: absolute;
+}
+activity_box {
+     display: grid;
+     grid-template-columns: 200px;
+     grid-auto-rows: 16px;
+     grid-row-gap: 2px;
+     width: 200px;
+     height: 864px; /* [36px x 24 hour slots] = 864 */
+     position: absolute;
+     float: left;
+     left: 48px;
+     top: 7px;
+     opacity: 80%;
+     /* background-color: aqua;*/ /*temp for dev*/
+}
+.act_item {    /* Only exists to add whitespace when printing time slots */
+}
+.activity_bar {
+     /*background-image: url("Images/GUI/DoWbar18x180amber.png");*/
+     width: 180px;
+     height: 16px; /* roughly 1/2 TIME SLOT HEIGHT! */
+     margin-left: 9px;
+     color: black;
+     /*23.04.09*/
+     border: none;
+     font-size: 10px;
+     text-align:center;
+     color: white;
+}
+/* ******************************** TOGGLE SELECT --- next time slot (or) next Entry ********************* */
+.find_button {
+     float: left;
+     opacity: 0;
+     display: block;
+     width: 62px;
+     height: 160px;
+     position: absolute;
+     left: 15px;
+     top: 85px;
+}
+
+
+/* ******************************** There are 2 scroll buttons (WHERE?) ********************* */
+.scrollButtons {
+     float: left;
+     opacity: 50%;
+     display: block;
+     width: 55px;
+     height: 110px;
+     position: absolute;
+     left: 20px;
+}
+
+/* ******************************** There are 2 scroll buttons (WHERE?) ********************* */
+boxWeekDay {
+     padding: 0;
+     margin: 0;
+     width: 225px;
+     height: 68px;
+     top: 15px;
+     left: 150px;
+     color: #FF0000;
+     position: absolute;
+     opacity: 100%;
+}
+.dayButtons {
+     float: left;
+     opacity: 0%;
+     display: block;
+     width: 65px;
+     height: 50px;
+     position: absolute;
+     top: 1px;
+}
+.dayBox {
+     float: left;
+     width: 175px;
+     height: 28px;
+     background: no-repeat;
+     position: absolute;
+     left: 14px;
+     display: inline-block
+}
+
+/* ******************************** box ?????????? ********************* */
+boxPointer {
+     padding: 0;
+     margin: 0;
+     top: 38px;
+     left: 390px;
+     position: absolute;
+     display: inline-block;
+     width: 120px;
+     height: 930px;
+}
+
+/* ******************************** time slot ********************* */
+#timeSlotPointer {
+     padding: 0;
+     margin: 0;
+     position: absolute;
+     display: inline-block;
+     width: 120px;
+     height: 60px;
+}
+#timeSlotPointerText {
+     color: antiquewhite;
+     position: relative;
+     top: 47px;
+     left: 60px;
+}
+/* STATUS POPUP (integrated from View.razor) */
+.actvitityInfoBox {
+     background-color: #f7b267;
+     min-width: 950px;
+     max-width: 950px;
+     min-height: 150px;
+     position: absolute;
+     top: 300px;
+     left: 615px;
+     border: solid 3px #432818;
+}
+.actvitityInfoBox th {
+     padding-right: 50px;
+}
+/* ******************************** close what ?????????? ********************* */
+.closebutton {
+     color: red;
+     font-size: 25px;
+     background: none;
+     border: none;
+     float: right;
+     margin: 5px;
+}

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<IntelChat.Models.WeekMyTimeslot>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekPriority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekDuration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekAlarmOffset)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekActualFactor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekCalendarWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekCatMinor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekPriority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekDuration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekAlarmOffset)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekActualFactor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.PersonId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekCalendarWeek.WeekCalendarWeekId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekCatMinor.LpMinorId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
