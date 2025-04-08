@@ -20,6 +20,7 @@ builder.Services.AddSingleton<NounService>(); //noun service singleton to reduce
 builder.Services.AddSingleton<VerbService>(); //verb singleton - reduce reads
 builder.Services.AddSingleton<EntityService>(); //verb singleton - reduce reads
 builder.Services.AddScoped<NotificationService>(); //notif serviice
+builder.Services.AddScoped<DbController>();
 builder.Services.AddResponseCompression(opts =>
 {
     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] {"application/octed-stream"});
@@ -27,6 +28,8 @@ builder.Services.AddResponseCompression(opts =>
 
 // Add your DbContext with the connection string from appsettings.json
 builder.Services.AddDbContext<NnetDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 	.AddCookie();

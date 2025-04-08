@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 ///using Microsoft.EntityFrameworkCore;
 using IntelChat.Models;
 using Microsoft.EntityFrameworkCore;
-//using IntelChat.Pages.Account;
+using IntelChat.Pages.Account;
 
 /* 23.03.04
  * The purpose of the following nested classes is to better organize the CRUD functions for each view/table used by grouping them together
