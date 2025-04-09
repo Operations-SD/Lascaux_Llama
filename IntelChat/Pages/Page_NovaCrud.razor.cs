@@ -58,9 +58,9 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Create"),
 				new SqlParameter("@pod", pod),
-				new SqlParameter("@description", entity["add"].NovaDescription),
-				new SqlParameter("@type", entity["add"].NovaType),
-				new SqlParameter("@channel", entity["add"].NovaChannel),
+				new SqlParameter("@nova_description", entity["add"].NovaDescription),
+				new SqlParameter("@nova_type", entity["add"].NovaType),
+				new SqlParameter("@nova_channel", entity["add"].NovaChannel),
 				new SqlParameter("@subject", entity["add"].NovaSubject),
 				new SqlParameter("@action", entity["add"].NovaAction),
 				new SqlParameter("@object", entity["add"].NovaObject),
@@ -112,7 +112,8 @@ namespace IntelChat.Pages
 					PodIdFk = reader.GetInt32(9),
 					PersonIdFk = reader.GetInt32(10),
 					NovaPrioriy = reader.GetInt16(11),
-					NovaLabel = reader.IsDBNull(12) ? string.Empty : reader.GetString(12)
+					NovaLabel = reader.IsDBNull(12) ? string.Empty : reader.GetString(12),
+					NovaTag = reader.IsDBNull(13) ? string.Empty : reader.GetString(13)
 				});
 			}
 			reader.Close();
@@ -136,12 +137,12 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 					new SqlParameter("@PROC_action", "Update"),
-					new SqlParameter("@id", entity["change"].NovaId),
+					new SqlParameter("@nova_id", entity["change"].NovaId),
 					new SqlParameter("@pod", pod),
-					new SqlParameter("@description", entity["change"].NovaDescription),
+					new SqlParameter("@nova_description", entity["change"].NovaDescription),
 					new SqlParameter("@nova_status", entity["change"].NovaStatus),
-					new SqlParameter("@type", entity["change"].NovaType),
-					new SqlParameter("@channel", entity["change"].NovaChannel),
+					new SqlParameter("@nova_type", entity["change"].NovaType),
+					new SqlParameter("@nova_channel", entity["change"].NovaChannel),
 					new SqlParameter("@subject", entity["change"].NovaSubject),
 					new SqlParameter("@action", entity["change"].NovaAction),
 					new SqlParameter("@object", entity["change"].NovaObject),
@@ -161,7 +162,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Delete"),
-				new SqlParameter("@id", entity["delete"].NovaId),
+				new SqlParameter("@nova_id", entity["delete"].NovaId),
 				new SqlParameter("@nova_status", entity["delete"].NovaStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
@@ -183,6 +184,8 @@ namespace IntelChat.Pages
 			Change();
 			LoadReadResults();
 			NotificationService.Notify("NOVA changed successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -191,6 +194,8 @@ namespace IntelChat.Pages
 			Delete();
 			LoadReadResults();
 			NotificationService.Notify("NOVA deleted successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 			show = "list";
 		}
 
