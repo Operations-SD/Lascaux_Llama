@@ -229,7 +229,7 @@
 <!-- ***************************************************************************************************** -->
 <!-- ************************** Lascaux List  ******************** SUBJECT ****** Using type=NOVA ******** -->
 <!-- ***************************************************************************************************** -->
-<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",subject,0,0,"NOVA")))">
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",subject,0,0,"SUBJECT")))">
 	@*Subject*@
 	<select class="tableList" style="		top: 645px;	0pacity:70%;	left: 612px;border-radius:8px;height:44PX;
 	" @bind=subject required>
