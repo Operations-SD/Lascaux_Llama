@@ -56,7 +56,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
-				//new SqlParameter("@pod", pod),
+				new SqlParameter("@pod", pod),
 				new SqlParameter("@label", entity["add"].GuideLabel),
 				new SqlParameter("@purpose", entity["add"].GuidePurpose),
 				new SqlParameter("@type", entity["add"].GuideType),
@@ -130,7 +130,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				//new SqlParameter("@pod", pod),
+				new SqlParameter("@id", entity["change"].GuideId),
 				new SqlParameter("@label", entity["change"].GuideLabel),
 				new SqlParameter("@purpose", entity["change"].GuidePurpose),
 				new SqlParameter("@type", entity["change"].GuideType),
