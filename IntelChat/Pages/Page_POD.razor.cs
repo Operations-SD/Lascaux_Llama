@@ -57,7 +57,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
-				new SqlParameter("@pod_id", pod),
+				new SqlParameter("@pod_id", entity["add"].PodId),
 				new SqlParameter("@pod_label", entity["add"].PodLabel),
 				new SqlParameter("@pod_description", entity["add"].PodDescription),
 				new SqlParameter("@pod_type", entity["add"].PodType),
@@ -107,7 +107,8 @@ namespace IntelChat.Pages
 					PodImage = reader.GetString(6),
 					PersonIdFk = reader.GetInt32(11),
 					LocationIdFk = reader.GetInt32(12),
-					NovaIdFk = reader.GetInt32(14)
+					NovaIdFk = reader.GetInt32(14),
+					PodTag = reader.GetString(9)
 				});
 			}
 			reader.Close();
@@ -131,7 +132,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				new SqlParameter("@pod_id", pod),
+				new SqlParameter("@pod_id", entity["change"].PodId),
 				new SqlParameter("@pod_label", entity["change"].PodLabel),
 				new SqlParameter("@pod_description", entity["change"].PodDescription),
 				new SqlParameter("@pod_type", entity["change"].PodType),
@@ -140,7 +141,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@pod_url_base", entity["change"].PodImage),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk),
 				new SqlParameter("@location_id_fk", entity["change"].LocationIdFk),
-				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk)
+				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
+				new SqlParameter("@tag", entity["change"].PodTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_POD]", parameters);
 		}
@@ -163,6 +165,8 @@ namespace IntelChat.Pages
 			Create();
 			LoadReadResults();
 			NotificationService.Notify("POD created successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity changes</summary>
@@ -171,6 +175,8 @@ namespace IntelChat.Pages
 			Change();
 			LoadReadResults();
 			NotificationService.Notify("POD changed successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -179,6 +185,8 @@ namespace IntelChat.Pages
 			Delete();
 			LoadReadResults();
 			NotificationService.Notify("POD deleted successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 			show = "list";
 		}
 

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
+using System;
 
 namespace IntelChat.Pages
 {
@@ -412,6 +413,18 @@ namespace IntelChat.Pages
 			ExecuteStoredProcedure("dbo.[Execute_Guide]", parameters);
 		}
 
+		private void AddQARS(int pid, int? qid, int? response, int? severity)
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@person_id", pid),
+				new SqlParameter("@question_id", qid),
+				new SqlParameter("@response", response),
+				new SqlParameter("@severity", severity)
+			};
+			ExecuteStoredProcedure("dbo.[Execute_QARS]", parameters);
+		}
+
 		private void Execute_Table(int pid, int pod)
         {
             string spName = "dbo.[Read_Execute]";
@@ -452,7 +465,7 @@ namespace IntelChat.Pages
 						GuideAdd(pid, currentExec.GuideIdFk);
 						break;
 					case "QARS":
-
+						AddQARS(pid, currentExec.Question, currentExec.ExecuteR, currentExec.ExecuteS);
 						break;
 				}
 				execIndex++;

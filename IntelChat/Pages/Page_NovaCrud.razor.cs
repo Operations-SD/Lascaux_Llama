@@ -58,17 +58,17 @@ namespace IntelChat.Pages
 			{
 				new SqlParameter("@PROC_action", "Create"),
 				new SqlParameter("@pod", pod),
-				new SqlParameter("@description", entity["add"].NovaDescription),
-				new SqlParameter("@type", entity["add"].NovaType),
-				new SqlParameter("@channel", entity["add"].NovaChannel),
-				new SqlParameter("@subject", entity["add"].NovaSubject),
-				new SqlParameter("@action", entity["add"].NovaAction),
-				new SqlParameter("@object", entity["add"].NovaObject),
-				new SqlParameter("@datetime", entity["add"].NovaDatetime),
+				new SqlParameter("@nova_description", entity["add"].NovaDescription),
+				new SqlParameter("@nova_type", entity["add"].NovaType),
+				new SqlParameter("@nova_channel", entity["add"].NovaChannel),
+				new SqlParameter("@nova_subject", entity["add"].NovaSubject),
+				new SqlParameter("@nova_action", entity["add"].NovaAction),
+				new SqlParameter("@nova_object", entity["add"].NovaObject),
+				new SqlParameter("@nova_datetime", entity["add"].NovaDatetime),
 				new SqlParameter("@pod", entity["add"].PodIdFk),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk),
-				new SqlParameter("@priority", entity["add"].NovaPrioriy),
-				new SqlParameter("@label", entity["add"].NovaLabel),
+				new SqlParameter("@nova_priority", entity["add"].NovaPrioriy),
+				new SqlParameter("@nova_label", entity["add"].NovaLabel),
 				new SqlParameter("@nova_tag", entity["add"].NovaTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
@@ -104,6 +104,7 @@ namespace IntelChat.Pages
 					NovaId = reader.GetInt32(0),
 					NovaDescription = reader.GetString(1),
 					NovaType = reader.GetString(2),
+					NovaStatus = reader.GetString(3),
 					NovaChannel = reader.GetInt32(4),
 					NovaSubject = reader.GetInt32(5),
 					NovaAction = reader.GetInt32(6),
@@ -112,7 +113,8 @@ namespace IntelChat.Pages
 					PodIdFk = reader.GetInt32(9),
 					PersonIdFk = reader.GetInt32(10),
 					NovaPrioriy = reader.GetInt16(11),
-					NovaLabel = reader.IsDBNull(12) ? string.Empty : reader.GetString(12)
+					NovaLabel = reader.IsDBNull(12) ? string.Empty : reader.GetString(12),
+					NovaTag = reader.IsDBNull(13) ? string.Empty : reader.GetString(13)
 				});
 			}
 			reader.Close();
@@ -136,20 +138,19 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 					new SqlParameter("@PROC_action", "Update"),
-					new SqlParameter("@id", entity["change"].NovaId),
+					new SqlParameter("@nova_id", entity["change"].NovaId),
 					new SqlParameter("@pod", pod),
-					new SqlParameter("@description", entity["change"].NovaDescription),
+					new SqlParameter("@nova_description", entity["change"].NovaDescription),
 					new SqlParameter("@nova_status", entity["change"].NovaStatus),
-					new SqlParameter("@type", entity["change"].NovaType),
-					new SqlParameter("@channel", entity["change"].NovaChannel),
-					new SqlParameter("@subject", entity["change"].NovaSubject),
-					new SqlParameter("@action", entity["change"].NovaAction),
-					new SqlParameter("@object", entity["change"].NovaObject),
-					new SqlParameter("@datetime", entity["change"].NovaDatetime),
-					new SqlParameter("@pod", entity["change"].PodIdFk),
+					new SqlParameter("@nova_type", entity["change"].NovaType),
+					new SqlParameter("@nova_channel", entity["change"].NovaChannel),
+					new SqlParameter("@nova_subject", entity["change"].NovaSubject),
+					new SqlParameter("@nova_action", entity["change"].NovaAction),
+					new SqlParameter("@nova_object", entity["change"].NovaObject),
+					new SqlParameter("@nova_datetime", entity["change"].NovaDatetime),
 					new SqlParameter("@person_id_fk", entity["change"].PersonIdFk),
-					new SqlParameter("@priority", entity["change"].NovaPrioriy),
-					new SqlParameter("@label", entity["change"].NovaLabel),
+					new SqlParameter("@nova_priority", entity["change"].NovaPrioriy),
+					new SqlParameter("@nova_label", entity["change"].NovaLabel),
 					new SqlParameter("@nova_tag", entity["change"].NovaTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
@@ -161,7 +162,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Delete"),
-				new SqlParameter("@id", entity["delete"].NovaId),
+				new SqlParameter("@nova_id", entity["delete"].NovaId),
 				new SqlParameter("@nova_status", entity["delete"].NovaStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
@@ -183,6 +184,8 @@ namespace IntelChat.Pages
 			Change();
 			LoadReadResults();
 			NotificationService.Notify("NOVA changed successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -191,6 +194,8 @@ namespace IntelChat.Pages
 			Delete();
 			LoadReadResults();
 			NotificationService.Notify("NOVA deleted successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 			show = "list";
 		}
 

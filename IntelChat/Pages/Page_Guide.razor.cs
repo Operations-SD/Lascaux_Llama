@@ -56,7 +56,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
-				//new SqlParameter("@pod", pod),
+				new SqlParameter("@pod", pod),
 				new SqlParameter("@label", entity["add"].GuideLabel),
 				new SqlParameter("@purpose", entity["add"].GuidePurpose),
 				new SqlParameter("@type", entity["add"].GuideType),
@@ -65,7 +65,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@dt_origin", entity["add"].GuideDtOrgin),
 				new SqlParameter("@dt_revision", entity["add"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["add"].ProgramIdFk)
+				new SqlParameter("@Program_ID_FK", entity["add"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}
@@ -130,7 +130,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				//new SqlParameter("@pod", pod),
+				new SqlParameter("@id", entity["change"].GuideId),
 				new SqlParameter("@label", entity["change"].GuideLabel),
 				new SqlParameter("@purpose", entity["change"].GuidePurpose),
 				new SqlParameter("@type", entity["change"].GuideType),
@@ -139,7 +139,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@dt_origin", entity["change"].GuideDtOrgin),
 				new SqlParameter("@dt_revision", entity["change"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["change"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["change"].ProgramIdFk)
+				new SqlParameter("@Program_ID_FK", entity["change"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}
@@ -172,6 +172,8 @@ namespace IntelChat.Pages
 			Change();
 			LoadReadResults();
 			NotificationService.Notify("Guide changed successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -180,6 +182,8 @@ namespace IntelChat.Pages
 			Delete();
 			LoadReadResults();
 			NotificationService.Notify("Guide deleted successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 			show = "list";
 		}
 
