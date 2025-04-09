@@ -104,6 +104,7 @@ namespace IntelChat.Pages
 					NovaId = reader.GetInt32(0),
 					NovaDescription = reader.GetString(1),
 					NovaType = reader.GetString(2),
+					NovaStatus = reader.GetString(3),
 					NovaChannel = reader.GetInt32(4),
 					NovaSubject = reader.GetInt32(5),
 					NovaAction = reader.GetInt32(6),
