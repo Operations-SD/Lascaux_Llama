@@ -53,6 +53,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
+				new SqlParameter("@Question_ID", entity["add"].QuestionId),
 				new SqlParameter("@Question_Text", entity["add"].QuestionText),
 				new SqlParameter("@Question_Type", entity["add"].QuestionType),
 				new SqlParameter("@Question_Status", entity["add"].QuestionStatus),
@@ -115,10 +116,11 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				new SqlParameter("@Question_Text", entity["add"].QuestionText),
-				new SqlParameter("@Question_Type", entity["add"].QuestionType),
-				new SqlParameter("@Question_Status", entity["add"].QuestionStatus),
-				new SqlParameter("@NOVA_ID_FK", entity["add"].NovaIdFk)
+				new SqlParameter("@Question_ID", entity["change"].QuestionId),
+				new SqlParameter("@Question_Text", entity["change"].QuestionText),
+				new SqlParameter("@Question_Type", entity["change"].QuestionType),
+				new SqlParameter("@Question_Status", entity["change"].QuestionStatus),
+				new SqlParameter("@NOVA_ID_FK", entity["change"].NovaIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Question]", parameters);
 		}
