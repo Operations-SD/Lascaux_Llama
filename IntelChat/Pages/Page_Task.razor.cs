@@ -159,7 +159,7 @@ namespace IntelChat.Pages
 					PodIdFk = reader.GetInt32(14),
 					TaskSeq = reader.GetInt16(15),
 					TaskParent = reader.GetInt32(16),
-					TaskUrl = reader.GetInt32(17),
+					TaskUrl = !reader.IsDBNull(17) ? reader.GetInt32(17) : 0,
 					TaskTag = reader.GetString(18)
 				});
 			}

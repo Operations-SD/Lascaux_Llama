@@ -61,14 +61,14 @@ namespace IntelChat.Pages
 				new SqlParameter("@nova_description", entity["add"].NovaDescription),
 				new SqlParameter("@nova_type", entity["add"].NovaType),
 				new SqlParameter("@nova_channel", entity["add"].NovaChannel),
-				new SqlParameter("@subject", entity["add"].NovaSubject),
-				new SqlParameter("@action", entity["add"].NovaAction),
-				new SqlParameter("@object", entity["add"].NovaObject),
-				new SqlParameter("@datetime", entity["add"].NovaDatetime),
+				new SqlParameter("@nova_subject", entity["add"].NovaSubject),
+				new SqlParameter("@nova_action", entity["add"].NovaAction),
+				new SqlParameter("@nova_object", entity["add"].NovaObject),
+				new SqlParameter("@nova_datetime", entity["add"].NovaDatetime),
 				new SqlParameter("@pod", entity["add"].PodIdFk),
 				new SqlParameter("@person_id_fk", entity["add"].PersonIdFk),
-				new SqlParameter("@priority", entity["add"].NovaPrioriy),
-				new SqlParameter("@label", entity["add"].NovaLabel),
+				new SqlParameter("@nova_priority", entity["add"].NovaPrioriy),
+				new SqlParameter("@nova_label", entity["add"].NovaLabel),
 				new SqlParameter("@nova_tag", entity["add"].NovaTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);
@@ -143,14 +143,13 @@ namespace IntelChat.Pages
 					new SqlParameter("@nova_status", entity["change"].NovaStatus),
 					new SqlParameter("@nova_type", entity["change"].NovaType),
 					new SqlParameter("@nova_channel", entity["change"].NovaChannel),
-					new SqlParameter("@subject", entity["change"].NovaSubject),
-					new SqlParameter("@action", entity["change"].NovaAction),
-					new SqlParameter("@object", entity["change"].NovaObject),
-					new SqlParameter("@datetime", entity["change"].NovaDatetime),
-					new SqlParameter("@pod", entity["change"].PodIdFk),
+					new SqlParameter("@nova_subject", entity["change"].NovaSubject),
+					new SqlParameter("@nova_action", entity["change"].NovaAction),
+					new SqlParameter("@nova_object", entity["change"].NovaObject),
+					new SqlParameter("@nova_datetime", entity["change"].NovaDatetime),
 					new SqlParameter("@person_id_fk", entity["change"].PersonIdFk),
-					new SqlParameter("@priority", entity["change"].NovaPrioriy),
-					new SqlParameter("@label", entity["change"].NovaLabel),
+					new SqlParameter("@nova_priority", entity["change"].NovaPrioriy),
+					new SqlParameter("@nova_label", entity["change"].NovaLabel),
 					new SqlParameter("@nova_tag", entity["change"].NovaTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_NOVA]", parameters);

@@ -65,7 +65,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@dt_origin", entity["add"].GuideDtOrgin),
 				new SqlParameter("@dt_revision", entity["add"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["add"].ProgramIdFk)
+				new SqlParameter("@Program_ID_FK", entity["add"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}
@@ -139,7 +139,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@dt_origin", entity["change"].GuideDtOrgin),
 				new SqlParameter("@dt_revision", entity["change"].GuideDtRevision),
 				new SqlParameter("@nova_id_fk", entity["change"].NovaIdFk),
-				new SqlParameter("@program_fk", entity["change"].ProgramIdFk)
+				new SqlParameter("@Program_ID_FK", entity["change"].ProgramIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Guide]", parameters);
 		}
