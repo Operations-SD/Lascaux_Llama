@@ -101,7 +101,7 @@
 			<img id="img-panel-shadow-black" src="https://agineuralnet.blob.core.windows.net/panels/Panel_Shadow.png">
 		</div>
 
-		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid+"&type=TASK"))" title="Create TEMP file from DD list - Page_Lascaux"
+		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Lascaux?pod="+pod+"&pid="+pid+"&type=NOVA"))" title="Create TEMP file from DD list - Page_Lascaux"
 				style="z-index:2;position:absolute;left:340px;top:240px;height:60px;border:0px;width:140px;color:darkred">
 			Lascaux
 		</button>
@@ -126,6 +126,16 @@
 					</select>
 				</label>
 			</div>
+
+			@{
+				// Filter the entities based on the selected value
+				var filteredEntities = (filter["list"] == "****")
+					? entities
+					: entities.Where(entity => entity.NovaType == filter["list"]);
+
+				Page_Task.novaT.novaParamValue = string.Join(",", filteredEntities.Select(entity => entity.NovaId));
+				//Console.WriteLine($"Filtered NovaIdFk values Work: {Page_Task.novaT.novaParamValue}");
+			}
 
 			<table id="listTable">
 				@*A "table" (really a list) of all records of the same type as selected table crud value*@
