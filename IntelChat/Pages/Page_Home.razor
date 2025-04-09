@@ -75,7 +75,7 @@
         box-sizing: border-box;
         border: 2px solid #cccccc;
         border-radius: 4px;
-        color:black
+        color:red
         font-size: 12px;
     }
 
@@ -337,10 +337,13 @@
 					<Media_Video></Media_Video>
 				</div>
 			}
-			@if (show == "audio")
+
+
+			<!-- ************** this ref points to a page name not a routing code ******************************* -->
+			@if (show == "intro")
 			{
 				<div style="z-index:1;width:500px;height:500px;top:200px;">
-					<Media_Audio></Media_Audio>
+					<Modal_Intro></Modal_Intro>
 				</div>
 			}
 			@if (show == "project")
@@ -389,8 +392,8 @@ else
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** Display POD information (from code) *************** -->
 	<!-- ************************************************************************************ -->
-	<p style="position:absolute;top:275px;left:500px;width:810px;height:400px;font-size:42px;text-align:center;font-family:serif;">@currentPod.PodDescription</p>
-	<p style="position:absolute;top:740px;left:490px;width:840px;height:070px;font-size:42px;text-align:center;font-family:serif;">@currentPod.PodLabel</p>
+	<p style="position:absolute;top:275px;left:500px;width:810px;height:400px;font-size:42px;text-align:center;font-family:serif;color:blanchedalmond">@currentPod.PodDescription</p>
+	<p style="position:absolute;top:740px;left:490px;width:840px;height:070px;font-size:42px;text-align:center;font-family:serif;color:blanchedalmond">@currentPod.PodLabel</p>
 
 
 	<!-- ************************************************************************************ -->
@@ -398,7 +401,7 @@ else
 	<!-- ************************************************************************************ -->
 	<button class ="home-btn" @onclick=NavigateToMenu style="position:absolute;top:888px;left:0100px;width:272px;height:116px;">Start As @role</button>
 	<button class ="home-btn" @onclick=ShowVideo      style="position:absolute;top:888px;left:0412px;width:272px;height:116px;">Video</button>
-	<button class ="home-btn" @onclick=ShowAudio      style="position:absolute;top:888px;left:0722px;width:272px;height:116px;">Audio</button>
+	<button class ="home-btn" @onclick=ShowIntro      style="position:absolute;top:888px;left:0722px;width:272px;height:116px;">Intro</button>
 	<button class ="home-btn" @onclick=ShowProject    style="position:absolute;top:888px;left:1032px;width:272px;height:116px;">Project</button>
 }
 

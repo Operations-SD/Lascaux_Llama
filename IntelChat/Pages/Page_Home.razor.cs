@@ -218,7 +218,7 @@ namespace IntelChat.Pages
 
 
 		public void ShowVideo() { ShowModal(); show = "video"; }
-		public void ShowAudio() { ShowModal(); show = "audio"; }
+		public void ShowIntro() { ShowModal(); show = "intro"; }
 		public void ShowProject() { ShowModal(); show = "project"; }
 
 		public void NavigateToMenu()
