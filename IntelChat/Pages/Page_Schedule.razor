@@ -297,7 +297,7 @@
     protected override async Task OnInitializedAsync()
     {
         //TODO - Decide on moving (some of) the lists to DbController ??????????????
-        CatMajorSet = DbController.LPMajor.Index();
+        //HS CatMajorSet = DbController.LPMajor.Index();
         DisplayNoDetails();
         MinorPk.Day = InitialDay; //InitialDay is a parameter from the URL; creating a separate variable to modify may be unnecessary
     }

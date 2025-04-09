@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IntelChat.Models;
-
+/*
 namespace IntelChat.Services
 {
     public class Brands1Controller : Controller
@@ -165,3 +165,4 @@ namespace IntelChat.Services
         }
     }
 }
+*/

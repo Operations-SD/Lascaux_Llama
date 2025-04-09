@@ -16,7 +16,7 @@ public partial class AppDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Brand> Brands { get; set; }
+   //HS public virtual DbSet<Brand> Brands { get; set; }
 
     public virtual DbSet<CatMajorSet> CatMajorSets { get; set; }
 
@@ -43,8 +43,9 @@ public partial class AppDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("name=DefaultConnection");
 
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    {   /*
         modelBuilder.Entity<Brand>(entity =>
         {
             entity.ToTable("Brand");
@@ -113,7 +114,7 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.PersonId)
                 .HasConstraintName("FK_Brand_Person");
         });
-
+    */
         modelBuilder.Entity<CatMajorSet>(entity =>
         {
             entity.HasKey(e => new { e.CatMajorSet1, e.CatMajor }).HasName("PK_Cat_Major_SetXXX");
