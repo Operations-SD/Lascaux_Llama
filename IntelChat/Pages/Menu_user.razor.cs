@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 using ThreadingTask = System.Threading.Tasks.Task;
 
 namespace IntelChat.Pages
@@ -25,11 +26,13 @@ namespace IntelChat.Pages
 		public int? pid { get; set; }
 
 		private List<Guide> entities = new List<Guide>();
+		private List<MyGuide> myGuides = new List<MyGuide>();
 		private string guideIdSelection = "";
 
 		protected override void OnInitialized()
 		{
 			LoadReadResults();
+			LoadReadResultsMyGuide();
 		}
 
 		private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
@@ -73,6 +76,27 @@ namespace IntelChat.Pages
 				});
 			}
 			reader.Close();
+		}
+
+		private void LoadReadResultsMyGuide(string status = "*")
+		{
+			string spName = "dbo.[Read_MY_Guide]";
+			using SqlConnection connection = new SqlConnection(_configuration.GetValue<string>("ConnectionStrings:DefaultConnection"));
+			using SqlCommand cmd = new SqlCommand(spName, connection);
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			connection.Open();
+			using SqlDataReader reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				myGuides.Add(new MyGuide
+				{
+					PersonIdFk = reader.GetInt32(0),
+					GuideIdFk = reader.GetInt32(1),
+					MyGuide1 = reader.GetString(6)
+				}); ;
+			}
+			connection.Close();
 		}
 
 	}

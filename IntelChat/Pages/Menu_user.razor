@@ -239,7 +239,15 @@
 		<!-- actual guide values -->
 		@foreach (var guide in entities)
 		{   // Loop through each guide and display their labels to be selected from
-			<option value="@guide.GuideId">@guide.GuideLabel</option>
+			@foreach (var MyGuide in myGuides)
+			{
+				if (MyGuide.PersonIdFk == pid && guide.GuideId == MyGuide.GuideIdFk && MyGuide.MyGuide1 == "B")
+				{
+					<option value="@guide.GuideId">@guide.GuideLabel</option>
+				}
+
+			}
+
 		}
 	</select>
 </div>
@@ -269,7 +277,15 @@
 		<!-- actual guide values -->
 		@foreach (var guide in entities)
 		{   // Loop through each guide and display their labels to be selected from
-			<option value="@guide.GuideId">@guide.GuideLabel</option>
+			@foreach (var MyGuide in myGuides)
+			{
+				if (MyGuide.PersonIdFk == pid && guide.GuideId == MyGuide.GuideIdFk && MyGuide.MyGuide1 == "M")
+				{
+					<option value="@guide.GuideId">@guide.GuideLabel</option>
+				}
+				
+			}
+			
 		}
 	</select>
 </div>
