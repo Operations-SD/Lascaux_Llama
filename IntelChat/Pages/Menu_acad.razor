@@ -8,7 +8,7 @@
 
 <style>
 	body {
-		background: url("https://agineuralnet.blob.core.windows.net/buttons/BG_Menu.png")no-repeat;
+		background: url("https://agineuralnet.blob.core.windows.net/background/BG_Menu.png")no-repeat;
 		background-size: 1920px 1080px;
 		background-position: left 0px top 0px;
 		min-height: 100vh;
@@ -34,6 +34,7 @@
 		<img src="https://agineuralnet.blob.core.windows.net/background/Banner_acad.png" />
 	</div>
 
+	@*
     <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
     <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
     <!-- ********************************** STEAMPUNK VIDEO ********************************* -->
@@ -42,29 +43,29 @@
 	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
 	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 	</div>
-
+	*@
 
 
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** TABLES ******************************************** -->
 	<!-- ************************************************************************************ -->
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Artifact?pod="+pod+"&pid="+pid))"
-			style="top:300px;left:320px;height:60px;width:200px;">
+			style="top:300px;left:345px;height:60px;width:240px;">
 		Artifact
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Artist?pod="+pod+"&pid="+pid))"
-			style="top:380px;left:320px;height:60px;width:200px;">
+			style="top:380px;left:345px;height:60px;width:240px;">
 		Artist
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Composition?pod="+pod+"&pid="+pid))"
-			style="top:460px;left:320px;height:60px;width:200px;">
+			style="top:460px;left:345px;height:60px;width:240px;">
 		Composition
 	</button>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Phase?pod="+pod+"&pid="+pid))"
-			style="top:540px;left:320px;height:60px;width:200px;">
+			style="top:540px;left:345px;height:60px;width:240px;">
 		Phase
 	</button>
 
