@@ -9,7 +9,7 @@ public partial class CfgWorkTask
 
     public short WorkLevel { get; set; }
 
-    public string WorkLabel32 { get; set; } = null!;
+    public string WorkLabel { get; set; } = null!;
 
     public int WorkId { get; set; }
 

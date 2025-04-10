@@ -13,7 +13,7 @@ public partial class ReportTaskWork
 
     public int WorkId { get; set; }
 
-    public string WorkLabel32 { get; set; } = null!;
+    public string WorkLabel { get; set; } = null!;
 
     public string WorkType { get; set; } = null!;
 

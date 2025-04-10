@@ -184,7 +184,7 @@ namespace IntelChat.Pages
 					TaskLabel32 = reader.GetString(1),
 					TaskType = reader.GetString(2),
 					WorkId = reader.GetInt32(3),
-					WorkLabel32 = reader.GetString(4),
+					WorkLabel = reader.GetString(4),
 					WorkType = reader.GetString(5),
 					WorkDescription = reader.GetString(6),
 					PodIdFk = reader.GetInt32(7)

@@ -358,21 +358,13 @@
 {
 	<QuickGrid Items="@works.FindAll(work => typeFilter == "" || typeFilter != "" && work.WorkType == typeFilter).AsQueryable()" Virtualize="true" class="table-divider">
 		<PropertyColumn Property="@(p => p.WorkId)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkLabel32)" Sortable="true" />
+		<PropertyColumn Property="@(p => p.WorkLabel)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.WorkType)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.WorkStatus)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkLevel)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.WorkDescription)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkDuration)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkStart)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkFinish)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkEntryData)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.PersonIdFk)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.NovaIdFk)" Sortable="true" />
 		<PropertyColumn Property="@(p => p.TaskIdFk)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.PodCounterWork)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkStartDate)" Sortable="true" />
-		<PropertyColumn Property="@(p => p.WorkFinishDate)" Sortable="true" />
 	</QuickGrid>
 }
 </div>

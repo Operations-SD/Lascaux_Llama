@@ -58,21 +58,13 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
-				new SqlParameter("@Work_label32", entity["add"].WorkLabel32),
+				new SqlParameter("@Work_label", entity["add"].WorkLabel),
 				new SqlParameter("@Work_type", entity["add"].WorkType),
 				new SqlParameter("@Work_status", entity["add"].WorkStatus),
-				new SqlParameter("@Work_level", entity["add"].WorkLevel),
 				new SqlParameter("@Work_description", entity["add"].WorkDescription),
-				new SqlParameter("@Work_duration", entity["add"].WorkDuration),
-				new SqlParameter("@Work_start", entity["add"].WorkStart),
-				new SqlParameter("@Work_finish", entity["add"].WorkFinish),
-				new SqlParameter("@Work_entry_data", entity["add"].WorkEntryData),
 				new SqlParameter("@Person_ID_FK", entity["add"].PersonIdFk),
 				new SqlParameter("@NOVA_ID_FK", entity["add"].NovaIdFk),
-				new SqlParameter("@Task_ID_FK", entity["add"].TaskIdFk),
-				new SqlParameter("@POD_Counter_Work", entity["add"].PodCounterWork),
-				new SqlParameter("@Work_start_date", entity["add"].WorkStartDate),
-				new SqlParameter("@Work_finish_date", entity["add"].WorkFinishDate)
+				new SqlParameter("@Task_ID_FK", entity["add"].TaskIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Work]", parameters);
 		}
@@ -105,21 +97,13 @@ namespace IntelChat.Pages
 				entities.Add(new Work
 				{
 					WorkId = reader.GetInt32(0),
-					WorkLabel32 = reader.GetString(1),
+					WorkLabel = reader.GetString(1),
 					WorkType = reader.GetString(2),
 					WorkStatus = reader.GetString(3),
-					WorkLevel = reader.GetInt16(4),
-					WorkDescription = reader.GetString(5),
-					WorkDuration = reader.GetInt16(6),
-					WorkStart = reader.GetInt16(7),
-					WorkFinish = reader.GetInt16(8),
-					WorkEntryData = reader.GetDateTime(9),
-					PersonIdFk = reader.GetInt32(10),
-					NovaIdFk = reader.GetInt32(11),
-					TaskIdFk = reader.GetInt32(12),
-					PodCounterWork = reader.GetInt16(13),
-					WorkStartDate = reader.GetDateTime(14),
-					WorkFinishDate = reader.GetDateTime(15)
+					WorkDescription = reader.GetString(4),
+					PersonIdFk = reader.GetInt32(9),
+					NovaIdFk = reader.GetInt32(12),
+					TaskIdFk = reader.GetInt32(11),
 				});
 			}
 			reader.Close();
@@ -143,23 +127,15 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				new SqlParameter("@id", entity["change"].WorkId),
+				new SqlParameter("@Work_ID", entity["change"].WorkId),
 				new SqlParameter("@pod", pod),
-				new SqlParameter("@Work_label32", entity["change"].WorkLabel32),
+				new SqlParameter("@Work_label", entity["change"].WorkLabel),
 				new SqlParameter("@Work_type", entity["change"].WorkType),
 				new SqlParameter("@Work_status", entity["change"].WorkStatus),
-				new SqlParameter("@Work_level", entity["change"].WorkLevel),
 				new SqlParameter("@Work_description", entity["change"].WorkDescription),
-				new SqlParameter("@Work_duration", entity["change"].WorkDuration),
-				new SqlParameter("@Work_start", entity["change"].WorkStart),
-				new SqlParameter("@Work_finish", entity["change"].WorkFinish),
-				new SqlParameter("@Work_entry_data", entity["change"].WorkEntryData),
 				new SqlParameter("@Person_ID_FK", entity["change"].PersonIdFk),
 				new SqlParameter("@NOVA_ID_FK", entity["change"].NovaIdFk),
 				new SqlParameter("@Task_ID_FK", entity["change"].TaskIdFk),
-				new SqlParameter("@POD_Counter_Work", entity["change"].PodCounterWork),
-				new SqlParameter("@Work_start_date", entity["change"].WorkStartDate),
-				new SqlParameter("@Work_finish_date", entity["change"].WorkFinishDate)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Work]", parameters);
 		}

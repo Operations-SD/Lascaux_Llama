@@ -27,6 +27,8 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<Brand> Brands { get; set; }
 
+    public virtual DbSet<CatMajorSet> CatMajorSets { get; set; }
+
     public virtual DbSet<CertTaskNova> CertTaskNovas { get; set; }
 
     public virtual DbSet<CfgGuideInterview> CfgGuideInterviews { get; set; }
@@ -59,6 +61,14 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<Guide> Guides { get; set; }
 
+    public virtual DbSet<HsBrand> HsBrands { get; set; }
+
+    public virtual DbSet<HsNovaObject> HsNovaObjects { get; set; }
+
+    public virtual DbSet<HsNovaVerb> HsNovaVerbs { get; set; }
+
+    public virtual DbSet<HsPerson> HsPeople { get; set; }
+
     public virtual DbSet<Ingrediance> Ingrediances { get; set; }
 
     public virtual DbSet<Interview> Interviews { get; set; }
@@ -80,6 +90,10 @@ public partial class NnetDbContext : DbContext
     public virtual DbSet<Location> Locations { get; set; }
 
     public virtual DbSet<Logue> Logues { get; set; }
+
+    public virtual DbSet<LpMajor> LpMajors { get; set; }
+
+    public virtual DbSet<LpMinor> LpMinors { get; set; }
 
     public virtual DbSet<MapPerson> MapPeople { get; set; }
 
@@ -149,7 +163,17 @@ public partial class NnetDbContext : DbContext
 
     public virtual DbSet<View1> View1s { get; set; }
 
+    public virtual DbSet<ViewSlot> ViewSlots { get; set; }
+
+    public virtual DbSet<WeekCalendar> WeekCalendars { get; set; }
+
+    public virtual DbSet<WeekMyTimeslot> WeekMyTimeslots { get; set; }
+
+    public virtual DbSet<WkMyTimeslot> WkMyTimeslots { get; set; }
+
     public virtual DbSet<Work> Works { get; set; }
+
+    public virtual DbSet<WorkArchive> WorkArchives { get; set; }
 
     public virtual DbSet<XnovaDictionaryTask> XnovaDictionaryTasks { get; set; }
 
@@ -403,6 +427,29 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.UrlIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("URL_ID_FK");
+        });
+
+        modelBuilder.Entity<CatMajorSet>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Cat_Major_Set");
+
+            entity.Property(e => e.CatMajor).HasColumnName("Cat_Major#");
+            entity.Property(e => e.CatMajorSet1).HasColumnName("Cat_Major_Set");
+            entity.Property(e => e.CatMajorSetLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Cat_Major_Set_Label");
+            entity.Property(e => e.CatMajorSetSeq).HasColumnName("Cat_Major_Set_seq");
+            entity.Property(e => e.CatMajorSetStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Cat_Major_Set_status");
+            entity.Property(e => e.CatMajorSetType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Cat_Major_Set_type");
         });
 
         modelBuilder.Entity<CertTaskNova>(entity =>
@@ -877,6 +924,156 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("URL_ID_FK");
         });
 
+        modelBuilder.Entity<HsBrand>(entity =>
+        {
+            entity.HasKey(e => e.Brandid);
+
+            entity.ToTable("HS_Brand");
+
+            entity.Property(e => e.ActiveGuideId).HasColumnName("Active_Guide_ID");
+            entity.Property(e => e.BrandImage)
+                .HasMaxLength(128)
+                .HasColumnName("Brand_Image");
+            entity.Property(e => e.BrandLink).HasMaxLength(42);
+            entity.Property(e => e.BrandName).HasMaxLength(42);
+            entity.Property(e => e.ChannelAlpha)
+                .HasMaxLength(9)
+                .HasColumnName("Channel_Alpha");
+            entity.Property(e => e.ChannelBeta)
+                .HasMaxLength(4)
+                .HasColumnName("Channel_Beta");
+            entity.Property(e => e.ChannelGamma)
+                .HasMaxLength(4)
+                .HasColumnName("Channel_Gamma");
+            entity.Property(e => e.CntMax).HasColumnName("Cnt_Max");
+            entity.Property(e => e.CntReg).HasColumnName("Cnt_Reg");
+            entity.Property(e => e.Cost).HasColumnType("money");
+            entity.Property(e => e.LocationId).HasColumnName("Location_ID");
+            entity.Property(e => e.MenuLock)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("Menu_Lock");
+            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
+            entity.Property(e => e.ProgramId).HasColumnName("Program_ID");
+            entity.Property(e => e.RegDateClosed)
+                .HasColumnType("smalldatetime")
+                .HasColumnName("Reg_Date_Closed");
+            entity.Property(e => e.ScopeLock).HasColumnName("Scope_Lock");
+            entity.Property(e => e.Status).HasMaxLength(1);
+        });
+
+        modelBuilder.Entity<HsNovaObject>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("HS_NOVA_object");
+
+            entity.Property(e => e.NounLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Noun_label");
+            entity.Property(e => e.NovaAction).HasColumnName("NOVA_action");
+            entity.Property(e => e.NovaChannel).HasColumnName("NOVA_channel");
+            entity.Property(e => e.NovaDescription)
+                .HasMaxLength(1024)
+                .HasColumnName("NOVA_description");
+            entity.Property(e => e.NovaId).HasColumnName("NOVA_ID");
+            entity.Property(e => e.NovaObject).HasColumnName("NOVA_object");
+            entity.Property(e => e.NovaStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("NOVA_status");
+            entity.Property(e => e.NovaSubject).HasColumnName("NOVA_subject");
+            entity.Property(e => e.NovaType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("NOVA_type");
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+        });
+
+        modelBuilder.Entity<HsNovaVerb>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("HS_NOVA_verb");
+
+            entity.Property(e => e.NovaAction).HasColumnName("NOVA_action");
+            entity.Property(e => e.NovaDescription)
+                .HasMaxLength(1024)
+                .HasColumnName("NOVA_description");
+            entity.Property(e => e.NovaId).HasColumnName("NOVA_ID");
+            entity.Property(e => e.NovaObject).HasColumnName("NOVA_object");
+            entity.Property(e => e.NovaStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("NOVA_status");
+            entity.Property(e => e.NovaSubject).HasColumnName("NOVA_subject");
+            entity.Property(e => e.NovaTag)
+                .HasMaxLength(1000)
+                .HasColumnName("NOVA_tag");
+            entity.Property(e => e.NovaType)
+                .HasMaxLength(4)
+                .IsFixedLength()
+                .HasColumnName("NOVA_type");
+            entity.Property(e => e.PodIdFk).HasColumnName("POD_ID_FK");
+            entity.Property(e => e.VerbId).HasColumnName("Verb_ID");
+            entity.Property(e => e.VerbLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("Verb_label");
+        });
+
+        modelBuilder.Entity<HsPerson>(entity =>
+        {
+            entity.HasKey(e => e.PersonId).HasName("PK_HS_Person2");
+
+            entity.ToTable("HS_Person");
+
+            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
+            entity.Property(e => e.AccountId)
+                .HasDefaultValue(0)
+                .HasColumnName("Account_ID");
+            entity.Property(e => e.DateEntry)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("Date_entry");
+            entity.Property(e => e.Host)
+                .HasDefaultValue(false)
+                .HasColumnName("host");
+            entity.Property(e => e.LocationId)
+                .HasDefaultValue(0)
+                .HasColumnName("Location_ID");
+            entity.Property(e => e.NameFirst)
+                .HasMaxLength(32)
+                .HasDefaultValue("first")
+                .HasColumnName("name_first");
+            entity.Property(e => e.NameLast)
+                .HasMaxLength(32)
+                .HasDefaultValue("last")
+                .HasColumnName("name_last");
+            entity.Property(e => e.OnLine)
+                .HasDefaultValue(false)
+                .HasColumnName("On_Line");
+            entity.Property(e => e.Person).HasMaxLength(450);
+            entity.Property(e => e.PersonPw)
+                .HasMaxLength(12)
+                .HasDefaultValue("password")
+                .HasColumnName("Person_PW");
+            entity.Property(e => e.SsmaTimeStamp)
+                .IsRowVersion()
+                .IsConcurrencyToken()
+                .HasColumnName("SSMA_TimeStamp");
+            entity.Property(e => e.Status)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .HasColumnName("status");
+            entity.Property(e => e.Type)
+                .HasMaxLength(9)
+                .HasDefaultValue("user")
+                .HasComment("\"branded role\" to determine home menu person is locked into")
+                .HasColumnName("type");
+        });
+
         modelBuilder.Entity<Ingrediance>(entity =>
         {
             entity.HasKey(e => e.NounIdFk);
@@ -1319,6 +1516,78 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("command");
         });
 
+        modelBuilder.Entity<LpMajor>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("LP_Major");
+
+            entity.Property(e => e.LpMajorDesc)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("LP_Major_desc");
+            entity.Property(e => e.LpMajorDtime)
+                .HasColumnType("smalldatetime")
+                .HasColumnName("LP_Major_Dtime");
+            entity.Property(e => e.LpMajorId).HasColumnName("LP_Major_ID");
+            entity.Property(e => e.LpMajorLabel)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("LP_Major_label");
+            entity.Property(e => e.LpMajorRgb)
+                .HasMaxLength(7)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("LP_Major_RGB");
+            entity.Property(e => e.LpMajorSeq).HasColumnName("LP_Major_seq");
+            entity.Property(e => e.LpMajorStatus)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("LP_Major_status");
+            entity.Property(e => e.LpMajorType)
+                .HasMaxLength(4)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("LP_Major_type");
+            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
+        });
+
+        modelBuilder.Entity<LpMinor>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("LP_Minor");
+
+            entity.Property(e => e.LpMajorId).HasColumnName("LP_Major_ID");
+            entity.Property(e => e.LpMinorAvoid).HasColumnName("LP_Minor_avoid");
+            entity.Property(e => e.LpMinorDesc)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("LP_Minor_desc");
+            entity.Property(e => e.LpMinorDtime)
+                .HasColumnType("smalldatetime")
+                .HasColumnName("LP_Minor_Dtime");
+            entity.Property(e => e.LpMinorId).HasColumnName("LP_Minor_ID");
+            entity.Property(e => e.LpMinorLabel)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("LP_Minor_label");
+            entity.Property(e => e.LpMinorPersue).HasColumnName("LP_Minor_persue");
+            entity.Property(e => e.LpMinorStatus)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("LP_Minor_status");
+            entity.Property(e => e.LpMinorType)
+                .HasMaxLength(4)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("LP_Minor_type");
+        });
+
         modelBuilder.Entity<MapPerson>(entity =>
         {
             entity
@@ -1398,6 +1667,9 @@ public partial class NnetDbContext : DbContext
             entity.Property(e => e.MemoDtOriginal)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("Memo_DT_original");
+            entity.Property(e => e.MemoImage)
+                .IsUnicode(false)
+                .HasColumnName("memo_image");
             entity.Property(e => e.MemoMessage)
                 .HasMaxLength(1024)
                 .HasDefaultValue("message")
@@ -1656,7 +1928,7 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("NOVA_tag");
             entity.Property(e => e.NovaType)
                 .HasMaxLength(4)
-                .HasDefaultValue("time")
+                .HasDefaultValue("SVO")
                 .IsFixedLength()
                 .HasColumnName("NOVA_type");
             entity.Property(e => e.PersonIdFk)
@@ -2567,49 +2839,149 @@ public partial class NnetDbContext : DbContext
                 .HasColumnName("Pype_type");
         });
 
-       modelBuilder.Entity<Work>(entity =>
+        modelBuilder.Entity<ViewSlot>(entity =>
         {
+            entity
+                .HasNoKey()
+                .ToView("View_Slot");
+
+            entity.Property(e => e.IdPersonFk).HasColumnName("ID_Person_FK");
+            entity.Property(e => e.NovaDescription)
+                .HasMaxLength(1024)
+                .HasColumnName("NOVA_description");
+            entity.Property(e => e.NovaIdFk).HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.NovaLabel)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasColumnName("NOVA_label");
+            entity.Property(e => e.PodDescription)
+                .HasMaxLength(255)
+                .HasColumnName("POD_description");
+            entity.Property(e => e.PodLabel)
+                .HasMaxLength(16)
+                .HasColumnName("POD_label");
+            entity.Property(e => e.PodRgb)
+                .HasMaxLength(7)
+                .IsFixedLength()
+                .HasColumnName("POD_RGB");
+            entity.Property(e => e.TimeAlarmOffset).HasColumnName("Time_Alarm_offset");
+            entity.Property(e => e.TimeCalendarWeekId).HasColumnName("Time_Calendar_Week_ID");
+            entity.Property(e => e.TimeDay).HasColumnName("Time_Day");
+            entity.Property(e => e.TimeObjectFactor).HasColumnName("Time_Object_Factor");
+            entity.Property(e => e.TimeOffset).HasColumnName("Time_Offset");
+            entity.Property(e => e.TimePriority).HasColumnName("Time_Priority");
+            entity.Property(e => e.TimeStatus)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("Time_Status");
+            entity.Property(e => e.TimeTimeslot).HasColumnName("Time_Timeslot");
+        });
+
+        modelBuilder.Entity<WeekCalendar>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Week_Calendar");
+
+            entity.Property(e => e.WeekCalendarDate).HasColumnName("Week_Calendar_Date");
+            entity.Property(e => e.WeekCalendarWeekId).HasColumnName("Week_Calendar_Week_ID");
+        });
+
+        modelBuilder.Entity<WeekMyTimeslot>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Week_MY_Timeslots");
+
+            entity.Property(e => e.PersonId).HasColumnName("Person_ID");
+            entity.Property(e => e.WeekActualFactor).HasColumnName("Week_Actual_Factor");
+            entity.Property(e => e.WeekAlarmOffset).HasColumnName("Week_Alarm_offset");
+            entity.Property(e => e.WeekCalendarWeekId).HasColumnName("Week_Calendar_Week_ID");
+            entity.Property(e => e.WeekCatMinorId).HasColumnName("Week_Cat_Minor_ID");
+            entity.Property(e => e.WeekDay).HasColumnName("Week_Day");
+            entity.Property(e => e.WeekDuration).HasColumnName("Week_Duration");
+            entity.Property(e => e.WeekMyNote)
+                .HasMaxLength(255)
+                .HasColumnName("Week_MY_note");
+            entity.Property(e => e.WeekOffset).HasColumnName("Week_Offset");
+            entity.Property(e => e.WeekPriority).HasColumnName("Week_Priority");
+            entity.Property(e => e.WeekStatus)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("Week_Status");
+            entity.Property(e => e.WeekTimeslot).HasColumnName("Week_Timeslot");
+        });
+
+        modelBuilder.Entity<WkMyTimeslot>(entity =>
+        {
+            entity.HasKey(e => new { e.IdPerson, e.TimeCalendarWeekId, e.TimeDay, e.TimeTimeslot, e.TimeCatMinorId }).HasName("PK_HS_WK_MY_timeslots");
+
+            entity.ToTable("WK_MY_timeslots");
+
+            entity.Property(e => e.IdPerson).HasColumnName("ID_Person");
+            entity.Property(e => e.TimeCalendarWeekId).HasColumnName("Time_Calendar_Week_ID");
+            entity.Property(e => e.TimeDay).HasColumnName("Time_Day");
+            entity.Property(e => e.TimeTimeslot).HasColumnName("Time_Timeslot");
+            entity.Property(e => e.TimeCatMinorId).HasColumnName("Time_Cat_Minor_ID");
+            entity.Property(e => e.TimeActualFactor).HasColumnName("Time_Actual_Factor");
+            entity.Property(e => e.TimeAlarmOffset).HasColumnName("Time_Alarm_offset");
+            entity.Property(e => e.TimeDuration).HasColumnName("Time_Duration");
+            entity.Property(e => e.TimeMyNote)
+                .HasMaxLength(255)
+                .HasColumnName("Time_MY_note");
+            entity.Property(e => e.TimeOffset).HasColumnName("Time_Offset");
+            entity.Property(e => e.TimePriority).HasColumnName("Time_Priority");
+            entity.Property(e => e.TimeStatus)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("Time_Status");
+        });
+
+        modelBuilder.Entity<Work>(entity =>
+        {
+            entity.HasKey(e => e.WorkId).HasName("PK_WorkCFG");
+
             entity.ToTable("Work");
 
             entity.Property(e => e.WorkId).HasColumnName("Work_ID");
+            entity.Property(e => e.GuideIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Guide_ID_FK");
             entity.Property(e => e.NovaIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("NOVA_ID_FK");
             entity.Property(e => e.PersonIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Person_ID_FK");
-            entity.Property(e => e.PodCounterWork).HasColumnName("POD_Counter_Work");
+            entity.Property(e => e.QuestionIdFk).HasColumnName("Question_ID_FK");
             entity.Property(e => e.TaskIdFk)
                 .HasDefaultValue(1)
                 .HasColumnName("Task_ID_FK");
             entity.Property(e => e.WorkDescription)
-                .HasMaxLength(255)
-                .HasDefaultValue("description of Task")
+                .HasMaxLength(1024)
+                .HasDefaultValue("text")
                 .HasColumnName("Work_description");
-            entity.Property(e => e.WorkDuration)
-                .HasDefaultValue((short)7)
-                .HasColumnName("Work_duration");
-            entity.Property(e => e.WorkEntryData)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnName("Work_entry_data");
-            entity.Property(e => e.WorkFinish)
-                .HasDefaultValue((short)1)
-                .HasColumnName("Work_finish");
-            entity.Property(e => e.WorkFinishDate)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnName("Work_finish_date");
-            entity.Property(e => e.WorkLabel32)
-                .HasMaxLength(32)
-                .HasDefaultValue("Task label extended32")
+            entity.Property(e => e.WorkIntR)
+                .HasDefaultValue((byte)5)
+                .HasColumnName("Work_int_R");
+            entity.Property(e => e.WorkIntS)
+                .HasDefaultValue((byte)4)
+                .HasColumnName("Work_int_S");
+            entity.Property(e => e.WorkLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label16")
                 .IsFixedLength()
-                .HasColumnName("Work_label32");
-            entity.Property(e => e.WorkLevel)
-                .HasDefaultValue((short)1)
-                .HasColumnName("Work_level");
-            entity.Property(e => e.WorkStart).HasColumnName("Work_start");
-            entity.Property(e => e.WorkStartDate)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnName("Work_start_date");
+                .HasColumnName("Work_label");
+            entity.Property(e => e.WorkSeq)
+                .HasDefaultValue((byte)1)
+                .HasColumnName("Work_seq");
+            entity.Property(e => e.WorkSkill)
+                .HasMaxLength(4)
+                .HasDefaultValue("Nnet")
+                .IsFixedLength()
+                .HasColumnName("Work_Skill");
             entity.Property(e => e.WorkStatus)
                 .HasMaxLength(1)
                 .HasDefaultValue("A")
@@ -2619,9 +2991,65 @@ public partial class NnetDbContext : DbContext
                 .HasMaxLength(1024)
                 .HasDefaultValue("tag")
                 .HasColumnName("Work_tag");
+            entity.Property(e => e.WorkTimeUnits)
+                .HasDefaultValue((short)1)
+                .HasColumnName("Work_time_units");
             entity.Property(e => e.WorkType)
                 .HasMaxLength(4)
-                .HasDefaultValue("task")
+                .HasDefaultValue("work")
+                .IsFixedLength()
+                .HasColumnName("Work_type");
+        });
+
+        modelBuilder.Entity<WorkArchive>(entity =>
+        {
+            entity.HasKey(e => e.WorkId).HasName("PK_Work_1");
+
+            entity.ToTable("Work_archive");
+
+            entity.Property(e => e.WorkId).HasColumnName("Work_ID");
+            entity.Property(e => e.GuideIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Guide_ID_FK");
+            entity.Property(e => e.NovaIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("NOVA_ID_FK");
+            entity.Property(e => e.QuestionIdFk).HasColumnName("Question_ID_FK");
+            entity.Property(e => e.TaskIdFk)
+                .HasDefaultValue(1)
+                .HasColumnName("Task_ID_FK");
+            entity.Property(e => e.WorkIntR)
+                .HasDefaultValue((byte)5)
+                .HasColumnName("Work_int_R");
+            entity.Property(e => e.WorkIntS)
+                .HasDefaultValue((byte)4)
+                .HasColumnName("Work_int_S");
+            entity.Property(e => e.WorkLabel)
+                .HasMaxLength(16)
+                .HasDefaultValue("label16")
+                .IsFixedLength()
+                .HasColumnName("Work_label");
+            entity.Property(e => e.WorkRole)
+                .HasMaxLength(4)
+                .HasDefaultValue("Nnet")
+                .IsFixedLength()
+                .HasColumnName("Work_Role");
+            entity.Property(e => e.WorkStatus)
+                .HasMaxLength(1)
+                .HasDefaultValue("A")
+                .IsFixedLength()
+                .HasColumnName("Work_status");
+            entity.Property(e => e.WorkTag)
+                .HasMaxLength(1024)
+                .HasDefaultValue("tag")
+                .HasColumnName("Work_tag");
+            entity.Property(e => e.WorkText)
+                .HasMaxLength(255)
+                .HasDefaultValue("text")
+                .HasColumnName("Work_text");
+            entity.Property(e => e.WorkType)
+                .HasMaxLength(4)
+                .HasDefaultValue("work")
                 .IsFixedLength()
                 .HasColumnName("Work_type");
         });

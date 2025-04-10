@@ -536,21 +536,13 @@ namespace IntelChat.Pages
 				works.Add(new Work
 				{
 					WorkId = reader.GetInt32(0),
-					WorkLabel32 = reader.GetString(1),
+					WorkLabel = reader.GetString(1),
 					WorkType = reader.GetString(2),
 					WorkStatus = reader.GetString(3),
-					WorkLevel = reader.GetInt16(4),
-					WorkDescription = reader.GetString(5),
-					WorkDuration = reader.GetInt16(6),
-					WorkStart = reader.GetInt16(7),
-					WorkFinish = reader.GetInt16(8),
-					WorkEntryData = reader.GetDateTime(9),
-					PersonIdFk = reader.GetInt32(10),
-					NovaIdFk = reader.GetInt32(11),
-					TaskIdFk = reader.GetInt32(12),
-					PodCounterWork = reader.GetInt16(13),
-					WorkStartDate = reader.GetDateTime(14),
-					WorkFinishDate = reader.GetDateTime(15)
+					WorkDescription = reader.GetString(4),
+					PersonIdFk = reader.GetInt32(9),
+					NovaIdFk = reader.GetInt32(12),
+					TaskIdFk = reader.GetInt32(11),
 				});
 			}
 			reader.Close();

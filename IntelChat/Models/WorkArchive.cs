@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IntelChat.Models;
 
-public partial class Work
+public partial class WorkArchive
 {
     public int WorkId { get; set; }
 
@@ -13,27 +13,21 @@ public partial class Work
 
     public string WorkStatus { get; set; } = null!;
 
-    public string WorkDescription { get; set; } = null!;
+    public string WorkRole { get; set; } = null!;
 
-    public int GuideIdFk { get; set; }
-
-    public int QuestionIdFk { get; set; }
+    public string WorkText { get; set; } = null!;
 
     public byte WorkIntR { get; set; }
 
     public byte WorkIntS { get; set; }
 
-    public int PersonIdFk { get; set; }
-
-    public string WorkSkill { get; set; } = null!;
+    public int QuestionIdFk { get; set; }
 
     public int TaskIdFk { get; set; }
+
+    public int GuideIdFk { get; set; }
 
     public int NovaIdFk { get; set; }
 
     public string WorkTag { get; set; } = null!;
-
-    public short WorkTimeUnits { get; set; }
-
-    public byte WorkSeq { get; set; }
 }
