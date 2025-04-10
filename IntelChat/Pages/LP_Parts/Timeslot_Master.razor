@@ -7,7 +7,7 @@
 @inject NavigationManager NavManager
 
 <head>
-     <link rel="stylesheet" type="text/css" href="Timeslot_Master.css">
+    <link href="Views/Timeslot_Master.css" rel="stylesheet" />
 </head>
 <div id="timeSlotOutermostContainer">
     @if (ShowControls)
@@ -150,19 +150,19 @@
     public void SetViewSlotInterface()
     {
         int arrSize = (ShowControls ? 8 : NumberOfCharts + 1);
-        List<ViewSlot> vstemp = DbController.LPSlot.Index(WeekSelection);
+        //HS List<ViewSlot> vstemp = DbController.LPSlot.Index(WeekSelection);
         vsi = new ViewSlotInterface[arrSize];
         for (int i = 1; i < arrSize; i++)
         {
             ///vsi[i] = new ViewSlotInterface(DbController.LPSlot.Index(WeekSelection), i);
-            vsi[i] = new ViewSlotInterface(vstemp, i);
+            //HS vsi[i] = new ViewSlotInterface(vstemp, i);
         }
     }
     //CHANGE - the parameter getting reset every update will probably break dbcontext concurrency
     public void UpdateViewSlotInterface()
     {
         int OriginalPos = vsi[DaySelection].Pos;
-        vsi[DaySelection] = new ViewSlotInterface(DbController.LPSlot.Index(WeekSelection), DaySelection);
+        //HS vsi[DaySelection] = new ViewSlotInterface(DbController.LPSlot.Index(WeekSelection), DaySelection);
         vsi[DaySelection].Pos = OriginalPos;
         Updatetl = false;
     }

@@ -66,15 +66,17 @@ namespace IntelChat.Services
                 dbTop._context.WeekMyTimeslots.Add(newts);
                 dbTop._context.SaveChanges();
             }
+            /* HS
             //DONE - SORT the entries by box day and slot. "lamba 2nd sorting order"
             public List<ViewSlot> Index(int week, int personID = 2)    //personID = 2 = test account's ID. temporary until multiuser support is needed
             {
                 ///return await ... ToListAsync()
                 return dbTop._context.ViewSlots.Where(v => v.WeekCalendarWeekId == week && v.PersonId == personID).OrderBy(o => o.WeekDay).ThenBy(o => o.WeekTimeslot).ToList();
             }
+            HS */
             public void Delete(int weekCalendarWeekId, int weekDay, int weekTimeslot, int weekOffset, int personId = 2)
             {
-                if (dbTop._context.ViewSlots == null) { return; }
+                // HS if (dbTop._context.ViewSlots == null) { return; }
                 //DONE - To have multiple acitivies exist in a single time slot w/o causing problems, include LpMinor Label in the primary key
                 ///WeekMyTimeslot newts = new WeekMyTimeslot();
                 ///newts.BuildFromViewslot(viewSlot);
@@ -93,7 +95,7 @@ namespace IntelChat.Services
             }
             public void UpdateRaw(ViewSlot viewSlot)    //nexxyy
             {
-                if (dbTop._context.ViewSlots == null) { return; }
+                // HS if (dbTop._context.ViewSlots == null) { return; }
                 WeekMyTimeslot newts = new WeekMyTimeslot();
                 newts.BuildFromViewslot(viewSlot);
 

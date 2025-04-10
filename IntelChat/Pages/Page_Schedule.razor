@@ -2,6 +2,8 @@
 @page "/Testing/5/6"
 
 @layout CustomLayout
+@using IntelChat.Pages.LP_Parts
+@using IntelChat.Data
 @using Microsoft.AspNetCore.Components.Web
 @using IntelChat.Models
 @using IntelChat.Services
@@ -297,7 +299,7 @@
     protected override async Task OnInitializedAsync()
     {
         //TODO - Decide on moving (some of) the lists to DbController ??????????????
-        //HS CatMajorSet = DbController.LPMajor.Index();
+        CatMajorSet = DbController.LPMajor.Index();
         DisplayNoDetails();
         MinorPk.Day = InitialDay; //InitialDay is a parameter from the URL; creating a separate variable to modify may be unnecessary
     }
@@ -468,4 +470,12 @@
             ShowErrorPopup = "none";
         }
     }
+
+    private List<LpMajor> MyMajors = new()
+    {
+        new LpMajor { LpMajorLabel = "Test A" },
+        new LpMajor { LpMajorLabel = "Test B" },
+        new LpMajor { LpMajorLabel = "Test C" },
+        new LpMajor { LpMajorLabel = "Test D" },
+    };
 }

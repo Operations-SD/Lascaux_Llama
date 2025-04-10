@@ -85,5 +85,20 @@
             }
     }*/
 
+    // HS
+    protected override void OnInitialized()
+    {
+        if (vsi == null)
+        {
+            var dummySlotList = new List<ViewSlot>
+            {
+                new ViewSlot { WeekDay = 1, WeekTimeslot = 0, LpMajorLabel = "Math" },
+                new ViewSlot { WeekDay = 1, WeekTimeslot = 1, LpMajorLabel = "Science" },
+                new ViewSlot { WeekDay = 1, WeekTimeslot = 2, LpMajorLabel = "English" }
+            };
+
+            vsi = new ViewSlotInterface(dummySlotList, daySelection: 1);
+        }
+    }
 
 }

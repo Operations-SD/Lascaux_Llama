@@ -16,7 +16,7 @@ public partial class AppDbContext : DbContext
     {
     }
 
-   //HS public virtual DbSet<Brand> Brands { get; set; }
+    public virtual DbSet<Brand> Brands { get; set; }
 
     public virtual DbSet<CatMajorSet> CatMajorSets { get; set; }
 
@@ -30,7 +30,7 @@ public partial class AppDbContext : DbContext
     
     public virtual DbSet<Person> People { get; set; }
 
-    public virtual DbSet<ViewSlot> ViewSlots { get; set; }
+    // HS public virtual DbSet<ViewSlot> ViewSlots { get; set; }
 
     public virtual DbSet<ViewTimeslot> ViewTimeslots { get; set; }
 
@@ -45,9 +45,11 @@ public partial class AppDbContext : DbContext
 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {   /*
+    {   
         modelBuilder.Entity<Brand>(entity =>
         {
+            entity.HasKey(e => e.BrandId); 
+
             entity.ToTable("Brand");
 
             entity.Property(e => e.ActiveGuideId)
@@ -114,7 +116,7 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.PersonId)
                 .HasConstraintName("FK_Brand_Person");
         });
-    */
+
         modelBuilder.Entity<CatMajorSet>(entity =>
         {
             entity.HasKey(e => new { e.CatMajorSet1, e.CatMajor }).HasName("PK_Cat_Major_SetXXX");
@@ -358,7 +360,7 @@ public partial class AppDbContext : DbContext
                 .HasComment("\"branded role\" to determine home menu person is locked into")
                 .HasColumnName("type");
         });
-
+        /* HS
         modelBuilder.Entity<ViewSlot>(entity =>
         {
             entity
@@ -404,7 +406,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("Week_Status");
             entity.Property(e => e.WeekTimeslot).HasColumnName("Week_Timeslot");
         });
-
+        HS */
         modelBuilder.Entity<ViewTimeslot>(entity =>
         {
             entity
