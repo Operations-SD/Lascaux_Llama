@@ -153,7 +153,7 @@
 							<td>@entity.WorkId</td>
 							<td>@entity.WorkStatus</td>
 							<td>@entity.WorkType</td>
-							<td>@entity.WorkLabel32</td>
+							<td>@entity.WorkLabel</td>
 							<td>@entity.WorkDescription</td>
 						</tr>
 					}
@@ -187,7 +187,7 @@
 
 					<label>
 						Label:
-						<input class="form-control" @bind="@entity["add"].WorkLabel32" maxlength="32" required />
+						<input class="form-control" @bind="@entity["add"].WorkLabel" maxlength="32" required />
 					</label><br><br>
 
 				</div>
@@ -221,31 +221,7 @@
 						Description:
 						<input class="form-control" @bind="@entity["add"].WorkDescription" maxlength="255" required />
 					</label><br><br>
-
-					<label>
-						Level:
-						<input class="form-control" @bind="@entity["add"].WorkLevel" required />
-					</label><br><br>
-
-					<label>
-						Duration:
-						<input class="form-control" @bind="@entity["add"].WorkDuration" maxlength="16" required />
-					</label><br><br>
-
-					<label>
-						Work Start  :
-						<input class="form-control" @bind="@entity["add"].WorkStart" maxlength="16" required />
-					</label><br><br>
-
-					<label>
-						Work Finish :
-						<input class="form-control" @bind="@entity["add"].WorkFinish" maxlength="16"/>
-					</label><br><br>
-
-					<label>
-						Work Entry Date:
-						<input type="date" class="form-control" @bind="@entity["add"].WorkEntryData" required />
-					</label><br><br>
+					
 
 					<label>
 						Person ID FK:
@@ -261,21 +237,7 @@
 						Task ID FK:
 						<input class="form-control" @bind="@entity["add"].TaskIdFk" required />
 					</label><br><br>
-
-					<label>
-						POD Counter Work:
-						<input class="form-control" @bind="@entity["add"].PodCounterWork" required />
-					</label><br><br>
-
-					<label>
-						Work Start Date:
-						<input type="date" class="form-control" @bind="@entity["add"].WorkStartDate" required />
-					</label><br><br>
-
-					<label>
-						Work Finish Date:
-						<input type="date" class="form-control" @bind="@entity["add"].WorkFinishDate" required />
-					</label><br><br>
+					
 				</div>
 			</form>
 		</div>
@@ -314,7 +276,7 @@
 							<select class="form-control" value="@entity["change"].WorkId" @onchange="@(e => { var id = Int32.Parse(e.Value.ToString()); AutoFill(id, "change"); })">
 								@foreach (var entity in (filter["change"] == "****") ? entities : entities.Where(entity => entity.WorkType == filter["change"]))
 								{
-									<option value="@entity.WorkId"> @entity.WorkLabel32</option>
+									<option value="@entity.WorkId"> @entity.WorkLabel</option>
 								}
 							</select>
 						</label>
@@ -328,7 +290,7 @@
 				<div class="exhibitInfo" style="overflow-y:scroll;">
 					<label>
 						Label:
-						<input class="form-control" @bind="@entity["change"].WorkLabel32" maxlength="32" required />
+						<input class="form-control" @bind="@entity["change"].WorkLabel" maxlength="32" required />
 					</label><br><br>
 				</div>
 
@@ -356,31 +318,7 @@
 						Description:
 						<input class="form-control" @bind="@entity["change"].WorkDescription" maxlength="255" required />
 					</label><br><br>
-
-					<label>
-						Level:
-						<input class="form-control" @bind="@entity["change"].WorkLevel" required />
-					</label><br><br>
-
-					<label>
-						Duration:
-						<input class="form-control" @bind="@entity["change"].WorkDuration" maxlength="16" required />
-					</label><br><br>
-
-					<label>
-						Work Start  :
-						<input class="form-control" @bind="@entity["change"].WorkStart" maxlength="16" required />
-					</label><br><br>
-
-					<label>
-						Work Finish :
-						<input class="form-control" @bind="@entity["change"].WorkFinish" maxlength="16" />
-					</label><br><br>
-
-					<label>
-						Work Entry Date:
-						<input type="date" class="form-control" @bind="@entity["change"].WorkEntryData" required />
-					</label><br><br>
+					
 
 					<label>
 						Person ID FK:
@@ -396,21 +334,7 @@
 						Task ID FK:
 						<input class="form-control" @bind="@entity["change"].TaskIdFk" required />
 					</label><br><br>
-
-					<label>
-						POD Counter Work:
-						<input class="form-control" @bind="@entity["change"].PodCounterWork" required />
-					</label><br><br>
-
-					<label>
-						Work Start Date:
-						<input type="date" class="form-control" @bind="@entity["change"].WorkStartDate" required />
-					</label><br><br>
-
-					<label>
-						Work Finish Date:
-						<input type="date" class="form-control" @bind="@entity["change"].WorkFinishDate" required />
-					</label><br><br>
+					
 				</div>
 			</form>
 		</div>
@@ -453,7 +377,7 @@
 								{
 									if (entity.WorkStatus == "D")
 									{
-										<option value="@entity.WorkId"> @entity.WorkLabel32</option>
+										<option value="@entity.WorkId"> @entity.WorkLabel</option>
 									}
 								}
 							</select>
