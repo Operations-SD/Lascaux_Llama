@@ -218,6 +218,9 @@
 <!-- ************************************************************************************ -->
 @if (showIframe)
 {
+	showIframe2 = false;
+	showIframe3 = false;
+	showIframe4 = false;
 	<div>
 		<!-- ************** Frame Projector image display Eygpt ****** Phareoh ********** -->
         <iframe src="@imagePath" width="1200" height="920" frameborder="0"
@@ -250,6 +253,9 @@ else
 
 @if (showIframe2)
 {
+	showIframe = false;
+	showIframe3 = false;
+	showIframe4 = false;
 	<div>
 		<!-- ****************** Frame Projector image display Eygpt ****** HORUS ****************** -->
 		<iframe src="@imagePath2" width="1200" height="920" frameborder="0"
@@ -282,6 +288,9 @@ else
 
 @if (showIframe3)
 {
+	showIframe = false;
+	showIframe2 = false;
+	showIframe4 = false;
 	<div>
 		<!-- **************** Frame Projector image display Eygpt ****** Egyptian ***************** -->
 		<iframe src="@imagePath3" width="1200" height="920" frameborder="0"
@@ -296,6 +305,7 @@ else
 }
 else
 {
+
 	<button class="btn btn-primary" @onclick="OpenIframe3"
 			style="position:absolute; top:660px;left:60px;width:90px; opacity:40%; color:black">
 		Egypt
@@ -314,6 +324,9 @@ else
 
 @if (showIframe4)
 {
+	showIframe = false;
+	showIframe2 = false;
+	showIframe3 = false;
 	<div>
 		<!-- ******************* Frame Projector image display Eygpt ****** Sutekh ****************** -->
 		<iframe src="@imagePath4" width="1200" height="920" frameborder="0"
