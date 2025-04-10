@@ -57,7 +57,6 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
-				new SqlParameter("@pod", pod),
 				new SqlParameter("@location_label16", entity["add"].LocationLabel16),
 				new SqlParameter("@location_type", entity["add"].LocationType),
 				new SqlParameter("@location_status", entity["add"].LocationStatus),
