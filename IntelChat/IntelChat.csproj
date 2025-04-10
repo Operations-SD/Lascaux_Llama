@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Pages\LP_Parts\Timeslot_Master.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.7" />
