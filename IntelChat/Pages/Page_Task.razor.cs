@@ -74,7 +74,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@noun_id_fk", entity["add"].NounIdFk),
 				new SqlParameter("@task_seq", entity["add"].TaskSeq),
 				new SqlParameter("@task_parent", entity["add"].TaskParent),
-				new SqlParameter("@task_url", entity["add"].TaskUrl)
+				new SqlParameter("@task_url", entity["add"].TaskUrl),
+				new SqlParameter("@task_tag", entity["add"].TaskTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Task]", parameters);
 		}
