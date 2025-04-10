@@ -47,7 +47,7 @@
 
 
 
-
+@*
 <!-- ************************************ YouTube ************************************** VIDEO ****************-->
 <div style="top:415px; left:570px; position:absolute; overflow:hidden; filter: brightness(60%);z-index:1;opacity:70%;">
     <iframe width="525" height="270" src="https://www.youtube.com/embed/WIVv0n7EmIs" title="Enigma - Mea Culpa Part II - NG Remix"
@@ -55,7 +55,7 @@
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
     </iframe>
 </div>
-
+*@
 
 
 
@@ -421,20 +421,20 @@
     /* CREATE & DELETE*/
     void TimeSlotCreate()
     {
-        // if (UnlockCategory[0] && UnlockCategory[1] && LoadMinorDetails[0])
-        // {
-        //     ViewSlot NewViewSlot = new ViewSlot()
-        //         {
-        //             WeekTimeslot = BitConverter.GetBytes(MinorPk.Slot)[0],
-        //             WeekCalendarWeekId = (Int16)WeekSelection,
-        //             WeekDay = BitConverter.GetBytes(MinorPk.Day)[0],
-        //             WeekPriority = BitConverter.GetBytes(priorityCreate)[0],
-        //             WeekCatMinorId = ChosenMin.LpMinorId,
-        //         };
-        //     DbController.LPSlot.Create(NewViewSlot);
-        //     Updatetl = true;
-        //     LoadMinorDetails[0] = false;
-        // }
+         if (UnlockCategory[0] && UnlockCategory[1] && LoadMinorDetails[0])
+         {
+             ViewSlot NewViewSlot = new ViewSlot()
+                 {
+                     WeekTimeslot = BitConverter.GetBytes(MinorPk.Slot)[0],
+                     WeekCalendarWeekId = (Int16)WeekSelection,
+                     WeekDay = BitConverter.GetBytes(MinorPk.Day)[0],
+                     WeekPriority = BitConverter.GetBytes(priorityCreate)[0],
+                     WeekCatMinorId = ChosenMin.LpMinorId,
+                 };
+             DbController.LPSlot.Create(NewViewSlot);
+             Updatetl = true;
+             LoadMinorDetails[0] = false;
+         }
         
     }
 
