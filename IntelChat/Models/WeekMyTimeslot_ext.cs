@@ -5,23 +5,25 @@ namespace IntelChat.Models;
 
 public partial class WeekMyTimeslot
 {
+
+    // HS added type casting ie (short), (byte)
     public void BuildFromViewslot(ViewSlot v)
     {
         PersonId = v.PersonId;
 
-        WeekCalendarWeekId = v.WeekCalendarWeekId;
+        WeekCalendarWeekId = (short)v.WeekCalendarWeekId;
 
-        WeekDay = v.WeekDay;
+        WeekDay = (byte)v.WeekDay;
 
-        WeekTimeslot = v.WeekTimeslot;
+        WeekTimeslot = (byte)v.WeekTimeslot;
 
-        WeekOffset = v.WeekOffset;
+        WeekOffset = (byte)v.WeekOffset;
 
-        WeekPriority = v.WeekPriority;
+        WeekPriority = (byte?)v.WeekPriority;
 
-        WeekDuration = v.WeekDuration;
+        // HS WeekDuration = v.TimeDuration;
 
-        WeekAlarmOffset = v.WeekAlarmOffset;
+        WeekAlarmOffset = (byte?)v.WeekAlarmOffset;
 
         WeekStatus = v.WeekStatus;
 

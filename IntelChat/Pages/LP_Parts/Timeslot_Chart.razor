@@ -1,7 +1,7 @@
 ﻿@using IntelChat.Models
 @using IntelChat.Data
 
-@if (vsi.DayLowestIndex != -1)
+@if (vsi != null && vsi.DayLowestIndex != -1)
 {
     <activity_box>
         @{
@@ -11,27 +11,27 @@
         @for (int i = 1; i <= 48; i++) //Incomplete compared to: && vsi.Current() != null
         {
 
-             <div class="act_item">
+            <div class="act_item">
                 @if (vsi.Current().WeekTimeslot == i)
                 {   //NEXXZZ - Improve printing of minor label: better CSS, more thorough truncation
                     @if (vsi.Current().WeekPriority >= PriorityLowerBound)
                     {
                         @if (ClickableTimeslots)
                         {
-                                var v = vsi.Current(); //NEXXYY
-                                <button class="activity_bar" style="@GetTimeSlotStyle(vsi.Current())" @onclick="()=>ClickedTimeSlotFunc(v.WeekTimeslot)">
-                                   @vsi.Current().LpMinorLabel.Substring(0,15)
-                              </button>
+                            var v = vsi.Current(); //NEXXYY
+                            <button class="activity_bar" style="@GetTimeSlotStyle(vsi.Current())" @onclick="()=>ClickedTimeSlotFunc(v.WeekTimeslot)">
+                                @vsi.Current().LpMinorLabel.Substring(0,15)
+                            </button>
 
                         }
                         else
                         {
-                              <div class="activity_bar" style="@GetTimeSlotStyle(vsi.Current())">@vsi.Current().LpMinorLabel.Substring(0,15)</div>
+                            <div class="activity_bar" style="@GetTimeSlotStyle(vsi.Current())">@vsi.Current().LpMinorLabel.Substring(0,15)</div>
                         }
                     }
                     vsi.Next();
                 }
-             </div>
+            </div>
         }
         @{
             vsi.Pos = OriginalVSIPos;
@@ -53,6 +53,11 @@
     public bool ClickableTimeslots { get; set; } = false;
     int OriginalVSIPos = 0;
 
+    private List<ViewSlot> SlotList = new(); // You can assign this from a parent or DB
+    private string StatusColor = "gray";
+    private string Status = "Unknown";
+
+
     public string GetTimeSlotStyle(ViewSlot viewSlot)    //DONE get color of major
     {
         return $"background-color: {viewSlot.LpMajorRgb};";
@@ -60,45 +65,30 @@
 
     public void ClickedTimeSlotFunc(int i)
     {
-         ///ClickedTimeSlot.InvokeAsync((vsi.Current().WeekTimeslot, vsi.Current().WeekDay));
-         ClickedTimeSlot.InvokeAsync((i, vsi.Current().WeekDay));
+        ///ClickedTimeSlot.InvokeAsync((vsi.Current().WeekTimeslot, vsi.Current().WeekDay));
+        ClickedTimeSlot.InvokeAsync((i, vsi.Current().WeekDay));
     }
 
-    /*
-    void changeStatus(int time, int day, string min)
+
+    void ChangeStatus(int index1, int weekDay, string min)
+    {
+        for (int j = 0; j < SlotList.Count; j++)
         {
-        @for (int j = 0; j < Model.Count(); j++)
+            if (SlotList[j].WeekTimeslot == index1 &&
+                SlotList[j].WeekDay == weekDay &&
+                SlotList[j].LpMinorLabel == min)
             {
-            if (Model[j].WeekTimeslot == index1 && Model[j].WeekDay == weekDay && Model[j].LpMinorLabel == min)
+                if (SlotList[j].WeekStatus == "1")
                 {
-                if (Model[j].WeekStatus == "1")
-                    {
                     StatusColor = "green";
-                status = "Done";
+                    Status = "Done";
                 }
                 else
-                    {
+                {
                     StatusColor = "red";
-                    status = "Ongoing";
+                    Status = "Ongoing";
+                }
             }
-    }
-            }
-    }*/
-
-    // HS
-    protected override void OnInitialized()
-    {
-        if (vsi == null)
-        {
-            var dummySlotList = new List<ViewSlot>
-            {
-                new ViewSlot { WeekDay = 1, WeekTimeslot = 0, LpMajorLabel = "Math" },
-                new ViewSlot { WeekDay = 1, WeekTimeslot = 1, LpMajorLabel = "Science" },
-                new ViewSlot { WeekDay = 1, WeekTimeslot = 2, LpMajorLabel = "English" }
-            };
-
-            vsi = new ViewSlotInterface(dummySlotList, daySelection: 1);
         }
     }
-
 }

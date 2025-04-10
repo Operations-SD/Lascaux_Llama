@@ -30,7 +30,7 @@ public partial class AppDbContext : DbContext
     
     public virtual DbSet<Person> People { get; set; }
 
-    // HS public virtual DbSet<ViewSlot> ViewSlots { get; set; }
+    public virtual DbSet<ViewSlot> ViewSlots { get; set; }
 
     public virtual DbSet<ViewTimeslot> ViewTimeslots { get; set; }
 
@@ -360,7 +360,8 @@ public partial class AppDbContext : DbContext
                 .HasComment("\"branded role\" to determine home menu person is locked into")
                 .HasColumnName("type");
         });
-        /* HS
+
+        /* HS 
         modelBuilder.Entity<ViewSlot>(entity =>
         {
             entity
@@ -407,6 +408,56 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.WeekTimeslot).HasColumnName("Week_Timeslot");
         });
         HS */
+
+        // HS
+        modelBuilder.Entity<ViewSlot>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("View_Slot");
+
+            entity.Property(e => e.PersonId).HasColumnName("ID_Person_FK");
+
+            entity.Property(e => e.WeekCalendarWeekId).HasColumnName("Time_Calendar_Week_ID");
+            entity.Property(e => e.WeekDay).HasColumnName("Time_Day");
+            entity.Property(e => e.WeekTimeslot).HasColumnName("Time_Timeslot");
+            entity.Property(e => e.WeekOffset).HasColumnName("Time_Offset");
+            entity.Property(e => e.WeekPriority).HasColumnName("Time_Priority");
+            entity.Property(e => e.WeekAlarmOffset).HasColumnName("Time_Alarm_offset");
+            entity.Property(e => e.WeekStatus)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("Time_Status");
+            entity.Property(e => e.WeekActualFactor).HasColumnName("Time_Object_Factor");
+            entity.Property(e => e.WeekCatMinorId).HasColumnName("NOVA_ID_FK");
+
+            entity.Property(e => e.LpMajorLabel)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("POD_label");
+            entity.Property(e => e.LpMajorDesc)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("POD_description");
+            entity.Property(e => e.LpMajorRgb)
+                .HasMaxLength(7)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("POD_RGB");
+
+            entity.Property(e => e.LpMinorLabel)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("NOVA_label");
+            entity.Property(e => e.LpMinorDesc)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("NOVA_description");
+        });
+
         modelBuilder.Entity<ViewTimeslot>(entity =>
         {
             entity

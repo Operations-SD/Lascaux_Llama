@@ -225,7 +225,7 @@
             if(offset >= 0 && offset <= 29 && duration >= 1 && duration <= 255)
             {
                 ViewSlotToUpdate.WeekOffset = BitConverter.GetBytes(offset)[0];
-                ViewSlotToUpdate.WeekDuration = BitConverter.GetBytes(duration)[0];
+                //HS ViewSlotToUpdate.WeekDuration = BitConverter.GetBytes(duration)[0];
                 DbController.LPSlot.UpdateRaw(ViewSlotToUpdate);
                 Updatetl = true;
             }
@@ -402,7 +402,7 @@
             ChosenMin = new LpMinor() { LpMinorDesc = viewSlotSelection.LpMinorDesc, LpMinorLabel = viewSlotSelection.LpMinorLabel, LpMinorId = -1, };
             ViewSlotToUpdate = viewSlotSelection;
             offset =  ViewSlotToUpdate.WeekOffset;
-            duration = (Int16)ViewSlotToUpdate.WeekDuration; //nexxyy
+            //HS duration = (Int16)ViewSlotToUpdate.WeekDuration; //nexxyy
         }
     }
 

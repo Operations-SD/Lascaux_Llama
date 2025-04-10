@@ -66,14 +66,15 @@ namespace IntelChat.Services
                 dbTop._context.WeekMyTimeslots.Add(newts);
                 dbTop._context.SaveChanges();
             }
-            /* HS
+            
+            
             //DONE - SORT the entries by box day and slot. "lamba 2nd sorting order"
             public List<ViewSlot> Index(int week, int personID = 2)    //personID = 2 = test account's ID. temporary until multiuser support is needed
             {
                 ///return await ... ToListAsync()
                 return dbTop._context.ViewSlots.Where(v => v.WeekCalendarWeekId == week && v.PersonId == personID).OrderBy(o => o.WeekDay).ThenBy(o => o.WeekTimeslot).ToList();
             }
-            HS */
+        
             public void Delete(int weekCalendarWeekId, int weekDay, int weekTimeslot, int weekOffset, int personId = 2)
             {
                 // HS if (dbTop._context.ViewSlots == null) { return; }
@@ -104,7 +105,7 @@ namespace IntelChat.Services
             }
             public async void UpdateStatus(string weekStatus, ViewSlot viewSlot)
             {
-                if (dbTop._context.WeekMyTimeslots == null) { return; }
+                //HS if (dbTop._context.WeekMyTimeslots == null) { return; }
                 WeekMyTimeslot newts = new WeekMyTimeslot();
                 newts.BuildFromViewslot(viewSlot);
 
