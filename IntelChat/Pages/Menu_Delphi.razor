@@ -153,7 +153,12 @@ else
 	private string imagePath = "https://agineuralnet.blob.core.windows.net/panels/Panel_Socrates.png"; // Replace with your .png file path
 
 	private void OpenIframe()
-	{ showIframe = true; }
+	{
+		showIframe2 = false;
+		showIframe3 = false;
+		showIframe4 = false;
+		showIframe = true;
+	}
 
 	private void CloseIframe()
 	{ showIframe = false; }
@@ -201,7 +206,12 @@ else
 	private string imagePath2 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Plato.png"; // Replace with your .png file path
 
 	private void OpenIframe2()
-	{ showIframe2 = true; }
+	{
+		showIframe = false;
+		showIframe3 = false;
+		showIframe4 = false;
+		showIframe2 = true;
+	}
 
 	private void CloseIframe2()
 	{ showIframe2 = false; }
@@ -249,7 +259,12 @@ else
 	private string imagePath3 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Aristotle.png"; // Replace with your .png file path
 
 	private void OpenIframe3()
-	{ showIframe3 = true; }
+	{
+		showIframe = false;
+		showIframe2 = false;
+		showIframe4 = false;
+		showIframe3 = true;
+	}
 
 	private void CloseIframe3()
 	{ showIframe3 = false; }
@@ -301,7 +316,12 @@ else
 	private string imagePath4 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Maxims.png"; // Replace with your .png file path
 
 	private void OpenIframe4()
-	{ showIframe4 = true; }
+	{
+		showIframe = false;
+		showIframe2 = false;
+		showIframe3 = false;
+		showIframe4 = true;
+	}
 
 	private void CloseIframe4()
 	{ showIframe4 = false; }
