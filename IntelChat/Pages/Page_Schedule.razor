@@ -425,11 +425,14 @@
          {
              ViewSlot NewViewSlot = new ViewSlot()
                  {
-                     WeekTimeslot = BitConverter.GetBytes(MinorPk.Slot)[0],
-                     WeekCalendarWeekId = (Int16)WeekSelection,
-                     WeekDay = BitConverter.GetBytes(MinorPk.Day)[0],
-                     WeekPriority = BitConverter.GetBytes(priorityCreate)[0],
-                     WeekCatMinorId = ChosenMin.LpMinorId,
+                    PersonId = 1, // Use actual user or session ID if dynamic
+                    WeekTimeslot = BitConverter.GetBytes(MinorPk.Slot)[0],
+                    WeekCalendarWeekId = (Int16)WeekSelection,
+                    WeekDay = BitConverter.GetBytes(MinorPk.Day)[0],
+                    WeekPriority = BitConverter.GetBytes(priorityCreate)[0],
+                    WeekCatMinorId = ChosenMin.LpMinorId,
+                    WeekOffset = 0, // Required and cannot be null
+                    WeekStatus = "A"
                  };
              DbController.LPSlot.Create(NewViewSlot);
              Updatetl = true;
