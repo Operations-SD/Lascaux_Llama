@@ -218,9 +218,6 @@
 <!-- ************************************************************************************ -->
 @if (showIframe)
 {
-	showIframe2 = false;
-	showIframe3 = false;
-	showIframe4 = false;
 	<div>
 		<!-- ************** Frame Projector image display Eygpt ****** Phareoh ********** -->
         <iframe src="@imagePath" width="1200" height="920" frameborder="0"
@@ -245,7 +242,13 @@ else
 	private string imagePath = "https://agineuralnet.blob.core.windows.net/panels/Panel_Egypt.png"; // Replace with your .png file path
 
 	private void OpenIframe()
-	{ showIframe = true; }
+	{
+		showIframe2 = false;
+		showIframe3 = false;
+		showIframe4 = false;
+		showIframe = true;
+		
+	}
 
 	private void CloseIframe()
 	{ showIframe = false; }
@@ -253,9 +256,6 @@ else
 
 @if (showIframe2)
 {
-	showIframe = false;
-	showIframe3 = false;
-	showIframe4 = false;
 	<div>
 		<!-- ****************** Frame Projector image display Eygpt ****** HORUS ****************** -->
 		<iframe src="@imagePath2" width="1200" height="920" frameborder="0"
@@ -280,7 +280,12 @@ else
 	private string imagePath2 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Egypt2.png"; // Replace with your .png file path
 
 	private void OpenIframe2()
-	{ showIframe2 = true; }
+	{
+		showIframe = false;
+		showIframe3 = false;
+		showIframe4 = false;
+		showIframe2 = true;
+	}
 
 	private void CloseIframe2()
 	{ showIframe2 = false; }
@@ -288,9 +293,6 @@ else
 
 @if (showIframe3)
 {
-	showIframe = false;
-	showIframe2 = false;
-	showIframe4 = false;
 	<div>
 		<!-- **************** Frame Projector image display Eygpt ****** Egyptian ***************** -->
 		<iframe src="@imagePath3" width="1200" height="920" frameborder="0"
@@ -316,7 +318,12 @@ else
 	private string imagePath3 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Egypt4.png"; // Replace with your .png file path
 
 	private void OpenIframe3()
-	{ showIframe3 = true; }
+	{
+		showIframe = false;
+		showIframe2 = false;
+		showIframe4 = false;
+		showIframe3 = true;
+	}
 
 	private void CloseIframe3()
 	{ showIframe3 = false; }
@@ -324,9 +331,6 @@ else
 
 @if (showIframe4)
 {
-	showIframe = false;
-	showIframe2 = false;
-	showIframe3 = false;
 	<div>
 		<!-- ******************* Frame Projector image display Eygpt ****** Sutekh ****************** -->
 		<iframe src="@imagePath4" width="1200" height="920" frameborder="0"
@@ -351,7 +355,12 @@ else
 	private string imagePath4 = "https://agineuralnet.blob.core.windows.net/panels/Panel_Egypt3.png"; // Replace with your .png file path
 
 	private void OpenIframe4()
-	{ showIframe4 = true; }
+	{
+		showIframe = false;
+		showIframe2 = false;
+		showIframe3 = false;
+		showIframe4 = true;
+	}
 
 	private void CloseIframe4()
 	{ showIframe4 = false; }
