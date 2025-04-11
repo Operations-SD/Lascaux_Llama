@@ -299,12 +299,24 @@
 						P.O.D.
 						<input class="form-control" @bind="@entity["change"].PodIdFk" type="number" required />
 					</label><br><br>
-
-					<label>
-						image:
-						<input class="form-control" @bind="@entity["change"].UrlIdPk" type="number" required />
-					</label><br><br>
 				</div>
+
+				<label style="position:absolute; top:415px; left:1580px;">
+					Image ID:
+					<input class="form-control" value="@entity["change"].UrlIdPk"
+						   @onchange="OnUrlIdChanged"
+						   type="number" required />
+				</label><br /><br />
+
+				@if (!string.IsNullOrEmpty(ImageUrl))
+				{
+					<div style="position: absolute; top: 177px; left: 1592px;">
+						<label>Image Preview:</label>
+						<br />
+						<img src="@ImageUrl" alt="Selected Verb Image"
+							 width="200" height="200" style="object-fit: inherit; border-radius: 8px;" />
+					</div>
+				}
 
 			</form>
 		</div>

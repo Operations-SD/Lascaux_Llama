@@ -33,8 +33,10 @@ namespace IntelChat.Pages
 		public string? type { get; set; }
 
 		public string? StoredVerb { get; set; }
-		
-		[Inject]
+
+        public string ImageUrl { get; set; } = string.Empty;
+
+        [Inject]
         public NotificationService NotificationService { get; set; }
 		private List<Pype> pypes = new List<Pype>();
 		private List<Verb> entities = new List<Verb>();
@@ -209,17 +211,23 @@ namespace IntelChat.Pages
 		}
 
 
-		/// <summary>Fill fields in the change tab based on entity selection</summary>
-		private void AutoFill(int id, string type)
-		{
-			var target = entities.Find(e => e.VerbId == id);
-			if (target != null) entity[type] = target;
-		}
+        private void AutoFill(int id, string type)
+        {
+            var target = entities.Find(e => e.VerbId == id);
+            if (target != null)
+            {
+                entity[type] = target;
+                
+				//Fetch the image URL when selecting a verb
+                _ = LoadImageUrlAsync(target.UrlIdPk);
+            }
+        }
 
-		/// <summary>Reads pypes from the database using a stored procedure</summary>
-		/// <returns>Reader for the entities that were read from the database</returns>
-		
-		private (string Noun, string Verb)? ReadNounVerb()
+
+        /// <summary>Reads pypes from the database using a stored procedure</summary>
+        /// <returns>Reader for the entities that were read from the database</returns>
+
+        private (string Noun, string Verb)? ReadNounVerb()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
@@ -392,5 +400,45 @@ namespace IntelChat.Pages
 			tagFilter = e.Value?.ToString() ?? string.Empty;
 			LoadReadResults("*", tagFilter);
 		}
-	}
+
+        private string GetImageUrl(int urlId)
+        {
+            string imageUrl = string.Empty;
+
+            using (var connection = new SqlConnection(_configuration.GetValue<string>("ConnectionStrings:DefaultConnection")))
+            {
+                using (var command = new SqlCommand("GetImageUrlById", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UrlId", urlId);
+                    connection.Open();
+                    var result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        imageUrl = result.ToString();
+                    }
+                }
+            }
+
+            return imageUrl;
+        }
+
+        private async ThreadingTask LoadImageUrlAsync(int urlId)
+        {
+            if (urlId > 0)
+            {
+                ImageUrl = GetImageUrl(urlId);
+                await InvokeAsync(StateHasChanged); // Ensure the UI updates
+            }
+        }
+
+        private async ThreadingTask OnUrlIdChanged(ChangeEventArgs e)
+        {
+            if (int.TryParse(e.Value?.ToString(), out int newUrlId))
+            {
+                entity["change"].UrlIdPk = newUrlId;
+                await LoadImageUrlAsync(newUrlId);
+            }
+        }
+    }
 }
