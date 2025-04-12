@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages - Copy\**" />
+    <Content Remove="Pages - Copy\**" />
+    <EmbeddedResource Remove="Pages - Copy\**" />
+    <None Remove="Pages - Copy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Pages\Page_Grid - Copy.razor.cs" />
     <Compile Remove="Pages\Page_Guide - Copy.razor.cs" />
   </ItemGroup>

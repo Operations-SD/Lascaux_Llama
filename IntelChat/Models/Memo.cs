@@ -30,4 +30,7 @@ public partial class Memo
     public int QuestionIdFk { get; set; }
 
     public int MemoNova { get; set; }
+
+    public string MemoImage { get; set; }
+
 }

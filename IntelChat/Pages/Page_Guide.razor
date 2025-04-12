@@ -57,10 +57,7 @@
 		<button id="btn-panel-change" @onclick="@(() => show = "change")"></button>
 		<button id="btn-panel-delete" @onclick="@(() => show = "delete")"></button>
 
-		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Guide"))"
-				style="position:absolute;left:30px;top:920px;height:60px;border:0px;width:140px;">
-			Download pdf
-		</button>
+		
 
 	</div>
 
@@ -82,6 +79,15 @@
 			   @oninput="UpdateDirectSelectId"
 			   @onkeydown="HandleDirectSelectKeyPress"
 			   placeholder="Enter ID" />
+	</div>
+
+	<!-- ************************************************************************************ -->
+	<!-- *********************************** DOWNLOAD REPORT ******************************** -->
+	<!-- ************************************************************************************ -->
+	<div style="position:absolute; left: 1340px; top:300px;">
+		<download-button @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Guide"))">
+			Download PDF
+		</download-button>
 	</div>
 
 	<!-- ************************************************************************************ -->
@@ -360,6 +366,8 @@
 			</form>
 		</div>
 	}
+
+
 
 	<!-- ************************************************************************************ -->
 	<!-- ************************************* GUIDE DELETE ****************************** -->

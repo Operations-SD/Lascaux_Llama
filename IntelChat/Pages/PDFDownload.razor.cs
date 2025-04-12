@@ -378,14 +378,15 @@ namespace IntelChat.Pages
 					PodDescription = reader.GetString(2),
 					PodType = reader.GetString(3),
 					PodStatus = reader.GetString(4),
-					PodPypeDdChan = reader.GetString(5),
-					PodImage = reader.GetString(6),
-					PersonIdFk = reader.GetInt32(7),
-					LocationIdFk = reader.GetInt32(8),
-					NovaIdFk = reader.GetInt32(9)
+					//PodPypeDdChan = reader.GetString(5),
+					//PodImage = reader.GetString(6),
+					//PersonIdFk = reader.GetInt32(7),
+					//LocationIdFk = reader.GetInt32(8),
+					//NovaIdFk = reader.GetInt32(9)
 				});
 			}
-			reader.Close();
+
+            reader.Close();
 		}
 
 		private void LoadPypes(string sp, string table)
@@ -587,8 +588,11 @@ namespace IntelChat.Pages
 					break;
 				case "Location":
 					if (locations.IsNullOrEmpty())	LoadLocations("Read_Grid", "Location");
-					hasType = true;
-					break;
+                    pdfBytes = GeneratePDFLoc(locations);
+                    // Convert PDF to Base64 and set the download URL
+                    DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+                    hasType = true;
+                    break;
 				case "Memo":
 					if (memos.IsNullOrEmpty()) LoadMemos("Read_Grid", "Memo");
                     OnTypeFilterChanged(new ChangeEventArgs { Value = "" });
@@ -616,8 +620,12 @@ namespace IntelChat.Pages
 					break;
 				case "POD":
 					if (pods.IsNullOrEmpty()) LoadPods("Read_Grid", "POD");
-					hasType = true;
-					break;
+                    pdfBytes = GeneratePDFPOD(pods);
+
+                    // Convert PDF to Base64 and set the download URL
+                    DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+                    hasType = true;
+                    break;
 				case "Pype":
 					if (pypes.IsNullOrEmpty()) LoadPypes("Read_Grid", "Pype");
 					hasType = true;
@@ -635,6 +643,8 @@ namespace IntelChat.Pages
 					if (registrations.IsNullOrEmpty()) LoadRegistrations("Read_Grid", "Registration");
 					hasType = false;
 					break;
+
+
 				case "Task":
 					if (tasks.IsNullOrEmpty()) LoadTasks("Read_Grid", "Task");
                     // Generate the PDF with filtered data
@@ -646,8 +656,12 @@ namespace IntelChat.Pages
 					break;
 				case "URL":
 					if (urls.IsNullOrEmpty()) LoadUrls("Read_Grid", "URL");
-					hasType = true;
-					break;
+                    pdfBytes = GeneratePDFURL(urls);
+
+                    // Convert PDF to Base64 and set the download URL
+                    DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+                    hasType = true;
+                    break;
 				case "Verb":
 					if (verbs.IsNullOrEmpty()) LoadVerbs("Read_Grid", "Verb");
                     pdfBytes = GeneratePDFVerb(verbs);
@@ -751,7 +765,174 @@ namespace IntelChat.Pages
                 // Convert PDF to Base64 and set the download URL
                 DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
             }
+            else if (table == "POD")
+            {
+                List<Pod> filteredPOD = pods
+                    .Where(pod => string.IsNullOrEmpty(typeFilter) || pod.PodType == typeFilter)
+                    .ToList();
+
+                // Generate the PDF with filtered data
+                byte[] pdfBytes = GeneratePDFPOD(filteredPOD);
+
+                // Convert PDF to Base64 and set the download URL
+                DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+            }
+            else if (table == "Location")
+            {
+                List<Location> filteredLocation = locations
+                    .Where(location => string.IsNullOrEmpty(typeFilter) || location.LocationType == typeFilter)
+                    .ToList();
+
+                // Generate the PDF with filtered data
+                byte[] pdfBytes = GeneratePDFLoc(filteredLocation);
+
+                // Convert PDF to Base64 and set the download URL
+                DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+            }
+            else if (table == "URL")
+            {
+                List<Url> filteredUrl = urls
+                    .Where(url => string.IsNullOrEmpty(typeFilter) || url.UrlType == typeFilter)
+                    .ToList();
+
+                // Generate the PDF with filtered data
+                byte[] pdfBytes = GeneratePDFURL(filteredUrl);
+
+                // Convert PDF to Base64 and set the download URL
+                DownloadUrl = $"data:application/pdf;base64,{Convert.ToBase64String(pdfBytes)}";
+            }
         }
+
+
+
+
+        private byte[] GeneratePDFURL(List<Url> filteredQuestion)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document();
+                PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                document.Add(new Paragraph("Filtered URL"));
+                document.Add(new Paragraph("-------------------------------"));
+                document.Add(new Paragraph(" ")); // Add some space
+
+                // Create a table with 2 columns (NounID and NounDescription)
+                PdfPTable table = new PdfPTable(4);
+                table.WidthPercentage = 100;
+
+                // Add headers
+                table.AddCell(new PdfPCell(new Phrase("URL ID")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("URL Type")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("URL Label")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("URL Description")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+
+
+
+
+                // Add data rows
+                foreach (var noun in filteredQuestion)
+                {
+                    table.AddCell(noun.UrlId.ToString());
+                    table.AddCell(noun.UrlType);
+                    table.AddCell(noun.UrlLabel);
+                    table.AddCell(noun.UrlDescription);
+
+                }
+
+                document.Add(table);
+                document.Close();
+
+                return ms.ToArray();
+            }
+        }
+
+        private byte[] GeneratePDFLoc(List<Location> filteredQuestion)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document();
+                PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                document.Add(new Paragraph("Filtered Location"));
+                document.Add(new Paragraph("-------------------------------"));
+                document.Add(new Paragraph(" ")); // Add some space
+
+                // Create a table with 2 columns (NounID and NounDescription)
+                PdfPTable table = new PdfPTable(4);
+                table.WidthPercentage = 100;
+
+                // Add headers
+                table.AddCell(new PdfPCell(new Phrase("Location ID")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("Location Type")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("Location Label")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("Location Description")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+
+
+
+
+                // Add data rows
+                foreach (var noun in filteredQuestion)
+                {
+                    table.AddCell(noun.LocationId.ToString());
+                    table.AddCell(noun.LocationType);
+                    table.AddCell(noun.LocationLabel16);
+                    table.AddCell(noun.LocationDesc);
+
+                }
+
+                document.Add(table);
+                document.Close();
+
+                return ms.ToArray();
+            }
+        }
+
+
+        private byte[] GeneratePDFPOD(List<Pod> filteredQuestion)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document();
+                PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                document.Add(new Paragraph("Filtered Question"));
+                document.Add(new Paragraph("-------------------------------"));
+                document.Add(new Paragraph(" ")); // Add some space
+
+                // Create a table with 2 columns (NounID and NounDescription)
+                PdfPTable table = new PdfPTable(4);
+                table.WidthPercentage = 100;
+
+                // Add headers
+                table.AddCell(new PdfPCell(new Phrase("Qestion ID")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("Question Type")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("Question Label")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+                table.AddCell(new PdfPCell(new Phrase("Question Description")) { BackgroundColor = BaseColor.LIGHT_GRAY });
+
+
+
+
+                // Add data rows
+                foreach (var noun in filteredQuestion)
+                {
+                    table.AddCell(noun.PodId.ToString());
+                    table.AddCell(noun.PodType);
+                    table.AddCell(noun.PodLabel);
+                    table.AddCell(noun.PodDescription);
+
+                }
+
+                document.Add(table);
+                document.Close();
+
+                return ms.ToArray();
+            }
+        }
+
 
         private byte[] GeneratePDFQuestion(List<Question> filteredQuestion)
         {

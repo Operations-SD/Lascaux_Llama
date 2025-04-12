@@ -225,8 +225,6 @@ namespace IntelChat.Pages
 			entities.Remove(entities.Find(e => e.NounId == entity["change"].NounId));
 			entities.Add(entity["change"]);
 			NotificationService.Notify("Noun changed successfully!", NotificationType.Success);
-			LoadReadResults();
-			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -235,8 +233,6 @@ namespace IntelChat.Pages
 			Delete();
 			entities.Remove(entities.Find(e => e.NounId == entity["delete"].NounId));
 			NotificationService.Notify("Noun deleted successfully!", NotificationType.Success);
-			LoadReadResults();
-			LoadReadPypeResults();
 			show = "list";
 		}
 

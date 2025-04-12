@@ -111,6 +111,31 @@
         Element
     </button>
 
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Noun"))"
+			style="top:540px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+		Print Noun
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Verb"))"
+			style="top:620px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+		Print Verb
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=NOVA"))"
+			style="top:700px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+		Print NOVA
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Work"))"
+			style="top:780px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+		Print Work
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Guide"))"
+			style="top:860px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
+		Print Guide
+	</button>
+
 
 <div>
 	<!-- ************************************************************************************ -->

@@ -151,8 +151,6 @@ namespace IntelChat.Pages
 			Change();
 			LoadReadResults();
 			NotificationService.Notify("Question changed successfully!", NotificationType.Success);
-			LoadReadResults();
-			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -161,8 +159,6 @@ namespace IntelChat.Pages
 			Delete();
 			LoadReadResults();
 			NotificationService.Notify("Question deleted successfully!", NotificationType.Success);
-			LoadReadResults();
-			LoadReadPypeResults();
 			show = "list";
 		}
 

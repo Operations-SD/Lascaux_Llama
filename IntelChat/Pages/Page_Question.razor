@@ -90,10 +90,13 @@
 			Lascaux
 		</button>
 
-		<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Question"))"
-				style="position:absolute;left:30px;top:920px;height:60px;border:0px;width:140px;">
-			Download pdf
-		</button>
+		<div style="position:absolute; left: 1340px; top:300px;">
+			<download-button @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Question"))">
+				Download PDF
+			</download-button>
+		</div>
+
+
 
 
 		<div class="exhibitPanel">

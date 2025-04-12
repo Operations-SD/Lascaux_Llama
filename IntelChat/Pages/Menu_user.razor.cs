@@ -23,8 +23,9 @@ namespace IntelChat.Pages
 		[Parameter]
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
+		private Guide selectedGuide;
 
-		private List<Guide> entities = new List<Guide>();
+        private List<Guide> entities = new List<Guide>();
 		private string guideIdSelection = "";
 
 		protected override void OnInitialized()
@@ -68,6 +69,7 @@ namespace IntelChat.Pages
 			{
 				entities.Add(new Guide
 				{
+				
 					GuideId = reader.GetInt32(0),
 					GuideLabel = reader.GetString(1)
 				});
@@ -75,5 +77,28 @@ namespace IntelChat.Pages
 			reader.Close();
 		}
 
-	}
+
+        private void HandleGuideChange(ChangeEventArgs e)
+        {
+            guideIdSelection = e.Value?.ToString();
+
+            if (!string.IsNullOrEmpty(guideIdSelection))
+            {
+                Console.WriteLine($"Selected GuideId: {guideIdSelection}");
+
+                // Loop through entities to find the matching GuideId
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    if (entities[i].GuideId.ToString() == guideIdSelection)
+                    {
+						selectedGuide = entities[i];
+                        //Console.WriteLine($"Matched Guide at index: {selectedGuideIndex}");
+                        break;
+                    }
+                }
+            }
+           
+        }
+
+    }
 }
