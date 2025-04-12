@@ -56,16 +56,12 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
+				new SqlParameter("@pod", pod),
 				new SqlParameter("@URL_label", entity["add"].UrlLabel),
 				new SqlParameter("@URL_Description", entity["add"].UrlDescription),
 				new SqlParameter("@URL_type", entity["add"].UrlType),
 				new SqlParameter("@URL_status", entity["add"].UrlStatus),
 				new SqlParameter("@URL_cloud", _configuration.GetValue<string>("ConnectionStrings:BlobUrlRoot") + entity["add"].UrlCloud),
-				new SqlParameter("@URL_advance_level", entity["add"].UrlAdvanceLevel),
-				new SqlParameter("@NOVA_ID_FK", entity["add"].NovaIdFk),
-				new SqlParameter("@URL_tag", entity["add"].UrlTag),
-				new SqlParameter("@URL_chain", entity["add"].UrlChain),
-				new SqlParameter("@URL_stars", entity["add"].UrlStars)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_URL]", parameters);
 		}
@@ -103,11 +99,8 @@ namespace IntelChat.Pages
 					UrlType = reader.GetString(3),
 					UrlStatus = reader.GetString(4),
 					UrlCloud = reader.GetString(5),
-					UrlAdvanceLevel = reader.GetByte(6),
 					NovaIdFk = reader.GetInt32(7),
-					UrlTag = reader.GetString(8),
-					UrlChain = reader.GetInt32(9),
-					UrlStars = reader.GetByte(10)					
+					
 				});
 			}
 			reader.Close();
@@ -131,17 +124,12 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				new SqlParameter("@URL_id", entity["change"].UrlId),
+				new SqlParameter("@pod", pod),
 				new SqlParameter("@URL_label", entity["change"].UrlLabel),
 				new SqlParameter("@URL_Description", entity["change"].UrlDescription),
 				new SqlParameter("@URL_type", entity["change"].UrlType),
 				new SqlParameter("@URL_status", entity["change"].UrlStatus),
 				new SqlParameter("@URL_cloud", entity["change"].UrlCloud),
-				new SqlParameter("@URL_advance_level", entity["change"].UrlAdvanceLevel),
-				new SqlParameter("@NOVA_ID_FK", entity["change"].NovaIdFk),
-				new SqlParameter("@URL_tag", entity["change"].UrlTag),
-				new SqlParameter("@URL_chain", entity["change"].UrlChain),
-				new SqlParameter("@URL_stars", entity["change"].UrlStars)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_URL]", parameters);
 		}
@@ -164,6 +152,8 @@ namespace IntelChat.Pages
 			Create();
 			LoadReadResults();
 			NotificationService.Notify("URL created successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity changes</summary>

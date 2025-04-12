@@ -56,7 +56,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Create"),
-				new SqlParameter("@pype_id", entity["add"].PypeId),
+				new SqlParameter("@pod", pod),
 				new SqlParameter("@Pype_type", entity["add"].PypeType),
 				new SqlParameter("@Pype_label", entity["add"].PypeLabel),
 				new SqlParameter("@Pype_status", entity["add"].PypeStatus),
@@ -65,7 +65,7 @@ namespace IntelChat.Pages
 				new SqlParameter("@pod", entity["add"].PodIdFk),
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters);
-        }
+		}
 
 		/// <summary>Reads entities from the database using a stored procedure</summary>
 		/// <param name="status">Status of the entities that will be read</param>
@@ -136,16 +136,15 @@ namespace IntelChat.Pages
 				new SqlParameter("@pype_id", entity["change"].PypeId)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters);
-        }
+		}
 
 		/// <summary>Delete an entity in the database using a stored procedure</summary>
 		private void Delete()
 		{
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
-
 				new SqlParameter("@PROC_action", "Delete"),
-				new SqlParameter("@pype_id", entity["delete"].PypeId),
+				new SqlParameter("@id", entity["delete"].PypeId),
 				new SqlParameter("@pype_status", entity["delete"].PypeStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Pype]", parameters);
@@ -173,8 +172,8 @@ namespace IntelChat.Pages
 			Delete();
 			LoadReadResults();
 			NotificationService.Notify("Pype deleted successfully!", NotificationType.Success);
-		    show = "list";
-        }
+			show = "list";
+		}
 
 		/// <summary>Fill fields in the change tab based on entity selection</summary>
 		private void AutoFill(string id, String type) //changed to string because pypeid is string in DB

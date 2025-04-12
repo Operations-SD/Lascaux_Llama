@@ -31,5 +31,6 @@ public partial class Memo
 
     public int MemoNova { get; set; }
 
-    public string? MemoImage { get; set; }
+    public string MemoImage { get; set; }
+
 }

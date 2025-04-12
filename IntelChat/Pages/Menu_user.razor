@@ -123,7 +123,7 @@
 
 
 	<!-- *** continue from the last MY-Guide that you selected **** -->
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+guideIdSelection))"
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Interview?pod="+pod+"&pid="+pid+"&gid="+guideIdSelection+"&SelectedLabel="+selectedGuide.GuideLabel))"
 			style="z-index:5;top:610px;left:920px;height:60px;width:240px;" title="Active Guide Interview">
 		MY Interview
 	</button>
@@ -232,7 +232,7 @@
 <!-- *** to acquire and utilize knowledge and skills to build a better future society **** -->
 <!-- interview selection -->
 <div style="position:absolute; top:590px; left:650px;" title="Activate Life Action Guide">
-	<select class="general-menu-button" style="height:50px; opacity:70%; width:240px; text-align:center;" @bind="@guideIdSelection" required>
+	<select class="general-menu-button" style="height:50px; opacity:70%; width:240px; text-align:center;" @onchange="HandleGuideChange" required>
 		<!-- default value (no interview selected) -->
 		<option value="">Life Action</option>
 

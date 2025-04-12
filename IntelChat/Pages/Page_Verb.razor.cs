@@ -155,8 +155,7 @@ namespace IntelChat.Pages
 					new SqlParameter("@type", entity["change"].VerbType),
 					new SqlParameter("@status", entity["change"].VerbStatus),
 					new SqlParameter("@url_id_pk", entity["change"].UrlIdPk),
-					new SqlParameter("@pod", pod),
-					new SqlParameter("@tag", entity["change"].VerbTag)
+					new SqlParameter("@pod", pod)
 			};
 
 			ExecuteStoredProcedure("dbo.[CRUD_Verb]", parameters);
@@ -194,8 +193,6 @@ namespace IntelChat.Pages
 			entities.Add(entity["change"]);
 			//	SyncAndLoadReadResults();
 			NotificationService.Notify("Verb changed successfully!", NotificationType.Success);
-			LoadReadResults();
-			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -205,8 +202,6 @@ namespace IntelChat.Pages
 			entities.Remove(entities.Find(e => e.VerbId == entity["delete"].VerbId));
 		//	SyncAndLoadReadResults();
 			NotificationService.Notify("Verb deleted successfully!", NotificationType.Success);
-			LoadReadResults();
-			LoadReadPypeResults();
 			show = "list";
 		}
 
