@@ -286,13 +286,19 @@
             }
         </select>
 
-        <select @onchange="OnUrlTypeFilterChanged">
-            <option value="All">All Types</option>
-            @foreach (var type in urlTypes)
-            {
-                <option value="@type">@type</option>
-            }
-        </select>
+        <label>
+            URL Type:
+            <select @onchange="OnUrlTypeFilterChanged">
+                <option value="">****</option>
+                @foreach (var pype in pypes)
+                {
+                    if (pype.PypeId == "URLS")
+                    {
+                        <option value="@pype.PypeType">@pype.PypeLabel</option>
+                    }
+                }
+            </select>
+        </label>
 
         <input type="text" @bind="tagFilter" @oninput="OnTagFilterChanged" placeholder="Filter by Tag" />
         <button class="reset-filters-button" @onclick="ResetFilters">Reset Filters</button>

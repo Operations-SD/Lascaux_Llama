@@ -40,6 +40,7 @@ namespace IntelChat.Pages
         private bool isChainedView = false; // Track if user is viewing a chained URL
         private int rootIndexBeforeChain = -1; // Stores the index before chaining
         private int rootUrlId = -1;
+        private List<Pype> pypes = new List<Pype>();
 
         private List<Url> originalUrls = new List<Url>(); //Store original unchained list
         
@@ -89,6 +90,36 @@ namespace IntelChat.Pages
                 parameters.Add(new SqlParameter("@URL_ID", chainedId.Value)); // Fetch a specific chained URL
 
             return ExecuteStoredProcedure("dbo.[Spin_URL]", parameters, true);
+        }
+        
+        private SqlDataReader? ReadPype()
+        {
+            List<SqlParameter> parameters = new List<SqlParameter> {
+                new SqlParameter("@PROC_Input_Filter", "Urls"),
+                new SqlParameter("@pod", pod)
+            };
+            return ExecuteStoredProcedure("dbo.[sp_Pype_Type_Locked]", parameters, true);
+        }
+        
+        private void LoadReadPypeResults()
+        {
+            var reader = ReadPype();
+            if (reader == null) return;
+
+            pypes.Clear();
+            while (reader.Read())
+            {
+                pypes.Add(new Pype
+                {
+                    PypeId = reader.GetString(0),
+                    PypeType = reader.GetString(1),
+                    PypeLabel = reader.GetString(2),
+                    PypeStatus = reader.GetString(3),
+                    PypeDesc = reader.GetString(4),
+                    PypeLink = reader.GetString(5)
+                });
+            }
+            reader.Close();
         }
 
         /// <summary>Load entities from the database into a list </summary>
@@ -210,6 +241,7 @@ namespace IntelChat.Pages
 
             
             LoadReadResults(); // Reload data with filters
+            LoadReadPypeResults();
         }
                 
         /// <summary>Handles changes in the URL Type filter dropdown</summary>
@@ -220,6 +252,7 @@ namespace IntelChat.Pages
 
             
             LoadReadResults(); // Reload data with filters
+            LoadReadPypeResults();
         }
 
         private void OnTagFilterChanged(ChangeEventArgs e)
@@ -354,7 +387,8 @@ namespace IntelChat.Pages
         {
             LoadPriorityLevels(); // Fetch distinct priority levels
             LoadUrlTypes(); // Fetch distinct URL types
-            LoadReadResults(); // Load URLs with filters           
+            LoadReadResults(); // Load URLs with filters
+            LoadReadPypeResults();
         }
 
         /// Categorize URL type dynamically
