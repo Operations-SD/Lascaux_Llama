@@ -83,17 +83,15 @@
 		URL spin
 	</button>
 
-	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Spin_Work?pod="+pod+"&pid="+pid))"
-			style="z-index:2;top:420px;color:#FFFFFF;left:1320px;height:60px;width:220px;">
-		Work spin
-	</button>
-
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Channel?pod="+pod+"&pid="+pid))"
 	        style="z-index:2;top:380px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
 		Channel
 	</button>
 
-
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Spin_Work?pod="+pod+"&pid="+pid))"
+			style="z-index:2;top:460px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Work spin
+	</button>
 </div>
 
 
