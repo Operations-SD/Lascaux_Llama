@@ -527,11 +527,6 @@
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** NAVIGATION Buttons ******************************** -->
 	<!-- ************************************************************************************ -->
-	<div style="position:absolute; left: 1340px; top:300px;">
-		<download-button @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=POD"))">
-			Download PDF
-		</download-button>
-	</div>
 
 	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("Administration?pod="+pod+"&pid="+pid))"
 			style="position:absolute;left:30px;top:600px;height:60px;border:0px;width:140px;">

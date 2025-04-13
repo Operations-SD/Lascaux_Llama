@@ -66,14 +66,11 @@ namespace IntelChat.Pages
 				new SqlParameter("@brand_eligibility", entity["add"].BrandEligibility),
 				new SqlParameter("@brand_reg_date_closed", entity["add"].BrandRegDateClosed),
 				new SqlParameter("@brand_cost", entity["add"].BrandCost),
-				new SqlParameter("@brand_guide", entity["add"].BrandGuide),
+				new SqlParameter("@guide_id_fk", entity["add"].GuideIdFk),
 				new SqlParameter("@brand_role", entity["add"].BrandRole),
 				new SqlParameter("@nova_id_fk", entity["add"].NovaIdFk),
 				new SqlParameter("@program_id_fk", pod),
-				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk),
-				new SqlParameter("@channel_alpha", entity["add"].ChannelAlpha),
-				new SqlParameter("@channel_beta", entity["add"].ChannelBeta),
-				new SqlParameter("@channel_gamma", entity["add"].ChannelGamma)
+				new SqlParameter("@location_id_fk", entity["add"].LocationIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Brand]", parameters);
 		}
@@ -153,14 +150,11 @@ namespace IntelChat.Pages
 				new SqlParameter("@brand_eligibility", entity["change"].BrandEligibility),
 				new SqlParameter("@brand_reg_date_closed", entity["change"].BrandRegDateClosed),
 				new SqlParameter("@brand_cost", entity["change"].BrandCost),
-				new SqlParameter("@brand_guide", entity["change"].BrandGuide),
+				new SqlParameter("@guide_id_fk", entity["change"].GuideIdFk),
 				new SqlParameter("@brand_role", entity["change"].BrandRole),
 				new SqlParameter("@nova_id_fk", entity["change"].NovaIdFk),
 				new SqlParameter("@program_id_fk", pod),
-				new SqlParameter("@location_id_fk", entity["change"].LocationIdFk),
-				new SqlParameter("@channel_alpha", entity["change"].ChannelAlpha),
-				new SqlParameter("@channel_beta", entity["change"].ChannelBeta),
-				new SqlParameter("@channel_gamma", entity["change"].ChannelGamma)
+				new SqlParameter("@location_id_fk", entity["change"].LocationIdFk)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Brand]", parameters);
 		}

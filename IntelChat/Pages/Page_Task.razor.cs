@@ -160,7 +160,8 @@ namespace IntelChat.Pages
 					PodIdFk = reader.GetInt32(14),
 					TaskSeq = reader.GetInt16(15),
 					TaskParent = reader.GetInt32(16),
-					TaskUrl = reader.GetInt32(16)
+					TaskUrl = !reader.IsDBNull(17) ? reader.GetInt32(17) : 0,
+					TaskTag = reader.GetString(18)
 				});
 			}
 			reader.Close();
@@ -193,7 +194,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Update"),
-				new SqlParameter("@id", entity["change"].TaskId),
+				new SqlParameter("@task_ID", entity["change"].TaskId),
 				new SqlParameter("@pod", pod),
 				new SqlParameter("@task_label32", entity["change"].TaskLabel32),
 				new SqlParameter("@task_type", entity["change"].TaskType),
@@ -208,10 +209,10 @@ namespace IntelChat.Pages
 				new SqlParameter("@person_id_fk", entity["change"].PersonIdFk),
 				new SqlParameter("@nova_id_fk", entity["change"].NovaIdFk),
 				new SqlParameter("@noun_id_fk", entity["change"].NounIdFk),
-				new SqlParameter("@pod_id_fk", entity["change"].PodIdFk),
 				new SqlParameter("@task_seq", entity["change"].TaskSeq),
 				new SqlParameter("@task_parent", entity["change"].TaskParent),
-				new SqlParameter("@task_url", entity["change"].TaskUrl)
+				new SqlParameter("@task_url", entity["change"].TaskUrl),
+				new SqlParameter("@task_tag", entity["change"].TaskTag)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Task]", parameters);
 		}
@@ -222,7 +223,7 @@ namespace IntelChat.Pages
 			List<SqlParameter> parameters = new List<SqlParameter>
 			{
 				new SqlParameter("@PROC_action", "Delete"),
-				new SqlParameter("@id", entity["delete"].TaskId),
+				new SqlParameter("@task_ID", entity["delete"].TaskId),
 				new SqlParameter("@task_status", entity["delete"].TaskStatus)
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Task]", parameters);
@@ -241,9 +242,12 @@ namespace IntelChat.Pages
 		/// <summary>Handle events triggered by entity changes</summary>
 		private void OnChange()
 		{
+			Change();
 			entities.Remove(entities.Find(e => e.TaskId == entity["change"].TaskId));
 			entities.Add(entity["change"]);
 			NotificationService.Notify("Task changed successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 		}
 
 		/// <summary>Handle events triggered by entity deletions</summary>
@@ -252,6 +256,8 @@ namespace IntelChat.Pages
 			Delete();
 			entities.Remove(entities.Find(e => e.TaskId == entity["delete"].TaskId));
 			NotificationService.Notify("Task deleted successfully!", NotificationType.Success);
+			LoadReadResults();
+			LoadReadPypeResults();
 			show = "list";
 		}
 

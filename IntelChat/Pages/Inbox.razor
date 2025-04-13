@@ -14,9 +14,7 @@
 @using Microsoft.AspNetCore.Http
 @using ThreadingTask = System.Threading.Tasks.Task;
 
-
 <style>
-
 	/* Restrict memo UI inside the floating window */
 
 
@@ -56,11 +54,6 @@
 <div class="memo-container">
 
 	
-	<div style="position:absolute; top:80px; left:292px;align-items:center; padding: 6px 10px; font-weight: bold; align-items: center; z-index:100; opacity:90%">
-		<span style="padding:6px; background:white; color:black; z-index:100">MEMO INBOX</span>
-		
-	</div>
-	
 
 	<!-- ************************************************************************************ -->
 	<!-- **************************   INBOX  *************** STYLE ************************** -->
@@ -89,12 +82,11 @@
 		<label for="role_recipient" style="color:#000000;left:40px;">Sender: </label>
 			<select @onchange=OnRoleChanged name="role_recipient" style="color:#000000;left:45px;">
 			<option value="self">Self</option>
-			<option value="acad|18">POD Academy 18</option>
-			<option value="user|14">User 14</option>
-			<option value="user|3">User 3</option>
-			<option value="admn|13">Administration 13</option>
-			<option value="engr|17">Engineer 17</option>
-			<option value="xprt|16">Domain Expert 16</option>
+			<option value="acad">POD Academy</option>
+			<option value="user">User</option>
+			<option value="admn">Administration</option>
+			<option value="engr">Engineer</option>
+			<option value="xprt">Domain Expert</option>
 		</select>
 		
 		</div>
@@ -104,13 +96,12 @@
 	<!-- ************************************************************************************ -->
 
 	<div style="position:absolute;width:400px;left:40px;top:50px;opacity:70%;">
-		<label for="message_type" style="color:#000000;left:100px">Reciver: @ReadRoleFromPid(pid) | @pid   @person1</label>
+		<label for="message_type" style="color:#000000;left:100px">Reciver: @ReadRoleFromPid(pid) | @pid </label>
 	</div>
 
 		<!-- ************************************************************************************ -->
 		<!-- ************************** MEMO regarding ****************************************** -->
 		<!-- ************************************************************************************ -->
-		<div>@person1</div>
         <div style="position:absolute; display: flex;width:400px;left:40px;top:80px;opacity:70%;">
 		<label for="message_type" style="color:#000000;left:100px">Regarding: </label>
             <select @bind=messageType name="message_type" style="color:#000000;float:left:40px;">
@@ -124,15 +115,6 @@
 
        
         </div>
-
-	@if (!string.IsNullOrEmpty(currentImage))
-	{
-		<div class="memo-image-container" style="position:absolute; left:159px; top:420px;">
-			<a href="@currentImage" download class="text-blue-600 hover:underline" style="font-weight:bold;">
-				📥 Download Image
-			</a>
-		</div>
-	}
 
 
 	<!-- ************************************************************************************ -->

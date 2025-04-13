@@ -13,12 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<QuestionService>();
-
 //ADDED SERVICES-----------------------------------------------------------------------------------------------------------
 builder.Services.AddSingleton<NewStateService>();
-builder.Services.AddSingleton<InterviewInboxStateService>();
-
 builder.Services.AddScoped<ChatStateService>();
 builder.Services.AddSingleton<NounService>(); //noun service singleton to reduce DB reads
 builder.Services.AddSingleton<VerbService>(); //verb singleton - reduce reads

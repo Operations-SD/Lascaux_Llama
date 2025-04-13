@@ -1,7 +1,6 @@
 using IntelChat.Models;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Claims;
@@ -28,10 +27,8 @@ namespace IntelChat.Pages
         [Inject]
         private NewStateService NewMemoService { get; set; } = default!; // Inject the service
         private bool showResponseMessage = false;
-        private string selectedFileName;
-        private string imageUrl;
-
-        public int roleRecipient = 0;
+       
+        public string roleRecipient = "";
 		public string MessageTime = "";//time of the message that was sent
 
 		private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
@@ -45,33 +42,30 @@ namespace IntelChat.Pages
 			return null;
 		}
 
-        private void CreateMemo()
-        {
-            if (messageType == "" || message == "") return;
-            List<SqlParameter> parameters = new List<SqlParameter>
-            {
-                new SqlParameter("@PROC_action", "Create"),
-                new SqlParameter("@memo_person_to",  roleRecipient),
-                new SqlParameter("@memo_person_from", pid),
-                new SqlParameter("@memo_date_time", DateTime.Now),
-                new SqlParameter("@memo_priority", 0),
-                new SqlParameter("@memo_pod", pod),
-                new SqlParameter("@memo_nova", 0),
-                new SqlParameter("@memo_channel", 0),
-                new SqlParameter("@memo_type", messageType),
-                new SqlParameter("@memo_status", "A"),
-                new SqlParameter("@memo_message", message),
-                new SqlParameter("@memo_image", (imageUrl != null) ? (object)imageUrl : DBNull.Value)
-            };
+		private void CreateMemo()
+		{
+			if (messageType == "" || message == "") return;
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Create"),
+				new SqlParameter("@memo_person_to",  ReadPodRolePerson(roleRecipient)),
+				new SqlParameter("@memo_person_from", pid),
+				new SqlParameter("@memo_date_time", DateTime.Now),
+				new SqlParameter("@memo_priority", 0),
+				new SqlParameter("@memo_pod", pod),
+				new SqlParameter("@memo_nova", 0),
+				new SqlParameter("@memo_channel", 0),
+				new SqlParameter("@memo_type", messageType),
+				new SqlParameter("@memo_status", "A"),
+				new SqlParameter("@memo_message", message)
+			};
 
             showResponseMessage = true;
-
+           
             ExecuteStoredProcedure("dbo.[CRUD_Memo]", parameters);
-            // Reset image-related fields after sending
-            imageUrl = null;
-            selectedFileName = null;
-        }
-        private void LoadMemos(string sp, string table)
+		}
+
+		private void LoadMemos(string sp, string table)
 		{
             showResponseMessage = false;
             var reader = Read(sp, table);
@@ -155,38 +149,15 @@ namespace IntelChat.Pages
 			
 		}
 
-		
+		private void AssignRole(String role)
+		{
+			roleRecipient = role;
 
-
-
-        private async void OnFileSelected(InputFileChangeEventArgs e)
-        {
-            try
-            {
-                var file = e.File;
-                selectedFileName = file.Name;
-
-                // Create a resized image file to reduce memory usage
-                var imageFile = await file.RequestImageFileAsync(file.ContentType, 800, 600);
-
-                // Use a memory stream to read the file
-                using var stream = imageFile.OpenReadStream(maxAllowedSize: 5242880); // 5MB max
-                using var ms = new MemoryStream();
-                await stream.CopyToAsync(ms);
-
-                // Convert to base64
-                byte[] buffer = ms.ToArray();
-                string fileType = file.ContentType;
-                imageUrl = $"data:{fileType};base64,{Convert.ToBase64String(buffer)}";
-
-                StateHasChanged();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error processing image: {ex.Message}");
-                // Add error handling as needed
-            }
         }
+
+
+
+
 
 
 

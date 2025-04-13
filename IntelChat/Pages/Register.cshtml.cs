@@ -15,6 +15,9 @@ using System.Collections.Generic;
 using IntelChat.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography;
+using System;
 
 namespace IntelChat.Pages
 {
@@ -27,6 +30,8 @@ namespace IntelChat.Pages
 		private readonly IConfiguration _config;
 		public List<SelectListItem> Types = new List<SelectListItem>();
 		private List<Pype> pypes = new List<Pype>();
+		private List<Execute> execute = new List<Execute>();
+		private List<MyGuide> myGuides = new List<MyGuide>();
 
 		public RegisterModel(IConfiguration config)
 		{
@@ -69,7 +74,7 @@ namespace IntelChat.Pages
 
 			// Create new person based on the given information
 			var type = Input.Type.IsNullOrEmpty() ? "NONE" : Input.Type;
-			CreatePerson(Input.Fname, Input.Lname, "NONE", type, "A", brand.BrandRole, DateTime.Now, Convert.ToInt32(Input.Pod), brand.LocationIdFk);
+			CreatePerson(Input.Fname, Input.Lname, "NONE", type, "A", brand.BrandRole, DateTime.Now, Convert.ToInt32(Input.Pod), brand.LocationIdFk, brand.ProgramIdFk);
 			Person? person = ReadPerson(Input.Fname, Input.Lname);
 			if (person == null) { ViewData["Error"] = "Person could not be created!"; return Page(); }
 
@@ -92,6 +97,9 @@ namespace IntelChat.Pages
 			claims.Add(new Claim(ClaimTypes.Role, $"{Convert.ToInt32(Input.Pod)}-{brand.BrandRole}"));
 			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 			var principal = new ClaimsPrincipal(claimsIdentity);
+
+			Execute_Table(person.PersonId, person.PodIdFk);
+
 
 			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 			return LocalRedirect(ReturnUrl);
@@ -288,7 +296,7 @@ namespace IntelChat.Pages
 		}
 
 		private void CreatePerson(String first, String last, String label, String type,
-			String status, String role, DateTime dateTime, int podIdFk, int locationIdFk)
+			String status, String role, DateTime dateTime, int podIdFk, int locationIdFk, int programIdFk)
 		{
 			string spName = "dbo.[CRUD_Person]";
 			SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
@@ -305,7 +313,8 @@ namespace IntelChat.Pages
 				new SqlParameter("@role", role),
 				new SqlParameter("@date_time", dateTime),
 				new SqlParameter("@pod", podIdFk),
-				new SqlParameter("@location_id_fk", locationIdFk)
+				new SqlParameter("@location_id_fk", locationIdFk),
+				new SqlParameter("@program_id_fk", programIdFk)
 			};
 			parameters.ForEach(parameter => cmd.Parameters.Add(parameter));
 
@@ -344,8 +353,124 @@ namespace IntelChat.Pages
 					PypeLink = reader.GetString(5),
 				});
 			}
-
 			connection.Close();
 		}
-	}
+
+		private SqlDataReader? ExecuteStoredProcedure(string procedure, List<SqlParameter> parameters, bool reader = false)
+		{
+			var connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
+			using var command = new SqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure };
+			parameters.ForEach(parameter => command.Parameters.Add(parameter));
+			connection.Open();
+			if (reader) return command.ExecuteReader(CommandBehavior.CloseConnection);
+			command.ExecuteNonQuery();
+			return null;
+		}
+		private void CreateMemo(int pid, int pod, string role, string message)
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@PROC_action", "Create"),
+				new SqlParameter("@memo_person_to",  ReadPodRolePerson(pid, pod, role)),
+				new SqlParameter("@memo_person_from", pid),
+				new SqlParameter("@memo_date_time", DateTime.Now),
+				new SqlParameter("@memo_priority", 0),
+				new SqlParameter("@memo_pod", pod),
+				new SqlParameter("@memo_nova", 0),
+				new SqlParameter("@memo_channel", 0),
+				new SqlParameter("@memo_type", "COMM"),
+				new SqlParameter("@memo_status", "A"),
+				new SqlParameter("@memo_message", message)
+			};
+			ExecuteStoredProcedure("dbo.[CRUD_Memo]", parameters);
+		}
+
+		private int ReadPodRolePerson(int? pid, int pod, string role)
+		{
+			if (role == "") return pid ?? 0;
+			if (role == "self") return pid ?? 0;
+
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@pod", pod),
+				new SqlParameter("@role", role)
+			};
+			var reader = ExecuteStoredProcedure("dbo.[Read_POD_Role_Person]", parameters, true);
+			if (reader == null) return 0;
+			reader.Read();
+			int recipientId = reader.GetInt32(0);
+			reader.Close();
+			return recipientId;
+		}
+
+		private void GuideAdd(int pid, int? gid)
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@person_id", pid),
+				new SqlParameter("@guide_id", gid)
+			};
+			ExecuteStoredProcedure("dbo.[Execute_Guide]", parameters);
+		}
+
+		private void AddQARS(int pid, int? qid, int? response, int? severity)
+		{
+			List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@person_id", pid),
+				new SqlParameter("@question_id", qid),
+				new SqlParameter("@response", response),
+				new SqlParameter("@severity", severity)
+			};
+			ExecuteStoredProcedure("dbo.[Execute_QARS]", parameters);
+		}
+
+		private void Execute_Table(int pid, int pod)
+        {
+            string spName = "dbo.[Read_Execute]";
+            using SqlConnection connection = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection"));
+            using SqlCommand cmd = new SqlCommand(spName, connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            connection.Open();
+            using SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                execute.Add(new Execute
+				{
+					ExecId = reader.GetInt32(0),
+					WorkTypeStatusE = reader.GetString(1),
+					ExecuteText = reader.GetString(2),
+					GuideIdFk = reader.GetInt32(3),
+					ExecuteR = reader.GetByte(4),
+					ExecuteS = reader.GetByte(5),
+					Question = reader.GetInt32(6),
+					Role = reader.GetString(7)
+				});     
+            }
+            connection.Close();
+
+			//while loop here
+			int execIndex = 0;
+			while (execIndex < execute.Count)
+			{
+				Execute currentExec = execute[execIndex];
+
+				switch (currentExec.WorkTypeStatusE)
+				{
+					case "MEMO":
+						CreateMemo(pid, pod, currentExec.Role, currentExec.ExecuteText);
+						break;
+					case "Gadd":
+						GuideAdd(pid, currentExec.GuideIdFk);
+						break;
+					case "QARS":
+						AddQARS(pid, currentExec.Question, currentExec.ExecuteR, currentExec.ExecuteS);
+						break;
+				}
+				execIndex++;
+			}
+        }
+
+    }
 }

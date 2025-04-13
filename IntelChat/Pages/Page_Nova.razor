@@ -229,7 +229,7 @@
 <!-- ***************************************************************************************************** -->
 <!-- ************************** Lascaux List  ******************** SUBJECT ****** Using type=NOVA ******** -->
 <!-- ***************************************************************************************************** -->
-<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",subject,0,0,"NOVA")))">
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",subject,0,0,"SUBJECT")))">
 	@*Subject*@
 	<select class="tableList" style="		top: 645px;	0pacity:70%;	left: 612px;border-radius:8px;height:44PX;
 	" @bind=subject required>
@@ -255,9 +255,9 @@
 
 
 <!-- **************************************************************************************************** -->
-<!-- ************************** Lascaux List  ******************** ACTION ****** Using type=POD  ******** -->
+<!-- ************************** Lascaux List  ******************** ACTION ****** Using type=ACTION  ******** -->
 <!-- **************************************************************************************************** -->
-<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",0,action,0,"POD")))">
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",0,action,0,"ACTION")))">
 	@*Action*@
 	<select class="tableList" style="		top: 730px;	0pacity:70%;	left: 870px;border-radius:8px;height:44PX;
 	" @bind=action required>
@@ -270,7 +270,7 @@
 	<button type="submit" style="
 		position: absolute;
 		top: 700px;
-		left:870px;
+		left:300px;
 		width:240px;
 		height:80px;
 		border-radius:8px;	"
@@ -280,9 +280,9 @@
 
 
 <!-- **************************************************************************************************** -->
-<!-- ************************** Lascaux List  ******************** OBJECT ****** Using type=TASK ******** -->
+<!-- ************************** Lascaux List  ******************** OBJECT ****** Using type=OBJECT ******** -->
 <!-- **************************************************************************************************** -->
-<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",0,0,obj,"TASK")))">
+<form onsubmit="@(()=>_nav.NavigateTo(String.Format("/Lascaux?pod={0}&pid={1}&prevPage={2}&subid={3}&actid={4}&objid={5}&type={6}",pod,pid,"NOVA",0,0,obj,"OBJECT")))">
 	@*Object*@
 	<select class="tableList" style="	top: 825px;0pacity:70%;	left: 1126px;border-radius:8px;height:44PX;
 	" @bind=obj required>

@@ -21,9 +21,7 @@ namespace IntelChat.Pages
 		[SupplyParameterFromQuery]
 		public int? pid { get; set; }
         public bool modal = false;
-        public string currentImage { get; set; } // Store current image data
         public string show = "";
-        public int person1 = 0;
         public string message = "";
 		public string messageType = "";
         private List<Memo> memos = new List<Memo>();
@@ -64,40 +62,33 @@ namespace IntelChat.Pages
 			};
 			ExecuteStoredProcedure("dbo.[CRUD_Memo]", parameters);
 		}
-        private void LoadMemos(string sp, string table)
-        {
-            var reader = Read(sp, table);
-            if (reader == null) return;
 
-            memos.Clear();
-            while (reader.Read())
-            {
-                var memo = new Memo
-                {
-                    MemoPersonTo = reader.GetInt32(0),
-                    MemoPersonFrom = reader.GetInt32(1),
-                    MemoDateTime = reader.GetDateTime(2),
-                    MemoPriority = reader.GetByte(4),
-                    GuideIdFk = reader.GetInt32(10),
-                    MemoNova = reader.GetInt32(12),
-                    MemoChannel = reader.GetInt32(8),
-                    MemoType = reader.GetString(5),
-                    MemoStatus = reader.GetString(6),
-                    MemoMessage = reader.GetString(7)
-                };
+		private void LoadMemos(string sp, string table)
+		{
+			var reader = Read(sp, table);
+			if (reader == null) return;
 
-                // Check if there's an image column and it's not null
-                if (reader.FieldCount > 13 && !reader.IsDBNull(13))
-                {
-                    memo.MemoImage = reader.GetString(13);
-                }
+			memos.Clear();
+			while (reader.Read())
+			{
+				memos.Add(new Memo
+				{
+					MemoPersonTo = reader.GetInt32(0),
+					MemoPersonFrom = reader.GetInt32(1),
+					MemoDateTime = reader.GetDateTime(2),
+					MemoPriority = reader.GetByte(4),
+					GuideIdFk = reader.GetInt32(10),
+					MemoNova = reader.GetInt32(12),
+					MemoChannel = reader.GetInt32(8),
+					MemoType = reader.GetString(5),
+					MemoStatus = reader.GetString(6),
+					MemoMessage = reader.GetString(7)
+				});
+			}
+			reader.CloseAsync();
+		}
 
-                memos.Add(memo);
-            }
-            reader.CloseAsync();
-        }
-
-        private int ReadPodRolePerson(string role)
+		private int ReadPodRolePerson(string role)
 		{
 			if (role == "self") return pid ?? 0;
 
@@ -145,8 +136,29 @@ namespace IntelChat.Pages
 			return ExecuteStoredProcedure($"dbo.[{sp}]", parameters, true);
 		}
 
-		
+		private void ChangeInbox(ChangeEventArgs e)
+		{
+			DateTime dt = DateTime.Parse(e.Value.ToString());
+			Memo currentMemo = memos.Find(memo => memo.MemoDateTime.ToString() == dt.ToString());
+			message = currentMemo.MemoMessage;
+			messageType = currentMemo.MemoType;
+			
+		}
 
+		//Handle the events of changed caused by selecting new sender
+        private void OnRoleChanged(ChangeEventArgs e)
+        {
+            roleRecipient = e.Value?.ToString() ?? "self";
+            int senderPid = ReadPodRolePerson(roleRecipient); // Get PID from role
+            FilterMemosByPid(senderPid);
+            message = currentSenderMemo.Any() ? currentSenderMemo.Last().MemoMessage : "No messages found.";
+			messageType = currentSenderMemo.Any() ? currentSenderMemo.Last().MemoType : "None";
+            MessageTime = currentSenderMemo.Any()
+    ? currentSenderMemo.Last().MemoDateTime.ToString("yyyy-MM-dd HH:mm:ss")
+    : "None";
+
+
+        }
 
 
         //The selected sender message are filtered from all the memos
@@ -158,70 +170,22 @@ namespace IntelChat.Pages
 
         }
 
-       
-
-
-        private void ChangeInbox(ChangeEventArgs e)
-        {
-            DateTime dt = DateTime.Parse(e.Value.ToString());
-            Memo currentMemo = memos.Find(memo => memo.MemoDateTime.ToString() == dt.ToString());
-            message = currentMemo.MemoMessage;
-            messageType = currentMemo.MemoType;
-            currentImage = currentMemo.MemoImage; // Store the current image to display
-        }
-
-        private void OnRoleChanged(ChangeEventArgs e)
-        {
-            roleRecipient = "self";
-            int senderPid = 0;
-
-            var selectedValue = e.Value?.ToString(); // e.g., "user|103"
-            if (!string.IsNullOrWhiteSpace(selectedValue) && selectedValue.Contains('|'))
-            {
-                var parts = selectedValue.Split('|');
-                roleRecipient = parts[0]; // e.g., "user"
-                if (int.TryParse(parts[1], out int parsedPid))
-                {
-                    senderPid = parsedPid;
-                }
-            }
-
-            person1 = senderPid;
-            FilterMemosByPid(senderPid);
-
-            if (currentSenderMemo.Any())
-            {
-                message = currentSenderMemo.Last().MemoMessage;
-                messageType = currentSenderMemo.Last().MemoType;
-                currentImage = currentSenderMemo.Last().MemoImage; // Set the image
-                MessageTime = currentSenderMemo.Last().MemoDateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            }
-            else
-            {
-                message = "No messages found.";
-                messageType = "None";
-                currentImage = null; // Clear the image
-                MessageTime = "None";
-            }
-        }
         private void ShowPreviousMemo()
         {
-            if (currentSenderMemo.Count == 0)
-            {
-                message = "no memos to show";
-                currentImage = null; // Clear image when no memos
+			if (currentSenderMemo.Count == 0)
+			{
+				message = "no memos to show";
                 return; // Return if no memos
             }
-
+			
             if (currentMemoIndex == -1)
                 currentMemoIndex = currentSenderMemo.Count - 1; // Start from the latest memo
 
             // Update the message with the current memo
-            person1 = currentSenderMemo[currentMemoIndex].MemoPersonFrom;
             message = currentSenderMemo[currentMemoIndex].MemoMessage;
-            messageType = currentSenderMemo[currentMemoIndex].MemoType;
-            currentImage = currentSenderMemo[currentMemoIndex].MemoImage; // Set the image
-            MessageTime = currentSenderMemo.Any() ? currentSenderMemo[currentMemoIndex].MemoDateTime.ToString("yyyy-MM-dd HH:mm:ss") : "None";
+			messageType = currentSenderMemo[currentMemoIndex].MemoType;
+            MessageTime = currentSenderMemo.Any() ? currentSenderMemo[currentMemoIndex].MemoDateTime.ToString("yyyy-MM-dd HH:mm:ss"): "None";
+
 
             // Move to the previous memo
             currentMemoIndex--;

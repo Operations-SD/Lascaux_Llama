@@ -93,7 +93,6 @@
 						eligibility:
 						<input class="form-control" @bind="@entity["add"].BrandEligibility" required />
 					</label><br>
-
 				</div>
 
 				<div class="exhibitInfo2">
@@ -104,7 +103,7 @@
 
 					<label>
 						image:
-						<input class="form-control" @bind="@entity["add"].BrandImage" maxlength="128"/>
+						<input class="form-control" @bind="@entity["add"].BrandImage" maxlength="128" required />
 					</label><br>
 
 					<label>
@@ -112,7 +111,16 @@
 						<input class="form-control" @bind="@entity["add"].BrandCost" required />
 					</label><br>
 
-
+				<label>
+					Program:
+					<select class="form-control" @bind="@entity["add"].ProgramIdFk" required>
+						<option value="">-- Select a Program --</option>
+						@foreach (var program in programs)
+						{
+							<option value="@program.ProgramId">@program.ProgramLabel</option>
+						}
+					</select>
+				</label><br><br>
 
 					@* 					<label>
 				Channel Alpha:

@@ -57,12 +57,6 @@
 	<!-- **************************   INBOX  *************** STYLE ************************** -->
 	<!-- ************************************************************************************ -->
 
-	<div style="position:absolute; top:80px; left:292px;align-items:center; padding: 6px 10px; font-weight: bold; align-items: center; z-index:100; opacity:90%">
-		<span style="padding:6px; background:white; color:black; z-index:100">NEW MEMO</span>
-
-	</div>
-
-
 @* 	<select @onchange=ChangeInbox
 			style="position:absolute;width:400px;display:block;text-align:center;height:500px;background-color:#c6d1ef;border-color:#abb4cd;left:40px;top:60px;opacity:70%;">
 		<option value="" disabled selected>Inbox</option>
@@ -89,16 +83,15 @@
 	<div style="position:absolute; display: flex;width:400px;left:40px;top:40px;opacity:70%;">
 	<label for="role_recipient" style="color:#000000;left:40px;">Recipient: </label><br /><br />
 	<select @bind=roleRecipient name="role_recipient" style="color:#000000;left:40px;background-color:#c6d1ef;">
-			<option value=0>Self</option>
-			<option value=18>POD Academy 18</option>
-			<option value=14>User 14</option>
-			<option value=3>User 3</option>
-			<option value=13>Administration 13</option>
-			<option value=17>Engineer 17</option>
-			<option value=16>Domain Expert 16</option>
+		<option value="self">Self</option>
+			<option value="user">User</option>
+		<option value="acad">POD Academy</option>
+		<option value="admn">Administration</option>
+		<option value="engr">Engineer</option>
+		<option value="xprt">Domain Expert</option>
 	</select>
 
-		<label for="role_recipient" style="color:#000000;left:100px;">@roleRecipient </label>
+		<label for="role_recipient" style="color:#000000;left:100px;">@ReadPodRolePerson(@roleRecipient) </label>
 	</div>
 	
 
@@ -118,25 +111,6 @@
 
        
         </div>
-
-
-
-
-	<div style="position:absolute;top:415px;left:80px;z-index:100">
-		<InputFile OnChange="@OnFileSelected" accept=".jpg,.jpeg,.png"
-				   style="display:none;" id="fileInput" />
-		<button class="upload-btn" onclick="document.getElementById('fileInput').click(); return false;">
-			Upload Image
-		</button>
-
-		@if (!string.IsNullOrEmpty(selectedFileName))
-		{
-			<div style="position:absolute;top:35px;font-size:12px;width:200px;color:#333;overflow:hidden;text-overflow:ellipsis;">
-				@selectedFileName
-			</div>
-		}
-	</div>
-
 
 
 	<!-- ************************************************************************************ -->

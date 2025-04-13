@@ -518,12 +518,6 @@
 	<!-- ************************************************************************************ -->
 	<!-- ****************************************** URL DELETE ****************************** -->
 	<!-- ************************************************************************************ -->
-
-	<div style="position:absolute; left: 1340px; top:300px;">
-		<download-button @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=URL"))">
-			Download PDF
-		</download-button>
-	</div>
 	@if (show.Equals("delete"))
 	{
 		<div style="font-size:x-large; display: inline-block;">
