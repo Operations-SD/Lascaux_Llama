@@ -98,23 +98,54 @@
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** Reports / Exports ************************************ -->
 	<!-- ************************************************************************************ -->
-    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/addart?pod="+pod+"&pid="+pid))"
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Noun"))"
 			style="top:300px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
-        Art
-    </button>
+		Print Noun
+	</button>
 
-    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Program?pod="+pod+"&pid="+pid))"
-            style="top:380px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
-        Program
-    </button>
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Verb"))"
+			style="top:380px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Print Verb
+	</button>
 
-    <button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Element?pod="+pod+"&pid="+pid))"
-            style="top:460px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
-        Element
-    </button>
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=NOVA"))"
+	        style="top:460px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Print NOVA
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Task"))"
+	        style="top:540px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Print Task
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Work"))"
+			style="top:620px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Print Work
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity=Guide"))"
+	        style="top:700px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Print Guide
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/addart?pod="+pod+"&pid="+pid))"
+	        style="top:780px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Art
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Program?pod="+pod+"&pid="+pid))"
+	        style="top:860px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Program
+	</button>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("/Element?pod="+pod+"&pid="+pid))"
+	        style="top:940px;color:#FFFFFF;left:1353px;height:60px;width:240px;">
+		Element
+	</button>
 
 
-<div>
+	<div>
 	<!-- ************************************************************************************ -->
 	<!-- ***************************** MENU JUMP ************* ****************************** -->
 	<!-- ************************************************************************************ -->

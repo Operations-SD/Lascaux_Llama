@@ -378,6 +378,13 @@
 		</div>
 	}
 
+	<div style="position:absolute; left: 1340px; top:300px;">
+		<download-button @onclick="@(()=>_nav.NavigateTo("/DownloadPDF?pod="+pod+"&pid="+pid+"&entity"+pageName))">
+			Download PDF
+		</download-button>
+	</div>
+
+
 	<!-- ************************************************************************************ -->
 	<!-- ******************************** NAVIGATION Buttons ******************************** -->
 	<!-- ************************************************************************************ -->
