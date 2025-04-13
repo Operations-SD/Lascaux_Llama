@@ -73,7 +73,8 @@ namespace IntelChat.Pages
 				entities.Add(new Guide
 				{
 					GuideId = reader.GetInt32(0),
-					GuideLabel = reader.GetString(1)
+					GuideLabel = reader.GetString(1),
+					GuidePurpose = reader.GetString(2)
 				});
 			}
 			reader.Close();

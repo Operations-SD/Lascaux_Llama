@@ -243,7 +243,7 @@
 			{
 				if (MyGuide.PersonIdFk == pid && guide.GuideId == MyGuide.GuideIdFk && MyGuide.MyGuide1 == "B")
 				{
-					<option value="@guide.GuideId">@guide.GuideLabel</option>
+					<option value="@guide.GuideId">@($"{guide.GuideLabel} - {guide.GuidePurpose}")</option>
 				}
 
 			}
@@ -281,7 +281,7 @@
 			{
 				if (MyGuide.PersonIdFk == pid && guide.GuideId == MyGuide.GuideIdFk && MyGuide.MyGuide1 == "M")
 				{
-					<option value="@guide.GuideId">@guide.GuideLabel</option>
+					<option value="@guide.GuideId">@($"{guide.GuideLabel} - {guide.GuidePurpose}")</option>
 				}
 				
 			}
