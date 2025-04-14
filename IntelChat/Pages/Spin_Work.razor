@@ -14,7 +14,7 @@
     /* Background Styling */
     body {
         background: url("https://agineuralnet.blob.core.windows.net/background/BG_SpinURL.png") no-repeat;
-        background-size: 1200px 1000px;
+        background-size: 1920px 1080px;
         background-position: left 0px top 0px;
         color: antiquewhite;
         opacity: 70%;
@@ -35,7 +35,7 @@
     .data-container {
         position: absolute;
         top: 150px;
-        left:180px;
+        left:50%;
         width: 850px; /* Fixed width */
         height: 700px; /* Fixed height */
         padding: 20px;
@@ -102,7 +102,7 @@
 
     .filters-container {
         position: relative; /* Ensure it stays in flow */
-        left:180px;
+        left:420px;
         top: 36px; /* Adjust to move slightly above */
         margin-bottom: 20px; /* Adds space between filters and data container */
         display: flex;
@@ -262,12 +262,12 @@
     <!-- ************************************************************************************ -->
 
     <button class="general-menu-button" @onclick="GoToPreviousWork" title="Go back to previous URL"
-            style="position:absolute;left:300px;top:865px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+            style="position:absolute;left:700px;top:865px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
             Previous
     </button>
 
     <button class="general-menu-button" @onclick="GoToNextWork" title="Go to next sequential URL"
-            style="position:absolute;left:800px;top:865px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
+            style="position:absolute;left:1200px;top:865px;height:60px;border:0px;width:140px;color:#000000;opacity:100%;">
             Next
     </button>
 
