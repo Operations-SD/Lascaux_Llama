@@ -35,7 +35,7 @@ namespace IntelChat.Pages
         private (int X, int Y) mouseStartNewMemo = (0, 0);
         private (int X, int Y) responseIframePosition = (500, 60);
         private (int X, int Y) mouseStartResponse = (0, 0);
-        private (int X, int Y) chatIframePosition = (1710, 60);
+        private (int X, int Y) chatIframePosition = (800, 60);
 		private (int X, int Y) mouseStartChat = (0, 0);
 		public string ChatiframeSource = "";      // Holds the source of the iframe to be displayed
 		public string MemoiframeSource = "";
