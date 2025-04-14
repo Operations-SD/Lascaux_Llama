@@ -1203,9 +1203,9 @@ namespace IntelChat.Pages
 		private bool subjectIsDragging = false, actionIsDragging = false, objectIsDragging = false;
 		private bool subjectIsInsideDropZone = false, actionIsInsideDropZone = false, objectIsInsideDropZone = false;
 
-		private (int X, int Y) subjectImagePosition = (324, 522);
-		private (int X, int Y) actionImagePosition = (575, 522);
-		private (int X, int Y) objectImagePosition = (826, 522);
+		private (int X, int Y) subjectImagePosition = (468, 595);
+		private (int X, int Y) actionImagePosition = (719, 595);
+		private (int X, int Y) objectImagePosition = (970, 595);
 
 		private (int X, int Y) mouseStart = (0, 0);
 		private readonly (int Width, int Height) originalImageSize = (200, 200);
@@ -1218,8 +1218,8 @@ namespace IntelChat.Pages
 		private string dropMessage = ""; // Message for invalid drops
 
 		// Drop zone dimensions and positions with calculated left coordinates
-		private readonly (int X, int Y, int Width, int Height) subjectObjectDropZone = (1253, -2, 98, 98); // Adjusted for "right" position
-		private readonly (int X, int Y, int Width, int Height) actionDropZone = (1253, 111, 98, 98);      // Adjusted for "right" position
+		private readonly (int X, int Y, int Width, int Height) subjectObjectDropZone = (1396, 70, 98, 98); // Adjusted for "right" position
+		private readonly (int X, int Y, int Width, int Height) actionDropZone = (1396, 183, 98, 98);      // Adjusted for "right" position
 
 
 		// Start dragging logic
