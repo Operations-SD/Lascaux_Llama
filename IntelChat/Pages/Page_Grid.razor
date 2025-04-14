@@ -63,21 +63,21 @@
 
 		
 	
-<select @onchange="DisplayTable">
-	<option value="-">-</option>
-	@foreach (var filter in filters)
-	{
-		if(entity == null)
+	<select @onchange="DisplayTable">
+		<option value="-">-</option>
+		@foreach (var filter in filters)
 		{
-			<option value="@filter">@filter</option>
+			if(entity == null)
+			{
+				<option value="@filter">@filter</option>
+			}
+			else
+			{
+				<option value="@entity">@entity</option>
+				break;
+			}
 		}
-		else
-		{
-			<option value="@entity">@entity</option>
-			break;
-		}
-	}
-</select>
+	</select>
 
 
 	<!-- ************************************************************************************ -->

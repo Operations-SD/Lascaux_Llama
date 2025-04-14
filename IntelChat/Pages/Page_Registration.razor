@@ -154,10 +154,15 @@
 	<!-- ************************************************************************************ -->
 	<div class="DirectSelect">
 		<input id="directSelectId" class="FilterInput" type="text"
-			   @oninput="UpdateDirectSelectId"
-			   @onkeydown="HandleDirectSelectKeyPress"
-			   placeholder="Enter ID" />
+		       @oninput="UpdateDirectSelectId"
+		       @onkeydown="HandleDirectSelectKeyPress"
+		       placeholder="Enter ID" />
 	</div>
+
+	<button class="general-menu-button" @onclick="@(()=>_nav.NavigateTo("Administration?pod="+pod+"&pid="+pid))"
+	        style="position:absolute;left:30px;top:600px;height:60px;border:0px;width:140px;">
+		Menu
+	</button>
 
 	<!-- ************************************************************************************ -->
 	<!-- *********************************** ENTITY LIST  *********************************** -->
