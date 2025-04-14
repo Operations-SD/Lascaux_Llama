@@ -85,7 +85,7 @@
 							<option value="">-- Select a Role --</option>
 							@foreach (var pype in pypes)
 							{
-								<option value="@pype.PypeId">@pype.PypeLabel</option>
+								<option value="@pype.PypeType">@pype.PypeLabel</option>
 							}
 						</select>
 					</label><br><br>
@@ -111,7 +111,7 @@
 						<input class="form-control" @bind="@entity["add"].BrandCost" required />
 					</label><br>
 
-				<label>
+					<label>
 					Program:
 					<select class="form-control" @bind="@entity["add"].ProgramIdFk" required>
 						<option value="">-- Select a Program --</option>
